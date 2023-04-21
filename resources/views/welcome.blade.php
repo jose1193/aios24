@@ -5,1010 +5,1383 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>AIOS 24 HOME</title>
+    <title>AIOS 24 </title>
 
     <!-- Fonts -->
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
     <!-- Styles -->
-    <style>
-        /* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */
-        *,
-        ::after,
-        ::before {
-            box-sizing: border-box;
-            border-width: 0;
-            border-style: solid;
-            border-color: #e5e7eb
-        }
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        ::after,
-        ::before {
-            --tw-content: ''
-        }
 
-        html {
-            line-height: 1.5;
-            -webkit-text-size-adjust: 100%;
-            -moz-tab-size: 4;
-            tab-size: 4;
-            font-family: Figtree, sans-serif;
-            font-feature-settings: normal
-        }
-
-        body {
-            margin: 0;
-            line-height: inherit
-        }
-
-        hr {
-            height: 0;
-            color: inherit;
-            border-top-width: 1px
-        }
-
-        abbr:where([title]) {
-            -webkit-text-decoration: underline dotted;
-            text-decoration: underline dotted
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-size: inherit;
-            font-weight: inherit
-        }
-
-        a {
-            color: inherit;
-            text-decoration: inherit
-        }
-
-        b,
-        strong {
-            font-weight: bolder
-        }
-
-        code,
-        kbd,
-        pre,
-        samp {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            font-size: 1em
-        }
-
-        small {
-            font-size: 80%
-        }
-
-        sub,
-        sup {
-            font-size: 75%;
-            line-height: 0;
-            position: relative;
-            vertical-align: baseline
-        }
-
-        sub {
-            bottom: -.25em
-        }
-
-        sup {
-            top: -.5em
-        }
-
-        table {
-            text-indent: 0;
-            border-color: inherit;
-            border-collapse: collapse
-        }
-
-        button,
-        input,
-        optgroup,
-        select,
-        textarea {
-            font-family: inherit;
-            font-size: 100%;
-            font-weight: inherit;
-            line-height: inherit;
-            color: inherit;
-            margin: 0;
-            padding: 0
-        }
-
-        button,
-        select {
-            text-transform: none
-        }
-
-        [type=button],
-        [type=reset],
-        [type=submit],
-        button {
-            -webkit-appearance: button;
-            background-color: transparent;
-            background-image: none
-        }
-
-        :-moz-focusring {
-            outline: auto
-        }
-
-        :-moz-ui-invalid {
-            box-shadow: none
-        }
-
-        progress {
-            vertical-align: baseline
-        }
-
-        ::-webkit-inner-spin-button,
-        ::-webkit-outer-spin-button {
-            height: auto
-        }
-
-        [type=search] {
-            -webkit-appearance: textfield;
-            outline-offset: -2px
-        }
-
-        ::-webkit-search-decoration {
-            -webkit-appearance: none
-        }
-
-        ::-webkit-file-upload-button {
-            -webkit-appearance: button;
-            font: inherit
-        }
-
-        summary {
-            display: list-item
-        }
-
-        blockquote,
-        dd,
-        dl,
-        figure,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        hr,
-        p,
-        pre {
-            margin: 0
-        }
-
-        fieldset {
-            margin: 0;
-            padding: 0
-        }
-
-        legend {
-            padding: 0
-        }
-
-        menu,
-        ol,
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0
-        }
-
-        textarea {
-            resize: vertical
-        }
-
-        input::placeholder,
-        textarea::placeholder {
-            opacity: 1;
-            color: #9ca3af
-        }
-
-        [role=button],
-        button {
-            cursor: pointer
-        }
-
-        :disabled {
-            cursor: default
-        }
-
-        audio,
-        canvas,
-        embed,
-        iframe,
-        img,
-        object,
-        svg,
-        video {
-            display: block;
-            vertical-align: middle
-        }
-
-        img,
-        video {
-            max-width: 100%;
-            height: auto
-        }
-
-        [hidden] {
-            display: none
-        }
-
-        *,
-        ::before,
-        ::after {
-            --tw-border-spacing-x: 0;
-            --tw-border-spacing-y: 0;
-            --tw-translate-x: 0;
-            --tw-translate-y: 0;
-            --tw-rotate: 0;
-            --tw-skew-x: 0;
-            --tw-skew-y: 0;
-            --tw-scale-x: 1;
-            --tw-scale-y: 1;
-            --tw-pan-x: ;
-            --tw-pan-y: ;
-            --tw-pinch-zoom: ;
-            --tw-scroll-snap-strictness: proximity;
-            --tw-ordinal: ;
-            --tw-slashed-zero: ;
-            --tw-numeric-figure: ;
-            --tw-numeric-spacing: ;
-            --tw-numeric-fraction: ;
-            --tw-ring-inset: ;
-            --tw-ring-offset-width: 0px;
-            --tw-ring-offset-color: #fff;
-            --tw-ring-color: rgb(59 130 246 / 0.5);
-            --tw-ring-offset-shadow: 0 0 #0000;
-            --tw-ring-shadow: 0 0 #0000;
-            --tw-shadow: 0 0 #0000;
-            --tw-shadow-colored: 0 0 #0000;
-            --tw-blur: ;
-            --tw-brightness: ;
-            --tw-contrast: ;
-            --tw-grayscale: ;
-            --tw-hue-rotate: ;
-            --tw-invert: ;
-            --tw-saturate: ;
-            --tw-sepia: ;
-            --tw-drop-shadow: ;
-            --tw-backdrop-blur: ;
-            --tw-backdrop-brightness: ;
-            --tw-backdrop-contrast: ;
-            --tw-backdrop-grayscale: ;
-            --tw-backdrop-hue-rotate: ;
-            --tw-backdrop-invert: ;
-            --tw-backdrop-opacity: ;
-            --tw-backdrop-saturate: ;
-            --tw-backdrop-sepia:
-        }
-
-        ::-webkit-backdrop {
-            --tw-border-spacing-x: 0;
-            --tw-border-spacing-y: 0;
-            --tw-translate-x: 0;
-            --tw-translate-y: 0;
-            --tw-rotate: 0;
-            --tw-skew-x: 0;
-            --tw-skew-y: 0;
-            --tw-scale-x: 1;
-            --tw-scale-y: 1;
-            --tw-pan-x: ;
-            --tw-pan-y: ;
-            --tw-pinch-zoom: ;
-            --tw-scroll-snap-strictness: proximity;
-            --tw-ordinal: ;
-            --tw-slashed-zero: ;
-            --tw-numeric-figure: ;
-            --tw-numeric-spacing: ;
-            --tw-numeric-fraction: ;
-            --tw-ring-inset: ;
-            --tw-ring-offset-width: 0px;
-            --tw-ring-offset-color: #fff;
-            --tw-ring-color: rgb(59 130 246 / 0.5);
-            --tw-ring-offset-shadow: 0 0 #0000;
-            --tw-ring-shadow: 0 0 #0000;
-            --tw-shadow: 0 0 #0000;
-            --tw-shadow-colored: 0 0 #0000;
-            --tw-blur: ;
-            --tw-brightness: ;
-            --tw-contrast: ;
-            --tw-grayscale: ;
-            --tw-hue-rotate: ;
-            --tw-invert: ;
-            --tw-saturate: ;
-            --tw-sepia: ;
-            --tw-drop-shadow: ;
-            --tw-backdrop-blur: ;
-            --tw-backdrop-brightness: ;
-            --tw-backdrop-contrast: ;
-            --tw-backdrop-grayscale: ;
-            --tw-backdrop-hue-rotate: ;
-            --tw-backdrop-invert: ;
-            --tw-backdrop-opacity: ;
-            --tw-backdrop-saturate: ;
-            --tw-backdrop-sepia:
-        }
-
-        ::backdrop {
-            --tw-border-spacing-x: 0;
-            --tw-border-spacing-y: 0;
-            --tw-translate-x: 0;
-            --tw-translate-y: 0;
-            --tw-rotate: 0;
-            --tw-skew-x: 0;
-            --tw-skew-y: 0;
-            --tw-scale-x: 1;
-            --tw-scale-y: 1;
-            --tw-pan-x: ;
-            --tw-pan-y: ;
-            --tw-pinch-zoom: ;
-            --tw-scroll-snap-strictness: proximity;
-            --tw-ordinal: ;
-            --tw-slashed-zero: ;
-            --tw-numeric-figure: ;
-            --tw-numeric-spacing: ;
-            --tw-numeric-fraction: ;
-            --tw-ring-inset: ;
-            --tw-ring-offset-width: 0px;
-            --tw-ring-offset-color: #fff;
-            --tw-ring-color: rgb(59 130 246 / 0.5);
-            --tw-ring-offset-shadow: 0 0 #0000;
-            --tw-ring-shadow: 0 0 #0000;
-            --tw-shadow: 0 0 #0000;
-            --tw-shadow-colored: 0 0 #0000;
-            --tw-blur: ;
-            --tw-brightness: ;
-            --tw-contrast: ;
-            --tw-grayscale: ;
-            --tw-hue-rotate: ;
-            --tw-invert: ;
-            --tw-saturate: ;
-            --tw-sepia: ;
-            --tw-drop-shadow: ;
-            --tw-backdrop-blur: ;
-            --tw-backdrop-brightness: ;
-            --tw-backdrop-contrast: ;
-            --tw-backdrop-grayscale: ;
-            --tw-backdrop-hue-rotate: ;
-            --tw-backdrop-invert: ;
-            --tw-backdrop-opacity: ;
-            --tw-backdrop-saturate: ;
-            --tw-backdrop-sepia:
-        }
-
-        .relative {
-            position: relative
-        }
-
-        .mx-auto {
-            margin-left: auto;
-            margin-right: auto
-        }
-
-        .mx-6 {
-            margin-left: 1.5rem;
-            margin-right: 1.5rem
-        }
-
-        .ml-4 {
-            margin-left: 1rem
-        }
-
-        .mt-16 {
-            margin-top: 4rem
-        }
-
-        .mt-6 {
-            margin-top: 1.5rem
-        }
-
-        .mt-4 {
-            margin-top: 1rem
-        }
-
-        .-mt-px {
-            margin-top: -1px
-        }
-
-        .mr-1 {
-            margin-right: 0.25rem
-        }
-
-        .flex {
-            display: flex
-        }
-
-        .inline-flex {
-            display: inline-flex
-        }
-
-        .grid {
-            display: grid
-        }
-
-        .h-16 {
-            height: 4rem
-        }
-
-        .h-7 {
-            height: 1.75rem
-        }
-
-        .h-6 {
-            height: 1.5rem
-        }
-
-        .h-5 {
-            height: 1.25rem
-        }
-
-        .min-h-screen {
-            min-height: 100vh
-        }
-
-        .w-auto {
-            width: auto
-        }
-
-        .w-16 {
-            width: 4rem
-        }
-
-        .w-7 {
-            width: 1.75rem
-        }
-
-        .w-6 {
-            width: 1.5rem
-        }
-
-        .w-5 {
-            width: 1.25rem
-        }
-
-        .max-w-7xl {
-            max-width: 80rem
-        }
-
-        .shrink-0 {
-            flex-shrink: 0
-        }
-
-        .scale-100 {
-            --tw-scale-x: 1;
-            --tw-scale-y: 1;
-            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
-        }
-
-        .grid-cols-1 {
-            grid-template-columns: repeat(1, minmax(0, 1fr))
-        }
-
-        .items-center {
-            align-items: center
-        }
-
-        .justify-center {
-            justify-content: center
-        }
-
-        .gap-6 {
-            gap: 1.5rem
-        }
-
-        .gap-4 {
-            gap: 1rem
-        }
-
-        .self-center {
-            align-self: center
-        }
-
-        .rounded-lg {
-            border-radius: 0.5rem
-        }
-
-        .rounded-full {
-            border-radius: 9999px
-        }
-
-        .bg-gray-100 {
-            --tw-bg-opacity: 1;
-            background-color: rgb(243 244 246 / var(--tw-bg-opacity))
-        }
-
-        .bg-white {
-            --tw-bg-opacity: 1;
-            background-color: rgb(255 255 255 / var(--tw-bg-opacity))
-        }
-
-        .bg-red-50 {
-            --tw-bg-opacity: 1;
-            background-color: rgb(254 242 242 / var(--tw-bg-opacity))
-        }
-
-        .bg-dots-darker {
-            background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E")
-        }
-
-        .from-gray-700\/50 {
-            --tw-gradient-from: rgb(55 65 81 / 0.5);
-            --tw-gradient-to: rgb(55 65 81 / 0);
-            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to)
-        }
-
-        .via-transparent {
-            --tw-gradient-to: rgb(0 0 0 / 0);
-            --tw-gradient-stops: var(--tw-gradient-from), transparent, var(--tw-gradient-to)
-        }
-
-        .bg-center {
-            background-position: center
-        }
-
-        .stroke-red-500 {
-            stroke: #ef4444
-        }
-
-        .stroke-gray-400 {
-            stroke: #9ca3af
-        }
-
-        .p-6 {
-            padding: 1.5rem
-        }
-
-        .px-6 {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem
-        }
-
-        .text-center {
-            text-align: center
-        }
-
-        .text-right {
-            text-align: right
-        }
-
-        .text-xl {
-            font-size: 1.25rem;
-            line-height: 1.75rem
-        }
-
-        .text-sm {
-            font-size: 0.875rem;
-            line-height: 1.25rem
-        }
-
-        .font-semibold {
-            font-weight: 600
-        }
-
-        .leading-relaxed {
-            line-height: 1.625
-        }
-
-        .text-gray-600 {
-            --tw-text-opacity: 1;
-            color: rgb(75 85 99 / var(--tw-text-opacity))
-        }
-
-        .text-gray-900 {
-            --tw-text-opacity: 1;
-            color: rgb(17 24 39 / var(--tw-text-opacity))
-        }
-
-        .text-gray-500 {
-            --tw-text-opacity: 1;
-            color: rgb(107 114 128 / var(--tw-text-opacity))
-        }
-
-        .underline {
-            -webkit-text-decoration-line: underline;
-            text-decoration-line: underline
-        }
-
-        .antialiased {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale
-        }
-
-        .shadow-2xl {
-            --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-            --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
-            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
-        }
-
-        .shadow-gray-500\/20 {
-            --tw-shadow-color: rgb(107 114 128 / 0.2);
-            --tw-shadow: var(--tw-shadow-colored)
-        }
-
-        .transition-all {
-            transition-property: all;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 150ms
-        }
-
-        .selection\:bg-red-500 *::selection {
-            --tw-bg-opacity: 1;
-            background-color: rgb(239 68 68 / var(--tw-bg-opacity))
-        }
-
-        .selection\:text-white *::selection {
-            --tw-text-opacity: 1;
-            color: rgb(255 255 255 / var(--tw-text-opacity))
-        }
-
-        .selection\:bg-red-500::selection {
-            --tw-bg-opacity: 1;
-            background-color: rgb(239 68 68 / var(--tw-bg-opacity))
-        }
-
-        .selection\:text-white::selection {
-            --tw-text-opacity: 1;
-            color: rgb(255 255 255 / var(--tw-text-opacity))
-        }
-
-        .hover\:text-gray-900:hover {
-            --tw-text-opacity: 1;
-            color: rgb(17 24 39 / var(--tw-text-opacity))
-        }
-
-        .hover\:text-gray-700:hover {
-            --tw-text-opacity: 1;
-            color: rgb(55 65 81 / var(--tw-text-opacity))
-        }
-
-        .focus\:rounded-sm:focus {
-            border-radius: 0.125rem
-        }
-
-        .focus\:outline:focus {
-            outline-style: solid
-        }
-
-        .focus\:outline-2:focus {
-            outline-width: 2px
-        }
-
-        .focus\:outline-red-500:focus {
-            outline-color: #ef4444
-        }
-
-        .group:hover .group-hover\:stroke-gray-600 {
-            stroke: #4b5563
-        }
-
-        @media (prefers-reduced-motion: no-preference) {
-            .motion-safe\:hover\:scale-\[1\.01\]:hover {
-                --tw-scale-x: 1.01;
-                --tw-scale-y: 1.01;
-                transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
-            }
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .dark\:bg-gray-900 {
-                --tw-bg-opacity: 1;
-                background-color: rgb(17 24 39 / var(--tw-bg-opacity))
-            }
-
-            .dark\:bg-gray-800\/50 {
-                background-color: rgb(31 41 55 / 0.5)
-            }
-
-            .dark\:bg-red-800\/20 {
-                background-color: rgb(153 27 27 / 0.2)
-            }
-
-            .dark\:bg-dots-lighter {
-                background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E")
-            }
-
-            .dark\:bg-gradient-to-bl {
-                background-image: linear-gradient(to bottom left, var(--tw-gradient-stops))
-            }
-
-            .dark\:stroke-gray-600 {
-                stroke: #4b5563
-            }
-
-            .dark\:text-gray-400 {
-                --tw-text-opacity: 1;
-                color: rgb(156 163 175 / var(--tw-text-opacity))
-            }
-
-            .dark\:text-white {
-                --tw-text-opacity: 1;
-                color: rgb(255 255 255 / var(--tw-text-opacity))
-            }
-
-            .dark\:shadow-none {
-                --tw-shadow: 0 0 #0000;
-                --tw-shadow-colored: 0 0 #0000;
-                box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
-            }
-
-            .dark\:ring-1 {
-                --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-                --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-                box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)
-            }
-
-            .dark\:ring-inset {
-                --tw-ring-inset: inset
-            }
-
-            .dark\:ring-white\/5 {
-                --tw-ring-color: rgb(255 255 255 / 0.05)
-            }
-
-            .dark\:hover\:text-white:hover {
-                --tw-text-opacity: 1;
-                color: rgb(255 255 255 / var(--tw-text-opacity))
-            }
-
-            .group:hover .dark\:group-hover\:stroke-gray-400 {
-                stroke: #9ca3af
-            }
-        }
-
-        @media (min-width: 640px) {
-            .sm\:fixed {
-                position: fixed
-            }
-
-            .sm\:top-0 {
-                top: 0px
-            }
-
-            .sm\:right-0 {
-                right: 0px
-            }
-
-            .sm\:ml-0 {
-                margin-left: 0px
-            }
-
-            .sm\:flex {
-                display: flex
-            }
-
-            .sm\:items-center {
-                align-items: center
-            }
-
-            .sm\:justify-center {
-                justify-content: center
-            }
-
-            .sm\:justify-between {
-                justify-content: space-between
-            }
-
-            .sm\:text-left {
-                text-align: left
-            }
-
-            .sm\:text-right {
-                text-align: right
-            }
-        }
-
-        @media (min-width: 768px) {
-            .md\:grid-cols-2 {
-                grid-template-columns: repeat(2, minmax(0, 1fr))
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .lg\:gap-8 {
-                gap: 2rem
-            }
-
-            .lg\:p-8 {
-                padding: 2rem
-            }
-        }
-    </style>
 </head>
 
 <body class="antialiased">
-    <div
-        class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-        @if (Route::has('login'))
-            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                @auth
-                    <a href="{{ url('/dashboard') }}"
-                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}"
-                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
-                        in</a>
+    <!-- HERO -->
 
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                            class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                    @endif
-                @endauth
-            </div>
-        @endif
+    <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
+        <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
 
-        <div class="max-w-7xl mx-auto p-6 lg:p-8">
-            <div class="flex justify-center">
-                <svg viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    class="h-16 w-auto bg-gray-100 dark:bg-gray-900">
-                    <path
-                        d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716 63.8838 24.6467 63.8689 24.6205 63.8589C24.5657 63.8389 24.5084 63.8215 24.456 63.7916L0.501061 49.9987C0.348882 49.9113 0.222437 49.7853 0.134469 49.6334C0.0465019 49.4816 0.000120578 49.3092 0 49.1337L0 8.10652C0 8.01678 0.0124642 7.92953 0.0348998 7.84477C0.0423783 7.8161 0.0598282 7.78993 0.0697995 7.76126C0.0884958 7.70891 0.105946 7.65531 0.133367 7.6067C0.152063 7.5743 0.179485 7.54812 0.20192 7.51821C0.230588 7.47832 0.256763 7.43719 0.290416 7.40229C0.319084 7.37362 0.356476 7.35243 0.388883 7.32751C0.425029 7.29759 0.457436 7.26518 0.498568 7.2415L12.4779 0.345059C12.6296 0.257786 12.8015 0.211853 12.9765 0.211853C13.1515 0.211853 13.3234 0.257786 13.475 0.345059L25.4531 7.2415H25.4556C25.4955 7.26643 25.5292 7.29759 25.5653 7.32626C25.5977 7.35119 25.6339 7.37362 25.6625 7.40104C25.6974 7.43719 25.7224 7.47832 25.7523 7.51821C25.7735 7.54812 25.8021 7.5743 25.8196 7.6067C25.8483 7.65656 25.8645 7.70891 25.8844 7.76126C25.8944 7.78993 25.9118 7.8161 25.9193 7.84602C25.9423 7.93096 25.954 8.01853 25.9542 8.10652V33.7317L35.9355 27.9844V14.8846C35.9355 14.7973 35.948 14.7088 35.9704 14.6253C35.9792 14.5954 35.9954 14.5692 36.0053 14.5405C36.0253 14.4882 36.0427 14.4346 36.0702 14.386C36.0888 14.3536 36.1163 14.3274 36.1375 14.2975C36.1674 14.2576 36.1923 14.2165 36.2272 14.1816C36.2559 14.1529 36.292 14.1317 36.3244 14.1068C36.3618 14.0769 36.3942 14.0445 36.4341 14.0208L48.4147 7.12434C48.5663 7.03694 48.7383 6.99094 48.9133 6.99094C49.0883 6.99094 49.2602 7.03694 49.4118 7.12434L61.3899 14.0208C61.4323 14.0457 61.4647 14.0769 61.5021 14.1055C61.5333 14.1305 61.5694 14.1529 61.5981 14.1803C61.633 14.2165 61.6579 14.2576 61.6878 14.2975C61.7103 14.3274 61.7377 14.3536 61.7551 14.386C61.7838 14.4346 61.8 14.4882 61.8199 14.5405C61.8312 14.5692 61.8474 14.5954 61.8548 14.6253ZM59.893 27.9844V16.6121L55.7013 19.0252L49.9104 22.3593V33.7317L59.8942 27.9844H59.893ZM47.9149 48.5566V37.1768L42.2187 40.4299L25.953 49.7133V61.2003L47.9149 48.5566ZM1.99677 9.83281V48.5566L23.9562 61.199V49.7145L12.4841 43.2219L12.4804 43.2194L12.4754 43.2169C12.4368 43.1945 12.4044 43.1621 12.3682 43.1347C12.3371 43.1097 12.3009 43.0898 12.2735 43.0624L12.271 43.0586C12.2386 43.0275 12.2162 42.9888 12.1887 42.9539C12.1638 42.9203 12.1339 42.8916 12.114 42.8567L12.1127 42.853C12.0903 42.8156 12.0766 42.7707 12.0604 42.7283C12.0442 42.6909 12.023 42.656 12.013 42.6161C12.0005 42.5688 11.998 42.5177 11.9931 42.4691C11.9881 42.4317 11.9781 42.3943 11.9781 42.3569V15.5801L6.18848 12.2446L1.99677 9.83281ZM12.9777 2.36177L2.99764 8.10652L12.9752 13.8513L22.9541 8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133 9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219 31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z"
-                        fill="#FF2D20" />
-                </svg>
-            </div>
 
-            <div class="mt-16">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                    <a href="https://laravel.com/docs"
-                        class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                        <div>
-                            <div
-                                class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                </svg>
-                            </div>
 
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Documentation</h2>
+            <header class="">
 
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                Laravel has wonderful documentation covering every aspect of the framework. Whether you
-                                are a newcomer or have prior experience with Laravel, we recommend reading our
-                                documentation from beginning to end.
-                            </p>
-                        </div>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
-                    </a>
 
-                    <a href="https://laracasts.com"
-                        class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                        <div>
-                            <div
-                                class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                    <path stroke-linecap="round"
-                                        d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laracasts</h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript
-                                development. Check them out, see for yourself, and massively level up your development
-                                skills in the process.
-                            </p>
-                        </div>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
-                    </a>
-
-                    <a href="https://laravel-news.com"
-                        class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                        <div>
-                            <div
-                                class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laravel News</h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                Laravel News is a community driven portal and newsletter aggregating all of the latest
-                                and most important news in the Laravel ecosystem, including new package releases and
-                                tutorials.
-                            </p>
-                        </div>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                        </svg>
-                    </a>
-
-                    <div
-                        class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                        <div>
-                            <div
-                                class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</h2>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                Laravel's robust library of first-party tools and libraries, such as <a
-                                    href="https://forge.laravel.com"
-                                    class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Forge</a>,
-                                <a href="https://vapor.laravel.com"
-                                    class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Vapor</a>,
-                                <a href="https://nova.laravel.com"
-                                    class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Nova</a>,
-                                and <a href="https://envoyer.io"
-                                    class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Envoyer</a>
-                                help you take your projects to the next level. Pair them with powerful open source
-                                libraries like <a href="https://laravel.com/docs/billing"
-                                    class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Cashier</a>,
-                                <a href="https://laravel.com/docs/dusk"
-                                    class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dusk</a>,
-                                <a href="https://laravel.com/docs/broadcasting"
-                                    class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Echo</a>,
-                                <a href="https://laravel.com/docs/horizon"
-                                    class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Horizon</a>,
-                                <a href="https://laravel.com/docs/sanctum"
-                                    class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Sanctum</a>,
-                                <a href="https://laravel.com/docs/telescope"
-                                    class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Telescope</a>,
-                                and more.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
-                <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
-                    <div class="flex items-center gap-4">
-                        <a href="https://github.com/sponsors/taylorotwell"
-                            class="group inline-flex items-center hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                class="-mt-px mr-1 w-5 h-5 stroke-gray-400 dark:stroke-gray-600 group-hover:stroke-gray-600 dark:group-hover:stroke-gray-400">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                <!-- nav - start -->
+                <nav class="bg-white border-gray-200 dark:bg-gray-900">
+                    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-8 ">
+                        <!-- logo - start -->
+                        <a href="/"
+                            class="text-black-800 inline-flex items-center gap-2.5 text-2xl font-bold md:text-3xl"
+                            aria-label="logo">
+                            <svg width="95" height="94" viewBox="0 0 95 94" class="h-auto w-6 text-green-500"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M96 0V47L48 94H0V47L48 0H96Z" />
                             </svg>
-                            Sponsor
+
+                            Aios 24
                         </a>
+                        <!-- logo - end -->
+
+
+                        <div class="flex md:order-2">
+
+                            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                                class=" text-white bg-green-600 transition duration-500 ease-in-out hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center "
+                                type="button"><i class="fa-regular fa-user w-4 h-4"></i> <svg class="w-4 h-4 ml-2"
+                                    aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg></button>
+                            <!-- Dropdown menu -->
+                            <div id="dropdown"
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownDefaultButton">
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                            Iniciar Sesión</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                            Publicar</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+
+                            <!-- LENGUAGE BUTTON -->
+
+                            <div class="flex items-center md:order-2">
+                                <button type="button" data-dropdown-toggle="language-dropdown-menu"
+                                    class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <svg class="w-5 h-5 mr-2 rounded-full" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        viewBox="0 0 3900 3900">
+                                        <path fill="#b22234" d="M0 0h7410v3900H0z" />
+                                        <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0"
+                                            stroke="#fff" stroke-width="300" />
+                                        <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
+                                        <g fill="#fff">
+                                            <g id="d">
+                                                <g id="c">
+                                                    <g id="e">
+                                                        <g id="b">
+                                                            <path id="a"
+                                                                d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
+                                                            <use xlink:href="#a" y="420" />
+                                                            <use xlink:href="#a" y="840" />
+                                                            <use xlink:href="#a" y="1260" />
+                                                        </g>
+                                                        <use xlink:href="#a" y="1680" />
+                                                    </g>
+                                                    <use xlink:href="#b" x="247" y="210" />
+                                                </g>
+                                                <use xlink:href="#c" x="494" />
+                                            </g>
+                                            <use xlink:href="#d" x="988" />
+                                            <use xlink:href="#c" x="1976" />
+                                            <use xlink:href="#e" x="2470" />
+                                        </g>
+                                    </svg>
+                                    English (US)
+                                </button>
+                                <!-- Dropdown -->
+                                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
+                                    id="language-dropdown-menu">
+                                    <ul class="py-2 font-medium" role="none">
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                role="menuitem">
+                                                <div class="inline-flex items-center">
+                                                    <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full mr-2"
+                                                        xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us"
+                                                        viewBox="0 0 512 512">
+                                                        <g fill-rule="evenodd">
+                                                            <g stroke-width="1pt">
+                                                                <path fill="#bd3d44"
+                                                                    d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
+                                                                    transform="scale(3.9385)" />
+                                                                <path fill="#fff"
+                                                                    d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
+                                                                    transform="scale(3.9385)" />
+                                                            </g>
+                                                            <path fill="#192f5d" d="M0 0h98.8v70H0z"
+                                                                transform="scale(3.9385)" />
+                                                            <path fill="#fff"
+                                                                d="M8.2 3l1 2.8H12L9.7 7.5l.9 2.7-2.4-1.7L6 10.2l.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7L74 8.5l-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 7.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 24.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 21.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 38.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 35.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 52.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 49.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 66.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 63.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9z"
+                                                                transform="scale(3.9385)" />
+                                                        </g>
+                                                    </svg>
+                                                    English (US)
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                role="menuitem">
+                                                <div class="inline-flex items-center">
+                                                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-de"
+                                                        viewBox="0 0 512 512">
+                                                        <path fill="#ffce00" d="M0 341.3h512V512H0z" />
+                                                        <path d="M0 0h512v170.7H0z" />
+                                                        <path fill="#d00" d="M0 170.7h512v170.6H0z" />
+                                                    </svg>
+                                                    Deutsch
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                role="menuitem">
+                                                <div class="inline-flex items-center">
+                                                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-it"
+                                                        viewBox="0 0 512 512">
+                                                        <g fill-rule="evenodd" stroke-width="1pt">
+                                                            <path fill="#fff" d="M0 0h512v512H0z" />
+                                                            <path fill="#009246" d="M0 0h170.7v512H0z" />
+                                                            <path fill="#ce2b37" d="M341.3 0H512v512H341.3z" />
+                                                        </g>
+                                                    </svg>
+                                                    Italiano
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                role="menuitem">
+                                                <div class="inline-flex items-center">
+                                                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                        id="flag-icon-css-cn" viewBox="0 0 512 512">
+                                                        <defs>
+                                                            <path id="a" fill="#ffde00"
+                                                                d="M1-.3L-.7.8 0-1 .6.8-1-.3z" />
+                                                        </defs>
+                                                        <path fill="#de2910" d="M0 0h512v512H0z" />
+                                                        <use width="30" height="20"
+                                                            transform="matrix(76.8 0 0 76.8 128 128)"
+                                                            xlink:href="#a" />
+                                                        <use width="30" height="20"
+                                                            transform="rotate(-121 142.6 -47) scale(25.5827)"
+                                                            xlink:href="#a" />
+                                                        <use width="30" height="20"
+                                                            transform="rotate(-98.1 198 -82) scale(25.6)"
+                                                            xlink:href="#a" />
+                                                        <use width="30" height="20"
+                                                            transform="rotate(-74 272.4 -114) scale(25.6137)"
+                                                            xlink:href="#a" />
+                                                        <use width="30" height="20"
+                                                            transform="matrix(16 -19.968 19.968 16 256 230.4)"
+                                                            xlink:href="#a" />
+                                                    </svg>
+                                                    中文 (繁體)
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <!-- END  LENGUAGE BUTTON -->
+                            <button data-collapse-toggle="navbar-cta" type="button"
+                                class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                aria-controls="navbar-cta" aria-expanded="false">
+                                <span class="sr-only">Open main menu</span>
+                                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="items-center text-lg justify-between hidden w-full md:flex md:w-auto md:order-1"
+                            id="navbar-cta">
+                            <ul
+                                class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                                <li>
+                                    <a href="#"
+                                        class="block py-2 pl-3 pr-4 text-green-600 rounded hover:bg-gray-100 md:hover:bg-transparent transition duration-500 ease-in-out md:hover:text-green-400 md:p-0  ">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block py-2 pl-3 pr-4 text-green-600 rounded hover:bg-gray-100 md:hover:bg-transparent transition duration-500 ease-in-out md:hover:text-green-400 md:p-0  ">Acerca
+                                        de</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block py-2 pl-3 pr-4 text-green-600 rounded hover:bg-gray-100 md:hover:bg-transparent transition duration-500 ease-in-out md:hover:text-green-400 md:p-0  ">Precios</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block py-2 pl-3 pr-4 text-green-600 rounded hover:bg-gray-100 md:hover:bg-transparent transition duration-500 ease-in-out md:hover:text-green-400 md:p-0  ">Contacto</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block py-2 pl-3 pr-4 text-green-600 rounded hover:bg-gray-100 md:hover:bg-transparent transition duration-500 ease-in-out md:hover:text-green-400 md:p-0  ">Blog</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- nav - end -->
+
+
+
+
+            </header>
+
+            <section
+                class="image-wrap z-1 min-h-50 relative flex flex-1 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-100 py-16 shadow-lg md:py-20 xl:py-48">
+                <!-- image - start -->
+                <img src="{{ asset('img/01.jpg') }}" loading="lazy" alt="Photo by Fakurian Design"
+                    class="absolute inset-0 h-full w-full object-cover object-center" />
+                <!-- image - end -->
+
+                <!-- overlay - start -->
+                <div class="absolute inset-0 bg-black opacity-80"></div>
+                <!-- overlay - end -->
+
+                <!-- text start -->
+                <div class=" relative flex flex-col items-center p-4 sm:max-w-xl">
+
+                    <h1 class="mb-8 -mt-15 text-center text-3xl font-bold text-white sm:text-5xl md:mb-12 md:text-4xl">
+                        Te ayudaremos a encontrar tu <span class="text-green-600">propiedad</span> ideal
+                    </h1>
+
+
+                </div>
+                <!-- text end -->
+
+            </section>
+        </div>
+        <div class="container relative -mt-20 z-1 mx-auto flex justify-center items-center ">
+            <div class="border border-gray-300 p-6 grid grid-cols-1 gap-6 bg-white shadow-lg rounded-lg">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-5">
+                    <div class="grid grid-cols-2 gap-2 border border-gray-200 p-2 rounded">
+
+                        <select
+                            class="bg-gray-50 border pl-2 border-green-200 text-gray-900 text-md  rounded-lg  block w-full p-2.5 ">
+                            <option value="">Transacción</option>
+                            <option value="Alquiler">Alquilar</option>
+                            <option value="Venta">Comprar</option>
+                            <option value="Compartir">Compartir</option>
+
+                        </select>
+
+                        <select
+                            class="bg-gray-50 border border-green-200 text-gray-900 text-md  rounded-lg  block w-full p-2.5 ">
+                            <option value="">Tipo</option>
+                            <option value="Casas">Casas</option>
+                            <option value="Departamentos">Departamentos</option>
+                            <option value="Habitación">Habitación</option>
+                            <option value="Terreno">Terreno</option>
+                            <option value="Garajes">Garajes</option>
+                            <option value="Oficinas">Oficinas</option>
+                            <option value="Locales">Locales</option>
+                            <option value="Terrenos">Terrenos</option>
+                            <option value="Bodega/Galpón">Bodega / Galpón</option>
+                            <option value="Depósito">Depósito</option>
+                            <option value="Todos">Todos</option>
+
+                        </select>
+
+                    </div>
+                    <div class="grid grid-cols-1 gap-1 border border-gray-200 p-2 rounded">
+
+
+                        <!-- component -->
+                        <div class='w-full mx-auto'>
+                            <div
+                                class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
+                                <div class="grid place-items-center h-full w-12 text-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+
+                                <input class="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
+                                    type="text" id="search"
+                                    placeholder="Ingresa ubicaciones o Características..." />
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                    Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                <div class="flex justify-center"><button
+                        class="p-2 border w-1/4 rounded-md bg-green-700  transition duration-500 ease-in-out hover:bg-green-500 text-white">Buscar</button>
                 </div>
             </div>
         </div>
+
     </div>
+
+
+    <!-- END HERO -->
+
+    <!-- FEATURED 1 -->
+    <div class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-5">
+        <!--Card 1-->
+        <div class=" w-full lg:max-w-full lg:flex">
+            <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+                style="background-image: url('{{ asset('img/mobile-ads.jpg') }}')" title="mobile ads">
+            </div>
+            <div
+                class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                <div class="mb-8">
+
+                    <div class="text-gray-900 font-bold text-xl mb-2">Anunciate gratis</div>
+                    <p class="text-gray-700 text-base">Anuncia tu propiedad de manera gratuita sin preocupaciones,
+                        beneficiándote de los mejores resultados. Obtén el máximo provecho sin costo alguno, alcanzando
+                        tus objetivos con facilidad.</p>
+                </div>
+                <div class="flex items-center">
+                    <a href="#" class="text-green-600 font-bold leading-none text-lg">Quiero anunciar
+                        gratis</a>
+                </div>
+            </div>
+        </div>
+        <!--Card 2-->
+        <div class="w-full lg:max-w-full lg:flex">
+            <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+                style="background-image: url('{{ asset('img/city.jpg') }}')" title="city">
+            </div>
+            <div
+                class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                <div class="mb-8">
+
+                    <div class="text-gray-900 font-bold text-xl mb-2">Búsqueda por Zona</div>
+                    <p class="text-gray-700 text-base">Explora nuestras propiedades ubicadas en diversas ubicaciones
+                        para encontrar la que mejor se adapte a tus necesidades y presupuesto.
+                        Nuestro sitio te permite filtrar por zona y otros criterios para
+                        encontrar la propiedad perfecta en el mapa.</p>
+                </div>
+                <div class="flex items-center">
+                    <a href="#" class="text-green-600 font-bold leading-none text-lg">Mi Zona de Búsqueda</a>
+                </div>
+            </div>
+        </div>
+        <!--Card 3-->
+
+    </div>
+    <!-- END FEATURED 1 -->
+
+    <!-- NEW ADS -->
+    <h2 class="w-full my-10 text-4xl font-bold leading-tight text-center text-gray-800">
+        Últimos Anuncios
+    </h2>
+    <div class="w-full mb-4 -mt-5">
+        <div class="h-1 mx-auto bg-green-600 w-64 opacity-25 my-0 py-0 rounded-t"></div>
+    </div>
+    <div class="p-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
+
+        <div class="relative mx-auto w-full">
+            <a href="#"
+                class="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
+                <div class="rounded-lg bg-white p-4 shadow">
+                    <div class="relative flex h-52 justify-center overflow-hidden rounded-lg">
+                        <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-80">
+                                <img src="https://assets.entrepreneur.com/content/3x2/2000/20150622231001-for-sale-real-estate-home-house.jpeg?crop=16:9"
+                                    alt="" />
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-0 left-5 mb-3 flex">
+                            <p class="flex items-center font-medium text-white shadow-sm">
+                                <i class="fa fa-camera mr-2 text-xl text-white"></i>
+                                10
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 right-5 mb-3 flex">
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-heart mr-2 text-2xl text-white"></i>
+                            </p>
+                        </div>
+
+                        <span
+                            class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-[#27c54f] px-2 py-1 text-xs font-semibold text-white">
+                            En Venta </span>
+
+                    </div>
+
+                    <div class="mt-4">
+                        <h2 class="line-clamp-1 text-2xl font-medium text-gray-800 md:text-lg" title="New York">10765
+                            Hillshire Ave, Baton Rouge, LAS PALMAS, SPAIN</h2>
+
+
+
+
+                    </div>
+                    <div class="mt-4 mb-5">
+                        <p class="line-clamp-1 mt-2 text-lg text-gray-800">2 bedrooms designed Imported
+                            fixtures and fittings Full basement Top of the [more]</p>
+                    </div>
+
+
+                    <div class="justify-center py-4 border-y border-slate-100 ">
+                        <div class=" flex space-x-3 overflow-hidden rounded-lg px-1 py-1">
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-bed mr-2  text-green-600"></i>
+                                2 Beds
+                            </p>
+
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-bath mr-2 text-green-600"></i>
+                                3 Baths
+                            </p>
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-home mr-2  text-green-600"></i>
+                                100 m²
+                            </p>
+                        </div>
+                    </div>
+
+                    <ul class="md:pt-4 pt-6 flex justify-between items-center list-none">
+                        <li>
+                            <span class="text-slate-400">Price</span>
+                            <p class="text-lg font-medium">€7000</p>
+                        </li>
+
+                        <li>
+
+                            <ul class="text-lg font-medium  list-none">
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+
+                                <li class="inline">
+                                    <button><i
+                                            class="fa fa-sms mx-1 rounded-md bg-green-600 py-1 px-3 text-2xl text-white"></i></button>
+                                </li>
+                                <li class="inline">
+                                    <button><i
+                                            class="fa fa-phone rounded-md bg-green-600 py-1 px-3 text-2xl text-white"></i></button>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </a>
+        </div>
+        <div class="relative mx-auto w-full">
+            <a href="#"
+                class="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
+                <div class="rounded-lg bg-white p-4 shadow">
+                    <div class="relative flex h-52 justify-center overflow-hidden rounded-lg">
+                        <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-80">
+                                <img src="https://assets.entrepreneur.com/content/3x2/2000/20150622231001-for-sale-real-estate-home-house.jpeg?crop=16:9"
+                                    alt="" />
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-0 left-5 mb-3 flex">
+                            <p class="flex items-center font-medium text-white shadow-sm">
+                                <i class="fa fa-camera mr-2 text-xl text-white"></i>
+                                10
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 right-5 mb-3 flex">
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-heart mr-2 text-2xl text-white"></i>
+                            </p>
+                        </div>
+
+                        <span
+                            class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-[#27c54f] px-2 py-1 text-xs font-semibold text-white">
+                            Alquiler </span>
+
+                    </div>
+
+                    <div class="mt-4">
+                        <h2 class="line-clamp-1 text-2xl font-medium text-gray-800 md:text-lg" title="New York">10765
+                            Hillshire Ave, Baton Rouge, LAS PALMAS, SPAIN</h2>
+
+
+
+
+                    </div>
+                    <div class="mt-4 mb-5">
+                        <p class="line-clamp-1 mt-2 text-lg text-gray-800">2 bedrooms designed Imported
+                            fixtures and fittings Full basement Top of the [more]</p>
+                    </div>
+
+
+                    <div class="justify-center py-4 border-y border-slate-100 ">
+                        <div class=" flex space-x-3 overflow-hidden rounded-lg px-1 py-1">
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-bed mr-2  text-green-600"></i>
+                                2 Beds
+                            </p>
+
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-bath mr-2 text-green-600"></i>
+                                3 Baths
+                            </p>
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-home mr-2  text-green-600"></i>
+                                100 m²
+                            </p>
+                        </div>
+                    </div>
+
+                    <ul class="md:pt-4 pt-6 flex justify-between items-center list-none">
+                        <li>
+                            <span class="text-slate-400">Price</span>
+                            <p class="text-lg font-medium">€5000</p>
+                        </li>
+
+                        <li>
+
+                            <ul class="text-lg font-medium  list-none">
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+
+                                <li class="inline">
+                                    <button><i
+                                            class="fa fa-sms mx-1 rounded-md bg-green-600 py-1 px-3 text-2xl text-white"></i></button>
+                                </li>
+                                <li class="inline">
+                                    <button><i
+                                            class="fa fa-phone rounded-md bg-green-600 py-1 px-3 text-2xl text-white"></i></button>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </a>
+        </div>
+
+        <div class="relative mx-auto w-full">
+            <a href="#"
+                class="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
+                <div class="rounded-lg bg-white p-4 shadow">
+                    <div class="relative flex h-52 justify-center overflow-hidden rounded-lg">
+                        <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-80">
+                                <img src="https://assets.entrepreneur.com/content/3x2/2000/20150622231001-for-sale-real-estate-home-house.jpeg?crop=16:9"
+                                    alt="" />
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-0 left-5 mb-3 flex">
+                            <p class="flex items-center font-medium text-white shadow-sm">
+                                <i class="fa fa-camera mr-2 text-xl text-white"></i>
+                                10
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 right-5 mb-3 flex">
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-heart mr-2 text-2xl text-white"></i>
+                            </p>
+                        </div>
+
+                        <span
+                            class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-[#27c54f] px-2 py-1 text-xs font-semibold text-white">
+                            En Venta </span>
+
+                    </div>
+
+                    <div class="mt-4">
+                        <h2 class="line-clamp-1 text-2xl font-medium text-gray-800 md:text-lg" title="New York">10765
+                            Hillshire Ave, Baton Rouge, LAS PALMAS, SPAIN</h2>
+
+
+
+
+                    </div>
+                    <div class="mt-4 mb-5">
+                        <p class="line-clamp-1 mt-2 text-lg text-gray-800">2 bedrooms designed Imported
+                            fixtures and fittings Full basement Top of the [more]</p>
+                    </div>
+
+
+                    <div class="justify-center py-4 border-y border-slate-100 ">
+                        <div class=" flex space-x-3 overflow-hidden rounded-lg px-1 py-1">
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-bed mr-2  text-green-600"></i>
+                                2 Beds
+                            </p>
+
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-bath mr-2 text-green-600"></i>
+                                3 Baths
+                            </p>
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-home mr-2  text-green-600"></i>
+                                100 m²
+                            </p>
+                        </div>
+                    </div>
+
+                    <ul class="md:pt-4 pt-6 flex justify-between items-center list-none">
+                        <li>
+                            <span class="text-slate-400">Price</span>
+                            <p class="text-lg font-medium">€5000</p>
+                        </li>
+
+                        <li>
+
+                            <ul class="text-lg font-medium  list-none">
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+
+                                <li class="inline">
+                                    <button><i
+                                            class="fa fa-sms mx-1 rounded-md bg-green-600 py-1 px-3 text-2xl text-white"></i></button>
+                                </li>
+                                <li class="inline">
+                                    <button><i
+                                            class="fa fa-phone rounded-md bg-green-600 py-1 px-3 text-2xl text-white"></i></button>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </a>
+        </div>
+
+        <div class="relative mx-auto w-full">
+            <a href="#"
+                class="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
+                <div class="rounded-lg bg-white p-4 shadow">
+                    <div class="relative flex h-52 justify-center overflow-hidden rounded-lg">
+                        <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
+                            <div class="absolute inset-0 bg-black bg-opacity-80">
+                                <img src="https://assets.entrepreneur.com/content/3x2/2000/20150622231001-for-sale-real-estate-home-house.jpeg?crop=16:9"
+                                    alt="" />
+                            </div>
+                        </div>
+
+                        <div class="absolute bottom-0 left-5 mb-3 flex">
+                            <p class="flex items-center font-medium text-white shadow-sm">
+                                <i class="fa fa-camera mr-2 text-xl text-white"></i>
+                                10
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 right-5 mb-3 flex">
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-heart mr-2 text-2xl text-white"></i>
+                            </p>
+                        </div>
+
+                        <span
+                            class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-[#27c54f] px-2 py-1 text-xs font-semibold text-white">
+                            En Venta </span>
+
+                    </div>
+
+                    <div class="mt-4">
+                        <h2 class="line-clamp-1 text-2xl font-medium text-gray-800 md:text-lg" title="New York">10765
+                            Hillshire Ave, Baton Rouge, LAS PALMAS, SPAIN</h2>
+
+
+
+
+                    </div>
+                    <div class="mt-4 mb-5">
+                        <p class="line-clamp-1 mt-2 text-lg text-gray-800">2 bedrooms designed Imported
+                            fixtures and fittings Full basement Top of the [more]</p>
+                    </div>
+
+
+                    <div class="justify-center py-4 border-y border-slate-100 ">
+                        <div class=" flex space-x-3 overflow-hidden rounded-lg px-1 py-1">
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-bed mr-2  text-green-600"></i>
+                                2 Beds
+                            </p>
+
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-bath mr-2 text-green-600"></i>
+                                3 Baths
+                            </p>
+                            <p class="flex items-center font-medium text-gray-800">
+                                <i class="fa fa-home mr-2  text-green-600"></i>
+                                100 m²
+                            </p>
+                        </div>
+                    </div>
+
+                    <ul class="md:pt-4 pt-6 flex justify-between items-center list-none">
+                        <li>
+                            <span class="text-slate-400">Price</span>
+                            <p class="text-lg font-medium">€5000</p>
+                        </li>
+
+                        <li>
+
+                            <ul class="text-lg font-medium  list-none">
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+                                <li class="inline">
+                                    <i class="mdi mdi-star"></i>
+                                </li>
+
+                                <li class="inline">
+                                    <button><i
+                                            class="fa fa-sms mx-1 rounded-md bg-green-600 py-1 px-3 text-2xl text-white"></i></button>
+                                </li>
+                                <li class="inline">
+                                    <button><i
+                                            class="fa fa-phone rounded-md bg-green-600 py-1 px-3 text-2xl text-white"></i></button>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- END NEW ADS -->
+    <!-- CONTENT DESCRIPTION 1 -->
+    <div class="container my-24 px-6 mx-auto">
+
+        <!-- Section: Design Block -->
+        <section class="mb-32">
+            <style>
+                @media (min-width: 992px) {
+                    #cta-img-nml-50 {
+                        margin-left: 50px;
+                    }
+                }
+            </style>
+
+            <div class="flex flex-wrap">
+                <div class="grow-0 shrink-0 basis-auto w-full lg:w-5/12 mb-12 lg:mb-0">
+                    <div class="flex lg:py-12">
+                        <img src="{{ asset('img/vacation.jpg') }}" class="w-full rounded-lg shadow-lg"
+                            id="cta-img-nml-50" style="z-index: 10" alt="" />
+                    </div>
+                </div>
+
+                <div class="grow-0 shrink-0 basis-auto w-full lg:w-7/12">
+                    <div
+                        class="bg-green-500 h-full rounded-lg p-6 lg:pl-12 text-white flex items-center text-center lg:text-left">
+                        <div class="lg:pl-12">
+                            <h2 class="text-3xl font-bold mb-6">Buscando una propiedad ?</h2>
+                            <p class="mb-6 pb-2 lg:pb-0">
+                                ¡Es el momento de aprovechar todas las oportunidades que nuestro sitio web de
+                                clasificados te ofrece! Explora inmuebles nuevos, descubre lo mejor de las diferentes
+                                culturas al alquilar o comprar una propiedad de la zona y vive experiencias que te
+                                dejarán marcado
+                                para siempre.
+                            </p>
+
+
+
+                            <p>
+                                ¡Aprovecha todas las oportunidades que nuestro sitio web de clasificados te ofrece!
+                                Explora inmuebles nuevos, descubre lo mejor de las diferentes culturas al alquilar o
+                                comprar una
+                                propiedad de la zona y disfruta de la comodidad y seguridad de tener un lugar para
+                                vivir. ¡Explora una amplia variedad de propiedades que te proporciona
+                                nuestro sitio web!
+                            </p>
+
+
+                            <div
+                                class=" mt-7 flex flex-col md:flex-row md:justify-around xl:justify-start mb-6 mx-auto">
+                                <a href="#"
+                                    class="inline-block rounded-lg bg-green-800
+                             px-8 py-3 text-center text-sm font-semibold
+                              text-white outline-none ring-indigo-300 duration-500 ease-in-out hover:bg-green-700 focus-visible:ring active:bg-gray-200 md:text-base">Ver
+                                    alquileres disponibles
+                                </a>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Section: Design Block -->
+
+    </div>
+    <!-- END CONTENT DESCRIPTION 1 -->
+
+    <!-- MOBILE APP- start -->
+    <div class="bg-white py-6 sm:py-8 lg:py-12">
+        <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-200 sm:flex-row md:h-80">
+
+
+                <!-- content - start -->
+                <div class="flex w-full flex-col p-4 sm:w-1/2 sm:p-8 lg:w-3/5">
+                    <h2 class="mb-4 text-xl font-bold text-green-800 md:text-2xl lg:text-4xl">Descarga la aplicación
+                        para Dispositivos Móviles </h2>
+
+                    <div class="flex flex-col lg:flex-row justify-center items-center">
+                        <div class="text-center text-green-600 lg:w-1/2 px-2">
+                            <p>Descubra una navegación intuitiva y una interfaz de usuario mejorada que le permitirá
+                                navegar por nuestro sitio web en cualquier lugar. ¡Experimenta la comodidad de nuestro
+                                sitio web para Móviles ahora!</p>
+                        </div>
+                        <div class="lg:w-52 px-2 -mt-5">
+                            <img src="{{ asset('img/qr-image.png') }}" alt="QR Code for mobile download">
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- content - end -->
+
+                <!-- image - start -->
+                <div class="order-first h-48 w-full bg-gray-300 sm:order-none sm:h-auto sm:w-1/2 lg:w-2/5">
+                    <img src="{{ asset('img/mobile.jpg') }}" loading="lazy" alt="Photo by Andras Vas"
+                        class="h-full w-full object-cover object-center" />
+                </div>
+                <!-- image - end -->
+            </div>
+        </div>
+    </div>
+    <!-- MOBILE APP - end -->
+
+
+    <!-- FEATURED 2 -->
+    <div class="bg-white py-6 sm:py-8 lg:py-12">
+        <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+            <!-- text - start -->
+            <div class="mb-10 md:mb-16">
+                <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Estamos contigo a
+                    cada
+                    paso</h2>
+
+                <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">Le ofrecemos una variedad de
+                    opciones para alquilar y comprar propiedades.</p>
+            </div>
+            <!-- text - end -->
+
+            <div class="grid gap-4 sm:grid-cols-2 md:gap-8 xl:grid-cols-3">
+                <!-- feature - start -->
+                <div class="flex divide-x rounded-lg border bg-gray-50">
+                    <div class="flex items-center p-2 text-green-500 md:p-4">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" viewBox="0 0 512 512">
+                            <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                            <path fill="currentColor"
+                                d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM288 176c0-44.2-35.8-80-80-80s-80 35.8-80 80c0 48.8 46.5 111.6 68.6 138.6c6 7.3 16.8 7.3 22.7 0c22.1-27 68.6-89.8 68.6-138.6zm-112 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
+                        </svg>
+
+                    </div>
+
+                    <div class="p-4 md:p-6">
+                        <h3 class="mb-2 text-lg font-semibold md:text-xl">Búsqueda clara y rápida</h3>
+                        <p class="text-gray-500">Nuestros filtros de búsqueda de anuncios están diseñados para hacer tu
+                            experiencia más sencilla.</p>
+                    </div>
+                </div>
+                <!-- feature - end -->
+
+                <!-- feature - start -->
+                <div class="flex divide-x rounded-lg border bg-gray-50">
+                    <div class="flex items-center p-2 text-green-500 md:p-4">
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" viewBox="0 0 640 512">
+                            <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                            <path fill="currentColor"
+                                d="M272.2 64.6l-51.1 51.1c-15.3 4.2-29.5 11.9-41.5 22.5L153 161.9C142.8 171 129.5 176 115.8 176H96V304c20.4 .6 39.8 8.9 54.3 23.4l35.6 35.6 7 7 0 0L219.9 397c6.2 6.2 16.4 6.2 22.6 0c1.7-1.7 3-3.7 3.7-5.8c2.8-7.7 9.3-13.5 17.3-15.3s16.4 .6 22.2 6.5L296.5 393c11.6 11.6 30.4 11.6 41.9 0c5.4-5.4 8.3-12.3 8.6-19.4c.4-8.8 5.6-16.6 13.6-20.4s17.3-3 24.4 2.1c9.4 6.7 22.5 5.8 30.9-2.6c9.4-9.4 9.4-24.6 0-33.9L340.1 243l-35.8 33c-27.3 25.2-69.2 25.6-97 .9c-31.7-28.2-32.4-77.4-1.6-106.5l70.1-66.2C303.2 78.4 339.4 64 377.1 64c36.1 0 71 13.3 97.9 37.2L505.1 128H544h40 40c8.8 0 16 7.2 16 16V352c0 17.7-14.3 32-32 32H576c-11.8 0-22.2-6.4-27.7-16H463.4c-3.4 6.7-7.9 13.1-13.5 18.7c-17.1 17.1-40.8 23.8-63 20.1c-3.6 7.3-8.5 14.1-14.6 20.2c-27.3 27.3-70 30-100.4 8.1c-25.1 20.8-62.5 19.5-86-4.1L159 404l-7-7-35.6-35.6c-5.5-5.5-12.7-8.7-20.4-9.3C96 369.7 81.6 384 64 384H32c-17.7 0-32-14.3-32-32V144c0-8.8 7.2-16 16-16H56 96h19.8c2 0 3.9-.7 5.3-2l26.5-23.6C175.5 77.7 211.4 64 248.7 64H259c4.4 0 8.9 .2 13.2 .6zM544 320V176H496c-5.9 0-11.6-2.2-15.9-6.1l-36.9-32.8c-18.2-16.2-41.7-25.1-66.1-25.1c-25.4 0-49.8 9.7-68.3 27.1l-70.1 66.2c-10.3 9.8-10.1 26.3 .5 35.7c9.3 8.3 23.4 8.1 32.5-.3l71.9-66.4c9.7-9 24.9-8.4 33.9 1.4s8.4 24.9-1.4 33.9l-.8 .8 74.4 74.4c10 10 16.5 22.3 19.4 35.1H544zM64 336a16 16 0 1 0 -32 0 16 16 0 1 0 32 0zm528 16a16 16 0 1 0 0-32 16 16 0 1 0 0 32z" />
+                        </svg>
+                    </div>
+
+                    <div class="p-4 md:p-6">
+                        <h3 class="mb-2 text-lg font-semibold md:text-xl">Una gran variedad de anunciantes</h3>
+                        <p class="text-gray-500">Las mejores opciones de propiedades están disponibles en inmobiliarias
+                            y dueños directos de propiedades.
+                        </p>
+                    </div>
+                </div>
+                <!-- feature - end -->
+
+                <!-- feature - start -->
+                <div class="flex divide-x rounded-lg border bg-gray-50">
+                    <div class="flex items-center p-2 text-green-500 md:p-4">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8" viewBox="0 0 384 512">
+                            <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                            <path fill="currentColor"
+                                d="M64 48c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16h80V400c0-26.5 21.5-48 48-48s48 21.5 48 48v64h80c8.8 0 16-7.2 16-16V64c0-8.8-7.2-16-16-16H64zM0 64C0 28.7 28.7 0 64 0H320c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64zm88 40c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H104c-8.8 0-16-7.2-16-16V104zM232 88h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H232c-8.8 0-16-7.2-16-16V104c0-8.8 7.2-16 16-16zM88 232c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H104c-8.8 0-16-7.2-16-16V232zm144-16h48c8.8 0 16 7.2 16 16v48c0 8.8-7.2 16-16 16H232c-8.8 0-16-7.2-16-16V232c0-8.8 7.2-16 16-16z" />
+                        </svg>
+                    </div>
+
+                    <div class="p-4 md:p-6">
+                        <h3 class="mb-2 text-lg font-semibold md:text-xl">Elección de Categorias</h3>
+                        <p class="text-gray-500">Desde tu cuenta, podrás acceder de forma segura a los anuncios
+                            seleccionados, tus favoritos, los anuncios que has publicado y más.</p>
+                    </div>
+                </div>
+                <!-- feature - end -->
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- END FEATURED 2 -->
+    <!-- LATEST POST -->
+    <div class="bg-white py-6 sm:py-8 lg:py-12">
+        <div class="mx-auto max-w-screen-xl px-4 md:px-8">
+            <!-- text - start -->
+            <div class="mb-10 md:mb-16">
+                <h2 class="mb-4 text-center text-2xl font-bold text-green-600 md:mb-6 lg:text-3xl">Blog</h2>
+
+                <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">En nuestro blog recientemente
+                    hemos publicado una variedad de artículos interesantes que tratan sobre propiedades, noticias y
+                    mucho más. Invitamos a todos a explorar nuestro blog y leer los últimos artículos.</p>
+            </div>
+            <!-- text - end -->
+
+            <div class="grid gap-8 sm:grid-cols-2 sm:gap-12 lg:grid-cols-2 xl:grid-cols-2 xl:gap-16">
+                <!-- article - start -->
+                <div class="flex flex-col items-center gap-4 md:flex-row lg:gap-6">
+                    <a href="#"
+                        class="group relative block h-56 w-full shrink-0 self-start overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-24 md:w-24 lg:h-40 lg:w-40">
+                        <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&q=75&fit=crop&w=600"
+                            loading="lazy" alt="Photo by Minh Pham"
+                            class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+                    </a>
+
+                    <div class="flex flex-col gap-2">
+                        <span class="text-sm text-gray-400">January 19, 2023</span>
+
+                        <h2 class="text-xl font-bold text-gray-800">
+                            <a href="#" class="duration-500 ease-in-out hover:text-green-500 ">New trends
+                                in Tech</a>
+                        </h2>
+
+                        <p class="text-gray-500">This is a section of some simple filler text, also known as
+                            placeholder text.</p>
+
+                        <div>
+                            <a href="#"
+                                class="font-semibold text-green-500 duration-500 ease-in-out hover:text-green-600">Leer
+                                más</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- article - end -->
+
+                <!-- article - start -->
+                <div class="flex flex-col items-center gap-4 md:flex-row lg:gap-6">
+                    <a href="#"
+                        class="group relative block h-56 w-full shrink-0 self-start overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-24 md:w-24 lg:h-40 lg:w-40">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&q=75&fit=crop&w=600"
+                            loading="lazy" alt="Photo by Lorenzo Herrera"
+                            class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+                    </a>
+
+                    <div class="flex flex-col gap-2">
+                        <span class="text-sm text-gray-400">April 07, 2023</span>
+
+                        <h2 class="text-xl font-bold text-gray-800">
+                            <a href="#" class="duration-500 ease-in-out hover:text-green-500 ">Working
+                                with legacy stacks</a>
+                        </h2>
+
+                        <p class="text-gray-500">This is a section of some simple filler text, also known as
+                            placeholder text.</p>
+
+                        <div>
+                            <a href="#"
+                                class="font-semibold text-green-500 duration-500 ease-in-out
+                                 hover:text-green-600 ">Leer
+                                más</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- article - end -->
+
+                <!-- article - start -->
+                <div class="flex flex-col items-center gap-4 md:flex-row lg:gap-6">
+                    <a href="#"
+                        class="group relative block h-56 w-full shrink-0 self-start overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-24 md:w-24 lg:h-40 lg:w-40">
+                        <img src="https://images.unsplash.com/photo-1542759564-7ccbb6ac450a?auto=format&q=75&fit=crop&w=600"
+                            loading="lazy" alt="Photo by Magicle"
+                            class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+                    </a>
+
+                    <div class="flex flex-col gap-2">
+                        <span class="text-sm text-gray-400">April 15, 2023</span>
+
+                        <h2 class="text-xl font-bold text-gray-800">
+                            <a href="#" class="duration-500 ease-in-out hover:text-green-500 ">10 best
+                                smartphones for devs</a>
+                        </h2>
+
+                        <p class="text-gray-500">This is a section of some simple filler text, also known as
+                            placeholder text.</p>
+
+                        <div>
+                            <a href="#"
+                                class="font-semibold text-green-500 duration-500 ease-in-out hover:text-green-600 ">Leer
+                                más</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- article - end -->
+
+                <!-- article - start -->
+                <div class="flex flex-col items-center gap-4 md:flex-row lg:gap-6">
+                    <a href="#"
+                        class="group relative block h-56 w-full shrink-0 self-start overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-24 md:w-24 lg:h-40 lg:w-40">
+                        <img src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=600"
+                            loading="lazy" alt="Photo by Martin Sanchez"
+                            class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+                    </a>
+
+                    <div class="flex flex-col gap-2">
+                        <span class="text-sm text-gray-400">April 27, 2023</span>
+
+                        <h2 class="text-xl font-bold text-gray-800">
+                            <a href="#" class="duration-500 ease-in-out hover:text-green-500 ">8 High
+                                performance Notebooks</a>
+                        </h2>
+
+                        <p class="text-gray-500">This is a section of some simple filler text, also known as
+                            placeholder text.</p>
+
+                        <div>
+                            <a href="#"
+                                class="font-semibold text-green-500 duration-500 ease-in-out hover:text-green-600 ">Leer
+                                más</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- article - end -->
+            </div>
+        </div>
+    </div>
+    <!-- END LATEST POST -->
+
+
+    <!-- SUPPORT CONTACT - start -->
+    <div class="bg-white py-6 sm:py-8 lg:py-12">
+        <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+            <div class="flex flex-col overflow-hidden rounded-lg bg-gray-200 sm:flex-row md:h-80">
+                <!-- image - start -->
+                <div class="order-first h-48 w-full bg-gray-300 sm:order-none sm:h-auto sm:w-1/2 lg:w-2/5">
+                    <img src="{{ asset('img/help-center.jpg') }}" loading="lazy" alt="Photo by Andras Vas"
+                        class="h-full w-full object-cover object-center" />
+                </div>
+                <!-- image - end -->
+
+                <!-- content - start -->
+                <div class="flex w-full flex-col p-4 sm:w-1/2 sm:p-8 lg:w-3/5">
+                    <h2 class="mb-4 text-xl font-bold text-green-800 md:text-2xl lg:text-4xl">Centro de Ayuda</h2>
+
+                    <p class="mb-8 max-w-md text-green-600">Si desea ponerse en contacto con nosotros, puede hacerlo a
+                        través del formulario de contacto de nuestro sitio web. Estamos disponibles para responder
+                        cualquier pregunta o inquietud que tenga.</p>
+
+                    <div class="mt-auto">
+                        <a href="#"
+                            class="inline-block rounded-lg bg-green-600
+                             px-8 py-3 text-center text-sm font-semibold
+                              text-white outline-none ring-indigo-300 duration-500 ease-in-out hover:bg-green-700 focus-visible:ring active:bg-gray-200 md:text-base">Contacto
+                        </a>
+                    </div>
+                </div>
+                <!-- content - end -->
+            </div>
+        </div>
+    </div>
+    <!-- SUPPORT CONTACT - end -->
+
+    <!-- NESLETTER - start -->
+    <div class="bg-white py-6 sm:py-8 lg:py-12">
+        <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+            <div class="flex flex-col items-center rounded-lg bg-gray-100 p-4 sm:p-8">
+                <div class="mb-4 sm:mb-8">
+                    <h2 class="text-center text-xl font-bold text-green-500 sm:text-2xl lg:text-3xl">Obtenga lo último
+                        de nuestras actualizaciones</h2>
+                    <p class="text-center text-green-500">Suscríbete a nuestra newsletter</p>
+                </div>
+
+                <form class="mb-3 flex w-full max-w-md gap-2 sm:mb-5">
+                    <input placeholder="Email"
+                        class="bg-gray-white w-full flex-1 rounded border border-gray-300 px-3 py-2 text-gray-800 placeholder-gray-400 outline-none ring-indigo-300 transition duration-100 focus:ring" />
+
+                    <button
+                        class="inline-block rounded bg-green-500 px-8 py-2 text-center text-sm font-semibold text-white outline-none ring-indigo-300 duration-500 ease-in-out hover:bg-green-600 focus-visible:ring  md:text-base">Enviar</button>
+                </form>
+
+                <p class="text-center text-xs text-gray-400">Al suscribirse a nuestro boletín de noticias, usted acepta
+                    nuestro <a href="#" class="underline transition duration-100 hover:text-green-500 ">Términos
+                        de Servicios</a> y <a href="#"
+                        class="underline transition duration-100 hover:text-green-500 ">Política de Privacidad
+                    </a>.</p>
+            </div>
+        </div>
+    </div>
+    <!-- newsletter - end -->
+    <!-- FOOTER -->
+
+    <div class="bg-gray-900">
+        <footer class="mx-auto max-w-screen-2xl px-4 md:px-8">
+            <div class="mb-16 grid grid-cols-2 gap-12 pt-10 md:grid-cols-4 lg:grid-cols-6 lg:gap-8 lg:pt-12">
+                <div class="col-span-full lg:col-span-2">
+                    <!-- logo - start -->
+                    <div class="mb-4 lg:-mt-2">
+                        <a href="/"
+                            class="inline-flex items-center gap-2 text-xl font-bold text-gray-100 md:text-2xl"
+                            aria-label="logo">
+                            <svg width="95" height="94" viewBox="0 0 95 94" class="h-auto w-5 text-green-500"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M96 0V47L48 94H0V47L48 0H96Z" />
+                            </svg>
+
+                            Aios 24
+                        </a>
+                    </div>
+                    <!-- logo - end -->
+
+                    <p class="mb-6 text-gray-400 sm:pr-8">Aios 24 ofrece alquileres y ventas de propiedades de alto
+                        nivel. Nuestra experiencia en el sector inmobiliario garantiza que todos nuestros clientes
+                        obtendrán la mejor calidad en la búsqueda de la propiedad perfecta para satisfacer sus
+                        necesidades.</p>
+
+                    <!-- social - start -->
+                    <div class="flex gap-4">
+                        <a href="#" target="_blank"
+                            class="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+                            <svg class="h-5 w-5" width="24" height="24" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 512 512">
+                                <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                <path
+                                    d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z" />
+                            </svg>
+                        </a>
+                        <a href="#" target="_blank"
+                            class="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+                            <svg class="h-5 w-5" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+
+                        <a href="#" target="_blank"
+                            class="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+                            <svg class="h-5 w-5" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                            </svg>
+                        </a>
+
+                        <a href="#" target="_blank"
+                            class="text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600">
+                            <svg class="h-5 w-5" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+
+
+                    </div>
+                    <!-- social - end -->
+                </div>
+
+                <!-- nav - start -->
+                <div>
+                    <div class="mb-4 font-bold uppercase tracking-widest text-gray-100">Productos</div>
+
+                    <nav class="flex flex-col gap-4">
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Overview</a>
+                        </div>
+
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Soluciones</a>
+                        </div>
+
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Precios</a>
+                        </div>
+
+
+                    </nav>
+                </div>
+                <!-- nav - end -->
+
+                <!-- nav - start -->
+                <div>
+                    <div class="mb-4 font-bold uppercase tracking-widest text-gray-100">Compañía</div>
+
+                    <nav class="flex flex-col gap-4">
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">About</a>
+                        </div>
+
+
+
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Publicidad</a>
+                        </div>
+
+
+
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Blog</a>
+                        </div>
+                    </nav>
+                </div>
+                <!-- nav - end -->
+
+                <!-- nav - start -->
+                <div>
+                    <div class="mb-4 font-bold uppercase tracking-widest text-gray-100">Soporte</div>
+
+                    <nav class="flex flex-col gap-4">
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Contacto</a>
+                        </div>
+
+
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">FAQ</a>
+                        </div>
+                    </nav>
+                </div>
+                <!-- nav - end -->
+
+                <!-- nav - start -->
+                <div>
+                    <div class="mb-4 font-bold uppercase tracking-widest text-gray-100">Legal</div>
+
+                    <nav class="flex flex-col gap-4">
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Términos
+                                de Servicios</a>
+                        </div>
+
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Política
+                                de Privacidad</a>
+                        </div>
+
+                        <div>
+                            <a href="#"
+                                class="text-gray-400 duration-500 ease-in-out
+                                 hover:text-white active:text-white">Política
+                                de Cookies</a>
+                        </div>
+                    </nav>
+                </div>
+                <!-- nav - end -->
+            </div>
+
+            <div class="border-t border-gray-800 py-8 text-center text-sm text-gray-400">
+                © {{ date('Y') }} - Aios 24 . Todo los Derechos Reservados.</div>
+        </footer>
+    </div>
+    <!-- END FOOTER -->
 </body>
+
+<script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js" defer></script>
 
 </html>
