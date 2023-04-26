@@ -33,24 +33,4 @@ https://www.fotocasa.es/es/comprar/viviendas/espana/todas-las-zonas/l
             </div>
         @endif
 
-369 Food Emporium,
-369 Gourmet Kitchen,
-369 Delicacies,
-369 Cuisine,
-369 Provisions,
-369 Pantry,
-369 Foods,
-369 Delights,
-369 Dining,
-369 Kitchen,
-369 Meals,
-369 Fare,
-369 Cuisine & Provisions,
-369 Gourmet Fare,
-369 Delicatessen,
-369 Eatery.
-369 Tastes,
-369 Fare & Pantry,
-369 Gourmandise,
-369 Cuisine Artistry,
-369 Savory Eats.
+https://www.trivago.es/es/lm/hoteles-madrid-espa%C3%B1a?search=200-13628;dr-20230429-20230502;pr-0-6700;rc-1-2

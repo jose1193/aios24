@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>AIOS 24 </title>
+    <title>AIOS Real Estate </title>
 
     <!-- Fonts -->
     <!-- Fonts -->
@@ -21,7 +21,9 @@
 
     <!-- Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
 
+    </style>
 
 </head>
 
@@ -36,94 +38,304 @@
             <header class="">
 
 
-
                 <!-- nav - start -->
-                <nav class="bg-white border-gray-200 dark:bg-gray-900">
-                    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-8 ">
-                        <!-- logo - start -->
-                        <a href="/"
-                            class="text-black-800 inline-flex items-center gap-2.5 text-2xl font-bold md:text-3xl"
-                            aria-label="logo">
-                            <svg width="95" height="94" viewBox="0 0 95 94" class="h-auto w-6 text-green-500"
-                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M96 0V47L48 94H0V47L48 0H96Z" />
+                <nav class="relative px-7 py-7 flex justify-between items-center bg-white">
+                    <a class="text-3xl font-bold leading-none" href="#">
+                        <img src="{{ asset('img/logo.jpg') }}" class="h-16 -ml-3" alt="logo">
+                    </a>
+                    <div class="lg:hidden">
+                        <button class="navbar-burger flex items-center text-green-600 p-3">
+                            <svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <title>Mobile menu</title>
+                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
                             </svg>
+                        </button>
+                    </div>
+                    <ul
+                        class="hidden absolute  top-1/2 left-1/3 transform -translate-y-1/2 -translate-x-1/2  lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-5">
+                        <li><a class="text-md text-green-600 
+                            transition duration-500 ease-in-out hover:text-green-700 font-bold"
+                                href="#">Home</a></li>
+                        </li>
+                        <li class="text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                                class="w-4 h-4 current-fill" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                            </svg>
+                        </li>
+                        <li><a class="text-md   text-green-600 
+                            transition duration-500 ease-in-out hover:text-green-700 font-bold"
+                                href="#">Nosotros</a></li>
+                        <li class="text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                                class="w-4 h-4 current-fill" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                            </svg>
+                        </li>
+                        <li><a class="text-md text-green-600 
+                            transition duration-500 ease-in-out hover:text-green-700 font-bold"
+                                href="#">Servicios</a></li>
+                        <li class="text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                                class="w-4 h-4 current-fill" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                            </svg>
+                        </li>
+                        <li><a class="text-md text-green-600 
+                            transition duration-500 ease-in-out hover:text-green-700 font-bold"
+                                href="#">Precios</a></li>
+                        <li class="text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                                class="w-4 h-4 current-fill" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                            </svg>
+                        </li>
+                        <li><a class="text-md text-green-600 
+                            transition duration-500 ease-in-out hover:text-green-700 font-bold"
+                                href="#">Contacto</a></li>
 
-                            Aios 24
-                        </a>
-                        <!-- logo - end -->
+                        <li class="text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                                class="w-4 h-4 current-fill" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                            </svg>
+                        </li>
+                        <li><a class="text-md text-green-600 
+                            transition duration-500 ease-in-out hover:text-green-700 font-bold"
+                                href="#">Blog</a></li>
 
+                    </ul>
+                    <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 transition duration-500 ease-in-out bg-gray-50
+                     hover:bg-green-200 text-sm text-gray-900 font-bold  rounded-xl "
+                        href="#">Ingresar</a>
+                    <a class="hidden lg:inline-block py-2 px-6 bg-green-600 transition duration-500 ease-in-out hover:bg-green-500 text-sm text-white font-bold rounded-xl "
+                        href="#">Publicar</a>
+                    <!-- LENGUAGE BUTTON -->
+                    <div class="hidden lg:inline-block">
+                        <div class=" flex items-center md:order-2 pl-3">
+                            <button type="button" data-dropdown-toggle="language-dropdown-menu"
+                                class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
 
-                        <div class="flex md:order-2">
-
-                            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                                class=" text-white bg-green-600 transition duration-500 ease-in-out hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center "
-                                type="button"><i class="fa-regular fa-user w-4 h-4"></i> <svg class="w-4 h-4 ml-2"
-                                    aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7"></path>
-                                </svg></button>
-                            <!-- Dropdown menu -->
-                            <div id="dropdown"
-                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                    aria-labelledby="dropdownDefaultButton">
+                                <img class="w-8 h-8 mr-2 rounded-full"
+                                    src="https://img.icons8.com/color/48/null/spain2-circular.png" />
+                                (ES)
+                            </button>
+                            <!-- Dropdown -->
+                            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
+                                id="language-dropdown-menu">
+                                <ul class="py-2 font-medium" role="none">
                                     <li>
                                         <a href="#"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                            Iniciar Sesión</a>
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            role="menuitem">
+                                            <div class="inline-flex items-center">
+                                                <img class="w-4 h-4 mr-2 rounded-full"
+                                                    src="https://img.icons8.com/color/48/null/spain2-circular.png" />
+                                                Español
+                                            </div>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="#"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                            Publicar</a>
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            role="menuitem">
+                                            <div class="inline-flex items-center">
+                                                <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full mr-2"
+                                                    xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us"
+                                                    viewBox="0 0 512 512">
+                                                    <g fill-rule="evenodd">
+                                                        <g stroke-width="1pt">
+                                                            <path fill="#bd3d44"
+                                                                d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
+                                                                transform="scale(3.9385)" />
+                                                            <path fill="#fff"
+                                                                d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
+                                                                transform="scale(3.9385)" />
+                                                        </g>
+                                                        <path fill="#192f5d" d="M0 0h98.8v70H0z"
+                                                            transform="scale(3.9385)" />
+                                                        <path fill="#fff"
+                                                            d="M8.2 3l1 2.8H12L9.7 7.5l.9 2.7-2.4-1.7L6 10.2l.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7L74 8.5l-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 7.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 24.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 21.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 38.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 35.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 52.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 49.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 66.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 63.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9z"
+                                                            transform="scale(3.9385)" />
+                                                    </g>
+                                                </svg>
+                                                English (US)
+                                            </div>
+                                        </a>
                                     </li>
-
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            role="menuitem">
+                                            <div class="inline-flex items-center">
+                                                <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-de"
+                                                    viewBox="0 0 512 512">
+                                                    <path fill="#ffce00" d="M0 341.3h512V512H0z" />
+                                                    <path d="M0 0h512v170.7H0z" />
+                                                    <path fill="#d00" d="M0 170.7h512v170.6H0z" />
+                                                </svg>
+                                                Deutsch
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            role="menuitem">
+                                            <div class="inline-flex items-center">
+                                                <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-it"
+                                                    viewBox="0 0 512 512">
+                                                    <g fill-rule="evenodd" stroke-width="1pt">
+                                                        <path fill="#fff" d="M0 0h512v512H0z" />
+                                                        <path fill="#009246" d="M0 0h170.7v512H0z" />
+                                                        <path fill="#ce2b37" d="M341.3 0H512v512H341.3z" />
+                                                    </g>
+                                                </svg>
+                                                Italiano
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            role="menuitem">
+                                            <div class="inline-flex items-center">
+                                                <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-cn"
+                                                    viewBox="0 0 512 512">
+                                                    <defs>
+                                                        <path id="a" fill="#ffde00"
+                                                            d="M1-.3L-.7.8 0-1 .6.8-1-.3z" />
+                                                    </defs>
+                                                    <path fill="#de2910" d="M0 0h512v512H0z" />
+                                                    <use width="30" height="20"
+                                                        transform="matrix(76.8 0 0 76.8 128 128)" xlink:href="#a" />
+                                                    <use width="30" height="20"
+                                                        transform="rotate(-121 142.6 -47) scale(25.5827)"
+                                                        xlink:href="#a" />
+                                                    <use width="30" height="20"
+                                                        transform="rotate(-98.1 198 -82) scale(25.6)"
+                                                        xlink:href="#a" />
+                                                    <use width="30" height="20"
+                                                        transform="rotate(-74 272.4 -114) scale(25.6137)"
+                                                        xlink:href="#a" />
+                                                    <use width="30" height="20"
+                                                        transform="matrix(16 -19.968 19.968 16 256 230.4)"
+                                                        xlink:href="#a" />
+                                                </svg>
+                                                中文 (繁體)
+                                            </div>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
 
+                        </div>
+                    </div>
+                    <!-- END  LENGUAGE BUTTON -->
+                </nav>
+                <div class="navbar-menu relative z-50 hidden">
+                    <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
+                    <nav
+                        class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
+                        <div class="flex items-center mb-8">
+                            <a class="mr-auto text-3xl font-bold leading-none" href="#">
+                                <img src="img/logo.jpg" class="h-12" alt="logo">
 
-                            <!-- LENGUAGE BUTTON -->
+                            </a>
+                            <button class="navbar-close">
+                                <svg class="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div>
+                            <ul>
+                                <li class="mb-1">
+                                    <a class="block p-4 text-sm font-semibold text-green-600
+                                     hover:bg-green-100 transition duration-500 ease-in-out hover:text-green-700  rounded"
+                                        href="#">Home</a>
+                                </li>
+                                <li class="mb-1">
+                                    <a class="block p-4 text-sm font-semibold text-green-600 hover:bg-green-100
+                                    transition duration-500 ease-in-out hover:text-green-700  rounded"
+                                        href="#">Nosotros</a>
+                                </li>
+                                <li class="mb-1">
+                                    <a class="block p-4 text-sm font-semibold text-green-600 hover:bg-green-100
+                                    transition duration-500 ease-in-out hover:text-green-700 rounded"
+                                        href="#">Servicios</a>
+                                </li>
+                                <li class="mb-1">
+                                    <a class="block p-4 text-sm font-semibold text-green-600 hover:bg-green-100
+                                   transition duration-500 ease-in-out  hover:text-green-700 rounded"
+                                        href="#">Precios</a>
+                                </li>
+                                <li class="mb-1">
+                                    <a class="block p-4 text-sm font-semibold text-green-600 hover:bg-green-100
+                                    transition duration-500 ease-in-out hover:text-green-700 rounded"
+                                        href="#">Contacto</a>
+                                </li>
+                                <li class="mb-1">
+                                    <a class="block p-4 text-sm font-semibold text-green-600 hover:bg-green-100
+                                    transition duration-500 ease-in-out hover:text-green-700 rounded"
+                                        href="#">Blog</a>
+                                </li>
+                                <li>
 
-                            <div class="flex items-center md:order-2">
-                                <button type="button" data-dropdown-toggle="language-dropdown-menu"
-                                    class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <svg class="w-5 h-5 mr-2 rounded-full" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 3900 3900">
-                                        <path fill="#b22234" d="M0 0h7410v3900H0z" />
-                                        <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0"
-                                            stroke="#fff" stroke-width="300" />
-                                        <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
-                                        <g fill="#fff">
-                                            <g id="d">
-                                                <g id="c">
-                                                    <g id="e">
-                                                        <g id="b">
-                                                            <path id="a"
-                                                                d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
-                                                            <use xlink:href="#a" y="420" />
-                                                            <use xlink:href="#a" y="840" />
-                                                            <use xlink:href="#a" y="1260" />
-                                                        </g>
-                                                        <use xlink:href="#a" y="1680" />
-                                                    </g>
-                                                    <use xlink:href="#b" x="247" y="210" />
-                                                </g>
-                                                <use xlink:href="#c" x="494" />
-                                            </g>
-                                            <use xlink:href="#d" x="988" />
-                                            <use xlink:href="#c" x="1976" />
-                                            <use xlink:href="#e" x="2470" />
-                                        </g>
-                                    </svg>
-                                    English (US)
-                                </button>
-                                <!-- Dropdown -->
-                                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
-                                    id="language-dropdown-menu">
-                                    <ul class="py-2 font-medium" role="none">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto">
+                            <div class="pt-6">
+                                <a class="block px-4 py-3 mb-3  text-xs text-center font-semibold leading-none bg-gray-50
+                                transition duration-500 ease-in-out  hover:bg-green-100 rounded-xl"
+                                    href="#">Ingresar</a>
+                                <a class="block px-4 py-3 mb-2 leading-loose text-xs text-center
+                                 text-white font-semibold bg-green-600 transition duration-500 ease-in-out hover:bg-green-700  rounded-xl"
+                                    href="#">Publicar</a>
+                                <!-- START LENGUAGE BUTTON -->
+                                <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+                                    class="flex items-center justify-between w-full py-2 pl-3 pr-4
+                                         p-4 text-sm font-semibold text-green-600 hover:bg-green-100
+                                    transition duration-500 ease-in-out hover:text-green-700 rounded">
+                                    <img class="w-4 h-4 mr-2 rounded-full"
+                                        src="https://img.icons8.com/color/48/null/spain2-circular.png" />
+                                    Español
+                                    <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor"
+                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"></path>
+                                    </svg></button>
+                                <!-- Dropdown menu -->
+                                <div id="dropdownNavbar"
+                                    class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-400"
+                                        aria-labelledby="dropdownLargeButton">
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                role="menuitem">
+                                                <div class="inline-flex items-center">
+                                                    <img class="w-4 h-4 mr-2 rounded-full"
+                                                        src="https://img.icons8.com/color/48/null/spain2-circular.png" />
+                                                    Español
+                                                </div>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a href="#"
                                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -221,62 +433,25 @@
                                             </a>
                                         </li>
                                     </ul>
+
                                 </div>
 
+                                <!-- END LENGUAGE BUTTON -->
                             </div>
-                            <!-- END  LENGUAGE BUTTON -->
-                            <button data-collapse-toggle="navbar-cta" type="button"
-                                class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                aria-controls="navbar-cta" aria-expanded="false">
-                                <span class="sr-only">Open main menu</span>
-                                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
+                            <p class="my-4 text-xs text-center text-gray-400">
+                                <span>Copyright © {{ date('Y') }} - Aios Real Estate</span>
+                            </p>
                         </div>
-                        <div class="items-center text-lg justify-between hidden w-full md:flex md:w-auto md:order-1"
-                            id="navbar-cta">
-                            <ul
-                                class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 pl-3 pr-4 text-green-600 rounded hover:bg-gray-100 md:hover:bg-transparent transition duration-500 ease-in-out md:hover:text-green-400 md:p-0  ">Home</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 pl-3 pr-4 text-green-600 rounded hover:bg-gray-100 md:hover:bg-transparent transition duration-500 ease-in-out md:hover:text-green-400 md:p-0  ">Acerca
-                                        de</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 pl-3 pr-4 text-green-600 rounded hover:bg-gray-100 md:hover:bg-transparent transition duration-500 ease-in-out md:hover:text-green-400 md:p-0  ">Precios</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 pl-3 pr-4 text-green-600 rounded hover:bg-gray-100 md:hover:bg-transparent transition duration-500 ease-in-out md:hover:text-green-400 md:p-0  ">Contacto</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 pl-3 pr-4 text-green-600 rounded hover:bg-gray-100 md:hover:bg-transparent transition duration-500 ease-in-out md:hover:text-green-400 md:p-0  ">Blog</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+                    </nav>
+                </div>
                 <!-- nav - end -->
-
-
-
 
             </header>
 
             <section
                 class="image-wrap z-1 min-h-50 relative flex flex-1 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-100 py-16 shadow-lg md:py-20 xl:py-48">
                 <!-- image - start -->
-                <img src="{{ asset('img/01.jpg') }}" loading="lazy" alt="Photo by Fakurian Design"
+                <img src="{{ asset('img/01.jpg') }}" loading="lazy" alt="Hero Img"
                     class="absolute inset-0 h-full w-full object-cover object-center" />
                 <!-- image - end -->
 
@@ -316,7 +491,7 @@
                             class="bg-gray-50 border border-green-200 text-gray-900 text-md  rounded-lg  block w-full p-2.5 ">
                             <option value="">Tipo</option>
                             <option value="Casas">Casas</option>
-                            <option value="Departamentos">Departamentos</option>
+                            <option value="Pisos">Pisos</option>
                             <option value="Habitación">Habitación</option>
                             <option value="Terreno">Terreno</option>
                             <option value="Garajes">Garajes</option>
@@ -352,8 +527,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-center"><button
-                        class="p-2 border w-1/4 rounded-md bg-green-700  transition duration-500 ease-in-out hover:bg-green-500 text-white">Buscar</button>
+                <div class="flex justify-center">
+                    <x-button2 type="submit">
+                        <i class="fa-solid fa-city mr-1"></i> Buscar
+                    </x-button2>
+
                 </div>
             </div>
         </div>
@@ -868,12 +1046,12 @@
 
                             <div
                                 class=" mt-7 flex flex-col md:flex-row md:justify-around xl:justify-start mb-6 mx-auto">
-                                <a href="#"
-                                    class="inline-block rounded-lg bg-green-800
-                             px-8 py-3 text-center text-sm font-semibold
-                              text-white outline-none ring-indigo-300 duration-500 ease-in-out hover:bg-green-700 focus-visible:ring active:bg-gray-200 md:text-base">Ver
-                                    alquileres disponibles
-                                </a>
+
+                                <x-a-button2 href="#" class="">
+                                    <i class="fa-solid fa-magnifying-glass mr-2"></i>
+                                    Ver alquileres disponibles
+                                </x-a-button2>
+
 
 
                             </div>
@@ -1167,11 +1345,11 @@
                         cualquier pregunta o inquietud que tenga.</p>
 
                     <div class="mt-auto">
-                        <a href="#"
-                            class="inline-block rounded-lg bg-green-600
-                             px-8 py-3 text-center text-sm font-semibold
-                              text-white outline-none ring-indigo-300 duration-500 ease-in-out hover:bg-green-700 focus-visible:ring active:bg-gray-200 md:text-base">Contacto
-                        </a>
+                        <x-a-button href="#" class="">
+                            <i class="fa-solid fa-chalkboard-user mr-2"></i>
+                            Contacto
+                        </x-a-button>
+
                     </div>
                 </div>
                 <!-- content - end -->
@@ -1193,9 +1371,10 @@
                 <form class="mb-3 flex w-full max-w-md gap-2 sm:mb-5">
                     <input placeholder="Email"
                         class="bg-gray-white w-full flex-1 rounded border border-gray-300 px-3 py-2 text-gray-800 placeholder-gray-400 outline-none ring-indigo-300 transition duration-100 focus:ring" />
+                    <x-button2 type="submit">
+                        Enviar
+                    </x-button2>
 
-                    <button
-                        class="inline-block rounded bg-green-500 px-8 py-2 text-center text-sm font-semibold text-white outline-none ring-indigo-300 duration-500 ease-in-out hover:bg-green-600 focus-visible:ring  md:text-base">Enviar</button>
                 </form>
 
                 <p class="text-center text-xs text-gray-400">Al suscribirse a nuestro boletín de noticias, usted acepta
@@ -1223,12 +1402,13 @@
                                 <path d="M96 0V47L48 94H0V47L48 0H96Z" />
                             </svg>
 
-                            Aios 24
+                            Aios Real Estate
                         </a>
                     </div>
                     <!-- logo - end -->
 
-                    <p class="mb-6 text-gray-400 sm:pr-8">Aios 24 ofrece alquileres y ventas de propiedades de alto
+                    <p class="mb-6 text-gray-400 sm:pr-8">Aios Real Estate ofrece alquileres y ventas de propiedades de
+                        alto
                         nivel. Nuestra experiencia en el sector inmobiliario garantiza que todos nuestros clientes
                         obtendrán la mejor calidad en la búsqueda de la propiedad perfecta para satisfacer sus
                         necesidades.</p>
@@ -1308,7 +1488,8 @@
                     <nav class="flex flex-col gap-4">
                         <div>
                             <a href="#"
-                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">About</a>
+                                class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Acerca
+                                de</a>
                         </div>
 
 
@@ -1376,12 +1557,54 @@
             </div>
 
             <div class="border-t border-gray-800 py-8 text-center text-sm text-gray-400">
-                © {{ date('Y') }} - Aios 24 . Todo los Derechos Reservados.</div>
+                © {{ date('Y') }} - Aios Real Estate . Todo los Derechos Reservados.</div>
         </footer>
     </div>
     <!-- END FOOTER -->
 </body>
 
 <script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js" defer></script>
+<script>
+    // Burger menus
+    document.addEventListener('DOMContentLoaded', function() {
+        // open
+        const burger = document.querySelectorAll('.navbar-burger');
+        const menu = document.querySelectorAll('.navbar-menu');
+
+        if (burger.length && menu.length) {
+            for (var i = 0; i < burger.length; i++) {
+                burger[i].addEventListener('click', function() {
+                    for (var j = 0; j < menu.length; j++) {
+                        menu[j].classList.toggle('hidden');
+                    }
+                });
+            }
+        }
+
+        // close
+        const close = document.querySelectorAll('.navbar-close');
+        const backdrop = document.querySelectorAll('.navbar-backdrop');
+
+        if (close.length) {
+            for (var i = 0; i < close.length; i++) {
+                close[i].addEventListener('click', function() {
+                    for (var j = 0; j < menu.length; j++) {
+                        menu[j].classList.toggle('hidden');
+                    }
+                });
+            }
+        }
+
+        if (backdrop.length) {
+            for (var i = 0; i < backdrop.length; i++) {
+                backdrop[i].addEventListener('click', function() {
+                    for (var j = 0; j < menu.length; j++) {
+                        menu[j].classList.toggle('hidden');
+                    }
+                });
+            }
+        }
+    });
+</script>
 
 </html>
