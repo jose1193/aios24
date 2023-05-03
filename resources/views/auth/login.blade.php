@@ -18,15 +18,20 @@
                 <div class="flex flex-col gap-4 p-4 md:p-8">
                     <div>
                         <label for="email" class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Email</label>
-                        <x-input id="email" class="block mt-1 w-full" type="email" name="email"
-                            :value="old('email')" required autofocus autocomplete="username" />
+
+
+                        <input id="email"
+                            class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                            type="email" name="email" :value="old('email')" required autofocus
+                            autocomplete="username" />
                     </div>
 
                     <div>
                         <label for="password"
                             class="mb-2 inline-block text-sm text-gray-800 sm:text-base">Password</label>
-                        <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                            autocomplete="current-password" />
+                        <input
+                            id="password"class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                            type="password" name="password" required autocomplete="current-password" />
                     </div>
 
                     <div class="flex justify-between items-center my-3">
@@ -66,7 +71,7 @@
                         Continue with Facebook
                     </button>
 
-                    <button
+                    <a href="{{ url('auth/google') }}"
                         class="flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-8 py-3 text-center text-sm font-semibold text-gray-800 outline-none ring-gray-300 transition duration-100 hover:bg-gray-100 focus-visible:ring active:bg-gray-200 md:text-base">
                         <svg class="h-5 w-5 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -85,12 +90,13 @@
                         </svg>
 
                         Continue with Google
-                    </button>
+                    </a>
                 </div>
 
                 <div class="flex items-center justify-center bg-gray-100 p-4">
-                    <p class="text-center text-sm text-gray-500">¿No tienes una cuenta? <a href="#"
-                            class="text-green-500 transition duration-100 hover:text-green-600 active:text-green-700">Registrar</a>
+                    <p class="text-center text-sm text-gray-500">¿No tienes una cuenta? <a
+                            href="{{ route('register') }}"
+                            class="text-green-500 transition duration-100 hover:text-green-600 active:text-green-700">Registrarme</a>
                     </p>
                 </div>
             </form>

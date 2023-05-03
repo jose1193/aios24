@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+    'client_id' => '730100704338-kh0k3b086lfd8g5s5l2snlg2nk1rm88d.apps.googleusercontent.com',
+    'client_secret' => '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',
+    'redirect' => 'https://www.aiosrealestate.com/dashboard',
+  ], 
+
 ];
