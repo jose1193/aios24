@@ -18,7 +18,14 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     public function update(User $user, array $input): void
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:30'],
+            'lastname' => ['required', 'string', 'max:30'],
+             'dni' => ['required', 'string', 'max:20'],
+             'phone' => ['required', 'string', 'max:30'],
+              'address' => ['required', 'string', 'max:255'],
+               'city' => ['required', 'string', 'max:30'],
+                'province' => ['required', 'string', 'max:30'],
+                'zipcode' => ['required', 'string', 'max:20'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('updateProfileInformation');
@@ -33,7 +40,14 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         } else {
             $user->forceFill([
                 'name' => $input['name'],
-                'email' => $input['email'],
+                 'lastname' => $input['lastname'],
+                  'dni' => $input['dni'],
+                   'phone' => $input['phone'],
+                   'address' => $input['address'],
+                   'city' => $input['city'],
+                    'city' => $input['city'],
+                'province' => $input['province'],
+                'zipcode' => $input['zipcode'],
             ])->save();
         }
     }
@@ -47,6 +61,13 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     {
         $user->forceFill([
             'name' => $input['name'],
+            'lastname' => $input['lastname'],
+             'dni' => $input['dni'],
+              'phone' => $input['phone'],
+              'address' => $input['address'],
+               'city' => $input['city'],
+               'province' => $input['province'],
+               'zipcode' => $input['zipcode'],
             'email' => $input['email'],
             'email_verified_at' => null,
         ])->save();
