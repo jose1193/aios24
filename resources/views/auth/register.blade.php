@@ -86,37 +86,40 @@
                         <div>
                             <label
                                 class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">Provincia</label>
-                            <div class="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                                <input type="text" id="province" name="province" :value="old('province')" required
-                                    autofocus autocomplete="province" placeholder="Provincia"
-                                    class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
 
-                            </div>
+                            <input type="text" id="province" name="province" :value="old('province')" required
+                                autofocus autocomplete="province" placeholder="Provincia"
+                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+
+
                         </div>
 
                         <div>
                             <label
                                 class="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">Zipcode</label>
                             <input type="text" id="zipcode" name="zipcode" :value="old('zipcode')" required
-                                autofocus autocomplete="zipcode" placeholder="Ingresa Código Zip"
+                                autofocus autocomplete="zipcode" placeholder="Ingresa Código Postal"
                                 class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
 
                         </div>
-                        <div>
-                            <label
-                                class="block mb-2  text-sm font-semibold text-gray-600 dark:text-gray-200">Password</label>
-                            <input type="password" id="password" name="password" required autocomplete="new-password"
-                                placeholder="Ingresa tu password"
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                        </div>
 
                         <div>
-                            <label class="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">Confirmar
-                                password</label>
-                            <input type="password" id="password_confirmation" type="password"
-                                name="password_confirmation" required autocomplete="new-password"
-                                placeholder="Confirma tu password"
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                            <div>
+                                <label
+                                    class="block mb-2  text-sm font-semibold text-gray-600 dark:text-gray-200">Password</label>
+                                <input type="password" id="password" name="password" required
+                                    autocomplete="new-password" placeholder="Ingresa tu password"
+                                    class="block mb-7 w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                            </div>
+                            <div>
+                                <label
+                                    class="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">Confirmar
+                                    password</label>
+                                <input type="password" id="password_confirmation" type="password"
+                                    name="password_confirmation" required autocomplete="new-password"
+                                    placeholder="Confirma tu password"
+                                    class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                            </div>
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
