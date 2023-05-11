@@ -1,9 +1,9 @@
-  <form class="  my-8 mt-10  ">
+  <form class="my-8 mt-10">
 
-      <div class="fondo border border-gray-300 p-6 grid grid-cols-1 gap-6  shadow-lg rounded-lg text-base">
+      <div class="border border-gray-300 p-6 grid grid-cols-1 gap-6 bg-white shadow-lg rounded-lg text-base">
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-5">
-              <div class="grid grid-cols-2 gap-2  p-2 rounded">
+              <div class="grid grid-cols-2 gap-2 border border-gray-200 p-2 rounded">
 
                   <select
                       class="bg-gray-50 border pl-2 border-green-200 text-gray-900 text-md  rounded-lg  block w-full p-2.5 ">
@@ -32,7 +32,7 @@
                   </select>
 
               </div>
-              <div class="grid grid-cols-1 gap-1  p-2 rounded">
+              <div class="grid grid-cols-1 gap-1 border border-gray-200 p-2 rounded">
 
 
                   <!-- component -->
@@ -61,12 +61,3 @@
           </div>
       </div>
   </form>
-
-  <style>
-      .fondo {
-          background-image: url("img/abstract.jpg");
-          background-size: cover;
-          background-position: center;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      }
-  </style>
