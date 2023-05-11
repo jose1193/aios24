@@ -16,4 +16,44 @@ class HomeController extends Controller
         }
 
     }
+
+     public function __invoke()
+    {
+        return view ('welcome');
+    }
+
+     public function about()
+    {
+        return view('livewire.about');
+    }
+
+     public function terms()
+    {
+        return view('livewire.terms');
+    }
+
+     public function privacy()
+    {
+        return view('livewire.privacy');
+    }
+
+    public function cookie()
+    {
+        return view('livewire.cookie');
+    }
+
+    public function faq()
+    {
+        return view('livewire.faq');
+    }
+
+     public function solutions()
+    {
+        return view('livewire.solutions');
+    }
+
+     public function exposition()
+    {
+        return view('livewire.exposition');
+    }
 }

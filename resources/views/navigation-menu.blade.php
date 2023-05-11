@@ -15,6 +15,15 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Home') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+                        {{ __('Nosotros') }}
+                    </x-nav-link>
+                    @can('manage plans')
+                        <x-nav-link href="{{ route('plans') }}" :active="request()->routeIs('plans')">
+                            {{ __('Planes') }}
+                        </x-nav-link>
+                    @endcan
+
                 </div>
             </div>
 
@@ -153,6 +162,16 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+                {{ __('Nosotros') }}
+            </x-responsive-nav-link>
+            @can('manage plans')
+                <x-responsive-nav-link href="{{ route('plans') }}" :active="request()->routeIs('plans')">
+                    {{ __('Planes') }}
+                </x-responsive-nav-link>
+            @endcan
+
+
         </div>
 
         <!-- Responsive Settings Options -->

@@ -73,12 +73,12 @@
 
                  <nav class="flex flex-col gap-4">
                      <div>
-                         <a href="#"
-                             class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Overview</a>
+                         <a href="{{ route('login') }}"
+                             class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Publicar</a>
                      </div>
 
                      <div>
-                         <a href="#"
+                         <a href="{{ route('solutions') }}"
                              class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Soluciones</a>
                      </div>
 
@@ -98,7 +98,7 @@
 
                  <nav class="flex flex-col gap-4">
                      <div>
-                         <a href="#"
+                         <a href="{{ route('about') }}"
                              class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Acerca
                              de</a>
                      </div>
@@ -106,8 +106,8 @@
 
 
                      <div>
-                         <a href="#"
-                             class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Publicidad</a>
+                         <a href="{{ route('exposition') }}"
+                             class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Categorias</a>
                      </div>
 
 
@@ -132,7 +132,7 @@
 
 
                      <div>
-                         <a href="#"
+                         <a href="{{ route('faq') }}"
                              class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">FAQ</a>
                      </div>
                  </nav>
@@ -145,19 +145,19 @@
 
                  <nav class="flex flex-col gap-4">
                      <div>
-                         <a href="#"
+                         <a href="{{ route('terms') }}"
                              class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Términos
                              de Servicios</a>
                      </div>
 
                      <div>
-                         <a href="#"
+                         <a href="{{ route('privacy') }}"
                              class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Política
                              de Privacidad</a>
                      </div>
 
                      <div>
-                         <a href="#"
+                         <a href="{{ route('cookie') }}"
                              class="text-gray-400 duration-500 ease-in-out
                                  hover:text-white active:text-white">Política
                              de Cookies</a>

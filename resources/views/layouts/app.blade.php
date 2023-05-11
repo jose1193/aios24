@@ -8,7 +8,14 @@
     <meta name="theme-color" content="#22c55e" />
 
     <link rel="icon" href="{{ asset('img/favicon.ico') }}">
-    <title>AIOS Real Estate</title>
+    <title>AIOS Real Estate -
+
+        @if (empty($title))
+            Dashboard
+        @else
+            {{ $title }}
+        @endif
+    </title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -17,6 +24,7 @@
 
 
     <!-- Scripts -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Styles -->
@@ -34,9 +42,19 @@
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
+
+                    @if (isset($title))
+                        <h1 class="text-center text-2xl font-bold text-green-600">
+
+                            {{ $title }}
+
+                        </h1>
+                    @endif
                 </div>
             </header>
         @endif
+
+
 
         <!-- Page Content -->
         <main>
@@ -52,6 +70,8 @@
     @stack('modals')
 
     @livewireScripts
+
+    @stack('js')
 </body>
 
 </html>

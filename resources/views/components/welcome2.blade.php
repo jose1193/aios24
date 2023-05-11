@@ -11,7 +11,7 @@
                 <div class="mb-8">
 
                     <div class="text-gray-900 font-bold text-xl mb-2">Anunciate gratis</div>
-                    <p class="text-gray-700 text-base">Anuncia tu propiedad de manera gratuita sin preocupaciones,
+                    <p class="text-gray-700 text-base ">Anuncia tu propiedad de manera gratuita sin preocupaciones,
                         beneficiándote de los mejores resultados. Obtén el máximo provecho sin costo alguno, alcanzando
                         tus objetivos con facilidad.</p>
                 </div>

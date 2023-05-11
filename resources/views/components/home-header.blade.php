@@ -3,7 +3,7 @@
 
        <!-- nav - start -->
        <nav class="relative px-7 py-7 flex justify-between items-center bg-white">
-           <a class="text-3xl font-bold leading-none" href="#">
+           <a class="text-3xl font-bold leading-none" href="{{ route('home') }}">
                <img src="{{ asset('img/logo.jpg') }}" class="h-16 -ml-3" alt="logo">
            </a>
            <div class="lg:hidden">
@@ -18,7 +18,7 @@
                class="hidden absolute  top-1/2 left-1/3 transform -translate-y-1/2 -translate-x-1/2  lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-5">
                <li><a class="text-md text-green-600 
                             transition duration-500 ease-in-out hover:text-green-700 font-bold"
-                       href="#">Home</a></li>
+                       href="{{ route('home') }}">Home</a></li>
                </li>
                <li class="text-gray-300">
                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
