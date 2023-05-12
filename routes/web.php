@@ -45,6 +45,7 @@ Route::get('faq', [HomeController::class, 'faq'])->name('faq');
 Route::get('solutions', [HomeController::class, 'solutions'])->name('solutions');
 
 Route::get('exposition', [HomeController::class, 'exposition'])->name('exposition');
+Route::get('prices', [HomeController::class, 'prices'])->name('prices');
 });
 
 

@@ -56,4 +56,9 @@ class HomeController extends Controller
     {
         return view('livewire.exposition');
     }
+
+     public function prices()
+    {
+        return view('livewire.prices');
+    }
 }
