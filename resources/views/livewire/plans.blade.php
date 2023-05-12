@@ -24,7 +24,9 @@
                         <th class="px-4 py-2">Plan</th>
                         <th class="px-4 py-2">Precio</th>
                         <th class="px-4 py-2">Posición</th>
+                        <th class="px-4 py-2">Cantidad P.</th>
                         <th class="px-4 py-2">Duración</th>
+
                         <th class="px-4 py-2">Action</th>
                     </tr>
                 </thead>
@@ -35,6 +37,7 @@
                             <td class="border px-4 py-2 ">{{ $plan->plan }}</td>
                             <td class="border px-4 py-2">{{ $plan->pricing }}</td>
                             <td class="border px-4 py-2">{{ $plan->position }}</td>
+                            <td class="border px-4 py-2">{{ $plan->quantity }}</td>
                             <td class="border px-4 py-2">{{ $plan->duration }}</td>
                             <td class="border px-4 py-2 text-center ">
 

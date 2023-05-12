@@ -17,8 +17,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $admin_role = Role::create(['name' => 'admin']);
-        $permission = Permission::create(['name' => 'manage plans']);
-        $permission->assignRole($admin_role);
+        
+$permissions = [
+    Permission::create(['name' => 'manage plans']),
+    Permission::create(['name' => 'manage users']),
+];
+       
+foreach ($permissions as $permission) {
+    $admin_role->givePermissionTo($permission);
+}
+        
         $admin = User::create([
             'name' => 'Admin',
              'lastname' => 'Admin',

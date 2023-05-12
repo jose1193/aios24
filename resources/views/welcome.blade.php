@@ -24,7 +24,19 @@
     <!-- Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
 
+        ::-webkit-scrollbar-track {
+            background-color: #e5e7eb;
+            border-radius: 9px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #15803d;
+            border-radius: 9px;
+        }
     </style>
 
 </head>

@@ -23,7 +23,11 @@
                             {{ __('Planes') }}
                         </x-nav-link>
                     @endcan
-
+                    @can('manage users')
+                        <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                            {{ __('Usuarios') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -170,7 +174,11 @@
                     {{ __('Planes') }}
                 </x-responsive-nav-link>
             @endcan
-
+            @can('manage users')
+                <x-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                    {{ __('Usuarios') }}
+                </x-responsive-nav-link>
+            @endcan
 
         </div>
 

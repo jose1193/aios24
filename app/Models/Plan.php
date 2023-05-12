@@ -13,6 +13,7 @@ class Plan extends Model
         'pricing', 
         'position',
         'duration',
+        'quantity',
          'user_id'
     ];   
     

@@ -64,7 +64,7 @@
 
   <style>
       .fondo {
-          background-image: url("img/abstract.jpg");
+          background-image: url("img/abstract3.jpg");
           background-size: cover;
           background-position: center;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

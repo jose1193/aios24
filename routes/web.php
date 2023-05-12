@@ -8,7 +8,8 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\GoogleSocialiteController;
 
 use App\Http\Livewire\Plans;
-use App\Http\Livewire\About;
+
+use App\Http\Livewire\Users;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,9 @@ Route::get('faq', [HomeController::class, 'faq'])->name('faq');
 Route::get('solutions', [HomeController::class, 'solutions'])->name('solutions');
 
 Route::get('exposition', [HomeController::class, 'exposition'])->name('exposition');
-Route::get('prices', [HomeController::class, 'prices'])->name('prices');
+Route::get('pricing', [HomeController::class, 'prices'])->name('prices');
+
+ Route::get('users', Users::class)->name('users');
 });
 
 

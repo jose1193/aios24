@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('pricing');
             $table->string('position');  
              $table->string('duration'); 
+             $table->string('quantity'); 
               // define foreign key
             $table->foreignId('user_id')
                   ->constrained('plans')

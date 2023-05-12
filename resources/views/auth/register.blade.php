@@ -25,7 +25,7 @@
                                 class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">
                                 Nombre</label>
                             <input type="text" id="name" name="name" :value="old('name')" required
-                                autofocus autocomplete="name" placeholder="Ingresa Nombre"
+                                autofocus autocomplete="name" placeholder="Ingrese Nombre"
                                 class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                         </div>
 
@@ -33,7 +33,7 @@
                             <label
                                 class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">Apellido</label>
                             <input type="text" id="lastname" name="lastname" :value="old('lastname')" required
-                                autofocus autocomplete="lastname" placeholder="Ingresa Apellido"
+                                autofocus autocomplete="lastname" placeholder="Ingrese Apellido"
                                 class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                         </div>
 
