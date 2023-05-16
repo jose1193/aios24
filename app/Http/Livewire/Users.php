@@ -18,6 +18,8 @@ class Users extends Component
   
    
 public $name, $lastname, $dni, $phone, $email, $password, $address, $city, $province, $zipcode, $user;
+ public $startDate;
+    public $endDate;
  public $isEditMode = false;
   
   
@@ -31,11 +33,33 @@ public function authorize()
 }
 
 
+public function submit()
+{
+    $this->validate([
+        'startDate' => 'required',
+        'endDate' => 'required'
+    ]);
+
+    $users = User::whereBetween('created_at', ['2023-05-11', '2023-05-11'])->get();
+
+return view('livewire.users', ['users' => $users]);
+}
+public function filter(){
+    //$dateFrom = $this->dateFrom;
+    //$dateTo = $this->dateTo;
+     $users = User::whereDate('created_at', '>=', Carbon::today()->toDateString())
+     ->whereDate('created_at', '<=', date('Y-m-d'))
+            ->get();
+
+            
+       return view('livewire.users', ['users' => $users]);
+}
+
     public function render()
     {
        
       
-  $this->authorize('manage users');
+  $this->authorize('manage admin');
        
         $users = User::where('name', 'like', '%'.$this->search.'%')
             ->orderBy('users.id','DESC')->paginate(10);
@@ -58,7 +82,7 @@ public function closeModal()
 
       public function storeData()
     {
-         $this->authorize('manage users');
+         $this->authorize('manage admin');
          $valid_data = $this->validate([
         'name' => 'required|min:3|max:30',
         'lastname' => 'required|min:3|max:30',
@@ -98,6 +122,7 @@ public function closeModal()
 
     public function showEditDataModal($id)
     {
+        $this->authorize('manage admin');
         $this->user = User::findOrFail($id);
         $this->name = $this->user->name;
         $this->lastname = $this->user->lastname;
@@ -116,7 +141,7 @@ public function closeModal()
 
      public function updateData()
     {
-         $this->authorize('manage users');
+         $this->authorize('manage admin');
         $this->validate([
             'email' => 'required|string|min:3|max:100|unique:users,email,'.$this->user->id.',id',
            'name' => 'required|min:3|max:30',
@@ -153,7 +178,7 @@ public function closeModal()
 
     public function delete(User $user)
     {
-         $this->authorize('manage users');
+         $this->authorize('manage admin');
         $user->delete();
          
       

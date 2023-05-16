@@ -18,12 +18,51 @@
                     <x-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
                         {{ __('Nosotros') }}
                     </x-nav-link>
-                    @can('manage plans')
-                        <x-nav-link href="{{ route('plans') }}" :active="request()->routeIs('plans')">
-                            {{ __('Planes') }}
+                    @can('manage admin')
+                        <x-nav-link id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="cursor-pointer"
+                            type="button">Management
+                            <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
                         </x-nav-link>
-                    @endcan
-                    @can('manage users')
+                        <!-- Dropdown menu -->
+                        <div id="dropdown"
+                            class=" z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                aria-labelledby="dropdownDefaultButton">
+                                <li>
+                                    <a href="{{ route('plans') }}" :active="request() - > routeIs('plans')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Planes') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('transactions') }}" :active="request() - > routeIs('transactions')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Transactions') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('properties') }}" :active="request() - > routeIs('properties')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Propiedades') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('emailadmin') }}" :active="request() - > routeIs('emailadmin')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Email Admin') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('contactforms') }}" :active="request() - > routeIs('contactforms')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Contact User') }}</a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+
+
                         <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                             {{ __('Usuarios') }}
                         </x-nav-link>
@@ -169,12 +208,20 @@
             <x-responsive-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
                 {{ __('Nosotros') }}
             </x-responsive-nav-link>
-            @can('manage plans')
+            @can('manage admin')
+                <x-responsive-nav-link href="{{ route('transactions') }}" :active="request()->routeIs('transactions')">
+                    {{ __('Transactions') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link href="{{ route('properties') }}" :active="request()->routeIs('properties')">
+                    {{ __('Propiedades ') }}
+                </x-responsive-nav-link>
+
                 <x-responsive-nav-link href="{{ route('plans') }}" :active="request()->routeIs('plans')">
                     {{ __('Planes') }}
                 </x-responsive-nav-link>
-            @endcan
-            @can('manage users')
+
+
                 <x-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                     {{ __('Usuarios') }}
                 </x-responsive-nav-link>

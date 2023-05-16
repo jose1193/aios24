@@ -13,11 +13,33 @@
 
     <!-- END INCLUDE ALERTS MESSAGES-->
 
+
+
+    <form>
+        <div class="flex flex-col md:flex-row ">
+            <div class="md:w-1/4 mb-4 md:mb-0 mr-4">
+                <input wire:model.lazy="startDate" name="startDate" type="date" class="w-full p-2 border rounded">
+                @error('startDate')
+                    <span class="text-red-400">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="md:w-1/4 mb-4 md:mb-0 mr-4">
+                <input wire:model.lazy="endDate" name="endDate" type="date" class="w-full p-2 border rounded">
+                @error('endDate')
+                    <span class="text-red-400">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class=" w-full">
+                <x-button2 wire:click.prevent="submit()" class=" w-20 ">Filter</x-button2>
+            </div>
+        </div>
+    </form>
+
     <div class="m-2 p-2 mb-5">
         <x-button wire:click="showDataModal">+ Create New </x-button>
 
-        <x-input2 id="name" type="text" class="block float-right w-full md:w-5/12 lg:w-4/12 " wire:model="search"
-            placeholder="Search..." autofocus autocomplete="off" />
+        <x-input2 id="name" type="text" class="block float-right w-full md:w-5/12 lg:w-4/12 "
+            wire:model="search" placeholder="Search..." autofocus autocomplete="off" />
     </div>
 
     <div class="m-2 p-2">

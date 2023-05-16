@@ -3,13 +3,19 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\GoogleSocialiteController;
 
 use App\Http\Livewire\Plans;
-
 use App\Http\Livewire\Users;
+use App\Http\Livewire\Transactions;
+use App\Http\Livewire\Properties;
+use App\Http\Livewire\Contactforms;
+use App\Http\Livewire\Emailadmin;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +55,11 @@ Route::get('exposition', [HomeController::class, 'exposition'])->name('expositio
 Route::get('pricing', [HomeController::class, 'prices'])->name('prices');
 
  Route::get('users', Users::class)->name('users');
+ 
+ Route::get('transactions', Transactions::class)->name('transactions');
+ Route::get('properties', Properties::class)->name('properties');
+ Route::get('contactforms', Contactforms::class)->name('contactforms');
+  Route::get('emailadmin', Emailadmin::class)->name('emailadmin');
 });
 
 

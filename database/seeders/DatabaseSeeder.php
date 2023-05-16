@@ -21,6 +21,10 @@ class DatabaseSeeder extends Seeder
 $permissions = [
     Permission::create(['name' => 'manage plans']),
     Permission::create(['name' => 'manage users']),
+    Permission::create(['name' => 'manage transactions']),
+    Permission::create(['name' => 'manage properties']),
+    Permission::create(['name' => 'manage contactform']),
+    Permission::create(['name' => 'manage admin']),
 ];
        
 foreach ($permissions as $permission) {
@@ -60,9 +64,8 @@ foreach ($permissions as $permission) {
 
         $user->assignRole($user_role);
 
-        
-
-
         // $permission = Permission::create(['name' => 'edit articles']);
+
+        
     }
 }

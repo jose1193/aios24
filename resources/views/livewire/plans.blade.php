@@ -12,7 +12,7 @@
 
             <!-- END INCLUDE ALERTS MESSAGES-->
             @can('manage plans')
-                <x-button3 wire:click="create()" class="mb-10">+ Registrar Plan </x-button3>
+                <x-button3 wire:click="create()" class="mb-5">+ Registrar Plan </x-button3>
             @endcan
             @if ($isModalOpen)
                 @include('livewire.create')
@@ -61,7 +61,7 @@
                         </tr>
                     @empty
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td colspan="6"
+                            <td colspan="7"
                                 class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                 {{ __('No Plans found') }}
                             </td>

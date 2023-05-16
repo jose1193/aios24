@@ -16,6 +16,7 @@
 
                   <select
                       class="bg-gray-50 border border-green-200 text-gray-900 text-md  rounded-lg  block w-full p-2.5 ">
+
                       <option value="">Tipo</option>
                       <option value="Casas">Casas</option>
                       <option value="Pisos">Pisos</option>
@@ -24,7 +25,7 @@
                       <option value="Garajes">Garajes</option>
                       <option value="Oficinas">Oficinas</option>
                       <option value="Locales">Locales</option>
-                      <option value="Terrenos">Terrenos</option>
+
                       <option value="Bodega/Galpón">Bodega / Galpón</option>
                       <option value="Depósito">Depósito</option>
                       <option value="Todos">Todos</option>

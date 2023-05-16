@@ -12,6 +12,14 @@ class Plans extends Component
     public $isModalOpen = 0;
     protected $listeners = ['render','delete']; // ALERT CONFIRMATION SWEET ALERT
 
+
+       
+public function authorize()
+{
+    return true;
+}
+
+
     public function render()
     {
        
@@ -20,7 +28,7 @@ class Plans extends Component
     }
     public function create()
     {
-         $this->authorize('manage plans');
+          $this->authorize('manage admin');
         $this->resetCreateForm();
         $this->openModalPopover();
     }
@@ -42,7 +50,7 @@ class Plans extends Component
     
     public function store()
     {
-         $this->authorize('manage plans');
+          $this->authorize('manage admin');
         $this->validate([
             'plan' => 'required',
             'pricing' => 'required',
@@ -65,7 +73,7 @@ class Plans extends Component
     }
     public function edit($id)
     {
-         $this->authorize('manage plans');
+           $this->authorize('manage admin');
         $plans = Plan::findOrFail($id);
         $this->plan_id = $id;
         $this->plan = $plans->plan;
@@ -79,7 +87,7 @@ class Plans extends Component
     
     public function delete($id)
     {
-         $this->authorize('manage plans');
+         $this->authorize('manage admin');
         Plan::find($id)->delete();
        
     }

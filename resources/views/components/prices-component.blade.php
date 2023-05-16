@@ -21,8 +21,8 @@
                                         <div class="mb-2 text-center text-2xl font-bold text-gray-800">Free </div>
 
                                         <p class="mb-8 px-8 text-center text-gray-500"> Visibilidad Estándar para la
-                                            publicación de anuncios,
-                                            lo que significa que los anuncios se mostrarán a un amplio público en línea
+                                            publicación de anuncios. Tus anuncios se mostrarán a un amplio público en
+                                            línea
                                         </p>
 
                                         <div class="space-y-4">
@@ -91,7 +91,7 @@
 
                                         <p class="mx-auto mb-8 px-8 text-center text-gray-500">Visibilidad Destacada
                                             para
-                                            la publicación de anuncios, lo que significa que los anuncios estarán
+                                            la publicación de anuncios. Tus anuncios estarán
                                             ubicados en
                                             una posición media en la página de resultados de búsqueda.</p>
 
@@ -154,7 +154,7 @@
 
                                         <p class="mx-auto mb-8 px-8 text-center text-gray-500">Visibilidad Máxima
                                             para
-                                            la publicación de anuncios, lo que significa que los anuncios estarán
+                                            la publicación de anuncios. Tus anuncios estarán
                                             ubicados en
                                             primeros lugares en la página de resultados de búsqueda.</p>
 

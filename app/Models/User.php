@@ -76,4 +76,23 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Plan::class);
     }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+     public function properties()
+    {
+        return $this->hasMany(Property::class);
+    }
+
+    public function contactform()
+    {
+        return $this->hasMany(ContactForm::class);
+    }
+     public function adminemail()
+    {
+        return $this->hasMany(AdminEmail::class);
+    }
 }

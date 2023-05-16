@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::create('admin_emails', function (Blueprint $table) {
             $table->id();
-            $table->string('plan');
-            $table->string('pricing');
-            $table->string('position');  
-             $table->string('duration'); 
-             $table->string('quantity'); 
-              // define foreign key
+            $table->string('email');
+            // define foreign key
             $table->foreignId('user_id')
-                  ->constrained('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');  
+            ->constrained('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('plans');
+        Schema::dropIfExists('admin_emails');
     }
 };

@@ -171,4 +171,8 @@
              © {{ date('Y') }} - Aios Real Estate . Todo los Derechos Reservados.</div>
      </footer>
  </div>
+
+ <!-- JS -->
+ <script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js" defer></script>
+ <!-- END JS -->
  <!-- END FOOTER -->
