@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
         $admin_role = Role::create(['name' => 'admin']);
         
 $permissions = [
-    Permission::create(['name' => 'manage plans']),
+    //Permission::create(['name' => 'manage plans']),
     Permission::create(['name' => 'manage users']),
-    Permission::create(['name' => 'manage transactions']),
-    Permission::create(['name' => 'manage properties']),
-    Permission::create(['name' => 'manage contactform']),
+    //Permission::create(['name' => 'manage transactions']),
+    //Permission::create(['name' => 'manage properties']),
+   // Permission::create(['name' => 'manage contactform']),
     Permission::create(['name' => 'manage admin']),
 ];
        
@@ -36,12 +36,12 @@ foreach ($permissions as $permission) {
              'lastname' => 'Admin',
              'dni' => '00000',
              'phone' => '00000',
-            'email' => 'josegonzalezcr2794@gmail.com',
+            'email' => 'aiosrealestate2023@gmail.com',
             'address' => 'my address',
              'city' => 'my city',
             'province' => 'my province',
             'zipcode' => 'my zipcode',
-            'password' => bcrypt('password')
+            'password' => bcrypt('aios2023=')
         ]);
 
         $admin->assignRole($admin_role);

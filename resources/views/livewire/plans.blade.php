@@ -11,7 +11,7 @@
 
 
             <!-- END INCLUDE ALERTS MESSAGES-->
-            @can('manage plans')
+            @can('manage admin')
                 <x-button3 wire:click="create()" class="mb-5">+ Registrar Plan </x-button3>
             @endcan
             @if ($isModalOpen)
