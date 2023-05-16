@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire;
 use App\Models\User;
-
+use App\Models\AdminEmail;
+use App\Models\Bucket;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\ImageManager;
 
 class Users extends Component
@@ -18,6 +20,7 @@ class Users extends Component
   
    
 public $name, $lastname, $dni, $phone, $email, $password, $address, $city, $province, $zipcode, $user;
+public $subject,$action,$bucket;
  public $startDate;
     public $endDate;
  public $isEditMode = false;
@@ -62,7 +65,7 @@ public function filter(){
   $this->authorize('manage admin');
        
         $users = User::where('name', 'like', '%'.$this->search.'%')
-            ->orderBy('users.id','DESC')->paginate(10);
+            ->orderBy('users.id','ASC')->paginate(10);
 
             
        return view('livewire.users', ['users' => $users]);
@@ -90,13 +93,42 @@ public function closeModal()
         'phone' => 'required|max:20',
         'email' => 'required|email|unique:users|min:5|max:60',
      
-       'address' => 'required|min:3|max:30',
+       'address' => 'required|min:3|max:100',
        'city' => 'required|min:3|max:30',
        'province' => 'required|min:3|max:30',
        'zipcode' => 'required|min:3|max:30',
       ]);
+   
+        //SEND EMAIL FORM CONTACT
+        $this->bucket = Bucket::orderBy('description', 'desc')->limit(1)->first();
+         $this->subject = 'Registro de Usuario Aios Real Estate';
+          $this->action = 'Register';
+          
 
-       
+Mail::send('emails.NewMailUserCrud', array(
+    'name' => $this->name,
+    'email' => $this->email,
+    'password' => 'password',
+    'action' => $this->action,
+ 'bucket' => $this->bucket->description,
+    'city' => $this->bucket->city,
+     'community' => $this->bucket->community,
+      'country' => $this->bucket->country,
+      'address' => $this->bucket->address,
+   
+), function($message) {
+    $emailAdmin = AdminEmail::orderBy('email', 'desc')->limit(1)->pluck('email')->first();
+if ($emailAdmin) {
+    $message->from($emailAdmin,'Aios Real Estate');
+    $message->to($this->email)->subject($this->subject);
+
+}
+else {
+    // El correo electrónico no existe en la tabla
+    session()->flash("message", "Email Admin does not exist.");
+}
+});
+// END SEND EMAIL FORM CONTACT
 
               // CARBON FORMAT DATE
          //$date = Carbon::now()->locale('en')->isoFormat('dddd, MMMM Do YYYY, H:mm A');
@@ -117,6 +149,7 @@ public function closeModal()
         ]); session()->flash("message", "Data registration successfully.");
         $this->reset();
         
+
         sleep(2); //BUTTON SPINNER LOADING
     }
 
@@ -156,6 +189,34 @@ public function closeModal()
             
         ]);
        
+         //SEND EMAIL FORM CONTACT
+         $this->bucket = Bucket::orderBy('description', 'desc')->limit(1)->first();
+
+         $this->subject = 'Actualización Aios Real Estate';
+          $this->action = 'Update';
+Mail::send('emails.NewMailUserCrud', array(
+    'name' => $this->name,
+    'email' => $this->email, 
+    'action' => $this->action,
+   'bucket' => $this->bucket->description,
+    'city' => $this->bucket->city,
+     'community' => $this->bucket->community,
+      'country' => $this->bucket->country,
+      'address' => $this->bucket->address,
+
+), function($message) {
+    $emailAdmin = AdminEmail::orderBy('email', 'desc')->limit(1)->pluck('email')->first();
+if ($emailAdmin) {
+    $message->from($emailAdmin,'Aios Real Estate');
+    $message->to($this->email)->subject($this->subject);
+
+}
+else {
+    // El correo electrónico no existe en la tabla
+    session()->flash("message", "Email Admin does not exist.");
+}
+});
+// END SEND EMAIL FORM CONTACT
 
         $this->user->update([
             'name' => $this->name,

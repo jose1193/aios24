@@ -204,9 +204,19 @@
                                                                     <h1 class="h3 fw-700"
                                                                         style="padding-top: 0; padding-bottom: 0; font-weight: 700 !important; vertical-align: baseline; font-size: 20px; line-height: 33.6px; margin: 0;"
                                                                         align="left">
-                                                                        <strong>Hola, {{ $name }}. Tienes un
-                                                                            nuevo mensaje de Aios Real Estate :
-                                                                        </strong>
+                                                                        @if ($action === 'Register')
+                                                                            <strong>
+                                                                                ¡Hola!,{{ $name }}.<br>
+                                                                                Gracias por registrarte como usuario.
+                                                                                Nos
+                                                                                complace darte la bienvenida a nuestra
+                                                                                comunidad. A continuación, te
+                                                                                proporcionamos
+                                                                                la información de inicio de sesión para
+                                                                                acceder a tu cuenta:
+                                                                                <br>
+                                                                            </strong>
+
                                                                     </h1>
                                                                     <table class="s-4 w-full" role="presentation"
                                                                         border="0" cellpadding="0" cellspacing="0"
@@ -224,8 +234,47 @@
                                                                     <p class=""
                                                                         style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;"
                                                                         align="left">
-                                                                        {{ $message2 }}
+                                                                        <strong>Email : {{ $email }}</strong><br>
+                                                                        <strong>Contraseña :
+                                                                            {{ $password }}</strong><br><br>
+                                                                        Ten en cuenta que esta es la contraseña
+                                                                        predeterminada para tu cuenta. Por motivos de
+                                                                        seguridad, te recomendamos encarecidamente que
+                                                                        la cambies tan pronto como inicies sesión por
+                                                                        primera vez.<br><br>
+                                                                        Una vez que accedas a tu perfil de usuario,
+                                                                        podrás encontrar la opción para cambiar tu
+                                                                        contraseña. Te sugerimos elegir una combinación
+                                                                        segura y única que te resulte fácil de
+                                                                        recordar.<br><br>
+                                                                        Si tienes alguna pregunta o necesitas ayuda
+                                                                        adicional, no dudes en contactarnos. Estamos
+                                                                        aquí para asistirte en cualquier momento.
+                                                                        <br><br>
+                                                                        ¡Esperamos que disfrutes de tu experiencia en
+                                                                        nuestra plataforma!
+                                                                        <br>Saludos cordiales,<br><br>
+
                                                                     </p>
+                                                                @elseif($action === 'Update')
+                                                                    <p class=""
+                                                                        style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;"
+                                                                        align="left">Tus datos han sido actualizados
+                                                                        correctamente.
+                                                                    </p>
+                                                                    <p class=""
+                                                                        style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;"
+                                                                        align="left">Te invitamos a ingresar a
+                                                                        nuestro sitio web para
+                                                                        explorar todas las funcionalidades disponibles.
+                                                                    </p>
+                                                                    <p class=""
+                                                                        style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;"
+                                                                        align="left">¡Esperamos verte pronto en
+                                                                        nuestro sitio!</p>
+                                                                @else
+                                                                    <p>Asunto no reconocido.</p>
+                                                                    @endif
                                                                     <table class="s-4 w-full" role="presentation"
                                                                         border="0" cellpadding="0"
                                                                         cellspacing="0" style="width: 100%;"

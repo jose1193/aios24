@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\ContactForm;
 use App\Models\AdminEmail;
+use App\Models\Bucket;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Carbon\Carbon;
@@ -15,7 +16,7 @@ class Contactforms extends Component
     
     use WithPagination;
     public $name,$email,$subject,$phone, $message,$contactform;
-   
+   public $bucket;
     public $showingDataModal = false;
   
    
@@ -71,16 +72,22 @@ public function closeModal()
     'message' => 'required|min:3|max:400',
         ]);
        //SEND EMAIL FORM CONTACT
+        $this->bucket = Bucket::orderBy('description', 'desc')->limit(1)->first();
 \Mail::send('emails.contactMail', array(
     'name' => $this->name,
     'email' => $this->email,
     'subject' => $this->subject,
     'message2' => $this->message,
+    'bucket' => $this->bucket->description,
+    'city' => $this->bucket->city,
+     'community' => $this->bucket->community,
+      'country' => $this->bucket->country,
+      'address' => $this->bucket->address,
 ), function($message) {
     $emailAdmin = AdminEmail::orderBy('email', 'desc')->limit(1)->pluck('email')->first();
 
-    $message->from($emailAdmin);
-    $message->to($this->email, $this->name)->subject($this->subject);
+    $message->from($emailAdmin,'Aios Real Estate');
+    $message->to($this->email)->subject($this->subject);
 });
 // END SEND EMAIL FORM CONTACT
     ContactForm::create([

@@ -95,4 +95,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(AdminEmail::class);
     }
+
+    public function bucket()
+    {
+        return $this->hasMany(Bucket::class);
+    }
 }
