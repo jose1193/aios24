@@ -18,4 +18,9 @@ class CommunityProvince extends Model
     {
         return $this->belongsTo(Province::class);
     }
+
+     public function city()
+    {
+        return $this->hasMany(City::class);
+    }
 }

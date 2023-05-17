@@ -18,6 +18,7 @@ use App\Http\Livewire\Buckets;
 use App\Http\Livewire\Countries;
 use App\Http\Livewire\Provinces;
 use App\Http\Livewire\Communityprovinces;
+use App\Http\Livewire\Cities;
 
 
 
@@ -68,6 +69,7 @@ Route::get('pricing', [HomeController::class, 'prices'])->name('prices');
   Route::get('countries', Countries::class)->name('countries');
     Route::get('provinces', Provinces::class)->name('provinces');
     Route::get('communities', Communityprovinces::class)->name('communities');
+     Route::get('cities', Cities::class)->name('cities');
 });
 
 
