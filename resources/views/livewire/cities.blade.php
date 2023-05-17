@@ -140,21 +140,6 @@
                                 @enderror
                             </div>
 
-                            <!-- Campo select para la provincia -->
-                            <select wire:model="selectedProvince" wire:change="loadCommunities">
-                                <option value="">Seleccione una provincia</option>
-                                @foreach ($community_provinces as $province)
-                                    <option value="{{ $province->id }}">{{ $province->name }}</option>
-                                @endforeach
-                            </select>
-
-                            <!-- Campo select para la comunidad -->
-                            <select wire:model="community_id">
-                                <option value="">Seleccione una comunidad</option>
-                                @foreach ($communities as $community)
-                                    <option value="{{ $community->id }}">{{ $community->description }}</option>
-                                @endforeach
-                            </select>
 
 
                         </form>
