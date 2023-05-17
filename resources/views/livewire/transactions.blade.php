@@ -30,7 +30,7 @@
                     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                         <table class="w-full divide-y divide-gray-200 text-center">
                             <thead class="bg-green-600 text-white font-bold capitalize">
-                                <th class="px-4 py-2 w-20">Id.</th>
+                                <th class="px-4 py-2 w-20">Nro</th>
                                 <th class="px-4 py-2">Description</th>
 
                                 <th class="px-4 py-2">Date</th>
@@ -40,7 +40,7 @@
                                 <tr></tr>
                                 @forelse($transactions as $transaction)
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $transaction->id }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</td>
 
                                         <td class="px-6 py-4 whitespace-nowrap ">
                                             {{ $transaction->description }}

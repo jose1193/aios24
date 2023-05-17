@@ -28,7 +28,6 @@ public function authorize()
 }
 
 
-
     public function render()
     {
        
@@ -36,7 +35,7 @@ public function authorize()
   $this->authorize('manage admin');
        
         $transactions = Transaction::where('description', 'like', '%'.$this->search.'%')
-            ->orderBy('transactions.id','ASC')->paginate(10);
+            ->orderBy('transactions.id','DESC')->paginate(10);
 
             
        return view('livewire.transactions', ['transactions' => $transactions]);

@@ -33,7 +33,7 @@
                 <tbody>
                     @forelse ($plans as $plan)
                         <tr>
-                            <td class="border px-4 py-2 ">{{ $plan->id }}</td>
+                            <td class="border px-4 py-2 ">{{ $loop->iteration }}</td>
                             <td class="border px-4 py-2 ">{{ $plan->plan }}</td>
                             <td class="border px-4 py-2">{{ $plan->pricing }}</td>
                             <td class="border px-4 py-2">{{ $plan->position }}</td>

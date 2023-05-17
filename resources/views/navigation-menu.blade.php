@@ -19,6 +19,40 @@
                         {{ __('Nosotros') }}
                     </x-nav-link>
                     @can('manage admin')
+                        <x-nav-link id="dropdownDefaultButton" data-dropdown-toggle="dropdown2" class="cursor-pointer"
+                            type="button">Countries Management
+                            <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </x-nav-link>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown2"
+                            class=" z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                aria-labelledby="dropdownDefaultButton">
+                                <li>
+                                    <a href="{{ route('countries') }}" :active="request() - > routeIs('countries')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Countries') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('provinces') }}" :active="request() - > routeIs('provinces')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Provinces') }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('transactions') }}" :active="request() - > routeIs('transactions')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Transactions') }}</a>
+                                </li>
+
+
+
+
+                            </ul>
+                        </div>
                         <x-nav-link id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="cursor-pointer"
                             type="button">Management
                             <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
@@ -148,7 +182,8 @@
                                         {{ Auth::user()->name }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                            stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                         </svg>

@@ -15,8 +15,6 @@
         <!-- END INCLUDE ALERTS MESSAGES-->
 
 
-
-
         <div class="m-2 p-2 mb-5">
             <x-button wire:click="showDataModal">+ Create New </x-button>
 
@@ -31,27 +29,31 @@
                         <table class="w-full divide-y divide-gray-200 text-center">
                             <thead class="bg-green-600 text-white font-bold capitalize">
                                 <th class="px-4 py-2 w-20">Nro.</th>
-                                <th class="px-4 py-2">Property Type</th>
+                                <th class="px-4 py-2">Country</th>
+                                <th class="px-4 py-2">Province</th>
 
                                 <th class="px-4 py-2">Date</th>
                                 <th class="px-4 py-2">Action</th>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr></tr>
-                                @forelse($properties as $property)
+                                @forelse($provinces as $data)
                                     <tr>
                                         <td class=" px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</td>
-
                                         <td class="px-6 py-4 whitespace-nowrap ">
-                                            {{ $property->property_description }}
+                                            {{ $data->country }}
 
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap ">
-                                            {{ $property->created_at }}
+                                            {{ $data->name }}
+
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap ">
+                                            {{ $data->created_at }}
 
                                         </td>
                                         <td>
-                                            <x-button wire:click="showEditDataModal({{ $property->id }})">
+                                            <x-button wire:click="showEditDataModal({{ $data->id }})">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 inline-block"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -60,7 +62,7 @@
                                                 </svg>
                                             </x-button>
 
-                                            <x-button-delete wire:click="$emit('deleteData',{{ $property->id }})">
+                                            <x-button-delete wire:click="$emit('deleteData',{{ $data->id }})">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     class="w-5 h-5 text-white  inline-block" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -74,7 +76,7 @@
                                     </tr>
                                 @empty
                                     <tr class="text-center">
-                                        <td colspan="4">
+                                        <td colspan="5">
                                             <div class="grid justify-items-center w-full mt-5">
                                                 <div class="text-center bg-red-100 rounded-lg py-5 w-full px-6 mb-4 text-base text-red-700 "
                                                     role="alert">
@@ -86,7 +88,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="m-2 p-2">{{ $properties->links() }}</div>
+                        <div class="m-2 p-2">{{ $provinces->links() }}</div>
                     </div>
                 </div>
             </div>
@@ -102,20 +104,32 @@
                 <x-slot name="content">
                     <div class="space-y-8 divide-y divide-gray-200 w-full mt-10">
                         <form enctype="multipart/form-data" autocomplete="off">
+                            <div class="sm:col-span-6 mb-5">
+                                <label for="exampleFormControlInput1"
+                                    class="block text-gray-700 text-sm font-bold mb-2">Country:</label>
+                                <select wire:model.lazy="country_id" id="country_id" name="country_id"
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option value="">Select a country</option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}">{{ $country->country }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="sm:col-span-6">
                                 <label for="exampleFormControlInput1"
-                                    class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+                                    class="block text-gray-700 text-sm font-bold mb-2">Province:</label>
                                 <div class="mt-1">
-                                    <input type="text" id="property_description"
-                                        wire:model.lazy="property_description" name="property_description"
+                                    <input type="text" id="name" wire:model.lazy="name" name="name"
                                         class="block w-full 
                                      appearance-none bg-white border
                                       border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-2" />
                                 </div>
-                                @error('property_description')
+                                @error('name')
                                     <span class="text-red-400">{{ $message }}</span>
                                 @enderror
                             </div>
+
 
 
                         </form>
@@ -156,8 +170,9 @@
                         </button>
                         <x-button wire:click.prevent="storeData()" wire:loading.attr="disabled"
                             wire:target="storeData,password">
-                            <svg wire:loading wire:target="storeData" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <svg wire:loading wire:target="storeData"
+                                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10"
                                     stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor"
@@ -188,7 +203,7 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Livewire.emitTo('properties', 'delete', catId)
+                        Livewire.emitTo('provinces', 'delete', catId)
                         Swal.fire(
                             'Deleted!',
                             'Your Data has been deleted.',

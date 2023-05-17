@@ -65,7 +65,7 @@ public function filter(){
   $this->authorize('manage admin');
        
         $users = User::where('name', 'like', '%'.$this->search.'%')
-            ->orderBy('users.id','ASC')->paginate(10);
+            ->orderBy('users.id','DESC')->paginate(10);
 
             
        return view('livewire.users', ['users' => $users]);

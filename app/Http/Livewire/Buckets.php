@@ -37,7 +37,7 @@ public function authorize()
     $this->authorize('manage admin');
        
         $buckets = Bucket::where('description', 'like', '%'.$this->search.'%')
-            ->orderBy('buckets.id','ASC')->paginate(10);
+            ->orderBy('buckets.id','DESC')->paginate(10);
 
             
        return view('livewire.buckets', ['buckets' => $buckets]);

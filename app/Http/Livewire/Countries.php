@@ -2,17 +2,17 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Property;
+use App\Models\Country;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Carbon\Carbon;
 
 
-class Properties extends Component
+class Countries extends Component
 {
     
     use WithPagination;
-    public $property_description,  $property;
+    public $country_description,  $country,$user_id,$countries;
     public $showingDataModal = false;
   
    
@@ -38,11 +38,11 @@ public function authorize()
       
     $this->authorize('manage admin');
        
-        $properties = Property::where('property_description', 'like', '%'.$this->search.'%')
-            ->orderBy('properties.id','DESC')->paginate(10);
+        $countriess = Country::where('country', 'like', '%'.$this->search.'%')
+            ->orderBy('countries.id','ASC')->paginate(10);
 
             
-       return view('livewire.properties', ['properties' => $properties]);
+       return view('livewire.countries', ['countriess' => $countriess]);
     }
 
    
@@ -61,11 +61,11 @@ public function closeModal()
 {
      $this->authorize('manage admin');
     $valid_data = $this->validate([
-        'property_description' => 'required|unique:properties|min:3|max:30',
+        'country' => 'required|unique:countries|min:3|max:30',
     ]);
 
-    Property::create([
-        'property_description' => $this->property_description,
+    Country::create([
+        'country' => $this->country,
         'user_id' => auth()->user()->id,
     ]);
 
@@ -77,8 +77,8 @@ public function closeModal()
     public function showEditDataModal($id)
     {
            $this->authorize('manage admin');
-        $this->property = Property::findOrFail($id);
-        $this->property_description = $this->property->property_description;
+        $this->countries = Country::findOrFail($id);
+        $this->country = $this->countries->country;
       
         $this->isEditMode = true;
         $this->showingDataModal = true;
@@ -88,13 +88,13 @@ public function closeModal()
     {
            $this->authorize('manage admin');
         $this->validate([
-            'property_description' => 'required|string|min:3|max:300|unique:properties,property_description,'.$this->property->id.',id',
+            'country' => 'required|string|min:3|max:300|unique:countries,country,'.$this->countries->id.',id',
           
         ]);
        
 
-        $this->property->update([
-            'property_description' => $this->property_description,
+        $this->countries->update([
+            'country' => $this->country,
            
         ]); session()->flash("message", "Data Updated Successfully.");
         $this->reset();
@@ -103,10 +103,10 @@ public function closeModal()
     }
 
 
-    public function delete(Property $property)
+    public function delete(Country $countries)
     {
            $this->authorize('manage admin');
-        $property->delete();
+        $countries->delete();
          
       
      

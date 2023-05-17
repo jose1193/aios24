@@ -15,6 +15,8 @@ use App\Http\Livewire\Properties;
 use App\Http\Livewire\Contactforms;
 use App\Http\Livewire\Emailadmin;
 use App\Http\Livewire\Buckets;
+use App\Http\Livewire\Countries;
+use App\Http\Livewire\Provinces;
 
 
 
@@ -62,6 +64,8 @@ Route::get('pricing', [HomeController::class, 'prices'])->name('prices');
  Route::get('contactforms', Contactforms::class)->name('contactforms');
   Route::get('emailadmin', Emailadmin::class)->name('emailadmin');
   Route::get('buckets', Buckets::class)->name('buckets');
+  Route::get('countries', Countries::class)->name('countries');
+    Route::get('provinces', Provinces::class)->name('provinces');
 });
 
 

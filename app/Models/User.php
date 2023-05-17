@@ -100,4 +100,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Bucket::class);
     }
+     public function country()
+    {
+        return $this->hasMany(Country::class);
+    }
 }
