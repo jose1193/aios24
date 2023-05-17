@@ -43,9 +43,9 @@
                                         {{ __('Provinces') }}</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('transactions') }}" :active="request() - > routeIs('transactions')"
+                                    <a href="{{ route('communities') }}" :active="request() - > routeIs('communities')"
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                        {{ __('Transactions') }}</a>
+                                        {{ __('Island') }}</a>
                                 </li>
 
 

@@ -36,12 +36,12 @@ foreach ($permissions as $permission) {
              'lastname' => 'Admin',
              'dni' => '00000',
              'phone' => '00000',
-            'email' => 'aiosrealestate2023@gmail.com',
+            'email' => 'josegonzalezcr2794@gmail.com',
             'address' => 'my address',
              'city' => 'my city',
             'province' => 'my province',
             'zipcode' => 'my zipcode',
-            'password' => bcrypt('aios2023=')
+            'password' => bcrypt('password')
         ]);
 
         $admin->assignRole($admin_role);
