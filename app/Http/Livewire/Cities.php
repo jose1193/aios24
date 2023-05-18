@@ -19,6 +19,9 @@ class Cities extends Component
     public $isEditMode = false;
     public $city_description,$community_id;
     public $citiesId;
+
+
+    public $provinceId,$communityProvinceId; // values multiple selects depending
     
 
     public $search = '';
@@ -42,7 +45,25 @@ class Cities extends Component
     {
          $this->authorize('manage admin');
         $this->cities = City::paginate(10); // Cambia el número de elementos por página según tus necesidades
+    
+        
+
     }
+
+    // public function multiple selects depending
+public function updatedProvinceId($value)
+    {
+        $this->reset(['community_id']);
+        $this->loadCities();
+    }
+
+    public function updatedCommunityProvinceId($value)
+    {
+        $this->loadCities();
+    }
+
+    // end public function multiple selects depending
+
 
     // Mostrar el modal para crear o editar datos
     public function showDataModal()
@@ -133,12 +154,14 @@ class Cities extends Component
     ->orderBy('cities.id', 'ASC')
     ->paginate(10);
 
-
-     $community_provinces = CommunityProvince::all();
-     
+ $provinces = Province::all();
+    
+     $community_provinces = CommunityProvince::where('province_id', $this->provinceId)->get();// query  multiple selects depending
+    
      return view('livewire.cities', [
         'community_provinces' => $community_provinces,
         'cities' => $cities,
+        'provinces' => $provinces
     ]);
     }
 

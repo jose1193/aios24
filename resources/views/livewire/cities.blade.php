@@ -15,7 +15,6 @@
         <!-- END INCLUDE ALERTS MESSAGES-->
 
 
-
         <div class="m-2 p-2 mb-5">
             <x-button wire:click="showDataModal">+ Create New </x-button>
 
@@ -117,14 +116,32 @@
                             <div class="sm:col-span-6 mb-5">
                                 <label for="exampleFormControlInput1"
                                     class="block text-gray-700 text-sm font-bold mb-2">Province:</label>
-                                <select wire:model.lazy="community_id" id="community_id" name="community_id"
-                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                    <option value="">Select a Community</option>
-                                    @foreach ($community_provinces as $data)
-                                        <option value="{{ $data->id }}">{{ $data->description }}</option>
+
+                                <select wire:model.lazy="provinceId" id="province"
+                                    class="capitalize mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option value="">Select a Province</option>
+                                    @foreach ($provinces as $data)
+                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
+                            @if ($provinceId)
+                                <div class="sm:col-span-6 mb-5">
+                                    <label for="exampleFormControlInput1"
+                                        class="block text-gray-700 text-sm font-bold mb-2">Community:</label>
+
+                                    <select wire:model.lazy="community_id" id="community_id" name="community_id"
+                                        class="capitalize mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">>
+                                        <option value="">Select a Community</option>
+                                        @foreach ($community_provinces as $data)
+                                            <option value="{{ $data->id }}">
+                                                {{ $data->description }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+
 
                             <div class="sm:col-span-6">
                                 <label for="exampleFormControlInput1"
@@ -132,7 +149,7 @@
                                 <div class="mt-1">
                                     <input type="text" id="city_description" wire:model.lazy="city_description"
                                         name="city_description"
-                                        class="block w-full 
+                                        class="capitalize block w-full 
                                      appearance-none bg-white border
                                       border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-2" />
                                 </div>
