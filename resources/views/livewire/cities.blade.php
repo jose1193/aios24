@@ -1,6 +1,6 @@
     <x-slot name="header">
         <x-slot name="title">
-            {{ __('Community Provinces Manager') }}
+            {{ __('Cities Manager') }}
         </x-slot>
 
     </x-slot>
@@ -13,6 +13,7 @@
 
 
         <!-- END INCLUDE ALERTS MESSAGES-->
+
 
 
         <div class="m-2 p-2 mb-5">
