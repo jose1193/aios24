@@ -126,7 +126,7 @@
 
                  <nav class="flex flex-col gap-4">
                      <div>
-                         <a href="#"
+                         <a href="{{ route('contact') }}"
                              class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Contacto</a>
                      </div>
 

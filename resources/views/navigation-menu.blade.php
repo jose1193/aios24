@@ -110,6 +110,9 @@
                             {{ __('Usuarios') }}
                         </x-nav-link>
                     @endcan
+                    <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
+                        {{ __('Contacto') }}
+                    </x-nav-link>
                 </div>
             </div>
 

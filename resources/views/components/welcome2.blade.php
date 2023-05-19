@@ -803,7 +803,7 @@
                         cualquier pregunta o inquietud que tenga.</p>
 
                     <div class="mt-auto">
-                        <x-a-button href="#" class="">
+                        <x-a-button href="{{ route('contact') }}" class="">
                             <i class="fa-solid fa-chalkboard-user mr-2"></i>
                             Contacto
                         </x-a-button>

@@ -8,6 +8,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\GoogleSocialiteController;
 
+
+/*
+|--------------------------------------------------------------------------
+|   START LIVEWIRE CONTROLLERS
+|--------------------------------------------------------------------------
+*/
 use App\Http\Livewire\Plans;
 use App\Http\Livewire\Users;
 use App\Http\Livewire\Transactions;
@@ -19,6 +25,9 @@ use App\Http\Livewire\Countries;
 use App\Http\Livewire\Provinces;
 use App\Http\Livewire\Communityprovinces;
 use App\Http\Livewire\Cities;
+
+use App\Http\Livewire\EmailController;
+
 
 
 
@@ -33,21 +42,18 @@ use App\Http\Livewire\Cities;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+/*
+|--------------------------------------------------------------------------
+|   START GUEST USER ROUTES
+|--------------------------------------------------------------------------
+*/
 Route::get('/', HomeController::class)->name('home');
-
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
-    Route::get('/dashboard',[HomeController::class,'redirectUser'])->name('dashboard');
-});
-
-
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 Route::get('about', [HomeController::class, 'about'])->name('about');
 
 Route::get('terms', [HomeController::class, 'terms'])->name('terms');
@@ -59,8 +65,34 @@ Route::get('solutions', [HomeController::class, 'solutions'])->name('solutions')
 Route::get('exposition', [HomeController::class, 'exposition'])->name('exposition');
 Route::get('pricing', [HomeController::class, 'prices'])->name('prices');
 
+//Route::view('contact', 'livewire.contact')->name('contact');
+
+Route::get('contact', EmailController::class)->name('contact');
+  
+
+/* -------------------------------------END GUEST USER ROUTES ------------------------------*/
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+|   START AUTH USER ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
+    Route::get('/dashboard',[HomeController::class,'redirectUser'])->name('dashboard');
+});
+
+
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+
  Route::get('users', Users::class)->name('users');
- 
+  Route::get('plans', Plans::class)->name('plans');
  Route::get('transactions', Transactions::class)->name('transactions');
  Route::get('properties', Properties::class)->name('properties');
  Route::get('contactforms', Contactforms::class)->name('contactforms');
@@ -86,7 +118,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
 
     Route::get('/admin/dashboard',[AdminDashboardController::class,'dashboard'])
             ->name('admin.dashboard');
- Route::get('plans', Plans::class)->name('plans');
+
 });
 
 

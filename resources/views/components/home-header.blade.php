@@ -29,7 +29,7 @@
                </li>
                <li><a class="text-md   text-green-600 
                             transition duration-500 ease-in-out hover:text-green-700 font-bold"
-                       href="#">Nosotros</a></li>
+                       href="{{ route('about') }}">Nosotros</a></li>
                <li class="text-gray-300">
                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
                        class="w-4 h-4 current-fill" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@
                </li>
                <li><a class="text-md text-green-600 
                             transition duration-500 ease-in-out hover:text-green-700 font-bold"
-                       href="#">Servicios</a></li>
+                       href="{{ route('solutions') }}">Servicios</a></li>
                <li class="text-gray-300">
                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
                        class="w-4 h-4 current-fill" viewBox="0 0 24 24">
@@ -49,7 +49,7 @@
                </li>
                <li><a class="text-md text-green-600 
                             transition duration-500 ease-in-out hover:text-green-700 font-bold"
-                       href="#">Precios</a></li>
+                       href="{{ route('prices') }}">Precios</a></li>
                <li class="text-gray-300">
                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
                        class="w-4 h-4 current-fill" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@
                </li>
                <li><a class="text-md text-green-600 
                             transition duration-500 ease-in-out hover:text-green-700 font-bold"
-                       href="#">Contacto</a></li>
+                       href="{{ route('contact') }}">Contacto</a></li>
 
                <li class="text-gray-300">
                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
