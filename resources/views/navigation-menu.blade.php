@@ -93,12 +93,12 @@
                                 <li>
                                     <a href="{{ route('emailadmin') }}" :active="request() - > routeIs('emailadmin')"
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                        {{ __('Email Admin') }}</a>
+                                        {{ __('Admin Email ') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('contactforms') }}" :active="request() - > routeIs('contactforms')"
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                        {{ __('Contact User') }}</a>
+                                        {{ __('User Contact') }}</a>
                                 </li>
 
                             </ul>
@@ -186,6 +186,7 @@
                                 <span class="inline-flex rounded-md">
                                     <button type="button"
                                         class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+
                                         {{ Auth::user()->name }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -255,98 +256,83 @@
             <x-responsive-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
                 {{ __('Nosotros') }}
             </x-responsive-nav-link>
+
             @can('manage admin')
-                <x-responsive-nav-link href="{{ route('transactions') }}" :active="request()->routeIs('transactions')">
-                    {{ __('Transactions') }}
-                </x-responsive-nav-link>
+                <!-- Dropdown Menu 1-->
+                <div class="relative" x-data="{ open: false }">
+                    <x-responsive-nav-link href="#" class="dropdown-toggle" @click="open = !open">
+                        {{ __('Countries Management') }}
+                        <span class="fa fa-chevron-down ml-1"></span>
+                    </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ route('properties') }}" :active="request()->routeIs('properties')">
-                    {{ __('Propiedades ') }}
-                </x-responsive-nav-link>
+                    <div x-show="open" @click.away="open = false"
+                        class="absolute z-[9999] right-0 mt-2 w-full bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg dropdown-menu">
+                        <div class="py-1">
+                            <x-responsive-nav-link href="{{ route('countries') }}" :active="request()->routeIs('countries')">
+                                {{ __('Countries') }}
+                            </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ route('plans') }}" :active="request()->routeIs('plans')">
-                    {{ __('Planes') }}
-                </x-responsive-nav-link>
+                            <x-responsive-nav-link href="{{ route('provinces') }}" :active="request()->routeIs('provinces')">
+                                {{ __('Provinces') }}
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link href="{{ route('communities') }}" :active="request()->routeIs('transactions')">
+                                {{ __('Island') }}
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link href="{{ route('cities') }}" :active="request()->routeIs('cities')">
+                                {{ __('Cities') }}
+                            </x-responsive-nav-link>
 
+                        </div>
+                    </div>
+                </div>
 
+                <!-- End Dropdown Menu 1-->
+
+                <!-- Dropdown Menu 2-->
+                <div class="relative" x-data="{ open: false }">
+                    <x-responsive-nav-link href="#" class="dropdown-toggle" @click="open = !open">
+                        {{ __('Management') }}
+                        <span class="fa fa-chevron-down ml-1"></span>
+                    </x-responsive-nav-link>
+
+                    <div x-show="open" @click.away="open = false"
+                        class="absolute right-0 mt-2 w-full bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg dropdown-menu">
+                        <div class="py-1">
+                            <x-responsive-nav-link href="{{ route('buckets') }}" :active="request()->routeIs('buckets')">
+                                {{ __('Buckets') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link href="{{ route('plans') }}" :active="request()->routeIs('plans')">
+                                {{ __('Planes') }}
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link href="{{ route('transactions') }}" :active="request()->routeIs('transactions')">
+                                {{ __('Transactions') }}
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link href="{{ route('properties') }}" :active="request()->routeIs('properties')">
+                                {{ __('Propiedades') }}
+                            </x-responsive-nav-link>
+                            <x-responsive-nav-link href="{{ route('emailadmin') }}" :active="request()->routeIs('emailadmin')">
+                                {{ __('Admin Email') }}
+                            </x-responsive-nav-link>
+
+                            <x-responsive-nav-link href="{{ route('contactforms') }}" :active="request()->routeIs('contactforms')">
+                                {{ __('User Contact ') }}
+                            </x-responsive-nav-link>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Dropdown Menu 2-->
                 <x-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                     {{ __('Usuarios') }}
                 </x-responsive-nav-link>
-            @endcan
 
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center px-4">
-                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                    <div class="shrink-0 mr-3">
-                        <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
-                            alt="{{ Auth::user()->name }}" />
-                    </div>
-                @endif
-
-                <div>
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                </div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <!-- Account Management -->
-                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
+                <x-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('users')">
+                    {{ __('Contacto') }}
                 </x-responsive-nav-link>
-
-                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                        {{ __('API Tokens') }}
-                    </x-responsive-nav-link>
-                @endif
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}" x-data>
-                    @csrf
-
-                    <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-
-                <!-- Team Management -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="border-t border-gray-200"></div>
-
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
-                    </div>
-
-                    <!-- Team Settings -->
-                    <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
-                        :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
-                    </x-responsive-nav-link>
-
-                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
-                        </x-responsive-nav-link>
-                    @endcan
-
-                    <!-- Team Switcher -->
-                    @if (Auth::user()->allTeams()->count() > 1)
-                        <div class="border-t border-gray-200"></div>
-
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Switch Teams') }}
-                        </div>
-
-                        @foreach (Auth::user()->allTeams() as $team)
-                            <x-switchable-team :team="$team" component="responsive-nav-link" />
-                        @endforeach
-                    @endif
-                @endif
-            </div>
+            @endcan
         </div>
+
+        <!-- Resto del código -->
     </div>
+
 </nav>

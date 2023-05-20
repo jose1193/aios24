@@ -27,7 +27,7 @@ use App\Http\Livewire\Communityprovinces;
 use App\Http\Livewire\Cities;
 
 use App\Http\Livewire\EmailController;
-
+use App\Http\Livewire\ThreeLevelSelect;
 
 
 
@@ -68,7 +68,7 @@ Route::get('pricing', [HomeController::class, 'prices'])->name('prices');
 //Route::view('contact', 'livewire.contact')->name('contact');
 
 Route::get('contact', EmailController::class)->name('contact');
-  
+  Route::get('select', ThreeLevelSelect::class)->name('select');
 
 /* -------------------------------------END GUEST USER ROUTES ------------------------------*/
 
