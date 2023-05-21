@@ -9,7 +9,8 @@ class BucketComponent extends Component
 {
      public function render()
     {
-        $buckets = Bucket::all();
+       $buckets = Bucket::orderBy('description', 'desc')->limit(1)->get();
+
  $emailAdmin = AdminEmail::orderBy('email', 'desc')->limit(1)->pluck('email')->first();
         return view('livewire.bucket-component', [
             'buckets' => $buckets,'emailAdmin' => $emailAdmin

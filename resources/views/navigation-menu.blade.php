@@ -20,7 +20,7 @@
                     </x-nav-link>
                     @can('manage admin')
                         <x-nav-link id="dropdownDefaultButton" data-dropdown-toggle="dropdown2" class="cursor-pointer"
-                            type="button">Countries Management
+                            type="button">Locality
                             <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
@@ -261,7 +261,7 @@
                 <!-- Dropdown Menu 1-->
                 <div class="relative" x-data="{ open: false }">
                     <x-responsive-nav-link href="#" class="dropdown-toggle" @click="open = !open">
-                        {{ __('Countries Management') }}
+                        {{ __('Locality') }}
                         <span class="fa fa-chevron-down ml-1"></span>
                     </x-responsive-nav-link>
 

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\GoogleSocialiteController;
 
@@ -65,9 +66,12 @@ Route::get('solutions', [HomeController::class, 'solutions'])->name('solutions')
 Route::get('exposition', [HomeController::class, 'exposition'])->name('exposition');
 Route::get('pricing', [HomeController::class, 'prices'])->name('prices');
 
-//Route::view('contact', 'livewire.contact')->name('contact');
+// LARAVEL REQUEST CONTACT FORM
+Route::get('/contact', [ContactController::class, 'showForm'])->name('contact');
+Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.store');
+// LARAVEL REQUEST CONTACT FORM
 
-Route::get('contact', EmailController::class)->name('contact');
+
   Route::get('select', ThreeLevelSelect::class)->name('select');
 
 /* -------------------------------------END GUEST USER ROUTES ------------------------------*/
