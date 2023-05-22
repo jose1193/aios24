@@ -27,6 +27,7 @@ use App\Http\Livewire\Provinces;
 use App\Http\Livewire\Communityprovinces;
 use App\Http\Livewire\Cities;
 use App\Http\Livewire\EstatusAnuncios;
+use App\Http\Livewire\Posts;
 
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
@@ -108,6 +109,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::get('communities', Communityprovinces::class)->name('communities');
      Route::get('cities', Cities::class)->name('cities');
      Route::get('estatus', EstatusAnuncios::class)->name('estatus');
+     Route::get('posts', Posts::class)->name('posts');
 });
 
 

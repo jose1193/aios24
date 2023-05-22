@@ -100,7 +100,11 @@
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                         {{ __('User Contact') }}</a>
                                 </li>
-
+                                <li>
+                                    <a href="{{ route('posts') }}" :active="request() - > routeIs('posts')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Posts Manage') }}</a>
+                                </li>
                             </ul>
                         </div>
 
@@ -120,7 +124,7 @@
                                 <li>
                                     <a href="{{ route('estatus') }}" :active="request() - > routeIs('estatus')"
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                        {{ __('Estatus Ads') }}</a>
+                                        {{ __('Estatus Anuncios') }}</a>
                                 </li>
 
 
@@ -342,6 +346,9 @@
                             <x-responsive-nav-link href="{{ route('contactforms') }}" :active="request()->routeIs('contactforms')">
                                 {{ __('User Contact ') }}
                             </x-responsive-nav-link>
+                            <x-responsive-nav-link href="{{ route('posts') }}" :active="request()->routeIs('posts')">
+                                {{ __('Posts Manage ') }}
+                            </x-responsive-nav-link>
                         </div>
                     </div>
                 </div>
@@ -357,7 +364,7 @@
                         class="absolute z-[9999] right-0 mt-2 w-full bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg dropdown-menu">
                         <div class="py-1">
                             <x-responsive-nav-link href="{{ route('estatus') }}" :active="request()->routeIs('estatus')">
-                                {{ __('Estatus Manager') }}
+                                {{ __('Estatus Anuncios') }}
                             </x-responsive-nav-link>
 
 
@@ -370,11 +377,10 @@
                 <x-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                     {{ __('Usuarios') }}
                 </x-responsive-nav-link>
-
-                <x-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('users')">
-                    {{ __('Contacto') }}
-                </x-responsive-nav-link>
             @endcan
+            <x-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('users')">
+                {{ __('Contacto') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Resto del código -->

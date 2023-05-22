@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -66,6 +67,12 @@ foreach ($permissions as $permission) {
 
         // $permission = Permission::create(['name' => 'edit articles']);
 
+        Category::create([
+            'category_name' => 'Blog',
+            'description' => 'Valor por defecto',
+            'image' => 'Valor por defecto',
+            'user_id' => 1,
+        ]);
         
     }
 }

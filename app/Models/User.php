@@ -109,4 +109,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(EstatusAds::class);
     }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }
