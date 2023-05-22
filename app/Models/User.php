@@ -104,4 +104,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Country::class);
     }
+
+    public function estatusads()
+    {
+        return $this->hasMany(EstatusAds::class);
+    }
 }

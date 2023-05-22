@@ -104,7 +104,29 @@
                             </ul>
                         </div>
 
+                        <x-nav-link id="dropdownDefaultButton" data-dropdown-toggle="dropdown3" class="cursor-pointer"
+                            type="button">Anuncios
+                            <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </x-nav-link>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown3"
+                            class=" z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                aria-labelledby="dropdownDefaultButton">
+                                <li>
+                                    <a href="{{ route('estatus') }}" :active="request() - > routeIs('estatus')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Estatus Ads') }}</a>
+                                </li>
 
+
+
+                            </ul>
+                        </div>
 
                         <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                             {{ __('Usuarios') }}
@@ -128,7 +150,8 @@
                                         {{ Auth::user()->currentTeam->name }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                            stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                         </svg>
@@ -180,7 +203,8 @@
                                 <button
                                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                     <img class="h-8 w-8 rounded-full object-cover"
-                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                        src="{{ Auth::user()->profile_photo_url }}"
+                                        alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
@@ -322,6 +346,27 @@
                     </div>
                 </div>
                 <!-- End Dropdown Menu 2-->
+                <!-- Dropdown Menu 3-->
+                <div class="relative" x-data="{ open: false }">
+                    <x-responsive-nav-link href="#" class="dropdown-toggle" @click="open = !open">
+                        {{ __('Anuncios') }}
+                        <span class="fa fa-chevron-down ml-1"></span>
+                    </x-responsive-nav-link>
+
+                    <div x-show="open" @click.away="open = false"
+                        class="absolute z-[9999] right-0 mt-2 w-full bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg dropdown-menu">
+                        <div class="py-1">
+                            <x-responsive-nav-link href="{{ route('estatus') }}" :active="request()->routeIs('estatus')">
+                                {{ __('Estatus Manager') }}
+                            </x-responsive-nav-link>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End Dropdown Menu 3-->
                 <x-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                     {{ __('Usuarios') }}
                 </x-responsive-nav-link>
