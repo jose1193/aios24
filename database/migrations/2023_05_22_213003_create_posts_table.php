@@ -21,6 +21,7 @@ return new class extends Migration
          $table->string('meta_description');
            $table->string('meta_title');
              $table->string('meta_keywords');
+              $table->string('post_title_slug');
         $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
         $table->string('category_id');
             $table->timestamps();

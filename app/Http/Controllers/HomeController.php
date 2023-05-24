@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
+use Carbon\Carbon;
 class HomeController extends Controller
 {
     public function redirectUser(){
@@ -61,4 +63,15 @@ class HomeController extends Controller
     {
         return view('livewire.prices');
     }
+
+    public $posts;
+    
+   public function ShowPost($postTitle)
+{
+   $this->posts = Post::where('post_title_slug', $postTitle)->firstOrFail();
+    $this->posts->post_date = Carbon::parse($this->posts->created_at)->format('F d, Y');
+        
+   return view('livewire.show-posts', ['posts' => $this->posts]);
+}
+
 }

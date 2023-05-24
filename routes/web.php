@@ -28,6 +28,8 @@ use App\Http\Livewire\Communityprovinces;
 use App\Http\Livewire\Cities;
 use App\Http\Livewire\EstatusAnuncios;
 use App\Http\Livewire\Posts;
+use App\Http\Livewire\LatestPosts;
+use App\Http\Livewire\ShowPosts;
 
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
@@ -73,6 +75,12 @@ Route::get('/contact', [ContactController::class, 'showForm'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.store');
 // LARAVEL REQUEST CONTACT FORM
 
+Route::get('/posts/{postTitle}', [HomeController::class, 'ShowPost'])->name('showpost');
+
+Route::get('blog',[Posts::class,'renderPost'])->name('blog');
+//Route::get('/posts/{id}', [Posts::class, 'showPost'])->name('showpost');
+Route::get('latestposts', LatestPosts::class)->name('latestposts');
+
 
   Route::get('select', ThreeLevelSelect::class)->name('select');
 
@@ -110,6 +118,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
      Route::get('cities', Cities::class)->name('cities');
      Route::get('estatus', EstatusAnuncios::class)->name('estatus');
      Route::get('posts', Posts::class)->name('posts');
+    
+    
 });
 
 

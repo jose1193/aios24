@@ -113,7 +113,7 @@
 
 
                      <div>
-                         <a href="#"
+                         <a href="{{ route('blog') }}"
                              class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Blog</a>
                      </div>
                  </nav>

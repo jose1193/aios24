@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Carbon\Carbon;
 use Intervention\Image\ImageManager;
+use Illuminate\Support\Str;
 
 class Posts extends Component
 {
@@ -18,6 +19,7 @@ class Posts extends Component
     public $newImage;
     public $oldImage;
     public $post_title;
+    
     public $post_content;
     
     public $post_status ;
@@ -125,6 +127,7 @@ public function closeModal()
             'meta_description' => $this->meta_description,
             'meta_title' => $this->meta_title,
             'meta_keywords' => $this->meta_keywords,
+            'post_title_slug' => Str::slug($this->post_title),
         ]); session()->flash("message", "Data registration successfully.");
         $this->reset();
          $this->CleanUp();
@@ -171,7 +174,7 @@ public function closeModal()
              $imageHashName = $this->newImage->hashName();
 
             $resize = new ImageManager();
-            $ImageManager = $resize->make('storage/posts/'.$imageHashName)->resize(900, 300);
+            $ImageManager = $resize->make('storage/posts/'.$imageHashName)->resize(900, 400);
             $ImageManager->save('storage/posts/'.$imageHashName);
              // END UPLOAD WITH INTERVENTION IMAGE
         }
@@ -185,6 +188,7 @@ public function closeModal()
              'meta_description' => $this->meta_description,
               'meta_title' => $this->meta_title,
                'meta_keywords' => $this->meta_keywords,
+               'post_title_slug' => Str::slug($this->post_title),
         ]); session()->flash("message", "Data Updated Successfully.");
         $this->reset();
          $this->CleanUp();
@@ -201,6 +205,42 @@ public function closeModal()
       
      
     }
+
+   
+public function renderPost()
+{
+   $data = $this->renderPosts(); // Llamada a la función renderPosts() para obtener los datos
+
+   return view('livewire.blog-section', $data); // Devolver la vista 'dashboard' con los datos
+}
+
+public function renderPosts()
+{
+   $categories = Category::latest()->get();
+   $posts = Post::where('post_title', 'like', '%'.$this->search.'%')
+      ->where('posts.post_status', '=', 'ACTIVE')
+      ->join('categories', 'categories.id', '=', 'posts.category_id')
+      ->select('posts.*', 'categories.category_name')
+      ->orderBy('posts.id', 'DESC')
+      ->paginate(10);
+      
+// Convertir el campo post_date al nuevo formato deseado
+        foreach ($posts as $post) {
+            $post->post_date = Carbon::parse($post->created_at)->format('F d, Y');
+        }
+
+   return [
+      'posts' => $posts,
+      'categories' => $categories
+   ];
+}
+
+public function showPost($id)
+{
+    $posts = Post::findOrFail($id);
+   return view('livewire.showpost',['posts' => $posts]);
+}
+
 
 }
 

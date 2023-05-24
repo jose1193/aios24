@@ -70,7 +70,7 @@
                </li>
                <li><a class="text-md text-green-600 
                             transition duration-500 ease-in-out hover:text-green-700 font-bold"
-                       href="#">Blog</a></li>
+                       href="{{ route('blog') }}">Blog</a></li>
 
            </ul>
 
