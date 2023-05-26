@@ -117,4 +117,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Category::class);
     }
+
+    public function publishproperty()
+    {
+        return $this->hasMany(PublishProperty::class);
+    }
 }

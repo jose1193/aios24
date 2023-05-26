@@ -30,6 +30,8 @@ use App\Http\Livewire\EstatusAnuncios;
 use App\Http\Livewire\Posts;
 use App\Http\Livewire\LatestPosts;
 use App\Http\Livewire\ShowPosts;
+use App\Http\Livewire\PublishProperties;
+use App\Http\Livewire\PublishedPropertiesUser;
 
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
@@ -118,7 +120,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
      Route::get('cities', Cities::class)->name('cities');
      Route::get('estatus', EstatusAnuncios::class)->name('estatus');
      Route::get('posts', Posts::class)->name('posts');
-    
+    Route::get('publish', PublishProperties::class)->name('publish');
+Route::get('published', PublishedPropertiesUser::class)->name('published');
     
 });
 

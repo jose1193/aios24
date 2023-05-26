@@ -105,6 +105,12 @@
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                         {{ __('Posts Manage') }}</a>
                                 </li>
+
+                                <li>
+                                    <a href="{{ route('estatus') }}" :active="request() - > routeIs('estatus')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Estatus Anuncios') }}</a>
+                                </li>
                             </ul>
                         </div>
 
@@ -122,11 +128,15 @@
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                 aria-labelledby="dropdownDefaultButton">
                                 <li>
-                                    <a href="{{ route('estatus') }}" :active="request() - > routeIs('estatus')"
+                                    <a href="{{ route('publish') }}" :active="request() - > routeIs('publish')"
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                        {{ __('Estatus Anuncios') }}</a>
+                                        {{ __('Publicar') }}</a>
                                 </li>
-
+                                <li>
+                                    <a href="{{ route('published') }}" :active="request() - > routeIs('published')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Mis Anuncios') }}</a>
+                                </li>
 
 
                             </ul>
@@ -352,6 +362,11 @@
                             <x-responsive-nav-link href="{{ route('posts') }}" :active="request()->routeIs('posts')">
                                 {{ __('Posts Manage ') }}
                             </x-responsive-nav-link>
+                            <x-responsive-nav-link href="{{ route('estatus') }}" :active="request()->routeIs('estatus')">
+                                {{ __('Estatus Anuncios') }}
+                            </x-responsive-nav-link>
+
+
                         </div>
                     </div>
                 </div>
@@ -366,10 +381,12 @@
                     <div x-show="open" @click.away="open = false"
                         class="absolute z-[9999] right-0 mt-2 w-full bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg dropdown-menu">
                         <div class="py-1">
-                            <x-responsive-nav-link href="{{ route('estatus') }}" :active="request()->routeIs('estatus')">
-                                {{ __('Estatus Anuncios') }}
+                            <x-responsive-nav-link href="{{ route('publish') }}" :active="request()->routeIs('publish')">
+                                {{ __('Publicar') }}
                             </x-responsive-nav-link>
-
+                            <x-responsive-nav-link href="{{ route('published') }}" :active="request()->routeIs('published')">
+                                {{ __('Mis Anuncios') }}
+                            </x-responsive-nav-link>
 
 
                         </div>
