@@ -37,4 +37,8 @@ return [
     'redirect' => 'https://www.aiosrealestate.com/dashboard',
   ], 
 
+  'stripe' => [
+     'secret' => env('STRIPE_SECRET'),
+ ],
+
 ];

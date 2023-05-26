@@ -58,7 +58,15 @@
 
                                      <td class="px-6 py-4 whitespace-nowrap">{{ $property->publication_date }}</td>
                                      <td class="px-6 py-4 whitespace-nowrap">{{ $property->status }}</td>
-                                     <td class="px-6 py-4 whitespace-nowrap">{{ $property->status }}</td>
+                                     <td class="px-6 py-4 whitespace-nowrap">
+
+                                         <a href="{{ route('checkout', ['publishCode' => $property->publish_code]) }}"
+                                             class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-500 text-white font-bold py-2 px-4 rounded">
+                                             Destacar
+                                         </a>
+
+
+                                     </td>
                                      <td class="px-6 py-4 text-center text-sm">
 
                                          <x-button wire:click="showEditDataModal({{ $property->id }})">

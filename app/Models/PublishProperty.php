@@ -9,6 +9,7 @@ class PublishProperty extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'publish_code',
         'property_type',
         'location',
         'title',

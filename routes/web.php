@@ -8,7 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\GoogleSocialiteController;
-
+use App\Http\Controllers\StripeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +32,7 @@ use App\Http\Livewire\LatestPosts;
 use App\Http\Livewire\ShowPosts;
 use App\Http\Livewire\PublishProperties;
 use App\Http\Livewire\PublishedPropertiesUser;
+use App\Http\Livewire\StripePayment;
 
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
@@ -122,6 +123,17 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
      Route::get('posts', Posts::class)->name('posts');
     Route::get('publish', PublishProperties::class)->name('publish');
 Route::get('published', PublishedPropertiesUser::class)->name('published');
+
+Route::get('payment', StripePayment::class)->name('payment');
+
+
+
+
+Route::get('/checkout/{publishCode}', [StripeController::class, 'checkout'])->name('checkout');
+Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::get('/success', [StripeController::class, 'success'])->name('success');
+
+
     
 });
 

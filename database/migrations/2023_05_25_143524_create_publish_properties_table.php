@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('publish_properties', function (Blueprint $table) {
             $table->id();
+            $table->string('publish_code');
             $table->string('property_type');
             $table->string('location');
             $table->string('title');

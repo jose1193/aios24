@@ -92,8 +92,11 @@ public function CleanUp()
 // CARBON FORMAT DATE
          $date = Carbon::now()->locale('es_ES')->format('F d, Y');
             // END CARBON FORMAT DATE
+        $publishCode = 'AR-' . str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
 
     $property = PublishProperty::create([
+
+         'publish_code' => $publishCode,
         'property_type' => $this->property_type,
         'location' => $this->location,
         'title' => $this->title,
