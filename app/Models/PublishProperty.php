@@ -35,4 +35,9 @@ class PublishProperty extends Model
     {
         return $this->hasMany(PropertyImage::class);
     }
+
+    public function myplans()
+    {
+        return $this->hasMany(MyPlan::class);
+    }
 }

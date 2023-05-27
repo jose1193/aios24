@@ -138,7 +138,11 @@
                                         {{ __('Mis Anuncios') }}</a>
                                 </li>
 
-
+                                <li>
+                                    <a href="{{ route('myplans') }}" :active="request() - > routeIs('myplans')"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ __('Mis Planes') }}</a>
+                                </li>
                             </ul>
                         </div>
 
@@ -388,6 +392,9 @@
                                 {{ __('Mis Anuncios') }}
                             </x-responsive-nav-link>
 
+                            <x-responsive-nav-link href="{{ route('myplans') }}" :active="request()->routeIs('published')">
+                                {{ __('Mis Planes') }}
+                            </x-responsive-nav-link>
 
                         </div>
                     </div>

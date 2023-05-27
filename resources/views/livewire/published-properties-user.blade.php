@@ -45,7 +45,7 @@
 
                                      <td class="px-6 py-4 whitespace-nowrap ">
                                          <div class="w-1/2 mx-auto">
-                                             <img class="w-24 rounded-full"
+                                             <img class="w-24 rounded border border-green-700"
                                                  src="{{ Storage::url($property->image_path) }}" />
                                          </div>
 
@@ -60,7 +60,7 @@
                                      <td class="px-6 py-4 whitespace-nowrap">{{ $property->status }}</td>
                                      <td class="px-6 py-4 whitespace-nowrap">
 
-                                         <a href="{{ route('checkout', ['publishCode' => $property->publish_code]) }}"
+                                         <a href="{{ route('choose-plan', ['publishCode' => $property->publish_code]) }}"
                                              class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-500 text-white font-bold py-2 px-4 rounded">
                                              Destacar
                                          </a>

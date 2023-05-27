@@ -8,7 +8,7 @@ use App\Models\Plan;
 class Plans extends Component
 {
        
-    public $plan, $pricing, $position, $duration, $quantity,$plan_id;
+    public $plan, $pricing, $position, $duration, $quantity,$plan_id,$plan_description;
     public $isModalOpen = 0;
     protected $listeners = ['render','delete']; // ALERT CONFIRMATION SWEET ALERT
 
@@ -42,6 +42,7 @@ public function authorize()
     }
     private function resetCreateForm(){
         $this->plan = '';
+        $this->plan_description = '';
         $this->pricing = '';
         $this->position = '';
         $this->duration = '';
@@ -53,6 +54,7 @@ public function authorize()
           $this->authorize('manage admin');
         $this->validate([
             'plan' => 'required',
+            'plan_description' => 'required',
             'pricing' => 'required',
             'position' => 'required',
             'duration' => 'required',
@@ -61,6 +63,7 @@ public function authorize()
     
         Plan::updateOrCreate(['id' => $this->plan_id], [
             'plan' => $this->plan,
+              'plan_description' => $this->plan_description,
             'pricing' => $this->pricing,
             'position' => $this->position,
              'duration' => $this->duration,
@@ -77,6 +80,7 @@ public function authorize()
         $plans = Plan::findOrFail($id);
         $this->plan_id = $id;
         $this->plan = $plans->plan;
+        $this->plan_description = $plans->plan_description;
         $this->pricing = $plans->pricing;
         $this->position = $plans->position;
          $this->duration = $plans->duration;

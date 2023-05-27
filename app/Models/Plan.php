@@ -10,6 +10,7 @@ class Plan extends Model
     use HasFactory;
    protected $fillable = [
         'plan', 
+        'plan_description',
         'pricing', 
         'position',
         'duration',
@@ -20,5 +21,10 @@ class Plan extends Model
      public function users()
     {
         return $this->belongsTo(User::class);
+    }
+
+     public function myplans()
+    {
+        return $this->hasMany(MyPlan::class);
     }
 }
