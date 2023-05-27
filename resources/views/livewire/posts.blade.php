@@ -43,7 +43,7 @@
 
                                      <td class="px-6 py-4 whitespace-nowrap ">
                                          <div class="w-1/2 mx-auto">
-                                             <img class="w-24 rounded-full"
+                                             <img class="w-24 rounded border"
                                                  src="{{ Storage::url($post->post_image) }}" />
                                          </div>
 
