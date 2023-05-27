@@ -4,7 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\PublishProperty;
 use App\Models\PropertyImage;
+use App\Models\Property;
+use App\Models\Transaction;
+use App\Models\EstatusAds;
 use App\Models\User;
+use App\Models\Bucket;
+use App\Models\AdminEmail;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -12,7 +17,7 @@ use Livewire\WithPagination;
 use Carbon\Carbon;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Mail;
 
 class PublishProperties extends Component
 {
@@ -34,12 +39,21 @@ public $images;
 public $publication_date;
 public $status;
 public $user_id;
+public $propertyTypesRender;
+public $transactionRender;
+public $estatusAdsRender;
+public $bucket,$email,$name,$message2;
 
-
-    public function render()
-    {
-        return view('livewire.publish-properties');
-    }
+public function render()
+{
+    $this->propertyTypesRender = Property::all();
+ $this->transactionRender = Transaction::all();
+ $this->estatusAdsRender = EstatusAds::all();
+    return view('livewire.publish-properties', [
+        'propertyTypes' => $this->propertyTypesRender,
+        'estatusAdsRender' => $this->estatusAdsRender,
+    ]);
+}
 
     // --- FUNCTION CLEAN LIVEWIRE-TMP --- ///
 public function CleanUp()  
@@ -66,14 +80,14 @@ public function CleanUp()
 {
     $this->validate([
         'property_type' => 'required',
-        'location' => 'required',
-        'title' => 'required',
-        'description' => 'required',
-        'price' => 'required',
+        'location' => 'required|min:3|max:300',
+        'title' => 'required|unique:publish_properties|min:3|max:300',
+        'description' => 'required|min:3|max:500',
+        'price' => 'required|min:2|max:100',
         'transaction_type' => 'required',
-        'bedrooms' => 'required',
-        'bathrooms' => 'required',
-        'total_area' => 'required',
+        'bedrooms' => 'required|min:1|max:30',
+        'bathrooms' => 'required|min:1|max:30',
+        'total_area' => 'required|min:1|max:30',
         'additional_features' => 'nullable',
         'images' => 'required|array',
         'images.*' => 'image|max:2048',
@@ -120,7 +134,31 @@ public function CleanUp()
             'image_path' => $imagePath,
         ]);
     }
-    session()->flash('message', 'Datos guardados exitosamente');
+    //SEND EMAIL FORM CONTACT
+        $this->bucket = Bucket::orderBy('description', 'desc')->limit(1)->first();
+        $user = User::find(auth()->user()->id);
+$this->email = $user->email;
+$this->name = $user->name;
+
+\Mail::send('emails.contactMailPublishProperty', array(
+    'name' => $this->name,
+    'email' => $this->email,
+     'title' => $this->title,
+    
+    'message2' => $publishCode,
+    'bucket' => $this->bucket->description,
+    'city' => $this->bucket->city,
+     'community' => $this->bucket->community,
+      'country' => $this->bucket->country,
+      'address' => $this->bucket->address,
+), function($message) {
+    $emailAdmin = AdminEmail::orderBy('email', 'desc')->limit(1)->pluck('email')->first();
+
+    $message->from($emailAdmin,'Aios Real Estate');
+    $message->to($this->email)->subject('Nuevo Anuncio Registrado');
+});
+// END SEND EMAIL FORM CONTACT
+    session()->flash('success', 'Datos guardados exitosamente');
     $this->reset();
     $this->CleanUp();
      sleep(2); //BUTTON SPINNER LOADING

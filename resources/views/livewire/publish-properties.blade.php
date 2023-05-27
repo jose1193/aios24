@@ -42,8 +42,19 @@
          <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
 
              <!--INCLUDE ALERTS MESSAGES-->
+             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-             <x-message-success />
+             @if (session()->has('success'))
+                 <script>
+                     Swal.fire({
+                         title: 'Genial!!',
+                         text: '{{ session('success') }}',
+                         icon: 'success',
+                         confirmButtonText: 'OK'
+                     })
+                 </script>
+             @endif
 
 
              <!-- END INCLUDE ALERTS MESSAGES-->
@@ -62,7 +73,7 @@
                                  class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                  id="title" wire:model="title" />
                              @error('title')
-                                 <span>{{ $message }}</span>
+                                 <span class="text-red-500">{{ $message }}</span>
                              @enderror
                          </div>
                          <div class="-mx-3 flex flex-wrap">
@@ -74,11 +85,13 @@
                                      <select wire:model="property_type" name="property_type" id="property_type"
                                          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                          <option value=""></option>
-                                         <option value="Casa">Casa</option>
-                                         <option value="Departamento">Departamento</option>
+                                         @foreach ($propertyTypesRender as $item)
+                                             <option value="{{ $item->id }}">{{ $item->property_description }}
+                                             </option>
+                                         @endforeach
                                      </select>
                                      @error('property_type')
-                                         <span>{{ $message }}</span>
+                                         <span class="text-red-500">{{ $message }}</span>
                                      @enderror
                                  </div>
                              </div>
@@ -91,11 +104,13 @@
                                      <select name="transaction_type" wire:model="transaction_type" id="transaction_type"
                                          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                          <option value=""></option>
-                                         <option value="active">Venta</option>
-                                         <option value="inactive">Alquiler</option>
+                                         @foreach ($transactionRender as $item)
+                                             <option value="{{ $item->id }}">{{ $item->description }}
+                                             </option>
+                                         @endforeach
                                      </select>
                                      @error('transaction_type')
-                                         <span>{{ $message }}</span>
+                                         <span class="text-red-500">{{ $message }}</span>
                                      @enderror
                                  </div>
 
@@ -110,7 +125,7 @@
                                  rows="5"
                                  class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
                              @error('description')
-                                 <span>{{ $message }}</span>
+                                 <span class="text-red-500">{{ $message }}</span>
                              @enderror
                          </div>
 
@@ -124,7 +139,7 @@
                                          class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                          id="bedrooms" wire:model="bedrooms" />
                                      @error('bedrooms')
-                                         <span>{{ $message }}</span>
+                                         <span class="text-red-500">{{ $message }}</span>
                                      @enderror
                                  </div>
                              </div>
@@ -137,7 +152,7 @@
                                          class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                          id="bathrooms" wire:model="bathrooms" />
                                      @error('bathrooms')
-                                         <span>{{ $message }}</span>
+                                         <span class="text-red-500">{{ $message }}</span>
                                      @enderror
                                  </div>
                              </div>
@@ -150,7 +165,7 @@
                              <input type="text" id="location" wire:model="location" placeholder="Location"
                                  class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                              @error('location')
-                                 <span>{{ $message }}</span>
+                                 <span class="text-red-500">{{ $message }}</span>
                              @enderror
                          </div>
 
@@ -166,7 +181,7 @@
                                          wire:model="total_area"
                                          class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                      @error('total_area')
-                                         <span>{{ $message }}</span>
+                                         <span class="text-red-500">{{ $message }}</span>
                                      @enderror
                                  </div>
 
@@ -180,11 +195,13 @@
                                      <select name="status" wire:model="status" id="status"
                                          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                          <option value=""></option>
-                                         <option value="active">Active</option>
-                                         <option value="inactive">Inactive</option>
+                                         @foreach ($estatusAdsRender as $item)
+                                             <option value="{{ $item->id }}">{{ $item->estatus_description }}
+                                             </option>
+                                         @endforeach
                                      </select>
                                      @error('status')
-                                         <span>{{ $message }}</span>
+                                         <span class="text-red-500">{{ $message }}</span>
                                      @enderror
                                  </div>
                              </div>
@@ -199,7 +216,7 @@
                                  class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                  id="price" wire:model="price" />
                              @error('price')
-                                 <span>{{ $message }}</span>
+                                 <span class="text-red-500">{{ $message }}</span>
                              @enderror
                          </div>
 
@@ -213,7 +230,7 @@
                                  rows="5"
                                  class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
                              @error('additional_features')
-                                 <span>{{ $message }}</span>
+                                 <span class="text-red-500">{{ $message }}</span>
                              @enderror
                          </div>
 
@@ -224,7 +241,7 @@
 
                              <input type="file" id="images" wire:model="images" multiple />
                              @error('images')
-                                 <span>{{ $message }}</span>
+                                 <span class="text-red-500">{{ $message }}</span>
                              @enderror
                          </div>
 

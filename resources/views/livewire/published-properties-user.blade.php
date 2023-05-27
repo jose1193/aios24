@@ -41,7 +41,7 @@
                              <tr></tr>
                              @forelse ($properties as $property)
                                  <tr>
-                                     <td class="px-6 py-4 whitespace-nowrap">{{ $property->id }}</td>
+                                     <td class="px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</td>
 
                                      <td class="px-6 py-4 whitespace-nowrap ">
                                          <div class="w-1/2 mx-auto">
@@ -57,7 +57,7 @@
                                      </td>
 
                                      <td class="px-6 py-4 whitespace-nowrap">{{ $property->publication_date }}</td>
-                                     <td class="px-6 py-4 whitespace-nowrap">{{ $property->status }}</td>
+                                     <td class="px-6 py-4 whitespace-nowrap">{{ $property->estatus_description }}</td>
                                      <td class="px-6 py-4 whitespace-nowrap">
 
                                          <a href="{{ route('choose-plan', ['publishCode' => $property->publish_code]) }}"
@@ -69,7 +69,7 @@
                                      </td>
                                      <td class="px-6 py-4 text-center text-sm">
 
-                                         <x-button wire:click="showEditDataModal({{ $property->id }})">
+                                         <x-button>
                                              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 inline-block"
                                                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
