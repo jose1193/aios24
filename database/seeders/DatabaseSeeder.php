@@ -155,7 +155,7 @@ foreach ($permissions as $permission) {
             'pricing' => 19,
             'position' => 'Exposición Destacada',
             'duration' => 'Duración de Publicación 120 días',
-            'quantity' => 'Publicaciones Ilimitadas',
+            'quantity' => 'Máximo 25 Publicaciones',
         ],
         [
             'plan' => 'Platino',

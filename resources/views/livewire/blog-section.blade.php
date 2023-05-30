@@ -57,7 +57,7 @@
                     @foreach ($posts as $post)
                         <a href="{{ route('showpost', ['postTitle' => $post->post_title_slug]) }}"
                             class="group relative flex h-48 flex-col overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-64 xl:h-96">
-                            <img src="{{ Storage::url($post->post_image) }}" loading="lazy" alt="Photo by Minh Pham"
+                            <img src="{{ Storage::url($post->post_image) }}" loading="lazy" alt="post image"
                                 class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
 
                             <div

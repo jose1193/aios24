@@ -131,7 +131,7 @@ public function CleanUp()
     foreach ($imagesPaths as $imagePath) {
         PropertyImage::create([
             'property_id' => $property->id,
-            'image_path' => $imagePath,
+            'image_path' => 'app/public/'.$imagePath, // CAMBIAR ACA
         ]);
     }
     //SEND EMAIL FORM CONTACT

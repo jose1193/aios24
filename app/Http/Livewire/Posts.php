@@ -119,7 +119,7 @@ public function closeModal()
         Post::create([
             'post_title' => $this->post_title,
             'post_content' => $this->post_content,
-            'post_image' => $image,
+            'post_image' => 'app/public/'.$image,
             'post_status' => $this->post_status,
             'post_date' => $date,
              'user_id' => auth()->user()->id,

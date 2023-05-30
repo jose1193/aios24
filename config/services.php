@@ -32,9 +32,9 @@ return [
     ],
 
     'google' => [
-    'client_id' => '730100704338-kh0k3b086lfd8g5s5l2snlg2nk1rm88d.apps.googleusercontent.com',
-    'client_secret' => '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',
-    'redirect' => 'https://www.aiosrealestate.com/dashboard',
+     'client_id' => env('GOOGLE_CLIENT_ID'),
+    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+   'redirect' => 'http://aiosrealestate.com/google-auth/callback',
   ], 
 
   'stripe' => [

@@ -23,13 +23,11 @@ class PublishedPropertiesUser extends Component
 
     public function render()
     {
-      $properties = PublishProperty::join('property_images', 'publish_properties.id', '=', 'property_images.property_id')
-    ->join('users', 'publish_properties.user_id', '=', 'users.id')
+      $properties = PublishProperty::join('users', 'publish_properties.user_id', '=', 'users.id')
     ->join('estatus_ads', 'publish_properties.status', '=', 'estatus_ads.id')
-    ->select('publish_properties.*', DB::raw('MAX(property_images.image_path) as image_path'), 'users.name','estatus_ads.estatus_description')
-    ->whereRaw("LOWER(publish_properties.title) LIKE '%".mb_strtolower($this->search, 'UTF-8')."%' COLLATE utf8mb4_unicode_ci")
+    ->select('publish_properties.*', 'users.name', 'estatus_ads.estatus_description')
+    ->whereRaw("LOWER(publish_properties.title) LIKE '%" . mb_strtolower($this->search, 'UTF-8') . "%' COLLATE utf8mb4_unicode_ci")
     ->orderBy('publish_properties.created_at', 'desc')
-    ->groupBy('publish_properties.id')
     ->paginate(10);
 
 

@@ -29,7 +29,7 @@
                      <table class="w-full divide-y divide-gray-200 text-center">
                          <thead class="bg-green-600 text-white font-bold capitalize">
                              <th class="px-4 py-2 w-20">Id.</th>
-                             <th class="px-4 py-2">Image</th>
+
                              <th class="px-4 py-2">Título</th>
 
                              <th class="px-4 py-2">Fecha de Publiación</th>
@@ -43,13 +43,7 @@
                                  <tr>
                                      <td class="px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</td>
 
-                                     <td class="px-6 py-4 whitespace-nowrap ">
-                                         <div class="w-1/2 mx-auto">
-                                             <img class="w-24 rounded border border-green-700"
-                                                 src="{{ Storage::url($property->image_path) }}" />
-                                         </div>
 
-                                     </td>
                                      <td class="px-6 py-4 whitespace-nowrap">
 
 

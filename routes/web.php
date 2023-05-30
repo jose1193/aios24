@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\GoogleSocialiteController;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 //use App\Http\Controllers\StripeController;
 
 /*
@@ -38,6 +40,7 @@ use App\Http\Livewire\MyPlans;
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
 
+use App\Models\User;
 
 
 /*
@@ -56,6 +59,41 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/google-auth/redirect', function () {
+    return Socialite::driver('google')->redirect();
+});
+ 
+Route::get('/google-auth/callback', function () {
+    $socialiteUser = Socialite::driver('google')->user();
+  $user = User::where('email', $socialiteUser->email)->first();
+  if (!$user) {
+        // Si el usuario no existe en la base de datos, puedes crear uno nuevo
+        $user = new User();
+        $user->name = $socialiteUser->name;
+        $user->email = $socialiteUser->email;
+         $user->google_id = $socialiteUser->id;
+         $user->lastname = null; // Establecer el valor de lastname como null
+         $user->dni = null; 
+          $user->phone = null; 
+         $user->address = null; 
+          $user->city = null; 
+            $user->province = null; 
+             $user->zipcode = null; 
+        // Aquí puedes asignar cualquier otro atributo necesario
+
+        $user->save();
+    }
+
+    // Accede al token del usuario autenticado
+    $token = $socialiteUser->token;
+
+   // Iniciar sesión al usuario
+    Auth::login($user);
+
+    // Redirigir al dashboard u otra página
+    return redirect('/dashboard');
+    // $user->token
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -155,6 +193,4 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
 
 
 
-  // GOOGLE AUTH
-Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);
-Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);
+  
