@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Plan;
 
 use Carbon\Carbon;
 class HomeController extends Controller
 {
+    
     public function redirectUser(){
         if(auth()->user()->hasRole('admin')){
             return redirect()->route('admin.dashboard');
@@ -58,10 +60,14 @@ class HomeController extends Controller
     {
         return view('livewire.exposition');
     }
-
+public $plans;
      public function prices()
     {
-        return view('livewire.prices');
+        
+         $this->plans = Plan::all();
+        return view('livewire.prices',[
+        'plans' => $this->plans
+    ]);
     }
 
     public $posts;

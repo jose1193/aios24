@@ -113,7 +113,7 @@
                                  <div class="mt-auto flex flex-col gap-8">
                                      <div class="flex items-end justify-center gap-1">
                                          <span class="self-start text-gray-600">$</span>
-                                         <span class="text-4xl font-bold text-gray-800">{{ $plan->pricing }}</span>
+                                         <span class="text-4xl font-bold text-gray-800">{{ $plan->pricing }}€</span>
                                      </div>
                                      <form action="/session" method="POST">
                                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -193,7 +193,7 @@
                                  <div class="mt-auto flex flex-col gap-8">
                                      <div class="flex items-end justify-center gap-1">
                                          <span class="self-start text-gray-600">$</span>
-                                         <span class="text-4xl font-bold text-gray-800">{{ $plan->pricing }}</span>
+                                         <span class="text-4xl font-bold text-gray-800">{{ $plan->pricing }}€</span>
                                      </div>
 
                                      <button disabled
@@ -268,7 +268,7 @@
                                  <div class="mt-auto flex flex-col gap-8">
                                      <div class="flex items-end justify-center gap-1">
                                          <span class="self-start text-gray-600">$</span>
-                                         <span class="text-4xl font-bold text-gray-800">{{ $plan->pricing }}</span>
+                                         <span class="text-4xl font-bold text-gray-800">{{ $plan->pricing }}€</span>
                                      </div>
                                      <form action="/session" method="POST">
                                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
