@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\GoogleSocialiteController;
+
+// LARAVEL SOCIALITE
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 //use App\Http\Controllers\StripeController;
@@ -59,6 +61,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+///------------- ROUTE GOOGLE AUTH ---------///
 Route::get('/google-auth/redirect', function () {
     return Socialite::driver('google')->redirect();
 });
@@ -95,6 +99,7 @@ Route::get('/google-auth/callback', function () {
     // $user->token
 });
 
+///------------- END ROUTE GOOGLE AUTH ---------///
 /*
 |--------------------------------------------------------------------------
 |   START GUEST USER ROUTES
