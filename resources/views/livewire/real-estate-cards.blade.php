@@ -38,7 +38,7 @@
                                     </div>
                                 @endif
                             </div>
-                            <a href="#">
+                            <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
                                 <h5 class="mb-2 text-xl font-bold tracking-tight text-green-700 ">
                                     {{ Str::words($item->title, 6, '...') }}</h5>
                             </a>
