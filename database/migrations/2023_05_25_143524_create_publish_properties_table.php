@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('bedrooms');
             $table->string('bathrooms');
             $table->string('total_area');
+             $table->string('garage');
+            $table->string('energy_certificate');
             $table->string('additional_features')->nullable();
             $table->string('publication_date');
                $table->string('status');

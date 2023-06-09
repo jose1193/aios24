@@ -19,8 +19,10 @@ class PublishProperty extends Model
         'bedrooms',
         'bathrooms',
         'total_area',
-        'additional_features',
-        'images',
+         'garage',
+          'energy_certificate',
+         'additional_features',
+        
         'publication_date',
         'status',
         'user_id',
@@ -31,7 +33,7 @@ class PublishProperty extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function propertyimages()
+    public function propertyImages()
     {
         return $this->hasMany(PropertyImage::class);
     }
@@ -39,5 +41,19 @@ class PublishProperty extends Model
     public function myplans()
     {
         return $this->hasMany(MyPlan::class);
+    }
+
+     public function features()
+    {
+        return $this->hasMany(Feature::class);
+    }
+
+    public function equipment()
+    {
+        return $this->hasMany(Equipment::class);
+    }
+     public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
 }

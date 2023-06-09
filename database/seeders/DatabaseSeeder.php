@@ -46,7 +46,7 @@ foreach ($permissions as $permission) {
              'lastname' => 'Admin',
              'dni' => '00000',
              'phone' => '00000',
-            'email' => 'aiosrealestate2023@gmail.com',
+            'email' => 'josegonzalezcr2794@gmail.com',
             'address' => 'my address',
              'city' => 'my city',
             'province' => 'my province',
@@ -88,8 +88,9 @@ foreach ($permissions as $permission) {
         $user = User::first(); // Obtén el usuario que deseas asociar a las propiedades
     
     $propertyTypes = [
-        'Casas',
+        
         'Pisos',
+        'Casas',
         'Habitación',
         'Terreno',
         'Garajes',
@@ -118,7 +119,7 @@ foreach ($permissions as $permission) {
 
     foreach ($transactionTypes as $key => $value) {
          Transaction::create([
-            'description' => $value,
+            'transaction_description' => $value,
             'user_id' => $user->id,
         ]);
     }
@@ -147,7 +148,7 @@ foreach ($permissions as $permission) {
             'pricing' => 0,
             'position' => 'Exposición Estandar',
             'duration' => 'Duración de Publicación 60 días',
-            'quantity' => 'Máximo 10 Publicaciones',
+            'quantity' => 'Máximo 20 Imágenes',
         ],
         [
             'plan' => 'Oro',
@@ -155,7 +156,7 @@ foreach ($permissions as $permission) {
             'pricing' => 19,
             'position' => 'Exposición Destacada',
             'duration' => 'Duración de Publicación 120 días',
-            'quantity' => 'Máximo 25 Publicaciones',
+            'quantity' => '+15 Imágenes Adicionales',
         ],
         [
             'plan' => 'Platino',
@@ -163,7 +164,7 @@ foreach ($permissions as $permission) {
             'pricing' => 29,
             'position' => 'Exposición Destacada',
             'duration' => 'Duración de Publicación 180 días',
-            'quantity' => 'Publicaciones Ilimitadas',
+            'quantity' => '+25 Imágenes Adicionales',
         ],
     ];
 

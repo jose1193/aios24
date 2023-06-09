@@ -84,7 +84,7 @@
 
                      <div>
                          <a href="{{ route('prices') }}"
-                             class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Precios</a>
+                             class="text-gray-400 duration-500 ease-in-out hover:text-white active:text-white">Planes</a>
                      </div>
 
 

@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PropertyImage extends Model
+class Equipment extends Model
 {
     use HasFactory;
-     protected $fillable = [
-        'property_id',
-        'image_path',
-       
-    ];
-
-     public function publishProperty()
+    protected $fillable = [
+        'equipment_description', 
+         'publish_property_id',
+        
+    ];   
+     public function publishproperties()
     {
         return $this->belongsTo(PublishProperty::class);
     }

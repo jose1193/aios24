@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Auth\GoogleSocialiteController;
+
 
 // LARAVEL SOCIALITE
 use Illuminate\Support\Facades\Auth;
@@ -34,10 +34,13 @@ use App\Http\Livewire\EstatusAnuncios;
 use App\Http\Livewire\Posts;
 use App\Http\Livewire\LatestPosts;
 use App\Http\Livewire\ShowPosts;
-use App\Http\Livewire\PublishProperties;
 use App\Http\Livewire\PublishedPropertiesUser;
 use App\Http\Livewire\StripePayment;
 use App\Http\Livewire\MyPlans;
+use App\Http\Livewire\Wizard;
+use App\Http\Livewire\Views;
+use App\Http\Livewire\Favorites;
+use App\Http\Livewire\ShowFavorites;
 
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
@@ -128,6 +131,8 @@ Route::get('blog',[Posts::class,'renderPost'])->name('blog');
 //Route::get('/posts/{id}', [Posts::class, 'showPost'])->name('showpost');
 Route::get('latestposts', LatestPosts::class)->name('latestposts');
 
+Route::get('/views/{publishCode}',[Views::class, 'ShowViews'])->name('views');
+
 
   Route::get('select', ThreeLevelSelect::class)->name('select');
 
@@ -165,7 +170,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
      Route::get('cities', Cities::class)->name('cities');
      Route::get('estatus', EstatusAnuncios::class)->name('estatus');
      Route::get('posts', Posts::class)->name('posts');
-    Route::get('publish', PublishProperties::class)->name('publish');
+   
 Route::get('published', PublishedPropertiesUser::class)->name('published');
 
 //------------ STRIPE PAYMENT -----------//
@@ -176,7 +181,20 @@ Route::get('/success', [StripePayment::class, 'success'])->name('success');
 //------------ STRIPE PAYMENT -----------//
 
 Route::get('myplans', MyPlans::class)->name('myplans');
-    
+
+
+Route::get('publish', Wizard::class)->name('publish');
+
+
+//------------ FAVORITES -----------//
+//Route::get('/favorites/{propertyId?}', Favorites::class)->name('favorites');
+Route::get('/favorites/{propertyId}', Favorites::class)->name('favorites');
+Route::get('/favorites-cards/{propertyId}', Favorites::class)->name('favorites-cards');
+Route::get('show-favorites', ShowFavorites::class)->name('show-favorites');
+//------------ FAVORITES -----------//
+
+
+
 });
 
 

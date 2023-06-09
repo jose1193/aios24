@@ -119,7 +119,7 @@
                                  </tr>
                              @empty
                                  <tr class="text-center">
-                                     <td colspan="7">
+                                     <td colspan="8">
                                          <div class="grid justify-items-center w-full mt-5">
                                              <div class="text-center bg-red-100 rounded-lg py-5 w-full px-6 mb-4 text-base text-red-700 "
                                                  role="alert">

@@ -13,7 +13,7 @@ class Transactions extends Component
     public $showingDataModal = false;
   
    
-public $description,  $transaction;
+public $transaction_description,  $transaction;
  
  public $isEditMode = false;
   
@@ -34,7 +34,7 @@ public function authorize()
       
   $this->authorize('manage admin');
        
-        $transactions = Transaction::where('description', 'like', '%'.$this->search.'%')
+        $transactions = Transaction::where('transaction_description', 'like', '%'.$this->search.'%')
             ->orderBy('transactions.id','DESC')->paginate(10);
 
             
@@ -61,7 +61,7 @@ public function closeModal()
     ]);
 
     Transaction::create([
-        'description' => $this->description,
+        'transaction_description' => $this->transaction_description,
         'user_id' => auth()->user()->id,
     ]);
 
@@ -74,7 +74,7 @@ public function closeModal()
     {
          $this->authorize('manage admin');
         $this->transaction = Transaction::findOrFail($id);
-        $this->description = $this->transaction->description;
+        $this->transaction_description = $this->transaction->transaction_description;
       
         $this->isEditMode = true;
         $this->showingDataModal = true;
@@ -84,13 +84,13 @@ public function closeModal()
     {
          $this->authorize('manage admin');
         $this->validate([
-            'description' => 'required|string|min:3|max:300|unique:transactions,description,'.$this->transaction->id.',id',
+            'transaction_description' => 'required|string|min:3|max:300|unique:transactions,transaction_description,'.$this->transaction->id.',id',
           
         ]);
        
 
         $this->transaction->update([
-            'description' => $this->description,
+            'transaction_description' => $this->transaction_description,
            
         ]); session()->flash("message", "Data Updated Successfully.");
         $this->reset();

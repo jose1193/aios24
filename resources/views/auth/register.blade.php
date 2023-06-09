@@ -38,7 +38,8 @@
                         </div>
 
                         <div>
-                            <label class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">DNI</label>
+                            <label
+                                class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">DNI/PASAPORTE</label>
                             <input type="text" id="dni" name="dni" :value="old('dni')" required
                                 autofocus autocomplete="dni" placeholder="Documento de Identificación"
                                 class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
@@ -47,9 +48,15 @@
                         <div>
                             <label
                                 class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">Teléfono</label>
-                            <input type="text" id="phone" name="phone" :value="old('phone')" required
-                                autofocus autocomplete="phone" placeholder="XXX-XX-XXXX-XXX"
+
+                            <input id="phone" type="tel" name="phone" :value="old('phone')" required
+                                autofocus
                                 class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+
+                            <div><span id="valid-msg" class="hide text-green-600">✓ Valid</span>
+                                <span id="error-msg" class="hide text-red-500 "></span>
+                            </div>
+
                         </div>
 
                         <div>
@@ -106,11 +113,34 @@
                         <div>
                             <div>
                                 <label
-                                    class="block mb-2  text-sm font-semibold text-gray-600 dark:text-gray-200">Password</label>
+                                    class="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">Password</label>
                                 <input type="password" id="password" name="password" required
-                                    autocomplete="new-password" placeholder="Ingresa tu password"
+                                    autocomplete="new-password" placeholder="Ingresa tu contraseña"
                                     class="block mb-7 w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                             </div>
+
+                            <script>
+                                const passwordInput = document.getElementById('password');
+
+                                passwordInput.addEventListener('input', function() {
+                                    const password = passwordInput.value;
+                                    const uppercaseRegex = /[A-Z]/;
+                                    const lowercaseRegex = /[a-z]/;
+                                    const specialCharRegex = /[^A-Za-z0-9]/;
+
+                                    const hasUppercase = uppercaseRegex.test(password);
+                                    const hasLowercase = lowercaseRegex.test(password);
+                                    const hasSpecialChar = specialCharRegex.test(password);
+
+                                    if (hasUppercase && hasLowercase && hasSpecialChar) {
+                                        passwordInput.setCustomValidity('');
+                                    } else {
+                                        passwordInput.setCustomValidity(
+                                            'La contraseña debe contener al menos una mayúscula, una minúscula y un carácter especial.');
+                                    }
+                                });
+                            </script>
+
                             <div>
                                 <label
                                     class="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">Confirmar
@@ -199,5 +229,68 @@
             </div>
         </div>
     </section>
+
+    <!--   PHONE COUNTRY -->
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+    <script>
+        const input = document.querySelector("#phone");
+        const errorMsg = document.querySelector("#error-msg");
+        const validMsg = document.querySelector("#valid-msg");
+        // Aquí puedes especificar el código de país de España
+        const defaultCountry = "es";
+        // here, the index maps to the error code returned from getValidationError - see readme
+        const errorMap = [
+            "Número inválido",
+            "Código de país inválido",
+            "Número demasiado corto",
+            "Número demasiado largo",
+            "Número inválido"
+        ];
+
+        // Aquí, la opción initialCountry se establece en el valor de defaultCountry
+        const iti = window.intlTelInput(input, {
+            initialCountry: defaultCountry,
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js?1684676252775"
+        });
+
+        const reset = () => {
+            input.classList.remove("error");
+            errorMsg.innerHTML = "";
+            errorMsg.classList.add("hide");
+            validMsg.classList.add("hide");
+        };
+
+        // on blur: validate
+        input.addEventListener('blur', () => {
+            reset();
+            if (input.value.trim()) {
+                if (iti.isValidNumber()) {
+                    validMsg.classList.remove("hide");
+                } else {
+                    input.classList.add("error");
+                    const errorCode = iti.getValidationError();
+                    errorMsg.innerHTML = errorMap[errorCode];
+                    errorMsg.classList.remove("hide");
+                }
+            }
+        });
+
+        // on keyup / change flag: reset
+        input.addEventListener('change', reset);
+        input.addEventListener('keyup', reset);
+    </script>
+
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
+
+    <!-- END PHONE COUNTRY  -->
+
     <!-- END FORM REGISTER -->
 </x-guest-layout>

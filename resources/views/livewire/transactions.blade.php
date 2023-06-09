@@ -43,7 +43,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</td>
 
                                         <td class="px-6 py-4 whitespace-nowrap ">
-                                            {{ $transaction->description }}
+                                            {{ $transaction->transaction_description }}
 
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap ">
@@ -106,8 +106,8 @@
                                 <label for="exampleFormControlInput1"
                                     class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
                                 <div class="mt-1">
-                                    <input type="text" id="description" wire:model.lazy="description"
-                                        name="description"
+                                    <input type="text" id="description" wire:model.lazy="transaction_description"
+                                        name="transaction_description"
                                         class="block w-full 
                                      appearance-none bg-white border
                                       border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-2" />

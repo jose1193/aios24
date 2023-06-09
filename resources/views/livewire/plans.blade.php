@@ -24,7 +24,7 @@
                         <th class="px-4 py-2">Plan</th>
                         <th class="px-4 py-2">Precio</th>
                         <th class="px-4 py-2">Posición</th>
-                        <th class="px-4 py-2">Cantidad P.</th>
+                        <th class="px-4 py-2">Cantidad I.</th>
                         <th class="px-4 py-2">Duración</th>
 
                         <th class="px-4 py-2">Action</th>

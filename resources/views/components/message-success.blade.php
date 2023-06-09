@@ -45,3 +45,27 @@
     </div>
 @endif
 <!-- END INFO MESSAGE -->
+
+@if (session()->has('success'))
+    <script>
+        Swal.fire({
+            title: 'Genial!!',
+            text: '{{ session('success') }}',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        })
+    </script>
+@endif
+
+@if ($errors->any())
+    <script>
+        let errors = @json($errors->all());
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            html: '<div class="text-red-500">' + errors.join('<br>') + '</div>',
+            footer: '<a href="">Aios Real Estate</a>'
+        });
+    </script>
+@endif

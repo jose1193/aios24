@@ -111,9 +111,9 @@
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                         {{ __('Estatus Anuncios') }}</a>
                                 </li>
+
                             </ul>
                         </div>
-
                         <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                             {{ __('Usuarios') }}
                         </x-nav-link>
@@ -147,8 +147,16 @@
                                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                     {{ __('Mis Planes') }}</a>
                             </li>
+                            <li>
+                                <a href="{{ route('show-favorites') }}"
+                                    :active="request() - > routeIs('show-favorites')"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                    {{ __('Mis Favoritos') }}</a>
+                            </li>
+
                         </ul>
                     </div>
+
                     <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                         {{ __('Contacto') }}
                     </x-nav-link>
@@ -222,6 +230,7 @@
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button
                                     class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+
                                     <img class="h-8 w-8 rounded-full object-cover"
                                         src="{{ Auth::user()->profile_photo_url }}"
                                         alt="{{ Auth::user()->name }}" />
@@ -374,7 +383,6 @@
                     </div>
                 </div>
                 <!-- End Dropdown Menu 2-->
-
                 <x-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                     {{ __('Usuarios') }}
                 </x-responsive-nav-link>
@@ -399,12 +407,16 @@
                         <x-responsive-nav-link href="{{ route('myplans') }}" :active="request()->routeIs('published')">
                             {{ __('Mis Planes') }}
                         </x-responsive-nav-link>
-
+                        <x-responsive-nav-link href="{{ route('show-favorites') }}" :active="request()->routeIs('show-favorites')">
+                            {{ __('Mis Favoritos') }}
+                        </x-responsive-nav-link>
                     </div>
                 </div>
             </div>
 
             <!-- End Dropdown Menu 3-->
+
+
             <x-responsive-nav-link href="{{ route('contact') }}" :active="request()->routeIs('users')">
                 {{ __('Contacto') }}
             </x-responsive-nav-link>

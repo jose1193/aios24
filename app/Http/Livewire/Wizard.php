@@ -10,6 +10,9 @@ use App\Models\EstatusAds;
 use App\Models\User;
 use App\Models\Bucket;
 use App\Models\AdminEmail;
+use App\Models\Feature;
+use App\Models\Equipment;
+use App\Models\PurchasedPlan;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -18,12 +21,15 @@ use Carbon\Carbon;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
 
-class PublishProperties extends Component
+
+class Wizard extends Component
 {
  use WithFileUploads; 
  use WithPagination;
-
+public $currentStep = 1;
+public  $statuswizard = 1;
     public $title;
     public $property_type;
 public $location;
@@ -42,14 +48,58 @@ public $user_id;
 public $propertyTypesRender;
 public $transactionRender;
 public $estatusAdsRender;
+public $energy_certificate;
+public $garage;
 public $bucket,$email,$name,$message2;
+
+
+// ADD FIELD INPUT FEATURES
+public $features;
+public $inputs = [];
+public $i = 1;
+
+public function add($i)
+{
+    $i = $i + 1;
+    $this->i = $i;
+    array_push($this->inputs, $i);
+}
+
+public function remove($i)
+{
+    unset($this->inputs[$i]);
+}
+// END ADD FIELD INPUT FEATURES
+
+
+
+
+// ADD FIELD INPUT EQUIPMENT
+public $equipments;
+public $inputs2 = [];
+public $e = 1;
+
+public function add2($e)
+{
+    $e = $e + 1;
+    $this->e = $e;
+    array_push($this->inputs2, $e);
+}
+
+public function remove2($e)
+{
+    unset($this->inputs2[$e]);
+}
+// END ADD FIELD INPUT EQUIPMENT
+
+
 
 public function render()
 {
     $this->propertyTypesRender = Property::all();
  $this->transactionRender = Transaction::all();
  $this->estatusAdsRender = EstatusAds::all();
-    return view('livewire.publish-properties', [
+    return view('livewire.wizard', [
         'propertyTypes' => $this->propertyTypesRender,
         'estatusAdsRender' => $this->estatusAdsRender,
     ]);
@@ -75,24 +125,53 @@ public function CleanUp()
   }
 
 
+public function firstStepSubmit()
+    {
+        $validatedData = $this->validate([
+           'title' => 'required|unique:publish_properties|min:3|max:300',
+            'property_type' => 'required',
+            'description' => 'required|min:3|max:500',
+             'location' => 'required|min:3|max:300',
+             'transaction_type' => 'required',
+        ]);
+ 
+        $this->currentStep = 2;
+    }
+
+     public function secondStepSubmit()
+    {
+        $validatedData = $this->validate([
+            
+           'bedrooms' => 'required|min:1|max:30',
+        'bathrooms' => 'required|min:1|max:30',
+        
+          'energy_certificate' => 'required',
+          'features.0' => 'required|min:1|max:300',
+           'features.*' => 'required|min:1|max:300',
+          'total_area' => 'required|min:1|max:30',
+            'garage' => 'required|min:1|max:30',
+         'equipments.0' => 'required|min:1|max:300',
+           'equipments.*' => 'required|min:1|max:300',
+        ]);
+  
+        $this->currentStep = 3;
+    }
+
+   
+
   //----- FUNCTION STORE DATA ----//
     public function saveProperty()
 {
     $this->validate([
-        'property_type' => 'required',
-        'location' => 'required|min:3|max:300',
-        'title' => 'required|unique:publish_properties|min:3|max:300',
-        'description' => 'required|min:3|max:500',
+       
+       
         'price' => 'required|min:2|max:100',
-        'transaction_type' => 'required',
-        'bedrooms' => 'required|min:1|max:30',
-        'bathrooms' => 'required|min:1|max:30',
-        'total_area' => 'required|min:1|max:30',
-        'additional_features' => 'nullable',
+       
+       
         'images' => 'required|array',
         'images.*' => 'image|max:2048',
         
-        'status' => 'required',
+       
        
     ]);
 
@@ -100,6 +179,7 @@ public function CleanUp()
     foreach ($this->images as $image) {
         $path = $image->store('propertiesimages', 'public');
         $imagesPaths[] = $path;
+        
     }
 
    
@@ -107,6 +187,9 @@ public function CleanUp()
          $date = Carbon::now()->locale('es_ES')->format('F d, Y');
             // END CARBON FORMAT DATE
         $publishCode = 'AR-' . str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+
+        // Estatus 
+        $this->status = EstatusAds::where('estatus_description', 'Activo')->firstOrFail();
 
     $property = PublishProperty::create([
 
@@ -120,12 +203,37 @@ public function CleanUp()
         'bedrooms' => $this->bedrooms,
         'bathrooms' => $this->bathrooms,
         'total_area' => $this->total_area,
+        'garage' => $this->garage,
+        'energy_certificate' => $this->energy_certificate,
         'additional_features' => $this->additional_features,
-       
         'publication_date' =>  $date,
-        'status' => $this->status,
+        'status' => $this->status->id,
          'user_id' => auth()->user()->id,
     ]);
+
+
+
+    // CREATE FIELD INPUT FEATURES
+ foreach ($this->features as $key => $value) {
+    Feature::create([
+        'feature_description' => $value,
+        'publish_property_id' => $property->id
+    ]);
+}
+
+$this->inputs2 = [];
+// END CREATE FIELD INPUT FEATURES
+
+ // CREATE FIELD INPUT EQUIPMENTS
+ foreach ($this->equipments as $key => $value) {
+    Equipment::create([
+        'equipment_description' => $value,
+        'publish_property_id' => $property->id
+    ]);
+}
+
+$this->inputs2 = [];
+// END CREATE FIELD INPUT EQUIPMENTS
 
     // Create property images
     foreach ($imagesPaths as $imagePath) {
@@ -134,6 +242,21 @@ public function CleanUp()
             'image_path' => 'app/public/'.$imagePath, // CAMBIAR ACA
         ]);
     }
+
+
+// CREATE FIELDS PURCHASE PLAN
+$purchased_plans = PurchasedPlan::create([
+        'property_id' => $property->id,
+        'publish_code' => $publishCode,
+        'user_id' => auth()->user()->id,
+        'plan_id' => '1',
+        'purchase_date' =>  $date,
+        'expiration_date' => 'Indefinido',
+       
+    ]);
+
+    // END CREATE FIELDS PURCHASE PLAN
+
     //SEND EMAIL FORM CONTACT
         $this->bucket = Bucket::orderBy('description', 'desc')->limit(1)->first();
         $user = User::find(auth()->user()->id);
@@ -157,14 +280,20 @@ $this->name = $user->name;
     $message->from($emailAdmin,'Aios Real Estate');
     $message->to($this->email)->subject('Nuevo Anuncio Registrado');
 });
+
 // END SEND EMAIL FORM CONTACT
+ sleep(2); //BUTTON SPINNER LOADING
     session()->flash('success', 'Datos guardados exitosamente');
     $this->reset();
     $this->CleanUp();
-     sleep(2); //BUTTON SPINNER LOADING
+    $this->currentStep = 1;
 }
 
 
 
-
+// BACK STEP WIZARD
+public function back($step)
+    {
+        $this->currentStep = $step;    
+    }
 }

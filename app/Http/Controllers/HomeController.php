@@ -60,6 +60,7 @@ class HomeController extends Controller
     {
         return view('livewire.exposition');
     }
+    
 public $plans;
      public function prices()
     {

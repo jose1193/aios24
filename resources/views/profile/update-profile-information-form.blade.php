@@ -78,9 +78,11 @@
         <!-- PHONE -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="phone" value="{{ __('Teléfono') }}" />
-            <x-input id="phone" type="text" class="mt-1 block w-full" wire:model.defer="state.phone"
-                autocomplete="phone" />
+            <x-input id="phone" type="tel" class="mt-1 block w-full" wire:model.defer="state.phone" />
             <x-input-error for="phone" class="mt-2" />
+            <div><span id="valid-msg" class="hide text-green-600">✓ Valid</span>
+                <span id="error-msg" class="hide text-red-500 "></span>
+            </div>
         </div>
 
         <!-- Email -->
@@ -155,3 +157,64 @@
         </x-button>
     </x-slot>
 </x-form-section>
+<!--   PHONE COUNTRY -->
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css" />
+
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+<script>
+    const input = document.querySelector("#phone");
+    const errorMsg = document.querySelector("#error-msg");
+    const validMsg = document.querySelector("#valid-msg");
+    // Aquí puedes especificar el código de país de España
+    const defaultCountry = "es";
+    // here, the index maps to the error code returned from getValidationError - see readme
+    const errorMap = [
+        "Número inválido",
+        "Código de país inválido",
+        "Número demasiado corto",
+        "Número demasiado largo",
+        "Número inválido"
+    ];
+
+    // Aquí, la opción initialCountry se establece en el valor de defaultCountry
+    const iti = window.intlTelInput(input, {
+        initialCountry: defaultCountry,
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js?1684676252775"
+    });
+
+    const reset = () => {
+        input.classList.remove("error");
+        errorMsg.innerHTML = "";
+        errorMsg.classList.add("hide");
+        validMsg.classList.add("hide");
+    };
+
+    // on blur: validate
+    input.addEventListener('blur', () => {
+        reset();
+        if (input.value.trim()) {
+            if (iti.isValidNumber()) {
+                validMsg.classList.remove("hide");
+            } else {
+                input.classList.add("error");
+                const errorCode = iti.getValidationError();
+                errorMsg.innerHTML = errorMap[errorCode];
+                errorMsg.classList.remove("hide");
+            }
+        }
+    });
+
+    // on keyup / change flag: reset
+    input.addEventListener('change', reset);
+    input.addEventListener('keyup', reset);
+</script>
+
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+
+<!-- END PHONE COUNTRY  -->
