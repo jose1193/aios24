@@ -12,10 +12,9 @@ class LatestPosts extends Component
           
 
       $posts = Post::latest()
-    ->take(4)
     ->orderBy('created_at', 'desc')
+    ->limit(4)
     ->get();
-
     // Convertir el campo post_date al nuevo formato deseado
         foreach ($posts as $post) {
             $post->post_date = Carbon::parse($post->created_at)->format('F d, Y');

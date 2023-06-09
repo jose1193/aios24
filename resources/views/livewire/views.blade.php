@@ -73,7 +73,7 @@
                                  <i class="fa-solid fa-camera-retro"></i>
                                  {{ count($images) }}
                              </div>
-                             <h1 class="mb-4 lg:text-4xl text-xl font-bold  lg:leading-6 leading-7 text-green-700 mt-2">
+                             <h1 class="mb-4 lg:text-3xl text-xl font-bold  lg:leading-8 leading-7 text-green-700 mt-2">
                                  {{ $item->title }}</h1>
                              <p class=" mb-4 text-sm leading-none text-gray-700 font-semibold capitalize ">
                                  {{ $item->location }}
@@ -243,7 +243,7 @@
 
                              </div>
                              @if ($item->additional_features)
-                                 <div class=" p-4">
+                                 <div class=" ml-5 w-3/5 p-4">
                                      <h1
                                          class="mb-4 -mt-2 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
                                          Características adicionales</h1>
@@ -505,9 +505,14 @@
                                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                      clip-rule="evenodd"></path>
                              </svg>
-                             <a href="{{ route('prices') }}"
+                             <a href=""
                                  class="ml-1 text-base  text-green-700 hover:text-green-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-                                 Precios
+                                 Anuncio <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor"
+                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                     <path fill-rule="evenodd"
+                                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                         clip-rule="evenodd"></path>
+                                 </svg> {{ $publishCode }}
                              </a>
                          </div>
                      </li>
@@ -549,7 +554,7 @@
                              <i class="fa-solid fa-camera-retro"></i>
                              {{ count($images) }}
                          </div>
-                         <h1 class="mb-4 lg:text-4xl text-xl font-bold  lg:leading-6 leading-7 text-green-700 mt-2">
+                         <h1 class="mb-4 lg:text-3xl text-xl font-bold  lg:leading-8 leading-7 text-green-700 mt-2">
                              {{ $item->title }}</h1>
                          <p class=" mb-4 text-sm leading-none text-gray-700 font-semibold capitalize ">
                              {{ $item->location }}
@@ -716,7 +721,7 @@
 
                          </div>
                          @if ($item->additional_features)
-                             <div class=" p-4">
+                             <div class="ml-5 w-3/5 p-4">
                                  <h1
                                      class="mb-4 -mt-2 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
                                      Características adicionales</h1>

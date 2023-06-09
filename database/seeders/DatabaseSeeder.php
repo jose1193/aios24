@@ -46,7 +46,7 @@ foreach ($permissions as $permission) {
              'lastname' => 'Admin',
              'dni' => '00000',
              'phone' => '00000',
-            'email' => 'josegonzalezcr2794@gmail.com',
+            'email' => 'aiosrealestate2023@gmail.com',
             'address' => 'my address',
              'city' => 'my city',
             'province' => 'my province',
