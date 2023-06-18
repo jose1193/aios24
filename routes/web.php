@@ -204,7 +204,6 @@ Route::get('/favorites-cards/{propertyId}', Favorites::class)->name('favorites-c
 Route::get('show-favorites', ShowFavorites::class)->name('show-favorites');
 //------------ FAVORITES -----------//
 
-Route::post('/search', [SearchController::class, 'search'])->name('search');
 
 
 });
