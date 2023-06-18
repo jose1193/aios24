@@ -12,6 +12,7 @@ class PublishProperty extends Model
         'publish_code',
         'property_type',
         'location',
+        'city',
         'title',
         'description',
         'price',

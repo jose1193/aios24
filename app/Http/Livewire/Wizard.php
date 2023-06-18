@@ -33,7 +33,9 @@ public  $statuswizard = 1;
     public $title;
     public $property_type;
 public $location;
-
+public $city;
+public $latitudeArea;
+public $longitudeArea;
 public $description;
 public $price;
 public $transaction_type;
@@ -130,8 +132,10 @@ public function firstStepSubmit()
         $validatedData = $this->validate([
            'title' => 'required|unique:publish_properties|min:3|max:300',
             'property_type' => 'required',
-            'description' => 'required|min:3|max:500',
+            'description' => 'required|min:3',
              'location' => 'required|min:3|max:300',
+             'latitudeArea' => 'required',
+              'longitudeArea' => 'required',
              'transaction_type' => 'required',
         ]);
  
@@ -196,6 +200,9 @@ public function firstStepSubmit()
          'publish_code' => $publishCode,
         'property_type' => $this->property_type,
         'location' => $this->location,
+        'city' => $this->city,
+        'latitudeArea' => $this->latitudeArea,
+        'longitudeArea' => $this->longitudeArea,
         'title' => $this->title,
         'description' => $this->description,
         'price' => $this->price,

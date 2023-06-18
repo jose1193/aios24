@@ -41,6 +41,8 @@ use App\Http\Livewire\Wizard;
 use App\Http\Livewire\Views;
 use App\Http\Livewire\Favorites;
 use App\Http\Livewire\ShowFavorites;
+use App\Http\Livewire\SearchFilters;
+use App\Http\Livewire\SearchForm;
 
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
@@ -134,7 +136,16 @@ Route::get('latestposts', LatestPosts::class)->name('latestposts');
 Route::get('/views/{publishCode}',[Views::class, 'ShowViews'])->name('views');
 
 
-  Route::get('select', ThreeLevelSelect::class)->name('select');
+
+
+Route::get('search-filters', [SearchForm::class, 'filters'])->name('search.filters');
+
+Route::get('map-view/{searchTerm}', [SearchForm::class, 'MapView'])->name('map.view');
+
+
+
+
+Route::get('select', ThreeLevelSelect::class)->name('select');
 
 /* -------------------------------------END GUEST USER ROUTES ------------------------------*/
 
@@ -184,7 +195,7 @@ Route::get('myplans', MyPlans::class)->name('myplans');
 
 
 Route::get('publish', Wizard::class)->name('publish');
-
+Route::post('publish', [SearchForm::class, 'saveProperty'])->name('form.wizard');
 
 //------------ FAVORITES -----------//
 //Route::get('/favorites/{propertyId?}', Favorites::class)->name('favorites');
@@ -193,6 +204,7 @@ Route::get('/favorites-cards/{propertyId}', Favorites::class)->name('favorites-c
 Route::get('show-favorites', ShowFavorites::class)->name('show-favorites');
 //------------ FAVORITES -----------//
 
+Route::post('/search', [SearchController::class, 'search'])->name('search');
 
 
 });

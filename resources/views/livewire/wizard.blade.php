@@ -185,16 +185,41 @@
                          @enderror
                      </div>
 
-                     <div class="mb-5">
-                         <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">
-                             Dirección Propiedad
-                         </label>
-                         <input type="text" id="location" wire:model="location" placeholder="Location"
-                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                         @error('location')
-                             <span class="text-red-500">{{ $message }}</span>
-                         @enderror
+                     <div class="-mx-3 flex flex-wrap">
+                         <div class="w-full px-3 sm:w-1/2">
+                             <div class="mb-5">
+                                 <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">
+                                     Dirección Propiedad
+                                 </label>
+                                 <input type="text" id="autocomplete" wire:model="location" placeholder="Location"
+                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                 @error('location')
+                                     <span class="text-red-500">{{ $message }}</span>
+                                 @enderror
+                             </div>
+                         </div>
+                         <div class="w-full px-3 sm:w-1/2">
+                             <div class="mb-5">
+                                 <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">
+                                     Ciudad
+                                 </label>
+                                 <input type="text" id="city" wire:model="city" placeholder="Ciudad"
+                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                 @error('city')
+                                     <span class="text-red-500">{{ $message }}</span>
+                                 @enderror
+
+                                 <input type="text" id="latitudeArea" wire:model="latitudeArea"
+                                     class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
+
+                                 <input type="text" id="longitudeArea" wire:model="longitudeArea"
+                                     class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
+
+                             </div>
+
+                         </div>
                      </div>
+
                      <div class="flex justify-end">
                          <x-button4 wire:click="firstStepSubmit" class="mt-5" type="button">Next <i
                                  class="fa-solid fa-arrow-right ml-4"></i>

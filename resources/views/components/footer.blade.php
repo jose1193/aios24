@@ -175,4 +175,51 @@
  <!-- JS -->
  <script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js" defer></script>
  <!-- END JS -->
+
+ <!-- GOOGLE MAP API KEY -->
+ <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+ <script type="text/javascript"
+     src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries=places"></script>
+
+ <script>
+     $(document).ready(function() {
+         $("#latitudeArea").addClass("d-none");
+         $("#longitudeArea").addClass("d-none");
+     });
+
+     google.maps.event.addDomListener(window, 'load', initialize);
+
+     function initialize() {
+         var input = document.getElementById('autocomplete');
+         var autocomplete = new google.maps.places.Autocomplete(input);
+
+         autocomplete.addListener('place_changed', function() {
+             var place = autocomplete.getPlace();
+             if (!place.geometry) {
+                 return; // No se encontraron detalles de la ubicación para el lugar ingresado
+             }
+
+             var latitude = place.geometry.location.lat();
+             var longitude = place.geometry.location.lng();
+             var city = '';
+
+             for (var i = 0; i < place.address_components.length; i++) {
+                 var types = place.address_components[i].types;
+
+                 if (types.includes('locality') || types.includes('administrative_area_level_2')) {
+                     city = place.address_components[i].long_name;
+                     break;
+                 }
+             }
+
+             $('#latitudeArea').val(latitude);
+             $('#longitudeArea').val(longitude);
+             $('#city').val(city);
+
+             $("#latitudeArea").removeClass("d-none");
+             $("#longitudeArea").removeClass("d-none");
+         });
+     }
+ </script>
+ <!-- END GOOGLE MAP API KEY -->
  <!-- END FOOTER -->

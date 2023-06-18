@@ -270,10 +270,10 @@
                          <div class="relative w-full h-96">
                              <div class="absolute top-0 left-0 w-full h-full">
 
-                                 <iframe class="w-full h-full" frameborder="0" style="border:0;" allowfullscreen=""
-                                     aria-hidden="false" tabindex="0"
-                                     src="https://www.google.com/maps/embed?pb={{ urlencode($item->location) }}">
-                                 </iframe>
+                                 <div class="mapContainer " style="width: 100%;position: relative;">
+
+                                     <div id="map" style="width: 100%; height:380px;"></div>
+                                 </div>
 
                              </div>
                          </div>
@@ -748,16 +748,15 @@
                      <div class="relative w-full h-96">
                          <div class="absolute top-0 left-0 w-full h-full">
 
-                             <iframe class="w-full h-full" frameborder="0" style="border:0;" allowfullscreen=""
-                                 aria-hidden="false" tabindex="0"
-                                 src="https://www.google.com/maps/embed?pb={{ urlencode($item->location) }}">
-                             </iframe>
+                             <div class="mapContainer " style="width: 100%;position: relative;">
+
+                                 <div id="map" style="width: 100%; height:380px;"></div>
+                             </div>
 
                          </div>
                      </div>
 
                  </div>
-
 
              </div>
              <!-- end Contenido de la columna 1 -->
@@ -1051,4 +1050,56 @@
      }
  </style>
 
+
  <!-- END PHONE COUNTRY  -->
+
+
+ <script>
+     function initMap() {
+         var test = {
+
+             lat: {{ $item->latitudeArea }},
+             lng: {{ $item->longitudeArea }},
+         };
+         var map = new google.maps.Map(document.getElementById('map'), {
+             zoom: 16,
+             center: test
+         });
+
+         @foreach ($collections as $property)
+             var propertyPosition = {
+                 lat: {{ $item->latitudeArea }},
+                 lng: {{ $item->longitudeArea }},
+             };
+             var marker = new google.maps.Marker({
+                 position: propertyPosition,
+                 map: map,
+                 title: "{{ $item->title }}",
+                 label: {
+                     text: "{{ $item->price }} €",
+                     color: "#000",
+                     fontWeight: "bold",
+                     fontSize: "14px"
+                 },
+                 url: 'https://maps.google.com/maps?f=d&daddr={{ $item->latitudeArea }},{{ $item->longitudeArea }}&hl=en'
+             });
+             // Agregar evento de clic al marcador para redireccionar al enlace
+             marker.addListener('click', function() {
+                 window.open(this.url);
+             });
+         @endforeach
+     }
+
+     // Cargar el script de la API de Google Maps de forma asíncrona
+     function loadGoogleMapsScript() {
+         var script = document.createElement('script');
+         script.src =
+             'https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&callback=initMap';
+         script.defer = true;
+         script.async = true;
+         document.head.appendChild(script);
+     }
+
+     // Llamar a la función para cargar el script de la API de Google Maps
+     loadGoogleMapsScript();
+ </script>

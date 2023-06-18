@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('publish_code');
             $table->string('property_type');
             $table->string('location');
+             $table->string('city')->nullable();
+               $table->string('latitudeArea')->nullable();
+                 $table->string('longitudeArea')->nullable();
             $table->string('title');
             $table->text('description');
             $table->string('price');

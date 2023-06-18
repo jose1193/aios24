@@ -2,7 +2,8 @@
     <!-- FORM REGISTER -->
     <section class="bg-white dark:bg-gray-900">
         <div class="flex justify-center min-h-screen">
-            <div class="hidden bg-cover lg:block lg:w-2/5 " style="background-image: url('{{ asset('img/01.jpg') }}')">
+            <div class="hidden bg-cover lg:block lg:w-3/5 " style="background-image: url('{{ asset('img/01.jpg') }}')">
+
             </div>
 
             <div class="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
@@ -16,7 +17,7 @@
 
                     <x-validation-errors class="mb-4" />
 
-                    <form method="POST" class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2" autocomplete="off"
+                    <form method="POST" class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-1" autocomplete="off"
                         action="{{ route('register') }}">
                         @csrf
 
@@ -39,19 +40,19 @@
 
                         <div>
                             <label
-                                class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">DNI/PASAPORTE</label>
+                                class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">DNI/Pasaporte</label>
                             <input type="text" id="dni" name="dni" :value="old('dni')" required
                                 autofocus autocomplete="dni" placeholder="Documento de Identificación"
                                 class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                         </div>
 
-                        <div>
+                        <div class="md:w-1/2 lg:w-2/3">
                             <label
-                                class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">Teléfono</label>
+                                class="  block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">Teléfono</label>
 
                             <input id="phone" type="tel" name="phone" :value="old('phone')" required
                                 autofocus
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                class="w-[245%] block  px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md  focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
 
                             <div><span id="valid-msg" class="hide text-green-600">✓ Valid</span>
                                 <span id="error-msg" class="hide text-red-500 "></span>
@@ -66,8 +67,7 @@
                                 autocomplete="username" placeholder="email@example.com"
                                 class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border
                                  border-gray-200 rounded-md dark:placeholder-gray-600
-                                  dark:bg-gray-900 dark:text-gray-300
-                                   dark:border-gray-700 focus:border-green-400
+                                   focus:border-green-400
                                     dark:focus:border-green-400 focus:ring-green-400 
                                     focus:outline-none focus:ring focus:ring-opacity-40" />
                         </div>
@@ -76,39 +76,20 @@
                         <div>
                             <label
                                 class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">Dirección</label>
-                            <input type="text" id="address" name="address" :value="old('address')" required
-                                autofocus autocomplete="address" placeholder="Ingresa tu dirección"
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                        </div>
-
-                        <div>
-                            <label
-                                class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">Ciudad</label>
-                            <input type="text" id="city" name="city" :value="old('city')" required
-                                autofocus autocomplete="city" placeholder="Ingresa tu Ciudad"
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                        </div>
-
-
-                        <div>
-                            <label
-                                class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">Provincia</label>
-
-                            <input type="text" id="province" name="province" :value="old('province')" required
-                                autofocus autocomplete="province" placeholder="Provincia"
+                            <input type="text" id="autocomplete" name="address" :value="old('address')" required
+                                autofocus autocomplete="address" placeholder="Address/City/Location/"
                                 class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
 
+                            <input type="hidden" id="latitude" name="latitude"
+                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
+                            <input type="hidden" name="longitude" id="longitude"
+                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
 
+                            <input type="hidden" readonly name="city" id="city"
+                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                placeholder="Ciudad">
                         </div>
 
-                        <div>
-                            <label
-                                class="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">Zipcode</label>
-                            <input type="text" id="zipcode" name="zipcode" :value="old('zipcode')" required
-                                autofocus autocomplete="zipcode" placeholder="Ingresa Código Postal"
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-
-                        </div>
 
                         <div>
                             <div>
@@ -119,32 +100,12 @@
                                     class="block mb-7 w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                             </div>
 
-                            <script>
-                                const passwordInput = document.getElementById('password');
 
-                                passwordInput.addEventListener('input', function() {
-                                    const password = passwordInput.value;
-                                    const uppercaseRegex = /[A-Z]/;
-                                    const lowercaseRegex = /[a-z]/;
-                                    const specialCharRegex = /[^A-Za-z0-9]/;
-
-                                    const hasUppercase = uppercaseRegex.test(password);
-                                    const hasLowercase = lowercaseRegex.test(password);
-                                    const hasSpecialChar = specialCharRegex.test(password);
-
-                                    if (hasUppercase && hasLowercase && hasSpecialChar) {
-                                        passwordInput.setCustomValidity('');
-                                    } else {
-                                        passwordInput.setCustomValidity(
-                                            'La contraseña debe contener al menos una mayúscula, una minúscula y un carácter especial.');
-                                    }
-                                });
-                            </script>
 
                             <div>
                                 <label
                                     class="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">Confirmar
-                                    password</label>
+                                    Password</label>
                                 <input type="password" id="password_confirmation" type="password"
                                     name="password_confirmation" required autocomplete="new-password"
                                     placeholder="Confirma tu password"
@@ -161,7 +122,7 @@
 
                         </div>
                         <button
-                            class=" my-5 flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide
+                            class="  my-5 flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide
                          text-white capitalize  bg-green-600 rounded-md transition duration-500 ease-in-out hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                             <span> {{ __('Enviar') }} </span>
 
@@ -230,6 +191,28 @@
         </div>
     </section>
 
+
+    <script>
+        const passwordInput = document.getElementById('password');
+
+        passwordInput.addEventListener('input', function() {
+            const password = passwordInput.value;
+            const uppercaseRegex = /[A-Z]/;
+            const lowercaseRegex = /[a-z]/;
+            const specialCharRegex = /[^A-Za-z0-9]/;
+
+            const hasUppercase = uppercaseRegex.test(password);
+            const hasLowercase = lowercaseRegex.test(password);
+            const hasSpecialChar = specialCharRegex.test(password);
+
+            if (hasUppercase && hasLowercase && hasSpecialChar) {
+                passwordInput.setCustomValidity('');
+            } else {
+                passwordInput.setCustomValidity(
+                    'La contraseña debe contener al menos una mayúscula, una minúscula y un carácter especial.');
+            }
+        });
+    </script>
     <!--   PHONE COUNTRY -->
 
 
@@ -291,6 +274,48 @@
     </style>
 
     <!-- END PHONE COUNTRY  -->
+    <!-- GOOGLE MAP API KEY -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript"
+        src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries=places"></script>
+    <script>
+        $(document).ready(function() {
+            $("#latitudeArea").addClass("d-none");
+            $("#longtitudeArea").addClass("d-none");
+        });
 
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        function initialize() {
+            var input = document.getElementById('autocomplete');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                $('#latitude').val(place.geometry['location'].lat());
+                $('#longitude').val(place.geometry['location'].lng());
+
+                var addressComponents = place.address_components;
+                var city = '';
+
+                for (var i = 0; i < addressComponents.length; i++) {
+                    var types = addressComponents[i].types;
+
+                    if (types.includes('locality') || types.includes('administrative_area_level_2')) {
+                        city = addressComponents[i].long_name;
+                        break;
+                    }
+                }
+
+                $('#city').val(city);
+
+                $("#latitudeArea").removeClass("d-none");
+                $("#longtitudeArea").removeClass("d-none");
+            });
+        }
+    </script>
+    <!-- END GOOGLE MAP API KEY -->
     <!-- END FORM REGISTER -->
+
+
 </x-guest-layout>
