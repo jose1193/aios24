@@ -45,6 +45,7 @@
 
     </div>
     <!-- END FEATURED 1 -->
+
     <!-- LATEST ADS -->
     <livewire:real-estate-cards />
     <!-- END LATEST ADS -->

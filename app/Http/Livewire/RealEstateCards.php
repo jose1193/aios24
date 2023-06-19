@@ -33,11 +33,6 @@ $collections = PublishProperty::join('users', 'publish_properties.user_id', '=',
     ->limit(10)
     ->get();
 
-foreach ($collections as $item) {
-    // $item->image_path contiene la ruta de la imagen única para cada registro
-
-    // Resto del código para mostrar los datos y la imagen
-}
 
 
 

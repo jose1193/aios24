@@ -89,40 +89,6 @@
 
 <!-- END NEW ADS -->
 
-<!-- OWL CAROUSEL -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-
-<script>
-    $(document).ready(function() {
-        var $testimonialsDiv = $('.testimonials');
-        if ($testimonialsDiv.length && $.fn.owlCarousel) {
-            $testimonialsDiv.owlCarousel({
-                items: 1,
-                nav: true,
-                dots: false,
-                navText: ['<i class="fa-solid fa-chevron-left ml-4 text-green-700 text-3xl"></i>',
-                    '<i class="fa-solid fa-chevron-right mr-4 text-green-700 text-3xl"></i>'
-                ],
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 3
-                    },
-                    1000: {
-                        items: 4
-                    },
-
-                }
-            });
-        }
-    });
-</script>
-
 <style>
     /*  IMAGE GALLERY
 ----------------------*/

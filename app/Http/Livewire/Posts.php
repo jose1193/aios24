@@ -93,7 +93,7 @@ public function closeModal()
            $this->authorize('manage admin');
          $valid_data = $this->validate([
         'post_title' => 'required|unique:posts|min:3|max:100',
-        'post_content' => 'required|min:3|max:1000',
+        'post_content' => 'required|min:3',
         'newImage' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
         'post_status' => 'required',
       
