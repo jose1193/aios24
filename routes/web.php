@@ -44,6 +44,8 @@ use App\Http\Livewire\ShowFavorites;
 use App\Http\Livewire\SearchFilters;
 use App\Http\Livewire\SearchForm;
 
+use App\Http\Livewire\PublishProperties;
+
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
 
@@ -194,8 +196,10 @@ Route::get('/success', [StripePayment::class, 'success'])->name('success');
 Route::get('myplans', MyPlans::class)->name('myplans');
 
 
-Route::get('publish', Wizard::class)->name('publish');
-Route::post('publish', [SearchForm::class, 'saveProperty'])->name('form.wizard');
+//Route::get('publish', Wizard::class)->name('publish');
+
+Route::get('publish', PublishProperties::class)->name('publish');
+Route::post('publish', [PublishProperties::class, 'saveProperty'])->name('publish.saveProperty');
 
 //------------ FAVORITES -----------//
 //Route::get('/favorites/{propertyId?}', Favorites::class)->name('favorites');
