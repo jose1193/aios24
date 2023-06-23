@@ -244,11 +244,7 @@
                                              Características básicas
                                          </label>
 
-
-
                                          <div class="flex items-center mb-5">
-
-
                                              @error('features.0')
                                                  <span class="text-red-500">{{ $message }}</span>
                                              @enderror
@@ -259,16 +255,17 @@
                                              </div>
                                          </div>
 
-
                                          @foreach ($features as $feature)
                                              <div class="flex items-center mb-5">
                                                  <input type="hidden" name="feature_ids[]" value="{{ $feature->id }}">
                                                  <input type="text" name="addmore2[]"
                                                      placeholder="Agregar Característica"
                                                      value="{{ $feature->feature_description }}"
+                                                     id="feature_input_{{ $feature->id }}"
                                                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md flex-grow mr-4" />
-                                                 <button type="button"
-                                                     class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out remove-tr2">
+                                                 <button type="button" onclick="deleteFeature({{ $feature->id }})"
+                                                     class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out "
+                                                     data-feature-id="{{ $feature->id }}">
                                                      <i class="fa-solid fa-trash-can"></i>
                                                  </button>
                                              </div>
@@ -289,8 +286,58 @@
                                              });
                                          </script>
 
+                                         <script>
+                                             function deleteFeature(featureId) {
+                                                 Swal.fire({
+                                                     title: 'Are you sure?',
+                                                     text: "You won't be able to revert this!",
+                                                     icon: 'warning',
+                                                     showCancelButton: true,
+                                                     confirmButtonColor: '#3085d6',
+                                                     cancelButtonColor: '#d33',
+                                                     confirmButtonText: 'Yes, delete it!'
+                                                 }).then((result) => {
+                                                     if (result.isConfirmed) {
+                                                         // Envía la solicitud AJAX para eliminar la característica
+                                                         $.ajax({
+                                                             url: '/delete-feature/' + featureId,
+                                                             type: 'DELETE',
+                                                             headers: {
+                                                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                                             },
+                                                             success: function(response) {
+                                                                 if (response.success) {
+                                                                     Swal.fire(
+                                                                         'Deleted!',
+                                                                         'Your feature has been deleted.',
+                                                                         'success'
+                                                                     );
 
+                                                                     // Elimina el div correspondiente a la característica eliminada
+                                                                     $('#feature_input_' + featureId).closest('div').remove();
+                                                                 } else {
+                                                                     Swal.fire(
+                                                                         'Error!',
+                                                                         response.message,
+                                                                         'error'
+                                                                     );
+                                                                 }
+                                                             },
+                                                             error: function(xhr, status, error) {
+                                                                 Swal.fire(
+                                                                     'Error!',
+                                                                     'An error occurred while deleting the feature.',
+                                                                     'error'
+                                                                 );
+                                                             }
+                                                         });
+                                                     }
+                                                 });
+                                             }
+                                         </script>
                                      </div>
+
+
 
                                      <div class="mb-5">
                                          <label for="propertyType"
@@ -313,10 +360,7 @@
                                              Equipamiento
                                          </label>
 
-
-
                                          <div class="flex items-center mb-5">
-
 
                                              @error('equipments.0')
                                                  <span class="text-red-500">{{ $message }}</span>
@@ -335,29 +379,80 @@
                                                      value="{{ $equipment->id }}">
                                                  <input type="text" name="addmore[]" placeholder="Agregar Equipo"
                                                      value="{{ $equipment->equipment_description }}"
+                                                     id="equipment_input_{{ $equipment->id }}"
                                                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md flex-grow mr-4" />
-                                                 <button type="button"
-                                                     class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out remove-tr2">
+                                                 <button type="button" onclick="deleteEquipment({{ $equipment->id }})"
+                                                     class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out "
+                                                     data-equipment-id="{{ $equipment->id }}">
                                                      <i class="fa-solid fa-trash-can"></i>
                                                  </button>
                                              </div>
                                          @endforeach
 
                                          <script type="text/javascript">
-                                             var i = {{ count($features) }};
+                                             var i = {{ count($equipments) }};
 
                                              $("#add").click(function() {
                                                  ++i;
                                                  $("#dynamicTable").append(
-                                                     '<div class="flex items-center mb-5"><input type="text" name="addmore[]" placeholder="Agregar Equipo" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md flex-grow mr-4" /><button type="button" class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out remove-tr2"><i class="fa-solid fa-trash-can"></i></button></div>'
+                                                     '<div class="flex items-center mb-5"><input type="text" name="addmore[]" placeholder="Agregar Equipo" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md flex-grow mr-4" /><button type="button" class="bg-red-700 hover:bg-red-500 text-white font-bold py-2 px-4 rounded transition duration-500 ease-in-out remove-tr"><i class="fa-solid fa-trash-can"></i></button></div>'
                                                  );
                                              });
 
-                                             $(document).on('click', '.remove-tr2', function() {
+                                             $(document).on('click', '.remove-tr', function() {
                                                  $(this).closest('div').remove();
                                              });
                                          </script>
 
+                                         <script>
+                                             function deleteEquipment(equipmentId) {
+                                                 Swal.fire({
+                                                     title: 'Are you sure?',
+                                                     text: "You won't be able to revert this!",
+                                                     icon: 'warning',
+                                                     showCancelButton: true,
+                                                     confirmButtonColor: '#3085d6',
+                                                     cancelButtonColor: '#d33',
+                                                     confirmButtonText: 'Yes, delete it!'
+                                                 }).then((result) => {
+                                                     if (result.isConfirmed) {
+                                                         // Envía la solicitud AJAX para eliminar la característica
+                                                         $.ajax({
+                                                             url: '/delete-equipment/' + equipmentId,
+                                                             type: 'DELETE',
+                                                             headers: {
+                                                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                                             },
+                                                             success: function(response) {
+                                                                 if (response.success) {
+                                                                     Swal.fire(
+                                                                         'Deleted!',
+                                                                         'Your equipment has been deleted.',
+                                                                         'success'
+                                                                     );
+
+                                                                     // Elimina el div correspondiente a la característica eliminada
+                                                                     $('#equipment_input_' + equipmentId).closest('div').remove();
+                                                                 } else {
+                                                                     Swal.fire(
+                                                                         'Error!',
+                                                                         response.message,
+                                                                         'error'
+                                                                     );
+                                                                 }
+                                                             },
+                                                             error: function(xhr, status, error) {
+                                                                 Swal.fire(
+                                                                     'Error!',
+                                                                     'An error occurred while deleting the feature.',
+                                                                     'error'
+                                                                 );
+                                                             }
+                                                         });
+                                                     }
+                                                 });
+                                             }
+                                         </script>
 
                                      </div>
 
@@ -424,7 +519,7 @@
                                                      class="mb-3 block text-base font-medium text-[#07074D]">
                                                      Estatus
                                                  </label>
-                                                 <select name="garage" id="garage"
+                                                 <select name="status" id="status"
                                                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                                      <option value="{{ $collections->status }}">
                                                          {{ $collections->estatus_description }}</option>
@@ -670,6 +765,7 @@
                      garage: "required",
                      images: "required",
                      city: "required",
+                     status: "required",
                      energy_certificate: "required",
                      price: {
                          required: true,

@@ -56,7 +56,6 @@ public $garage;
 public $bucket,$email,$name,$message2;
 
 
-
 public function render()
 {
     $this->propertyTypesRender = Property::all();
@@ -359,7 +358,8 @@ $this->estatusAdsRender = EstatusAds::all();
 public function update(Request $request, $publishCode)
 {
     $data = $request->validate([
-        'title' => 'required',
+          'title' => 'required|string|min:3|max:100|unique:publish_properties,title,'.$publishCode.',publish_code',
+       
         'description' => 'required',
         'property_type' => 'required',
         'transaction_type' => 'required',
@@ -370,6 +370,9 @@ public function update(Request $request, $publishCode)
         'addmore2.*.features' => 'nullable',
         'additional_features' => 'nullable',
         'addmore.*.equipments' => 'nullable',
+        'energy_certificate' => 'required',
+        'total_area' => 'required',
+        'status' => 'required',
     ]);
 
     $collection = PublishProperty::where('publish_code', $publishCode)->firstOrFail();
@@ -386,6 +389,9 @@ public function update(Request $request, $publishCode)
     $collection->bedrooms = $request->input('bedrooms');
     $collection->bathrooms = $request->input('bathrooms');
     $collection->additional_features = $request->input('additional_features');
+    $collection->energy_certificate = $request->input('energy_certificate');
+    $collection->total_area = $request->input('total_area');
+    $collection->status = $request->input('status');
 
 // UPDATE FIELD INPUT FEATURES
 if ($request->has('addmore2')) {
@@ -502,5 +508,47 @@ $images = PropertyImage::join('publish_properties', 'property_images.property_id
    return view('livewire.add-images-publish-properties',['publishCodeImages' => $publishCodeImages,
 'images' => $images]);
 }
+
+
+public function deleteFeature($featureId)
+{
+    // Encuentra la característica que se va a eliminar
+    $feature = Feature::find($featureId);
+
+    if (!$feature) {
+        // La característica no existe
+        // Realiza alguna acción (por ejemplo, mostrar un mensaje de error)
+        session()->flash('error', 'La característica no existe');
+        return;
+    }
+
+    // Elimina la característica
+    $feature->delete();
+
+    // Devuelve una respuesta JSON con el HTML actualizado
+    return response()->json(['success' => true]);
+}
+
+
+public function deleteEquipment($equipmentId)
+{
+    // Encuentra la característica que se va a eliminar
+    $equipment = Equipment::find($equipmentId);
+
+    if (!$equipment) {
+        // La característica no existe
+        
+        session()->flash('error', 'El Equipo  no existe');
+        return;
+    }
+
+    // Elimina la característica
+    $equipment->delete();
+
+     session()->flash('success', 'Se ha eliminado correctamente');
+     // Devuelve una respuesta JSON con el HTML actualizado
+    return response()->json(['success' => true]);
+}
+
 
 }
