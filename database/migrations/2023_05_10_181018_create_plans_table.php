@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('position');  
              $table->string('duration'); 
              $table->string('quantity'); 
+                $table->string('images_quantity'); 
               // define foreign key
             $table->foreignId('user_id')
                   ->constrained('users')

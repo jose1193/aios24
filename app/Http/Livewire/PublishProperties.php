@@ -13,6 +13,7 @@ use App\Models\AdminEmail;
 use App\Models\Feature;
 use App\Models\Equipment;
 use App\Models\PurchasedPlan;
+use App\Models\Plan;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -51,6 +52,7 @@ public $transactionRender;
 public $estatusAdsRender;
 public $energy_certificate;
 public $garage;
+
 public $bucket,$email,$name,$message2;
 
 
@@ -170,7 +172,7 @@ $longitudeArea = $request->input('longitudeArea');
     foreach ($imagesPaths as $imagePath) {
         PropertyImage::create([
             'property_id' => $property->id,
-            'image_path' => 'app/public/propertiesimages/'.$imagePath, // CAMBIAR ACA
+            'image_path' => 'app/public/'.$imagePath, // CAMBIAR ACA
         ]);
     }
 
@@ -291,5 +293,214 @@ $this->publishCode = $publishCode;
 
 
 
+public function viewImages($publishCodeImages)
+{
+   
+$images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
+        ->select('property_images.image_path')
+        ->where('publish_properties.publish_code', '=', $publishCodeImages)
+        ->orderBy('publish_properties.created_at', 'desc')
+        ->get();
+
+   return view('livewire.add-images-publish-properties',['publishCodeImages' => $publishCodeImages,
+'images' => $images]);
+}
+
+
+public function editProperty($publishCode)
+{
+$images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
+        ->select('property_images.image_path')
+        ->where('publish_properties.publish_code', '=', $publishCode)
+        ->orderBy('publish_properties.created_at', 'desc')
+        ->get();
+
+   $collections = PublishProperty::join('users', 'publish_properties.user_id', '=', 'users.id')
+    ->join('estatus_ads', 'publish_properties.status', '=', 'estatus_ads.id')
+    ->join('transactions', 'publish_properties.transaction_type', '=', 'transactions.id')
+    ->join('properties', 'publish_properties.property_type', '=', 'properties.id')
+    ->join('features', 'features.publish_property_id', '=', 'publish_properties.id')
+    ->select('publish_properties.*', 'features.feature_description','users.name', 'users.lastname', 'users.profile_photo_path',
+        'estatus_ads.estatus_description', 'transactions.transaction_description','properties.property_description')
+    ->where('publish_properties.publish_code', '=', $publishCode)
+    ->orderBy('publish_properties.created_at', 'desc')
+    ->first();
+
+
+    $features = Feature::join('publish_properties', 'features.publish_property_id', '=', 'publish_properties.id')
+        ->where('publish_properties.publish_code', '=', $publishCode)
+        ->select('features.*')
+      ->get();
+
+      
+    $equipments = Equipment::join('publish_properties', 'equipment.publish_property_id', '=', 'publish_properties.id')
+        ->where('publish_properties.publish_code', '=', $publishCode)
+        ->select('equipment.*')
+       ->get();
+
+      
+
+$this->propertyTypesRender = Property::all();
+$this->transactionRender = Transaction::all();
+$this->estatusAdsRender = EstatusAds::all();
+   
+        return view('livewire.edit-publish-properties', [
+        'publishCode' => $publishCode,
+        'collections' => $collections,
+      
+        'features' => $features,
+        'equipments' => $equipments,
+        'propertyTypesRender' => $this->propertyTypesRender,
+    'estatusAdsRender' => $this->estatusAdsRender,
+     'transactionRender' => $this->transactionRender,
+    ]);
+
+}
+public function update(Request $request, $publishCode)
+{
+    $data = $request->validate([
+        'title' => 'required',
+        'description' => 'required',
+        'property_type' => 'required',
+        'transaction_type' => 'required',
+        'location' => 'required',
+        'city' => 'required',
+        'bedrooms' => 'required',
+        'bathrooms' => 'required',
+        'addmore2.*.features' => 'nullable',
+        'additional_features' => 'nullable',
+        'addmore.*.equipments' => 'nullable',
+    ]);
+
+    $collection = PublishProperty::where('publish_code', $publishCode)->firstOrFail();
+    $propertyId = $collection->id;
+
+    $collection->title = $request->input('title');
+    $collection->description = $request->input('description');
+    $collection->property_type = $request->input('property_type');
+    $collection->transaction_type = $request->input('transaction_type');
+    $collection->location = $request->input('location');
+    $collection->city = $request->input('city');
+    $collection->latitudeArea = $request->input('latitudeArea');
+    $collection->longitudeArea = $request->input('longitudeArea');
+    $collection->bedrooms = $request->input('bedrooms');
+    $collection->bathrooms = $request->input('bathrooms');
+    $collection->additional_features = $request->input('additional_features');
+
+// UPDATE FIELD INPUT FEATURES
+if ($request->has('addmore2')) {
+    $features = $request->input('addmore2');
+
+    foreach ($features as $key => $feature) {
+        if (isset($request->feature_ids[$key])) {
+            // Feature already exists, update it
+            $existingFeature = Feature::find($request->feature_ids[$key]);
+            if ($existingFeature) {
+                $existingFeature->update([
+                    'feature_description' => $feature
+                ]);
+            }
+        } else {
+            // Feature is new, create it
+            Feature::create([
+                'feature_description' => $feature,
+                'publish_property_id' => $propertyId
+            ]);
+        }
+    }
+}
+// END UPDATE FIELD INPUT FEATURES
+
+// UPDATE FIELD INPUT EQUIPMENT
+if ($request->has('addmore')) {
+    $equipments = $request->input('addmore');
+
+    foreach ($equipments as $key => $equipment) {
+        if (isset($request->equipment_ids[$key])) {
+            // Equipment already exists, update it
+            $existingEquipment = Equipment::find($request->equipment_ids[$key]);
+            if ($existingEquipment) {
+                $existingEquipment->update([
+                    'equipment_description' => $equipment
+                ]);
+            }
+        } else {
+            // Equipment is new, create it
+            Equipment::create([
+                'equipment_description' => $equipment,
+                'publish_property_id' => $propertyId
+            ]);
+        }
+    }
+}
+// END UPDATE FIELD INPUT EQUIPMENT
+
+     session()->flash('success', 'Datos guardados exitosamente');
+    $collection->save();
+
+    return redirect()->route('livewire.edit-publish-properties', ['publishCode' => $publishCode]);
+}
+
+
+
+public function addImages(Request $request, $publishCodeImages)
+{
+     $request->validate([
+'images' => 'required|array|min:1',
+        'images.*' => 'image|max:2048',
+]);
+
+
+$property = PublishProperty::where('publish_code', '=',$publishCodeImages)->firstOrFail();
+$imagesuploaded = PublishProperty::join('purchased_plans', 'publish_properties.publish_code', '=', 'purchased_plans.publish_code')
+    ->join('plans', 'purchased_plans.plan_id', '=', 'plans.id')
+    ->where('publish_properties.publish_code', '=', $publishCodeImages)
+    ->select('plans.plan', 'plans.images_quantity')
+    ->get();
+    
+// Create property images
+if ($imagesuploaded) {
+    $planDescription = $imagesuploaded->plan;
+    $maxImages = $imagesuploaded->images_quantity; // Definir el límite máximo de imágenes según el plan
+    $imagesPaths = [];
+   
+  // Verificar si el plan permite acumular imágenes
+    if ($planDescription == 'Oro') {
+        $uploadedImagesCount = PropertyImage::where('property_id', $property->id)->count();
+        $remainingImages = $maxImages - $uploadedImagesCount;
+    
+        // Permitir al usuario subir más imágenes hasta alcanzar el límite
+        foreach ($imagesPaths as $imagePath) {
+            if ($remainingImages > 0) {
+                PropertyImage::create([
+                    'property_id' => $property->id,
+                    'image_path' => $imagePath,
+                ]);
+                $remainingImages--;
+            } else {
+                // No permitir subir más imágenes ya que se ha alcanzado el límite
+                break;
+            }
+        }
+    } else {
+        
+    }
+}
+
+// Resto del código (session flash, reset, etc.)
+$images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
+        ->select('property_images.image_path')
+        ->where('publish_properties.publish_code', '=', $publishCodeImages)
+        ->orderBy('publish_properties.created_at', 'desc')
+        ->get();
+
+     session()->flash('success', 'Datos guardados exitosamente');
+    $this->reset();
+    $this->CleanUp();
+    
+
+   return view('livewire.add-images-publish-properties',['publishCodeImages' => $publishCodeImages,
+'images' => $images]);
+}
 
 }

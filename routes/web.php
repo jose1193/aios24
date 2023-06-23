@@ -200,6 +200,11 @@ Route::get('myplans', MyPlans::class)->name('myplans');
 
 Route::get('publish', PublishProperties::class)->name('publish');
 Route::post('publish', [PublishProperties::class, 'saveProperty'])->name('publish.saveProperty');
+Route::get('images-gallery/{publishCodeImages}',[PublishProperties::class, 'viewImages'])->name('images-gallery');
+Route::put('images-gallery/{publishCodeImages}', [PublishProperties::class, 'addImages'])->name('add.images');
+Route::get('edit-property/{publishCode}', [PublishProperties::class, 'editProperty'])->name('edit-property');
+Route::put('update-property/{publishCode}', [PublishProperties::class, 'update'])->name('publishproperties.update');
+
 
 //------------ FAVORITES -----------//
 //Route::get('/favorites/{propertyId?}', Favorites::class)->name('favorites');

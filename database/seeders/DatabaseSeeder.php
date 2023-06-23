@@ -149,6 +149,7 @@ foreach ($permissions as $permission) {
             'position' => 'Exposición Estandar',
             'duration' => 'Duración de Publicación 60 días',
             'quantity' => 'Máximo 20 Imágenes',
+            'images_quantity' => '20',
         ],
         [
             'plan' => 'Oro',
@@ -157,6 +158,7 @@ foreach ($permissions as $permission) {
             'position' => 'Exposición Destacada',
             'duration' => 'Duración de Publicación 120 días',
             'quantity' => '+15 Imágenes Adicionales',
+            'images_quantity' => '35',
         ],
         [
             'plan' => 'Platino',
@@ -165,6 +167,7 @@ foreach ($permissions as $permission) {
             'position' => 'Exposición Destacada',
             'duration' => 'Duración de Publicación 180 días',
             'quantity' => '+25 Imágenes Adicionales',
+             'images_quantity' => '60',
         ],
     ];
 
@@ -176,6 +179,7 @@ foreach ($permissions as $permission) {
             'position' => $plan['position'],
             'duration' => $plan['duration'],
             'quantity' => $plan['quantity'],
+             'images_quantity' => $plan['images_quantity'],
             'user_id' => $user->id,
         ]);
     }

@@ -15,6 +15,7 @@ class Plan extends Model
         'position',
         'duration',
         'quantity',
+        'images_quantity',
          'user_id'
     ];   
     

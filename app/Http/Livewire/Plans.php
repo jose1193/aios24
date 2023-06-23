@@ -8,7 +8,7 @@ use App\Models\Plan;
 class Plans extends Component
 {
        
-    public $plan, $pricing, $position, $duration, $quantity,$plan_id,$plan_description;
+    public $plan, $pricing, $position, $duration, $quantity,$images_quantity,$plan_id,$plan_description;
     public $isModalOpen = 0;
     protected $listeners = ['render','delete']; // ALERT CONFIRMATION SWEET ALERT
 
@@ -47,6 +47,7 @@ public function authorize()
         $this->position = '';
         $this->duration = '';
          $this->quantity = '';
+          $this->images_quantity = '';
     }
     
     public function store()
@@ -59,6 +60,7 @@ public function authorize()
             'position' => 'required',
             'duration' => 'required',
             'quantity' => 'required',
+            'images_quantity' => 'required',
         ]);
     
         Plan::updateOrCreate(['id' => $this->plan_id], [
@@ -68,6 +70,7 @@ public function authorize()
             'position' => $this->position,
              'duration' => $this->duration,
              'quantity' => $this->quantity,
+             'images_quantity' => $this->images_quantity,
              'user_id' => auth()->user()->id,
         ]);
         session()->flash('message', $this->plan_id ? 'Data updated.' : 'Data created.');
@@ -85,6 +88,7 @@ public function authorize()
         $this->position = $plans->position;
          $this->duration = $plans->duration;
           $this->quantity = $plans->quantity;
+          $this->images_quantity = $plans->images_quantity;
     
         $this->openModalPopover();
     }
