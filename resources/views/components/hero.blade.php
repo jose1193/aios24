@@ -1,8 +1,22 @@
    <!-- HERO -->
+   <div class="bg-white py-6 sm:py-8 lg:py-12">
+       <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+           <div class="rounded-lg bg-gray-100 px-4 py-6 md:py-8 lg:py-12">
+               <p class="mb-2 text-center font-semibold text-green-600 md:mb-3 lg:text-lg">Bienvenido</p>
+
+               <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Experiencia
+                   personalizada: </h2>
+
+               <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">Adaptamos la plataforma a tus
+                   preferencias y necesidades. Puedes personalizar tus filtros de búsqueda, recibir recomendaciones
+                   basadas en tus intereses y acceder a contenido relevante en función de tu perfil.</p>
+           </div>
+       </div>
+   </div>
    <div class="bg-white lg:pb-12">
        <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
 
-
+           <br>
            <!-- menu - start -->
            <div class="hidden w-full overflow-hidden rounded-lg border bg-gray-50 shadow-sm lg:block">
                <div class="mx-auto flex max-w-screen-lg items-center gap-8 p-8">
@@ -11,8 +25,8 @@
                        <a href="#" class="group flex gap-4">
                            <div
                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-500 text-white shadow-lg transition duration-100 group-hover:bg-green-600 group-active:bg-green-700 md:h-12 md:w-12">
-                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                   stroke="currentColor">
+                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                   viewBox="0 0 24 24" stroke="currentColor">
                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                                </svg>

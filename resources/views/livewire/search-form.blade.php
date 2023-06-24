@@ -14,7 +14,8 @@
                        text-gray-900 text-md  rounded-lg  block w-full p-3  ">
 
                         @foreach ($transactions as $transaction)
-                            <option value="{{ $transaction->id }}">{{ $transaction->transaction_description }}</option>
+                            <option value="{{ $transaction->id }}">{{ $transaction->transaction_description }}
+                            </option>
                         @endforeach
                     </select>
                     @error('transactionTypes')
@@ -63,6 +64,8 @@
                 </div>
             </div>
         </div>
+
+
         <div class="-mt-5 flex justify-center">
 
             <button type="submit"
@@ -75,7 +78,7 @@
     </div>
 
 
-    </div>
+
 </form>
 
 <style>
@@ -84,6 +87,7 @@
         background-size: cover;
         background-position: center;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
     }
 </style>
 
