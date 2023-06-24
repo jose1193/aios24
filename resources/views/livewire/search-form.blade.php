@@ -1,4 +1,4 @@
-<form class="my-8 mt-10" action="{{ route('search.filters') }}" method="GET">
+<form class="my-8 " action="{{ route('search.filters') }}" method="GET">
 
 
     <div class="fondo border border-gray-300 p-6 grid grid-cols-1 gap-6  shadow-lg rounded-lg text-base">
