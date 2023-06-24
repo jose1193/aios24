@@ -115,10 +115,18 @@ public function CleanUp()
 
     $imagesPaths = [];
    foreach ($request->file('images') as $image) {
-        $path = $image->store('propertiesimages', 'public');
-        $imagesPaths[] = $path;
-    }
+    $path = $image->store('propertiesimages', 'public');
+    $imagesPaths[] = $path;
 
+    // UPLOAD WITH INTERVENTION IMAGE Create a thumbnail of the image using Intervention Image Library
+    $imageHashName = $image->hashName();
+
+    $resize = new ImageManager();
+    $ImageManager = $resize->make('storage/propertiesimages/'.$imageHashName)->resize(700, 467);
+    $ImageManager->save('storage/propertiesimages/'.$imageHashName);
+}
+
+             // END UPLOAD WITH INTERVENTION IMAGE
    
 // CARBON FORMAT DATE
          $date = Carbon::now()->locale('es_ES')->format('F d, Y');
