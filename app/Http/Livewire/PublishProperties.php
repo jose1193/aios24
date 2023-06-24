@@ -278,6 +278,7 @@ $this->CleanUp();
 
     
 $this->publishCode = $publishCode;
+ session()->flash('success', 'Datos guardados exitosamente');
     return view('livewire.views', [
         'publishCode' => $this->publishCode,
         'collections' => $collections,
@@ -287,7 +288,7 @@ $this->publishCode = $publishCode;
         
     ]);
    
-    
+
 }
 
 

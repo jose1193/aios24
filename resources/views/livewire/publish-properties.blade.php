@@ -52,7 +52,7 @@
              <div class="flex items-center justify-center p-12">
                  <div class="mx-auto w-full max-w-7xl bg-white">
                      <form id="wizardForm" action="{{ route('publish.saveProperty') }}" method="POST"
-                         enctype="multipart/form-data" autocomplete="off" target="_blank">
+                         enctype="multipart/form-data" autocomplete="off">
                          @csrf
 
 
@@ -579,10 +579,7 @@
          $("#wizardForm").submit(function(e) {
              $("#submitBtn").attr("disabled", true);
 
-             // Recargar la página después de 2 segundos
-             setTimeout(function() {
-                 location.reload();
-             }, 1000);
+
 
              return true;
 

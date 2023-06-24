@@ -2,60 +2,79 @@
 
 
     <div class="fondo border border-gray-300 p-6 grid grid-cols-1 gap-6  shadow-lg rounded-lg text-base">
+        <h1 class="md:text-base lg:text-2xl  text-white font-semibold text-center">Descubre tu nuevo hogar en un solo
+            lugar
+        </h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-5">
-            <div class="grid grid-cols-2 gap-2  p-2 rounded">
+        <div class="-mx-3 flex flex-wrap">
+            <div class="w-full px-3 sm:w-1/4">
+                <div class="mb-7">
+                    <select name="transactionTypes"
+                        class="bg-gray-50 border pl-2 border-green-200
+                       text-gray-900 text-md  rounded-lg  block w-full p-3  ">
 
-                <select name="transactionTypes"
-                    class="bg-gray-50 border pl-2 border-green-200
-                       text-gray-900 text-md  rounded-lg  block w-full p-2.5 ">
-
-                    @foreach ($transactions as $transaction)
-                        <option value="{{ $transaction->id }}">{{ $transaction->transaction_description }}</option>
-                    @endforeach
-                </select>
-
-                <select name="propertyTypes"
-                    class="bg-gray-50 border border-green-200 text-gray-900 text-md  rounded-lg  block w-full p-2.5 ">
-
-
-                    @foreach ($properties as $property)
-                        <option value="{{ $property->id }}">{{ $property->property_description }}</option>
-                    @endforeach
-                </select>
-
-
+                        @foreach ($transactions as $transaction)
+                            <option value="{{ $transaction->id }}">{{ $transaction->transaction_description }}</option>
+                        @endforeach
+                    </select>
+                    @error('transactionTypes')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
-            <div class="grid grid-cols-1 gap-1  p-2 rounded">
+            <div class="w-full px-3 sm:w-1/4">
+                <div class="mb-7">
+                    <select name="propertyTypes"
+                        class="bg-gray-50 border border-green-200 text-gray-900 text-md  rounded-lg  block w-full p-3  ">
 
 
-                <!-- component -->
-                <div class='w-full mx-auto'>
-                    <div
-                        class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
-                        <div class="grid place-items-center h-full w-12 text-gray-300">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
+                        @foreach ($properties as $property)
+                            <option value="{{ $property->id }}">{{ $property->property_description }}</option>
+                        @endforeach
+                    </select>
+
+                    @error('propertyTypes')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="w-full px-3 sm:w-1/2">
+
+                <div class="mb-7">
+
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </div>
-                        <div>
-                            <input class="peer h-full w-full outline-none text-sm text-gray-700 pr-2" type="text"
-                                placeholder="Ingresa Ciudad" id="city" name="city" />
-                        </div>
+                        <input type="search" placeholder="Ingresa Ciudad" id="city" name="city"
+                            class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500 "
+                            required>
+
+                        @error('city')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
                     </div>
+
                 </div>
             </div>
         </div>
+        <div class="-mt-5 flex justify-center">
 
+            <button type="submit"
+                class=" w-full sm:w-1/4 p-2 border  border-white bg-green-600  transition duration-500 ease-in-out 
+                 hover:bg-green-700 text-white text-base font-bold py-2 px-4 rounded">
+                <i class="fa-solid fa-city mr-1"></i> Buscar </button>
 
-        <div class="flex justify-center">
-            <x-button2 type="submit">
-                <i class="fa-solid fa-city mr-1"></i> Buscar
-            </x-button2>
 
         </div>
+    </div>
+
+
     </div>
 </form>
 

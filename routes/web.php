@@ -201,12 +201,15 @@ Route::get('myplans', MyPlans::class)->name('myplans');
 
 Route::get('publish', PublishProperties::class)->name('publish');
 Route::post('publish', [PublishProperties::class, 'saveProperty'])->name('publish.saveProperty');
+
+
 Route::get('images-gallery/{publishCodeImages}',[PublishProperties::class, 'viewImages'])->name('images-gallery');
 Route::put('add-images-gallery/{publishCodeImages}', [PublishProperties::class, 'addImages'])->name('add.images');
 Route::get('edit-property/{publishCode}', [PublishProperties::class, 'editProperty'])->name('edit-property');
 Route::put('update-property/{publishCode}', [PublishProperties::class, 'update'])->name('publishproperties.update');
 Route::delete('/delete-feature/{featureId}', [PublishProperties::class, 'deleteFeature']);
 Route::delete('/delete-equipment/{equipmentId}', [PublishProperties::class, 'deleteEquipment']);
+
 
 
 //------------ FAVORITES -----------//
