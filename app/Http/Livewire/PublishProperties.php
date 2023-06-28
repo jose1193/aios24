@@ -300,21 +300,6 @@ $this->publishCode = $publishCode;
 }
 
 
-
-public function viewImages($publishCodeImages)
-{
-   
-$images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
-        ->select('property_images.image_path')
-        ->where('publish_properties.publish_code', '=', $publishCodeImages)
-        ->orderBy('publish_properties.created_at', 'desc')
-        ->get();
-
-   return view('livewire.add-images-publish-properties',['publishCodeImages' => $publishCodeImages,
-'images' => $images]);
-}
-
-
 public function editProperty($publishCode)
 {
 $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
@@ -458,65 +443,6 @@ if ($request->has('addmore')) {
 
 
 
-public function addImages(Request $request, $publishCodeImages)
-{
-     $request->validate([
-'images' => 'required|array|min:1',
-        'images.*' => 'image|max:2048',
-]);
-
-
-$property = PublishProperty::where('publish_code', '=',$publishCodeImages)->firstOrFail();
-$imagesuploaded = PublishProperty::join('purchased_plans', 'publish_properties.publish_code', '=', 'purchased_plans.publish_code')
-    ->join('plans', 'purchased_plans.plan_id', '=', 'plans.id')
-    ->where('publish_properties.publish_code', '=', $publishCodeImages)
-    ->select('plans.plan', 'plans.images_quantity')
-    ->get();
-    
-// Create property images
-if ($imagesuploaded) {
-    $planDescription = $imagesuploaded->plan;
-    $maxImages = $imagesuploaded->images_quantity; // Definir el límite máximo de imágenes según el plan
-    $imagesPaths = [];
-   
-  // Verificar si el plan permite acumular imágenes
-    if ($planDescription == 'Oro') {
-        $uploadedImagesCount = PropertyImage::where('property_id', $property->id)->count();
-        $remainingImages = $maxImages - $uploadedImagesCount;
-    
-        // Permitir al usuario subir más imágenes hasta alcanzar el límite
-        foreach ($imagesPaths as $imagePath) {
-            if ($remainingImages > 0) {
-                PropertyImage::create([
-                    'property_id' => $property->id,
-                    'image_path' => $imagePath,
-                ]);
-                $remainingImages--;
-            } else {
-                // No permitir subir más imágenes ya que se ha alcanzado el límite
-                break;
-            }
-        }
-    } else {
-        
-    }
-}
-
-// Resto del código (session flash, reset, etc.)
-$images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
-        ->select('property_images.image_path')
-        ->where('publish_properties.publish_code', '=', $publishCodeImages)
-        ->orderBy('publish_properties.created_at', 'desc')
-        ->get();
-
-     session()->flash('success', 'Datos guardados exitosamente');
-    $this->reset();
-    $this->CleanUp();
-    
-
-   return view('livewire.add-images-publish-properties',['publishCodeImages' => $publishCodeImages,
-'images' => $images]);
-}
 
 
 public function deleteFeature($featureId)
@@ -560,4 +486,120 @@ public function deleteEquipment($equipmentId)
 }
 
 
+
+public function viewImages($publishCodeImages)
+{
+   
+$images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
+        ->select('property_images.image_path','property_images.id')
+        ->where('publish_properties.publish_code', '=', $publishCodeImages)
+         ->orderBy('property_images.id', 'desc')
+        ->get();
+
+        $purchasedPlan = PurchasedPlan::join('plans', 'plans.id', '=', 'purchased_plans.plan_id')
+        ->where('purchased_plans.publish_code', $publishCodeImages)
+        ->select('plans.plan', 'plans.images_quantity')
+        ->first();
+
+       
+    // Verificar si el plan permite acumular imágenes
+  
+    $maxImages = $purchasedPlan->images_quantity;
+$property = PublishProperty::where('publish_code', $publishCodeImages)->firstOrFail();
+    // Obtener las imágenes ya subidas
+    $uploadedImagesCount = PropertyImage::where('property_id', $property->id)->count();
+    $remainingImages = $maxImages - $uploadedImagesCount;
+
+
+   return view('livewire.add-images-publish-properties',['publishCodeImages' => $publishCodeImages,
+'images' => $images,'purchasedPlan'=>$purchasedPlan,'remainingImages'=>$remainingImages]);
+}
+
+
+public function addImages(Request $request, $publishCodeImages)
+{
+    $request->validate([
+        'images' => 'required|array|min:1',
+        'images.*' => 'image|max:2048',
+    ]);
+
+    // Obtener la propiedad y el plan asociado
+    $property = PublishProperty::where('publish_code', $publishCodeImages)->firstOrFail();
+    $purchasedPlan = PurchasedPlan::join('plans', 'plans.id', '=', 'purchased_plans.plan_id')
+        ->where('purchased_plans.publish_code', $publishCodeImages)
+        ->select('plans.plan', 'plans.images_quantity')
+        ->first();
+
+    // Verificar si el plan permite acumular imágenes
+    $planDescription = $purchasedPlan->plan;
+    $maxImages = $purchasedPlan->images_quantity;
+
+    // Obtener las imágenes ya subidas
+    $uploadedImagesCount = PropertyImage::where('property_id', $property->id)->count();
+    $remainingImages = $maxImages - $uploadedImagesCount;
+
+    // Subir las imágenes y crear registros en la base de datos
+    $imagesPaths = [];
+    foreach ($request->file('images') as $image) {
+       if ($remainingImages > 0) {
+        $path = $image->store('propertiesimages', 'public');
+        $imagesPaths[] = $path;
+
+        // Crear una miniatura de la imagen usando Intervention Image Library
+        $imageHashName = $image->hashName();
+        $resize = new ImageManager();
+        $ImageManager = $resize->make('storage/propertiesimages/'.$imageHashName)->resize(700, 467);
+        $ImageManager->save('storage/propertiesimages/'.$imageHashName);
+
+        PropertyImage::create([
+            'property_id' => $property->id,
+            'image_path' => $path,
+        ]);
+
+        $remainingImages--;
+    }
+         else {
+            session()->flash('error', 'Se ha alcanzado el límite máximo de carga de imágenes.');
+            break;
+        }
+    }
+
+    // Obtener las imágenes asociadas a la propiedad
+    $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
+        ->select('property_images.image_path')
+        ->where('publish_properties.publish_code', $publishCodeImages)
+        ->orderBy('property_images.id', 'desc')
+        ->get();
+
+    // Restablecer los campos y mostrar un mensaje de éxito
+    $this->reset();
+    $this->CleanUp();
+    session()->flash('success', 'Datos guardados exitosamente');
+
+    return redirect()->route('images-gallery', ['publishCodeImages' => $publishCodeImages, 'images' => $images]);
+}
+
+
+
+    public function deleteImage($imageId)
+    {
+          
+      // Encuentra la característica que se va a eliminar
+    $image = PropertyImage::find($imageId);
+
+// Verifica si se encontró la imagen
+    if (!$image) {
+        session()->flash('error', 'La imagen no existe');
+        return response()->json(['success' => false]);
+    }
+
+    // Elimina la característica
+    $image->delete();
+    Storage::disk('public')->delete($image->image_path);
+    
+
+
+//session()->flash('success', 'Se ha eliminado la imagen correctamente');
+return response()->json(['success' => true]);
+    }
 }

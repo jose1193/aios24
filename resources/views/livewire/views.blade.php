@@ -39,6 +39,7 @@
 
 
 
+
          <!-- COMPONENT -->
          <div class="flex flex-col md:flex-row py-12 mb-0 max-w-8xl mx-auto sm:px-6 lg:px-8">
              @foreach ($collections as $item)
@@ -442,6 +443,10 @@
              @endforeach
 
          </div>
+         <!--INCLUDE ALERTS MESSAGES-->
+         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+         <x-message-success />
+         <!-- END INCLUDE ALERTS MESSAGES-->
          <!-- END COMPONENT -->
 
 
