@@ -262,7 +262,7 @@
 
                              <div class="mb-5">
                                  <label for="propertyType" class="mb-3 block text-base font-medium text-[#07074D]">
-                                     Características adicionales (Opcional)
+                                     Características adicionales
                                  </label>
                                  <textarea name="additional_features" id="additional_features"
                                      placeholder="Cualquier característica adicional relevante, como piscina, jardín, garaje, etc... que desees informar a los visitantes"
