@@ -17,7 +17,7 @@
 
 
 
-        <div class="m-2 p-2 mb-5">
+        <div class="m-2 p-2 mb-5 flex justify-between space-x-2">
             <x-button wire:click="showDataModal">+ Create New </x-button>
 
             <x-input2 id="name" type="text" class="block float-right w-full md:w-5/12 lg:w-4/12 "
