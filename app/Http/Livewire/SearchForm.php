@@ -27,6 +27,8 @@ class SearchForm extends Component
     
     public $searchTerm;
 
+
+    
      public function mount()
     {
         $this->transactions = Transaction::all();
@@ -118,38 +120,6 @@ $collections = PublishProperty::join('users', 'publish_properties.user_id', '=',
     }
 
 
-    // FILTERS UPDATES
-    public $selectedTransactionType;
-
-   public function updatedSelectedTransactionType()
-{
-    $this->propertyTypesRender = Property::all();
-    $this->transactionRender = Transaction::all();
-
-    $collections = PublishProperty::join('users', 'publish_properties.user_id', '=', 'users.id')
-        ->join('estatus_ads', 'publish_properties.status', '=', 'estatus_ads.id')
-        ->join('transactions', 'publish_properties.transaction_type', '=', 'transactions.id')
-        ->join('property_images', 'property_images.property_id', '=', 'publish_properties.id')
-        ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.profile_photo_path',
-            'estatus_ads.estatus_description', 'transactions.transaction_description',
-            DB::raw('MIN(property_images.image_path) AS image_path'))
-        ->where('estatus_ads.estatus_description', '=', 'Activo')
-        ->where('publish_properties.city', '=', $this->city)
-        ->where('transactions.id', '=', $this->selectedTransactionType)
-        ->orderBy('publish_properties.created_at', 'desc')
-        ->groupBy('publish_properties.id')
-        ->paginate(10);
-
-    return view('livewire.search-filters', [
-        'collections' => $collections,
-        'transactionRender' => $this->transactionRender,
-        'propertyTypesRender' => $this->propertyTypesRender,
-    ]);
-}
-
-
-
-
 
 // MAP VIEW GOOGLE MAP
   
@@ -221,5 +191,34 @@ $collections = PublishProperty::join('users', 'publish_properties.user_id', '=',
     return redirect()->route('error');
 }
 
+
+    // FILTERS UPDATES
+    public $selectedTransactionType;
+
+   public function updatedSelectedTransactionType()
+{
+    $this->propertyTypesRender = Property::all();
+    $this->transactionRender = Transaction::all();
+
+    $collections = PublishProperty::join('users', 'publish_properties.user_id', '=', 'users.id')
+        ->join('estatus_ads', 'publish_properties.status', '=', 'estatus_ads.id')
+        ->join('transactions', 'publish_properties.transaction_type', '=', 'transactions.id')
+        ->join('property_images', 'property_images.property_id', '=', 'publish_properties.id')
+        ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.profile_photo_path',
+            'estatus_ads.estatus_description', 'transactions.transaction_description',
+            DB::raw('MIN(property_images.image_path) AS image_path'))
+        ->where('estatus_ads.estatus_description', '=', 'Activo')
+        ->where('publish_properties.city', '=', $this->city)
+        ->where('transactions.id', '=', $this->selectedTransactionType)
+        ->orderBy('publish_properties.created_at', 'desc')
+        ->groupBy('publish_properties.id')
+        ->paginate(10);
+
+    return view('livewire.search-filters', [
+        'collections' => $collections,
+        'transactionRender' => $this->transactionRender,
+        'propertyTypesRender' => $this->propertyTypesRender,
+    ]);
+}
     
 }

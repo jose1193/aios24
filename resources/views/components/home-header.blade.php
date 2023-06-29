@@ -269,10 +269,10 @@
                    <div class="pt-6">
                        <a class="block px-4 py-3 mb-3  text-xs text-center font-semibold leading-none bg-gray-50
                                 transition duration-500 ease-in-out  hover:bg-green-100 rounded-xl"
-                           href="#">Ingresar</a>
+                           href="{{ route('login') }}">Ingresar</a>
                        <a class="block px-4 py-3 mb-2 leading-loose text-xs text-center
                                  text-white font-semibold bg-green-600 transition duration-500 ease-in-out hover:bg-green-700  rounded-xl"
-                           href="#">Publicar</a>
+                           href="{{ route('register') }}">Publicar</a>
                        <!-- START LENGUAGE BUTTON -->
                        <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
                            class="flex items-center justify-between w-full py-2 pl-3 pr-4

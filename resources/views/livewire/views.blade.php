@@ -324,8 +324,7 @@
                                          class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
                                      <div class="mb-5">
-                                         <input id="phone" type="tel" style="width: 450px" name="phone"
-                                             value="<?php echo $user->phone; ?>"
+                                         <input id="phone" type="tel" name="phone" value="<?php echo $user->phone; ?>"
                                              class="rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                      </div>
                                      <div>
@@ -477,6 +476,7 @@
  <!-- GUEST USER -->
  @guest
      @extends('layouts.guest2')
+     <x-files-guests />
 
      <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
          <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
@@ -781,7 +781,7 @@
                                      class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
                                  <div class="mb-5">
-                                     <input id="phone" type="tel" style="width: 450px" name="phone"
+                                     <input id="phone" type="tel" name="phone"
                                          class="rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                  </div>
 
@@ -800,8 +800,7 @@
                                      class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
 
                                  <div class="mb-5">
-                                     <input id="phone" type="tel" style="width: 450px" name="phone"
-                                         value="<?php echo $user->phone; ?>"
+                                     <input id="phone" type="tel" name="phone" value="<?php echo $user->phone; ?>"
                                          class="rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                  </div>
                                  <div>

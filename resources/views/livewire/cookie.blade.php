@@ -4,7 +4,7 @@
         <x-slot name="header">
             <x-slot name="title">
                 {{ __('Política
-                                                                     de Cookies') }}
+                                                                                     de Cookies') }}
             </x-slot>
             <div class="bg-white p-4 flex items-center flex-wrap font-bold">
                 <ul class="flex items-center">
@@ -28,7 +28,7 @@
                     <li class="inline-flex items-center">
                         <a href="{{ route('cookie') }}" class="text-gray-600 hover:text-green-500">
                             {{ __('Política
-                                                                                                         de Cookies') }}
+                                                                                                                                     de Cookies') }}
                         </a>
 
 
@@ -48,7 +48,7 @@
 <!-- GUEST USER -->
 @guest
     @extends('layouts.guest2')
-
+    <x-files-guests />
     <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
         <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
             <x-home-header />
