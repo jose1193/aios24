@@ -129,6 +129,10 @@
                                  </div>
                              </div>
 
+
+
+
+
                              <div class="flex justify-between sm:mt-7">
                                  <p class="text-base font-semibold lg:leading-6 leading-7 text-gray-700 mb-4">
                                      Estatus: <span
@@ -143,7 +147,7 @@
 
 
                                      <button id="dropdownDefaultButton" data-dropdown-toggle="dropdownads"
-                                         class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                         class="rounded-md bg-white mt-3 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                                          type="button">Compartir <i class="fa-solid fa-share-nodes ml-3"></i>
                                      </button>
                                      <!-- Dropdown menu -->
@@ -296,35 +300,27 @@
                                  anunciante
                              </h1>
 
-                             <form method="POST" action="" autocomplete="off">
+                             <form id="message-form" method="POST" action="{{ route('send-message') }}"
+                                 autocomplete="off">
                                  @csrf
                                  <div class="py-4 items-center justify-between">
+                                     <input type="hidden" readonly name="from_id" value="{{ auth()->user()->id }}" />
+                                     <input type="hidden" readonly name="title" value="{{ $item->title }}" />
+                                     <input type="hidden" readonly name="publishCode"
+                                         value="{{ $item->publish_code }}" />
+                                     <input type="hidden" readonly name="to_id" value="{{ $item->user_id }}" />
 
-                                     <?php if (!Auth::check()): ?>
-                                     <input type="text" placeholder="Tu Nombre" name="name"
+
+                                     <input type="text" readonly placeholder="Tu Nombre" name="nameFrom"
+                                         value="{{ auth()->user()->name }} {{ auth()->user()->lastname }}"
                                          class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                     @error('nameFrom')
+                                         <span class="text-red-500">{{ $message }}</span>
+                                     @enderror
 
                                      <div class="mb-5">
-                                         <input id="phone" type="tel" style="width: 450px" name="phone"
-                                             class="rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
-                                     </div>
-
-                                     <span id="valid-msg" class="hide text-green-600">✓ Valid</span>
-                                     <span id="error-msg" class="hide text-red-500 "></span>
-
-                                     <input type="email" placeholder="Tu Email" name="email"
-                                         class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                         id="email" />
-
-
-                                     <?php else: ?>
-                                     <?php $user = Auth::user(); ?>
-                                     <input type="text" readonly placeholder="Tu Nombre" name="name"
-                                         value="<?php echo $user->name; ?> <?php echo $user->lastname; ?>"
-                                         class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-
-                                     <div class="mb-5">
-                                         <input id="phone" type="tel" name="phone" value="<?php echo $user->phone; ?>"
+                                         <input id="phone" type="tel" name="phone"
+                                             value="{{ auth()->user()->phone }}"
                                              class="rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                      </div>
                                      <div>
@@ -332,24 +328,90 @@
                                          <span id="error-msg" class="hide text-red-500 "></span>
                                      </div>
                                      <input type="email" readonly placeholder="Tu Email" name="email"
-                                         value="<?php echo $user->email; ?>"
+                                         value="{{ auth()->user()->email }}"
                                          class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                          id="email" />
-                                     <?php endif; ?>
+                                     @error('email')
+                                         <span class="text-red-500">{{ $message }}</span>
+                                     @enderror
 
-                                     <textarea
+                                     <textarea name="body"
                                          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-normal text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                          placeholder="Escribe tu mensaje">¡Hola! Quiero que se comuniquen conmigo por esta propiedad en {{ $item->transaction_description }} que vi en Aios Real Estate.</textarea>
-
+                                     @error('body')
+                                         <span class="text-red-500">{{ $message }}</span>
+                                     @enderror
                                  </div>
 
-                                 <x-button
-                                     class="mb-5 text-2xl flex items-center justify-center leading-none text-white w-full py-4 hover:bg-gray-700 focus:outline-none">
-                                     <i class="fa-solid fa-comments mr-3"></i>
+                                 @if ($item->user_id == auth()->id())
+                                     <x-button id="submit-button"
+                                         class="mb-5 text-2xl flex items-center justify-center leading-none text-white w-full py-4 cursor-not-allowed opacity-50 focus:outline-none"
+                                         disabled>
+                                         <i class="fa-solid fa-comments mr-3"></i>
+                                         Enviar Mensaje
+                                     </x-button>
+                                 @else
+                                     <x-button id="submit-button"
+                                         class="mb-5 text-2xl flex items-center justify-center leading-none text-white w-full py-4 hover:bg-green-500 focus:outline-none">
+                                         <i class="fa-solid fa-comments mr-3"></i>
+                                         Enviar Mensaje
+                                     </x-button>
+                                 @endif
 
-                                     Enviar Mensaje
-                                 </x-button>
                              </form>
+
+
+
+                             <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+                             <script>
+                                 // Capturar el evento de envío del formulario
+                                 document.getElementById('message-form').addEventListener('submit', function(e) {
+                                     e.preventDefault(); // Evitar el envío del formulario normal
+
+                                     // Obtener el botón de envío
+                                     var submitButton = document.getElementById('submit-button');
+
+                                     // Deshabilitar el botón y cambiar el texto a "Enviando"
+                                     submitButton.disabled = true;
+                                     submitButton.innerHTML = 'Enviando...';
+
+                                     // Obtener los datos del formulario
+                                     var formData = new FormData(this);
+
+                                     // Enviar la solicitud AJAX
+                                     axios.post(this.action, formData)
+                                         .then(function(response) {
+                                             // Mostrar mensaje de éxito con SweetAlert
+                                             Swal.fire({
+                                                 icon: 'success',
+                                                 title: 'Mensaje enviado',
+                                                 text: 'Tu mensaje ha sido enviado exitosamente.',
+                                             });
+
+                                             // Restablecer el formulario
+                                             document.getElementById('message-form').reset();
+
+                                             // Habilitar el botón y cambiar el texto a "Enviar Mensaje"
+                                             submitButton.disabled = false;
+                                             submitButton.innerHTML = 'Enviar Mensaje';
+                                         })
+                                         .catch(function(error) {
+                                             // Mostrar mensaje de error con SweetAlert
+                                             Swal.fire({
+                                                 icon: 'error',
+                                                 title: 'Error',
+                                                 text: 'Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo.',
+                                             });
+
+                                             // Habilitar el botón y cambiar el texto a "Enviar Mensaje"
+                                             submitButton.disabled = false;
+                                             submitButton.innerHTML = 'Enviar Mensaje';
+                                         });
+                                 });
+                             </script>
+
 
 
 
@@ -390,17 +452,35 @@
 
                                  <div class="border-t border-b py-4 mt-7 border-gray-200 md:block hidden ">
 
-                                     <div class=" flex justify-between items-center cursor-pointer">
-                                         <a href="tel:{{ $item->phone }}"
-                                             class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded mr-2">
-                                             <i class="fa-solid fa-phone-volume"></i> Contactar
-                                         </a>
+                                     @if ($item->user_id == auth()->id())
+                                         <div class="flex justify-between items-center cursor-not-allowed opacity-50">
+                                             <a href="tel:{{ $item->phone }}"
+                                                 class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded mr-2"
+                                                 style="pointer-events: none;">
+                                                 <i class="fa-solid fa-phone-volume"></i> Contactar
+                                             </a>
 
-                                         <a href="https://api.whatsapp.com/send?phone=123456789"
-                                             class="bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded">
-                                             <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
-                                         </a>
-                                     </div>
+                                             <a href="https://api.whatsapp.com/send?phone={{ $item->phone }}"
+                                                 class="bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded"
+                                                 style="pointer-events: none;">
+                                                 <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                                             </a>
+                                         </div>
+                                     @else
+                                         <div class="flex justify-between items-center cursor-pointer">
+                                             <a href="tel:{{ $item->phone }}"
+                                                 class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded mr-2">
+                                                 <i class="fa-solid fa-phone-volume"></i> Contactar
+                                             </a>
+
+                                             <a href="https://api.whatsapp.com/send?phone={{ $item->phone }}"
+                                                 class="bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded">
+                                                 <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                                             </a>
+                                         </div>
+                                     @endif
+
+
 
 
                                  </div>
@@ -439,6 +519,27 @@
 
                  </div>
                  <!-- end Contenido de la columna 2 -->
+                 <!--  BOTTOM FIXED -->
+                 <div class="fixed bottom-0 text-center left-0 right-0 sm:hidden block">
+                     <div class="grid grid-cols-2 gap-4 p-4 bg-white">
+                         <div>
+                             <a href="tel:{{ $item->phone }}"
+                                 class="block w-full bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded">
+                                 <i class="fa-solid fa-phone-volume"></i> Contactar
+                             </a>
+                         </div>
+
+                         <div>
+                             <a href="https://api.whatsapp.com/send?phone={{ $item->phone }}"
+                                 class="block w-full bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded">
+                                 <i class="fab fa-whatsapp"></i> WhatsApp
+                             </a>
+                         </div>
+
+
+                     </div>
+                 </div>
+                 <!--  BOTTOM FIXED -->
              @endforeach
 
          </div>
@@ -446,28 +547,11 @@
          <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
          <x-message-success />
          <!-- END INCLUDE ALERTS MESSAGES-->
+
          <!-- END COMPONENT -->
 
 
-         <!--  BOTTOM FIXED -->
-         <div class="fixed bottom-0 text-center left-0 right-0 sm:hidden block">
-             <div class="grid grid-cols-2 gap-4 p-4 bg-white">
-                 <div>
-                     <a href="tel:{{ $item->phone }}"
-                         class="block w-full bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded">
-                         <i class="fa-solid fa-phone-volume"></i> Contactar
-                     </a>
-                 </div>
 
-                 <div>
-                     <a href="https://api.whatsapp.com/send?phone=123456789"
-                         class=" block w-full bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded">
-                         <i class="fab fa-whatsapp"></i> WhatsApp
-                     </a>
-                 </div>
-             </div>
-         </div>
-         <!--  BOTTOM FIXED -->
      </x-app-layout>
  @endauth
 
@@ -486,40 +570,6 @@
 
      <!--  GUESTS VIEWS  -->
 
-     <div class="flex justify-center -mt-10">
-         <div class="bg-white p-4 flex items-center flex-wrap font-bold">
-             <nav class="flex" aria-label="Breadcrumb">
-                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                     <li class="inline-flex items-center">
-                         <a href="/"
-                             class="inline-flex items-center text-base font-medium text-gray-700 hover:text-green-600 dark:text-gray-400 dark:hover:text-white">
-                             <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                 <path
-                                     d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
-                                 </path>
-                             </svg>
-                             Home
-                         </a>
-                     </li>
-                     <li>
-                         <div class="flex items-center">
-                             <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor"
-                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                 <path fill-rule="evenodd"
-                                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                     clip-rule="evenodd"></path>
-                             </svg>
-                             <a href=""
-                                 class="ml-1 text-base  text-green-700 hover:text-green-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-                                 Anuncio / {{ $publishCode }}
-                             </a>
-                         </div>
-                     </li>
-                 </ol>
-             </nav>
-         </div>
-     </div>
      <!-- COMPONENT -->
      <div class="flex flex-col md:flex-row py-12 mb-0 max-w-8xl mx-auto sm:px-6 lg:px-8">
          @foreach ($collections as $item)
@@ -623,7 +673,7 @@
 
 
                                  <button id="dropdownDefaultButton" data-dropdown-toggle="dropdownads"
-                                     class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                     class="rounded-md mt-3 bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                                      type="button">Compartir <i class="fa-solid fa-share-nodes ml-3"></i>
                                  </button>
                                  <!-- Dropdown menu -->
@@ -721,7 +771,7 @@
 
                          </div>
                          @if ($item->additional_features)
-                             <div class="ml-5 w-3/5 p-4">
+                             <div class=" ml-5 w-3/5 p-4">
                                  <h1
                                      class="mb-4 -mt-2 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
                                      Características adicionales</h1>
@@ -758,6 +808,7 @@
 
                  </div>
 
+
              </div>
              <!-- end Contenido de la columna 1 -->
 
@@ -771,62 +822,104 @@
                          <h1 class="text-green-600 text-xl text-center font-bold mt-3">Contactar al
                              anunciante
                          </h1>
-
-                         <form method="POST" action="" autocomplete="off">
+                         <form id="message-form" method="POST" action="{{ route('send-message-guest') }}"
+                             autocomplete="off">
                              @csrf
                              <div class="py-4 items-center justify-between">
 
-                                 <?php if (!Auth::check()): ?>
-                                 <input type="text" placeholder="Tu Nombre" name="name"
+                                 <input type="hidden" readonly name="title" value="{{ $item->title }}" />
+                                 <input type="hidden" readonly name="publishCode" value="{{ $item->publish_code }}" />
+                                 <input type="hidden" readonly name="to_id" value="{{ $item->user_id }}" />
+
+
+                                 <input type="text" placeholder="Tu Nombre" name="nameFrom"
                                      class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                 @error('nameFrom')
+                                     <span class="text-red-500">{{ $message }}</span>
+                                 @enderror
 
                                  <div class="mb-5">
                                      <input id="phone" type="tel" name="phone"
-                                         class="rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
-                                 </div>
-
-                                 <span id="valid-msg" class="hide text-green-600">✓ Valid</span>
-                                 <span id="error-msg" class="hide text-red-500 "></span>
-
-                                 <input type="email" placeholder="Tu Email" name="email"
-                                     class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                     id="email" />
-
-
-                                 <?php else: ?>
-                                 <?php $user = Auth::user(); ?>
-                                 <input type="text" readonly placeholder="Tu Nombre" name="name"
-                                     value="<?php echo $user->name; ?> <?php echo $user->lastname; ?>"
-                                     class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-
-                                 <div class="mb-5">
-                                     <input id="phone" type="tel" name="phone" value="<?php echo $user->phone; ?>"
                                          class="rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                  </div>
                                  <div>
                                      <span id="valid-msg" class="hide text-green-600">✓ Valid</span>
                                      <span id="error-msg" class="hide text-red-500 "></span>
                                  </div>
-                                 <input type="email" readonly placeholder="Tu Email" name="email"
-                                     value="<?php echo $user->email; ?>"
+                                 <input type="email" placeholder="Tu Email" name="email"
                                      class="mb-5 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                      id="email" />
-                                 <?php endif; ?>
+                                 @error('email')
+                                     <span class="text-red-500">{{ $message }}</span>
+                                 @enderror
 
-                                 <textarea
+                                 <textarea name="body"
                                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-normal text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                      placeholder="Escribe tu mensaje">¡Hola! Quiero que se comuniquen conmigo por esta propiedad en {{ $item->transaction_description }} que vi en Aios Real Estate.</textarea>
-
+                                 @error('body')
+                                     <span class="text-red-500">{{ $message }}</span>
+                                 @enderror
                              </div>
 
-                             <x-button
-                                 class="mb-5 text-2xl flex items-center justify-center leading-none text-white w-full py-4 hover:bg-gray-700 focus:outline-none">
+                             <x-button id="submit-button"
+                                 class="mb-5 text-2xl flex items-center justify-center leading-none text-white w-full py-4 hover:bg-green-500 focus:outline-none">
                                  <i class="fa-solid fa-comments mr-3"></i>
 
                                  Enviar Mensaje
                              </x-button>
                          </form>
 
+
+
+                         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+                         <script>
+                             // Capturar el evento de envío del formulario
+                             document.getElementById('message-form').addEventListener('submit', function(e) {
+                                 e.preventDefault(); // Evitar el envío del formulario normal
+
+                                 // Obtener el botón de envío
+                                 var submitButton = document.getElementById('submit-button');
+
+                                 // Deshabilitar el botón y cambiar el texto a "Enviando"
+                                 submitButton.disabled = true;
+                                 submitButton.innerHTML = 'Enviando...';
+
+                                 // Obtener los datos del formulario
+                                 var formData = new FormData(this);
+
+                                 // Enviar la solicitud AJAX
+                                 axios.post(this.action, formData)
+                                     .then(function(response) {
+                                         // Mostrar mensaje de éxito con SweetAlert
+                                         Swal.fire({
+                                             icon: 'success',
+                                             title: 'Mensaje enviado',
+                                             text: 'Tu mensaje ha sido enviado exitosamente.',
+                                         });
+
+                                         // Restablecer el formulario
+                                         document.getElementById('message-form').reset();
+
+                                         // Habilitar el botón y cambiar el texto a "Enviar Mensaje"
+                                         submitButton.disabled = false;
+                                         submitButton.innerHTML = 'Enviar Mensaje';
+                                     })
+                                     .catch(function(error) {
+                                         // Mostrar mensaje de error con SweetAlert
+                                         Swal.fire({
+                                             icon: 'error',
+                                             title: 'Error',
+                                             text: 'Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo.',
+                                         });
+
+                                         // Habilitar el botón y cambiar el texto a "Enviar Mensaje"
+                                         submitButton.disabled = false;
+                                         submitButton.innerHTML = 'Enviar Mensaje';
+                                     });
+                             });
+                         </script>
 
 
 
@@ -865,17 +958,35 @@
 
                              <div class="border-t border-b py-4 mt-7 border-gray-200 md:block hidden ">
 
-                                 <div class=" flex justify-between items-center cursor-pointer">
-                                     <a href="tel:{{ $item->phone }}"
-                                         class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded mr-2">
-                                         <i class="fa-solid fa-phone-volume"></i> Contactar
-                                     </a>
+                                 @if ($item->user_id == auth()->id())
+                                     <div class="flex justify-between items-center cursor-not-allowed opacity-50">
+                                         <a href="tel:{{ $item->phone }}"
+                                             class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded mr-2"
+                                             style="pointer-events: none;">
+                                             <i class="fa-solid fa-phone-volume"></i> Contactar
+                                         </a>
 
-                                     <a href="https://api.whatsapp.com/send?phone=123456789"
-                                         class="bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded">
-                                         <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
-                                     </a>
-                                 </div>
+                                         <a href="https://api.whatsapp.com/send?phone={{ $item->phone }}"
+                                             class="bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded"
+                                             style="pointer-events: none;">
+                                             <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                                         </a>
+                                     </div>
+                                 @else
+                                     <div class="flex justify-between items-center cursor-pointer">
+                                         <a href="tel:{{ $item->phone }}"
+                                             class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded mr-2">
+                                             <i class="fa-solid fa-phone-volume"></i> Contactar
+                                         </a>
+
+                                         <a href="https://api.whatsapp.com/send?phone={{ $item->phone }}"
+                                             class="bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded">
+                                             <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
+                                         </a>
+                                     </div>
+                                 @endif
+
+
 
 
                              </div>
@@ -914,11 +1025,35 @@
 
              </div>
              <!-- end Contenido de la columna 2 -->
+             <!--  BOTTOM FIXED -->
+             <div class="fixed bottom-0 text-center left-0 right-0 sm:hidden block">
+                 <div class="grid grid-cols-2 gap-4 p-4 bg-white">
+                     <div>
+                         <a href="tel:{{ $item->phone }}"
+                             class="block w-full bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded">
+                             <i class="fa-solid fa-phone-volume"></i> Contactar
+                         </a>
+                     </div>
+
+                     <div>
+                         <a href="https://api.whatsapp.com/send?phone={{ $item->phone }}"
+                             class="block w-full bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded">
+                             <i class="fab fa-whatsapp"></i> WhatsApp
+                         </a>
+                     </div>
+
+
+                 </div>
+             </div>
+             <!--  BOTTOM FIXED -->
          @endforeach
 
      </div>
+     <!--INCLUDE ALERTS MESSAGES-->
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <x-message-success />
+     <!-- END INCLUDE ALERTS MESSAGES-->
      <!-- END COMPONENT -->
-
 
      <!-- END GUESTS VIEWS  -->
 

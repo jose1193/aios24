@@ -106,8 +106,7 @@ public function CleanUp()
         'images.*' => 'image|max:2048',
          'garage' => 'required|min:1|max:30',
        'city' => 'required',
-        'latitudeArea' => 'required',
-         'longitudeArea' => 'required',
+       
          'energy_certificate' => 'required',
          'addmore.*.equipments' => 'required',
           'addmore2.*.features' => 'required',
@@ -280,7 +279,7 @@ $images = PropertyImage::join('publish_properties', 'property_images.property_id
 
         // Realizar las operaciones necesarias antes de cargar la vista
 sleep(2); //BUTTON SPINNER LOADING
-session()->flash('success', 'Datos guardados exitosamente');
+
 $this->reset();
 $this->CleanUp();
 

@@ -15,7 +15,8 @@
                @endif
            @endauth
 
-           <div class="flex items-center md:order-2">
+           <div class="flex items-center md:order-2 ">
+               <livewire:notifications-messages />
                @auth
                    @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                        <button type="button"

@@ -49,23 +49,26 @@
                                     {{ Str::words($item->description, 7, '...') }}
                             </p>
                             </a>
-                            <div class="justify-center py-4 border-y border-slate-100 ">
-                                <div class=" flex space-x-3 overflow-hidden rounded-lg px-1 py-1">
-                                    <p class="flex items-center font-medium text-gray-800">
-                                        <i class="fa fa-bed mr-2  text-green-600"></i>
+                            <div class="justify-center py-4 border-y border-slate-100">
+                                <div class="flex flex-wrap justify-center overflow-hidden rounded-lg px-1 py-1">
+                                    <p
+                                        class="flex items-center font-medium text-gray-800 sm:w-full md:w-auto mb-2 mr-3">
+                                        <i class="fa fa-bed mr-2 text-green-600"></i>
                                         {{ $item->bedrooms }} Hab
                                     </p>
-
-                                    <p class="flex items-center font-medium text-gray-800">
+                                    <p
+                                        class="flex items-center font-medium text-gray-800 sm:w-full md:w-auto mb-2 mr-3">
                                         <i class="fa fa-bath mr-2 text-green-600"></i>
                                         {{ $item->bathrooms }} Bañ
                                     </p>
-                                    <p class="flex items-center font-medium text-gray-800">
-                                        <i class="fa fa-home mr-2  text-green-600"></i>
+                                    <p
+                                        class="flex items-center font-medium text-gray-800 sm:w-full md:w-auto mb-2 mr-3">
+                                        <i class="fa fa-home mr-2 text-green-600"></i>
                                         {{ $item->total_area }} m²
                                     </p>
                                 </div>
                             </div>
+
                             <div class="justify-between">
                                 <span
                                     class="absolute top-2 right-8 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-[#27c54f] px-2 py-1 text-xs font-semibold text-white ">

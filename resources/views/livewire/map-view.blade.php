@@ -183,8 +183,8 @@
             <div class="mapContainer " style="width: 100%;position: relative;">
                 <!-- @foreach ($collections as $property)
     <a class="direction-link" target="_blank"
-                                                                href="//maps.google.com/maps?f=d&amp;daddr={{ $property->latitudeArea }},{{ $property->longitudeArea }}&amp;hl=en">
-                                                                Get Directions</a>
+                                                                    href="//maps.google.com/maps?f=d&amp;daddr={{ $property->latitudeArea }},{{ $property->longitudeArea }}&amp;hl=en">
+                                                                    Get Directions</a>
     @endforeach -->
                 <div id="map" style="width: 100%; height:500px;"></div>
             </div>
@@ -404,8 +404,8 @@
         <div class="mapContainer " style="width: 100%;position: relative;">
             <!-- @foreach ($collections as $property)
     <a class="direction-link" target="_blank"
-                                                                href="//maps.google.com/maps?f=d&amp;daddr={{ $property->latitudeArea }},{{ $property->longitudeArea }}&amp;hl=en">
-                                                                Get Directions</a>
+                                                                    href="//maps.google.com/maps?f=d&amp;daddr={{ $property->latitudeArea }},{{ $property->longitudeArea }}&amp;hl=en">
+                                                                    Get Directions</a>
     @endforeach -->
             <div id="map" style="width: 100%; height:500px;"></div>
         </div>

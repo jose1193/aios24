@@ -15,7 +15,21 @@
                @endauth
            @endif
            <div class="flex items-center md:order-2">
-
+               @if (Route::has('login'))
+                   @auth
+                       <a href="{{ route('dashboard') }}"
+                           class=" block px-3 py-2 mb-2 leading-loose text-sm text-center
+                                 text-white font-semibold bg-green-600 transition duration-500 ease-in-out hover:bg-green-700  rounded-xl ">Dashboard</a>
+                   @else
+                       <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 transition duration-500 ease-in-out bg-gray-50
+                     hover:bg-green-200 text-sm text-gray-900 font-bold  rounded-xl "
+                           href="{{ route('login') }}">Ingresar</a>
+                       @if (Route::has('register'))
+                           <a class="hidden lg:inline-block py-2 px-6 bg-green-600 transition duration-500 ease-in-out hover:bg-green-500 text-sm text-white font-bold rounded-xl "
+                               href="{{ route('register') }}">Publicar</a>
+                       @endif
+                   @endauth
+               @endif
                <!-- LENGUAGE BUTTON -->
                <div class="hidden lg:inline-block">
                    <div class=" flex items-center md:order-2 pl-3">
@@ -112,7 +126,8 @@
                                                xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-cn"
                                                viewBox="0 0 512 512">
                                                <defs>
-                                                   <path id="a" fill="#ffde00" d="M1-.3L-.7.8 0-1 .6.8-1-.3z" />
+                                                   <path id="a" fill="#ffde00"
+                                                       d="M1-.3L-.7.8 0-1 .6.8-1-.3z" />
                                                </defs>
                                                <path fill="#de2910" d="M0 0h512v512H0z" />
                                                <use width="30" height="20"
@@ -344,18 +359,7 @@
 
            </ul>
 
-           @if (Route::has('login'))
-               @auth
-               @else
-                   <a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 transition duration-500 ease-in-out bg-gray-50
-                     hover:bg-green-200 text-sm text-gray-900 font-bold  rounded-xl "
-                       href="{{ route('login') }}">Ingresar</a>
-                   @if (Route::has('register'))
-                       <a class="hidden lg:inline-block py-2 px-6 bg-green-600 transition duration-500 ease-in-out hover:bg-green-500 text-sm text-white font-bold rounded-xl "
-                           href="{{ route('register') }}">Publicar</a>
-                   @endif
-               @endauth
-           @endif
+
 
        </nav>
        <div class="navbar-menu relative z-50 hidden">
@@ -364,7 +368,7 @@
                class="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto">
                <div class="flex items-center mb-8">
                    <a class="mr-auto text-3xl font-bold leading-none" href="#">
-                       <img src="img/logo.jpg" class="h-12" alt="logo">
+                       <img src="{{ asset('img/logo.jpg') }}" class="h-12" alt="logo">
 
                    </a>
                    <button class="navbar-close">

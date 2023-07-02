@@ -88,9 +88,9 @@
                                     @foreach ($plans as $plan)
                                         @if ($plan->plan === 'Oro')
                                             <div
-                                                class="flex flex-col overflow-hidden rounded-lg border-2 border-indigo-500">
+                                                class="flex flex-col overflow-hidden rounded-lg border-2 border-yellow-600">
                                                 <div
-                                                    class="bg-indigo-500 py-2 text-center text-sm font-semibold uppercase tracking-widest text-white">
+                                                    class="bg-yellow-600 py-2 text-center text-sm font-bold uppercase tracking-widest text-white">
                                                     Más
                                                     Popular</div>
 
@@ -107,7 +107,7 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                    class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
                                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
@@ -119,7 +119,7 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                    class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
                                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
@@ -132,7 +132,7 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                    class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
                                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
@@ -146,7 +146,7 @@
 
                                                     <div class="mt-auto">
                                                         <a href="#"
-                                                            class="block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">{{ $plan->pricing }}€</a>
+                                                            class="block rounded-lg bg-yellow-600 px-8 py-3 text-center text-sm font-bold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-yellow-500 focus-visible:ring active:bg-yellow-700 md:text-base">{{ $plan->pricing }}€</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,7 +155,7 @@
                                             <!-- plan - start -->
                                         @elseif ($plan->plan === 'Free')
                                             <div class="flex flex-col overflow-hidden rounded-lg border sm:mt-8">
-                                                <div class="h-2 bg-pink-500"></div>
+                                                <div class="h-2 bg-green-600"></div>
 
                                                 <div class="flex flex-1 flex-col p-6 pt-8">
                                                     <div class="mb-12">
@@ -172,9 +172,8 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-indigo-500"
-                                                                    fill="none" viewBox="0 0 24 24"
-                                                                    stroke="currentColor">
+                                                                    class="h-6 w-6 shrink-0 text-green-600" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
                                                                 </svg>
@@ -186,9 +185,8 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-indigo-500"
-                                                                    fill="none" viewBox="0 0 24 24"
-                                                                    stroke="currentColor">
+                                                                    class="h-6 w-6 shrink-0 text-green-600" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
                                                                 </svg>
@@ -200,9 +198,8 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-indigo-500"
-                                                                    fill="none" viewBox="0 0 24 24"
-                                                                    stroke="currentColor">
+                                                                    class="h-6 w-6 shrink-0 text-green-600" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
                                                                 </svg>
@@ -226,7 +223,8 @@
                                         @elseif ($plan->plan === 'Platino')
                                             <!-- plan - start -->
                                             <div class="flex flex-col overflow-hidden rounded-lg border lg:mt-8">
-                                                <div class="h-2 bg-gray-800"></div>
+                                                <div class="h-2 bg-gradient-to-r from-gray-400 to-gray-600">
+                                                </div>
 
                                                 <div class="flex flex-1 flex-col p-6 pt-8">
                                                     <div class="mb-12">
@@ -241,9 +239,8 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-indigo-500"
-                                                                    fill="none" viewBox="0 0 24 24"
-                                                                    stroke="currentColor">
+                                                                    class="h-6 w-6 shrink-0 text-gray-500" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
                                                                 </svg>
@@ -254,9 +251,8 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-indigo-500"
-                                                                    fill="none" viewBox="0 0 24 24"
-                                                                    stroke="currentColor">
+                                                                    class="h-6 w-6 shrink-0 text-gray-500" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
                                                                 </svg>
@@ -268,9 +264,8 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-indigo-500"
-                                                                    fill="none" viewBox="0 0 24 24"
-                                                                    stroke="currentColor">
+                                                                    class="h-6 w-6 shrink-0 text-gray-500" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
                                                                 </svg>
@@ -283,7 +278,7 @@
 
                                                     <div class="mt-auto">
                                                         <a href="#"
-                                                            class="block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">{{ $plan->pricing }}€</a>
+                                                            class="block rounded-lg bg-gradient-to-r from-gray-400 to-gray-600 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">{{ $plan->pricing }}€</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -368,9 +363,9 @@
                                 <!-- plan - start -->
                                 @foreach ($plans as $plan)
                                     @if ($plan->plan === 'Oro')
-                                        <div class="flex flex-col overflow-hidden rounded-lg border-2 border-indigo-500">
+                                        <div class="flex flex-col overflow-hidden rounded-lg border-2 border-yellow-600">
                                             <div
-                                                class="bg-indigo-500 py-2 text-center text-sm font-semibold uppercase tracking-widest text-white">
+                                                class="bg-yellow-600 py-2 text-center text-sm font-bold uppercase tracking-widest text-white">
                                                 Más
                                                 Popular</div>
 
@@ -387,7 +382,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -399,7 +394,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -412,7 +407,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -426,7 +421,7 @@
 
                                                 <div class="mt-auto">
                                                     <a href="#"
-                                                        class="block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">19€</a>
+                                                        class="block rounded-lg bg-yellow-600 px-8 py-3 text-center text-sm font-bold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-yellow-500 focus-visible:ring active:bg-yellow-700 md:text-base">{{ $plan->pricing }}€</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -435,7 +430,7 @@
                                         <!-- plan - start -->
                                     @elseif ($plan->plan === 'Free')
                                         <div class="flex flex-col overflow-hidden rounded-lg border sm:mt-8">
-                                            <div class="h-2 bg-pink-500"></div>
+                                            <div class="h-2 bg-green-600"></div>
 
                                             <div class="flex flex-1 flex-col p-6 pt-8">
                                                 <div class="mb-12">
@@ -452,7 +447,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-green-600" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -465,7 +460,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-green-600" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -478,7 +473,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-green-600" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -503,7 +498,8 @@
                                     @elseif ($plan->plan === 'Platino')
                                         <!-- plan - start -->
                                         <div class="flex flex-col overflow-hidden rounded-lg border lg:mt-8">
-                                            <div class="h-2 bg-gray-800"></div>
+                                            <div class="h-2 bg-gradient-to-r from-gray-400 to-gray-600">
+                                            </div>
 
                                             <div class="flex flex-1 flex-col p-6 pt-8">
                                                 <div class="mb-12">
@@ -518,7 +514,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-gray-500" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -530,7 +526,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-gray-500" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -543,7 +539,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-indigo-500" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-gray-500" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -557,7 +553,7 @@
 
                                                 <div class="mt-auto">
                                                     <a href="#"
-                                                        class="block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">29€</a>
+                                                        class="block rounded-lg bg-gradient-to-r from-gray-400 to-gray-600 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">{{ $plan->pricing }}€</a>
                                                 </div>
                                             </div>
                                         </div>
