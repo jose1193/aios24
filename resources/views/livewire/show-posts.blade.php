@@ -1,4 +1,5 @@
 <!--  AUTH USER -->
+{!! SEO::generate() !!}
 @auth
     <x-app-layout>
         <x-slot name="header">

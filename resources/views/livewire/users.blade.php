@@ -337,7 +337,7 @@
     </script>
 @endpush
 <!-- DATES FILTERS  -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
 
 <script>
     document.getElementById('message-form').addEventListener('submit', function(event) {

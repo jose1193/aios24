@@ -4,10 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <meta name="theme-color" content="#22c55e" />
 
     <link rel="icon" href="{{ asset('img/favicon.ico') }}">
-    <title>AIOS Real Estate </title>
+
+    <livewire:tags />
+
 
 
     <!-- Fonts -->

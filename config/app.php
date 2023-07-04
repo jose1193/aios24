@@ -173,6 +173,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+
     ])->toArray(),
 
     /*
@@ -191,6 +193,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Pusher' => Pusher\Pusher::class,
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+
     ])->toArray(),
 
 ];
