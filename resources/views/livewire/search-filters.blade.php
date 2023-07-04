@@ -56,7 +56,7 @@
             <div id="filters">
                 <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-7 gap-4 mt-4">
 
-                    <select wire:model="selectedTransactionType"
+                    <select name="selectedTransactionType"
                         class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                         <option value=""> Transacción Tipo</option>
                         @foreach ($transactionRender as $item)
@@ -302,7 +302,7 @@
 <!-- GUEST USER -->
 @guest
     @extends('layouts.guest2')
-
+    <x-files-guests />
     <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
         <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
             <x-home-header />

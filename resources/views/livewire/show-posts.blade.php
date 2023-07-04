@@ -1,4 +1,5 @@
 <!--  AUTH USER -->
+{!! SEO::generate() !!}
 @auth
     <x-app-layout>
         <x-slot name="header">
@@ -86,7 +87,7 @@
 <!-- GUEST USER -->
 @guest
     @extends('layouts.guest2')
-
+    <x-files-guests />
     <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
         <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
             <x-home-header />

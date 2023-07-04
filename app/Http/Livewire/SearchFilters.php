@@ -22,7 +22,7 @@ class SearchFilters extends Component
     {
         
 
-        $this->searchTerm='Quinta do Alvito, lote 1, 1ª Cave Esq. B, Boidobra';
+       
 
             $this->propertyTypesRender = Property::all();  
              $this->transactionRender = Transaction::all(); 

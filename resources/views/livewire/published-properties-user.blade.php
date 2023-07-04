@@ -13,14 +13,13 @@
 
 
      <!-- END INCLUDE ALERTS MESSAGES-->
+     <div class="m-2 p-2 mb-5 flex justify-between space-x-2">
+         <x-a-button href="{{ route('publish') }}">Publicar</x-a-button>
 
-     <div class="m-2 p-2 mb-5">
-         <x-a-button href="{{ route('publish') }}">+ Publicar</x-a-button>
-
-
-         <x-input2 id="name" type="text" class="block float-right w-full md:w-5/12 lg:w-4/12 " wire:model="search"
+         <x-input2 id="name" type="text" class="block float-right w-full md:w-5/12 lg:w-4/12" wire:model="search"
              placeholder="Búsqueda por Título..." autofocus autocomplete="off" />
      </div>
+
 
      <div class="m-2 p-2">
          <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

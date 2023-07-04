@@ -7,6 +7,11 @@ use App\Models\Post;
 use App\Models\Plan;
 
 use Carbon\Carbon;
+
+use Artesaos\SEOTools\Facades\SEOTools;
+
+use Artesaos\SEOTools\Facades\SEOMeta;
+
 class HomeController extends Controller
 {
     
@@ -78,6 +83,20 @@ public $plans;
    $this->posts = Post::where('post_title_slug', $postTitle)->firstOrFail();
     $this->posts->post_date = Carbon::parse($this->posts->created_at)->format('F d, Y');
         
+// OR use single only SEOTools
+
+        SEOTools::setTitle($this->posts->meta_title);
+       
+        SEOTools::setDescription($this->posts->meta_description);
+        SEOTools::opengraph()->setUrl('https://aiosrealestate.com/');
+        SEOTools::setCanonical('https://aiosrealestate.com');
+        SEOTools::opengraph()->addProperty('type', 'articles');
+       
+        SEOTools::jsonLd()->addImage('https://www.aiosrealestate.com/img/logo.jpg');
+SEOMeta::addKeyword($this->posts->meta_keywords);
+SEOMeta::addMeta('article:published_time', $this->posts->post_date = Carbon::parse($this->posts->created_at)->format('F d, Y'), 'property');
+// OR use single only SEOTools
+
    return view('livewire.show-posts', ['posts' => $this->posts]);
 }
 

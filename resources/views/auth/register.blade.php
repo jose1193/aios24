@@ -52,7 +52,7 @@
 
                             <input id="phone" type="tel" name="phone" :value="old('phone')" required
                                 autofocus
-                                class="w-[245%] block  px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md  focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                class=" block  px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md  focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
 
                             <div><span id="valid-msg" class="hide text-green-600">✓ Valid</span>
                                 <span id="error-msg" class="hide text-red-500 "></span>

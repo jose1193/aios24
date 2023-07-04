@@ -15,27 +15,32 @@
 
 
 
-    <form>
-        <div class="flex flex-col md:flex-row ">
+
+    <form method="POST" id="message-form" action="{{ route('users-dates') }}">
+        <div class="flex flex-col md:flex-row m-2 p-2 mb-5">
             <div class="md:w-1/4 mb-4 md:mb-0 mr-4">
-                <input wire:model.lazy="startDate" name="startDate" type="date" class="w-full p-2 border rounded">
+                <input name="startDate" type="date" class="w-full p-2 border rounded">
                 @error('startDate')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
             <div class="md:w-1/4 mb-4 md:mb-0 mr-4">
-                <input wire:model.lazy="endDate" name="endDate" type="date" class="w-full p-2 border rounded">
+                <input name="endDate" type="date" class="w-full p-2 border rounded">
                 @error('endDate')
                     <span class="text-red-400">{{ $message }}</span>
                 @enderror
             </div>
-            <div class=" w-full">
-                <x-button2 wire:click.prevent="submit()" class=" w-20 ">Filter</x-button2>
+            <div class="w-full md:w-auto">
+                <x-button2 id="submit-button" class="w-full md:w-20">
+                    Filter
+                </x-button2>
+                <span wire:loading wire:target="submit()" class="ml-2 text-gray-600">Loading...</span>
             </div>
         </div>
     </form>
 
-    <div class="m-2 p-2 mb-5">
+
+    <div class="m-2 p-2 mb-5 flex justify-between space-x-2">
         <x-button wire:click="showDataModal">+ Create New </x-button>
 
         <x-input2 id="name" type="text" class="block float-right w-full md:w-5/12 lg:w-4/12 "
@@ -46,7 +51,7 @@
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <table class="w-full divide-y divide-gray-200 text-center">
+                    <table id="users" class="w-full divide-y divide-gray-200 text-center">
                         <thead class="bg-green-600 text-white font-bold capitalize">
                             <th class="px-4 py-2 w-20">Nro</th>
                             <th class="px-4 py-2">Nombre</th>
@@ -97,7 +102,7 @@
                                 </tr>
                             @empty
                                 <tr class="text-center">
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         <div class="grid justify-items-center w-full mt-5">
                                             <div class="text-center bg-red-100 rounded-lg py-5 w-full px-6 mb-4 text-base text-red-700 "
                                                 role="alert">
@@ -303,6 +308,7 @@
 </div>
 
 
+
 @push('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -330,3 +336,76 @@
         })
     </script>
 @endpush
+<!-- DATES FILTERS  -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+
+<script>
+    document.getElementById('message-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var form = event.target;
+        var url = form.getAttribute('action');
+        var formData = new FormData(form);
+
+        axios.post(url, formData)
+            .then(function(response) {
+                var users = response.data.users;
+
+                // Actualizar la tabla con los nuevos datos de usuario
+                var tableBody = document.getElementById('users').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = '';
+
+                users.forEach(function(user) {
+                    var row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-6 py-4 whitespace-nowrap">${user.id}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">${user.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">${user.lastname}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">${user.dni}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">${user.phone}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">${user.email}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">${user.created_at}</td>
+                        <td class="px-6 py-4 text-center text-sm">
+                            <x-button wire:click="showEditDataModal(${user.id})">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 inline-block"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                            </x-button>
+
+                            <x-button-delete wire:click="$emit('deleteData', ${user.id})">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5 text-white  inline-block" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </x-button-delete>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                // Mostrar mensaje de "No Data Records" si no hay registros
+                if (users.length === 0) {
+                    var noDataRow = document.createElement('tr');
+                    noDataRow.innerHTML = `
+                        <td colspan="8">
+                            <div class="grid justify-items-center w-full mt-5">
+                                <div class="text-center bg-red-100 rounded-lg py-5 w-full px-6 mb-4 text-base text-red-700" role="alert">
+                                    No Data Records
+                                </div>
+                            </div>
+                        </td>
+                    `;
+                    tableBody.appendChild(noDataRow);
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+    });
+</script>
+
+<!-- END DATES FILTERS  -->

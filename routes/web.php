@@ -8,7 +8,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 
-
+// LARAVEL CHATIFY
+use Chatify\Http\Controllers\MessagesController;
+use Chatify\Http\Controllers\ChatifyController;
 // LARAVEL SOCIALITE
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -45,6 +47,7 @@ use App\Http\Livewire\SearchFilters;
 use App\Http\Livewire\SearchForm;
 
 use App\Http\Livewire\PublishProperties;
+use App\Http\Livewire\NotificationsMessages;
 
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
@@ -64,9 +67,10 @@ use App\Models\User;
 */
 
 
+
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 
 ///------------- ROUTE GOOGLE AUTH ---------///
@@ -144,7 +148,8 @@ Route::get('search-filters', [SearchForm::class, 'filters'])->name('search.filte
 
 Route::get('map-view/{searchTerm}', [SearchForm::class, 'MapView'])->name('map.view');
 
-
+Route::post('/send-message', [NotificationsMessages::class, 'sendMessage'])->name('send-message');
+Route::post('/send-message-guest', [NotificationsMessages::class, 'sendMessageGuest'])->name('send-message-guest');
 
 
 Route::get('select', ThreeLevelSelect::class)->name('select');
@@ -171,6 +176,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
 
  Route::get('users', Users::class)->name('users');
+Route::post('users-date', [Users::class, 'submit'])->name('users-dates');
+
   Route::get('plans', Plans::class)->name('plans');
  Route::get('transactions', Transactions::class)->name('transactions');
  Route::get('properties', Properties::class)->name('properties');
@@ -204,12 +211,13 @@ Route::post('publish', [PublishProperties::class, 'saveProperty'])->name('publis
 
 
 Route::get('images-gallery/{publishCodeImages}',[PublishProperties::class, 'viewImages'])->name('images-gallery');
-Route::put('add-images-gallery/{publishCodeImages}', [PublishProperties::class, 'addImages'])->name('add.images');
+Route::post('add-images-gallery/{publishCodeImages}', [PublishProperties::class, 'addImages'])->name('add.images');
 Route::get('edit-property/{publishCode}', [PublishProperties::class, 'editProperty'])->name('edit-property');
 Route::put('update-property/{publishCode}', [PublishProperties::class, 'update'])->name('publishproperties.update');
 Route::delete('/delete-feature/{featureId}', [PublishProperties::class, 'deleteFeature']);
 Route::delete('/delete-equipment/{equipmentId}', [PublishProperties::class, 'deleteEquipment']);
 
+Route::delete('/delete-image/{imageId}', [PublishProperties::class, 'deleteImage']);
 
 
 //------------ FAVORITES -----------//
@@ -240,6 +248,18 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
 
 });
 
-
+//------------ CHATIFY -----------//
+Route::prefix('chatify')->middleware('auth')->group(function () {
+    Route::get('/messages', [ChatifyController::class, 'index'])->name('chatify.index');
+   Route::get('/{id}', [MessagesController::class, 'index'])->name('chatify.name');
+    Route::get('/fetch', [ChatifyController::class, 'fetchContacts']);
+    Route::get('/conversations/{id}', [ChatifyController::class, 'fetchMessages']);
+    Route::post('/send', [ChatifyController::class, 'sendMessage']);
+    Route::post('/typing', [ChatifyController::class, 'typing']);
+    Route::get('/user/{id}', [ChatifyController::class, 'getUser']);
+    Route::post('/update-info', [ChatifyController::class, 'updateInfo']);
+    Route::post('/search', [ChatifyController::class, 'search']);
+});
+//------------ CHATIFY -----------//
 
   

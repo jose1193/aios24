@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\ImageManager;
+use Illuminate\Http\Request;
 
 class Users extends Component
 {
@@ -21,43 +22,39 @@ class Users extends Component
    
 public $name, $lastname, $dni, $phone, $email, $password, $address, $city, $province, $zipcode, $user;
 public $subject,$action,$bucket;
- public $startDate;
-    public $endDate;
+public $startDate;
+public $endDate;
  public $isEditMode = false;
   
   
     public $search = '';
-    protected $listeners = ['render','delete']; 
-    
-    
+protected $listeners = ['render', 'delete', 'refreshComponent', 'usersUpdated'];
+
 public function authorize()
 {
     return true;
 }
 
-
-public function submit()
+public function submit(Request $request)
 {
-    $this->validate([
-        'startDate' => 'required',
-        'endDate' => 'required'
+     $request->validate([
+        'startDate' => 'required|date',
+        'endDate' => 'required|date|after_or_equal:startDate'
     ]);
+    $this->startDate = $request->input('startDate');
+$this->endDate= $request->input('endDate');
 
-    $users = User::whereBetween('created_at', ['2023-05-11', '2023-05-11'])->get();
+   $users = User::whereBetween('created_at', [
+    $this->startDate . ' 00:00:00',
+    $this->endDate . ' 23:59:59'
+])->get();
+ 
 
-return view('livewire.users', ['users' => $users]);
-}
-public function filter(){
-    //$dateFrom = $this->dateFrom;
-    //$dateTo = $this->dateTo;
-     $users = User::whereDate('created_at', '>=', Carbon::today()->toDateString())
-     ->whereDate('created_at', '<=', date('Y-m-d'))
-            ->get();
-
-            
-       return view('livewire.users', ['users' => $users]);
+    return response()->json(['users' => $users]);
 }
 
+
+   
     public function render()
     {
        
@@ -67,7 +64,8 @@ public function filter(){
         $users = User::where('name', 'like', '%'.$this->search.'%')
             ->orderBy('users.id','DESC')->paginate(10);
 
-            
+          
+
        return view('livewire.users', ['users' => $users]);
     }
 

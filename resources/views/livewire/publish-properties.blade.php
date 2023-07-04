@@ -167,8 +167,7 @@
                                              class="mb-3 block text-base font-medium text-[#07074D]">
                                              Ciudad
                                          </label>
-                                         <input type="text" readonly id="city" name="city"
-                                             placeholder="Ciudad"
+                                         <input type="text" id="city" name="city" placeholder="Ciudad"
                                              class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                          @error('city')
                                              <span class="text-red-500">{{ $message }}</span>
@@ -262,7 +261,7 @@
 
                              <div class="mb-5">
                                  <label for="propertyType" class="mb-3 block text-base font-medium text-[#07074D]">
-                                     Características adicionales (Opcional)
+                                     Características adicionales
                                  </label>
                                  <textarea name="additional_features" id="additional_features"
                                      placeholder="Cualquier característica adicional relevante, como piscina, jardín, garaje, etc... que desees informar a los visitantes"
@@ -386,7 +385,7 @@
                                  class="relative flex flex-col p-4 text-gray-400 border border-gray-200 rounded">
                                  <div x-ref="dnd"
                                      class="relative flex flex-col text-gray-400 border border-gray-200 border-dashed rounded cursor-pointer">
-                                     <input accept="*" type="file" name="images[]" id="images" required
+                                     <input accept="image/*" type="file" name="images[]" id="images" required
                                          multiple
                                          class="absolute inset-0 z-50 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer"
                                          @change="addFiles($event)"

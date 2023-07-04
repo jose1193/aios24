@@ -74,7 +74,7 @@
 
                 <div class="grow-0 shrink-0 basis-auto w-full lg:w-7/12">
                     <div
-                        class="bg-green-500 h-full rounded-lg p-6 lg:pl-12 text-white flex items-center text-center lg:text-left">
+                        class="bg-green-700 h-full rounded-lg p-6 lg:pl-12 text-white flex items-center text-center lg:text-left">
                         <div class="lg:pl-12">
                             <h2 class="text-3xl font-bold mb-6">Buscando una propiedad ?</h2>
                             <p class="mb-6 pb-2 lg:pb-0">

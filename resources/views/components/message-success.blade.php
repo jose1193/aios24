@@ -69,3 +69,14 @@
         });
     </script>
 @endif
+
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            html: '<div class="text-red-500">{{ session('error') }}</div>',
+            footer: '<a href="">Aios Real Estate</a>'
+        });
+    </script>
+@endif

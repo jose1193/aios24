@@ -31,7 +31,7 @@ public function ShowViews($publishCode)
     $collections = PublishProperty::join('users', 'publish_properties.user_id', '=', 'users.id')
         ->join('estatus_ads', 'publish_properties.status', '=', 'estatus_ads.id')
         ->join('transactions', 'publish_properties.transaction_type', '=', 'transactions.id')
-        ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.profile_photo_path',
+        ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.phone','users.profile_photo_path',
             'estatus_ads.estatus_description', 'transactions.transaction_description')
         ->where('publish_properties.publish_code', '=', $publishCode)
         ->orderBy('publish_properties.created_at', 'desc')
