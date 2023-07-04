@@ -15,7 +15,7 @@ class Tags extends Component
 
         SEOTools::setTitle('AIOS Real Estate | Home');
        
-        SEOTools::setDescription('Anuncia tu propiedad de manera gratuita sin preocupaciones, beneficiándote de los mejores resultados. Obtén el máximo provecho sin costo alguno, alcanzando tus objetivos con facilidad.');
+        SEOTools::setDescription('Anuncia tu propiedad de manera gratuita, beneficiándote de los mejores resultados. Obtén el máximo provecho sin costo alguno, alcanzando tus objetivos con facilidad.');
         SEOTools::opengraph()->setUrl('https://aiosrealestate.com/');
         SEOTools::setCanonical('https://aiosrealestate.com');
         SEOTools::opengraph()->addProperty('type', 'articles');
