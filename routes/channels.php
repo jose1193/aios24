@@ -25,9 +25,3 @@ Broadcast::channel('notifications-channel', function ($user) {
 
 
 
-Broadcast::channel('my-channel', function ($user) {
-   return $user != null;
-});
-
-
-

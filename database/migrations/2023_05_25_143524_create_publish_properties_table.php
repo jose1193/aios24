@@ -20,7 +20,7 @@ return new class extends Migration
                $table->string('latitudeArea')->nullable();
                  $table->string('longitudeArea')->nullable();
             $table->string('title');
-            $table->longtext ('description');
+            $table->longText ('description');
             $table->string('price');
             $table->string('transaction_type');
             $table->string('bedrooms');

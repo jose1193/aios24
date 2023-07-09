@@ -199,6 +199,9 @@
                                             <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}"> <img
                                                     class="absolute inset-0 h-full w-full object-cover"
                                                     src="{{ Storage::url($item->image_path) }}" alt=""></a>
+                                            <span
+                                                class="absolute top-1 left-5 z-10 mt-3  inline-flex  px-2 py-1 leading-none bg-green-200 text-green-800 rounded-full font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
+                                            </span>
                                             <span id="heart"
                                                 class="float-right z-10 mt-3 mr-4 inline-flex select-none animate-pulse border border-green-800 rounded-full bg-green-200 bg-opacity-70 px-2 py-1 text-xs font-semibold ">
                                                 @livewire('favorites-cards', ['propertyId' => $item->id]) </span>
@@ -206,9 +209,11 @@
                                         </div>
                                         <div class="p-4">
                                             <div class="flex justify-between mb-2">
-                                                <span
-                                                    class="inline-block px-2 py-1 leading-none bg-green-200 text-green-800 rounded-full font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
-                                                </span>
+                                                <div class="mt-3 flex items-center">
+                                                    <span class="font-bold text-xl">
+                                                        {{ $item->price % 1 === 0 ? number_format($item->price, 0) : number_format($item->price, 2) }}</span>&nbsp;<span
+                                                        class="text-sm font-semibold">€</span>
+                                                </div>
                                                 @if ($item->profile_photo_url)
                                                     <img class="w-24 rounded border"
                                                         src="{{ Storage::url($item->profile_photo_url) }}"
@@ -222,15 +227,12 @@
                                             </div>
 
                                             <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
-                                                <h2 class="mt-2 mb-2  font-bold"> {{ Str::words($item->title, 6, '...') }}
+                                                <h2 class="mt-2 mb-2  font-bold text-green-600">
+                                                    {{ Str::words($item->title, 6, '...') }}
                                                 </h2>
                                             </a>
                                             <p class="text-sm"> {{ Str::words($item->description, 7, '...') }}</p>
-                                            <div class="mt-3 flex items-center">
-                                                <span class="font-bold text-xl">
-                                                    {{ $item->price % 1 === 0 ? number_format($item->price, 0) : number_format($item->price, 2) }}</span>&nbsp;<span
-                                                    class="text-sm font-semibold">€</span>
-                                            </div>
+
                                         </div>
                                         <div class="p-4 border-t border-b text-xs text-gray-700">
                                             <div class=" flex space-x-3 overflow-hidden rounded-lg px-1 py-1">
@@ -256,7 +258,7 @@
                                                 <i class="fa-solid fa-phone-volume"></i>
                                             </a>
 
-                                            <a href="https://api.whatsapp.com/send?phone=123456789"
+                                            <a href="https://api.whatsapp.com/send?phone={{ $item->phone }}"
                                                 class="  bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded-lg">
                                                 <i class="fab fa-whatsapp"></i>
                                             </a>
@@ -471,6 +473,9 @@
                                         <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}"> <img
                                                 class="absolute inset-0 h-full w-full object-cover"
                                                 src="{{ Storage::url($item->image_path) }}" alt=""></a>
+                                        <span
+                                            class="absolute top-1 left-5 z-10 mt-3  inline-flex  px-2 py-1 leading-none bg-green-200 text-green-800 rounded-full font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
+                                        </span>
                                         <span id="heart"
                                             class="float-right z-10 mt-3 mr-4 inline-flex select-none animate-pulse border border-green-800 rounded-full bg-green-200 bg-opacity-70 px-2 py-1 text-xs font-semibold ">
                                             @livewire('favorites-cards', ['propertyId' => $item->id]) </span>
@@ -478,9 +483,11 @@
                                     </div>
                                     <div class="p-4">
                                         <div class="flex justify-between mb-2">
-                                            <span
-                                                class="inline-block px-2 py-1 leading-none bg-green-200 text-green-800 rounded-full font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
-                                            </span>
+                                            <div class="top-5 flex items-center">
+                                                <span class="font-bold text-xl">
+                                                    {{ $item->price % 1 === 0 ? number_format($item->price, 0) : number_format($item->price, 2) }}</span>&nbsp;<span
+                                                    class="text-sm font-semibold">€</span>
+                                            </div>
                                             @if ($item->profile_photo_url)
                                                 <img class="w-24 rounded border"
                                                     src="{{ Storage::url($item->profile_photo_url) }}"
@@ -494,15 +501,12 @@
                                         </div>
 
                                         <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
-                                            <h2 class="mt-2 mb-2  font-bold"> {{ Str::words($item->title, 6, '...') }}
+                                            <h2 class="mt-2 mb-2  font-bold text-green-600">
+                                                {{ Str::words($item->title, 6, '...') }}
                                             </h2>
                                         </a>
                                         <p class="text-sm"> {{ Str::words($item->description, 7, '...') }}</p>
-                                        <div class="mt-3 flex items-center">
-                                            <span class="font-bold text-xl">
-                                                {{ $item->price % 1 === 0 ? number_format($item->price, 0) : number_format($item->price, 2) }}</span>&nbsp;<span
-                                                class="text-sm font-semibold">€</span>
-                                        </div>
+
                                     </div>
                                     <div class="p-4 border-t border-b text-xs text-gray-700">
                                         <div class=" flex space-x-3 overflow-hidden rounded-lg px-1 py-1">
@@ -528,7 +532,7 @@
                                             <i class="fa-solid fa-phone-volume"></i>
                                         </a>
 
-                                        <a href="https://api.whatsapp.com/send?phone=123456789"
+                                        <a href="https://api.whatsapp.com/send?phone={{ $item->phone }}"
                                             class="  bg-green-500 transition duration-500 ease-in-out hover:bg-green-400 text-white font-bold py-2 px-4 rounded-lg">
                                             <i class="fab fa-whatsapp"></i>
                                         </a>

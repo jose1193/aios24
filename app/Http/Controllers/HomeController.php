@@ -97,6 +97,8 @@ SEOMeta::addKeyword($this->posts->meta_keywords);
 SEOMeta::addMeta('article:published_time', $this->posts->post_date = Carbon::parse($this->posts->created_at)->format('F d, Y'), 'property');
 // OR use single only SEOTools
 
+
+
    return view('livewire.show-posts', ['posts' => $this->posts]);
 }
 

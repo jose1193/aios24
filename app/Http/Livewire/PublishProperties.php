@@ -23,6 +23,7 @@ use Intervention\Image\ImageManager;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PublishProperties extends Component
 {
@@ -54,10 +55,17 @@ public $energy_certificate;
 public $garage;
 
 public $bucket,$email,$name,$message2;
+public $publishProperty;
 
+public function mount(PublishProperty $publishProperty)
+{
+    $this->publishProperty = $publishProperty;
+}
 
 public function render()
 {
+    
+   
     $this->propertyTypesRender = Property::all();
  $this->transactionRender = Transaction::all();
  $this->estatusAdsRender = EstatusAds::all();
@@ -134,7 +142,7 @@ public function CleanUp()
 $propertyType = $request->input('property_type');
 $location = $request->input('location');
 $title = $request->input('title');
-$description = $request->input('description');
+$description = nl2br($request->input('description'));
 $price = $request->input('price');
 $transactionType = $request->input('transaction_type');
 $bedrooms = $request->input('bedrooms');
@@ -298,9 +306,15 @@ $this->publishCode = $publishCode;
 
 }
 
-
-public function editProperty($publishCode)
+public function authorize()
 {
+    return false;
+}
+public function editProperty(PublishProperty $publishProperty, $publishCode)
+{
+    if (Gate::denies('update', $publishProperty)) {
+        abort(403, 'THIS ACTION IS UNAUTHORIZED.');
+    }
 $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
         ->select('property_images.image_path')
         ->where('publish_properties.publish_code', '=', $publishCode)
@@ -372,7 +386,7 @@ public function update(Request $request, $publishCode)
     $propertyId = $collection->id;
 
     $collection->title = $request->input('title');
-    $collection->description = $request->input('description');
+    $collection->description = nl2br($request->input('description'));
     $collection->property_type = $request->input('property_type');
     $collection->transaction_type = $request->input('transaction_type');
     $collection->location = $request->input('location');
@@ -486,9 +500,11 @@ public function deleteEquipment($equipmentId)
 
 
 
-public function viewImages($publishCodeImages)
+public function viewImages(PublishProperty $publishProperty,$publishCodeImages)
 {
-   
+    if (Gate::denies('update', $publishProperty)) {
+        abort(403, 'THIS ACTION IS UNAUTHORIZED.');
+    }
 $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
         ->select('property_images.image_path','property_images.id')
         ->where('publish_properties.publish_code', '=', $publishCodeImages)

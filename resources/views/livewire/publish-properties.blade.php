@@ -827,3 +827,14 @@
  </script>
 
  <!-- END MULTIPLE FILE ALPINE -->
+ <script src="https://cdn.tiny.cloud/1/ledg98ovyfojczv2t6zjn48qwwczcqqth3g8ofwis9tuxh5t/tinymce/6/tinymce.min.js"
+     referrerpolicy="origin"></script>
+
+ <script>
+     tinymce.init({
+         selector: 'textarea#description',
+         plugins: 'advlist autolink lists link image charmap print preview anchor',
+         toolbar: 'bold italic alignleft aligncenter alignright bullist numlist outdent indent',
+         menubar: false,
+     });
+ </script>

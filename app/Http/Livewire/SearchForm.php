@@ -75,7 +75,7 @@ if ($response->successful()) {
         $location = $data['results'][0]['geometry']['location'];
         $latitude = $location['lat'];
         $longitude = $location['lng'];
-        
+       
         // Construir la URL del mapa de Google Maps con las coordenadas
         $mapSrc = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12080.73732861526!2d{$longitude}!3d{$latitude}!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM40zMDA2JzEwLjAiTiA3NMKwMjUnMzcuNyJX!5e0!3m2!1sen!2sus!4v1648482801994!5m2!1sen!2sus";
 
@@ -91,7 +91,7 @@ $collections = PublishProperty::join('users', 'publish_properties.user_id', '=',
     ->join('plans', 'plans.id', '=', 'purchased_plans.plan_id')
     ->join('transactions', 'publish_properties.transaction_type', '=', 'transactions.id')
     ->join('property_images', 'property_images.property_id', '=', 'publish_properties.id')
-    ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.profile_photo_path',
+    ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.profile_photo_path','users.phone',
         'estatus_ads.estatus_description', 'transactions.transaction_description',
         DB::raw('MIN(property_images.image_path) AS image_path'))
     ->where('estatus_ads.estatus_description', '=', 'Activo')
@@ -114,7 +114,7 @@ $collections = PublishProperty::join('users', 'publish_properties.user_id', '=',
             'searchTerm' => $this->city,
             'transactionRender' => $this->transactionRender,
         'propertyTypesRender' => $this->propertyTypesRender,
-         'mapSrc' => $mapSrc, // Pasa la URL del mapa generada a la vista
+         'mapSrc' => 12, // Pasa la URL del mapa generada a la vista -> QUITAR ESTE NUMERO AL ACTIVAR API KEY GOOGLE MAP
          'resultCount' => $resultCount, // Agregar la variable de conteo a la vista
         ]);
     }

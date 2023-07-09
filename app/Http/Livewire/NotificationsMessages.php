@@ -11,25 +11,22 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Mail;
-
-
-
-
+use App\Events\NotificationsEvent;
 
 
 class NotificationsMessages extends Component 
 {
     public $bucket,$email,$name,$body,$message2,$title,$phone,$nameFrom,$publishCodeEmail,
     $userEmailFrom2;
-  public $count;
-    public $messages;
+       public $to_user_id;
+   
 
 
-   public function render()
+ public function render()
 {
  
 
-   $this->count = DB::table('ch_messages')
+    $count = DB::table('ch_messages')
     ->join('users', 'users.id', '=', 'ch_messages.from_id')
     ->where('ch_messages.to_id', auth()->user()->id)
     ->where('ch_messages.seen', 0)
@@ -38,7 +35,7 @@ class NotificationsMessages extends Component
     
     ->count();
 
-    $this->messages = DB::table('ch_messages')
+$messages = DB::table('ch_messages')
     ->join('users', 'users.id', '=', 'ch_messages.from_id')
     ->where('ch_messages.to_id', auth()->user()->id)
     ->where('ch_messages.seen', 0)
@@ -48,9 +45,13 @@ class NotificationsMessages extends Component
     ->get();
 
 
-return view('livewire.notifications-messages', ['messages' =>  $this->messages, 'count' =>  $this->count]);
 
+return view('livewire.notifications-messages', ['messages' => $messages],['count' => $count]);
 }
+
+
+
+    
 
 // ---------- SEND MESSAGES ------//
 
@@ -92,6 +93,27 @@ public function sendMessage(Request $request)
 $this->email = $user->email;
 $this->name = $user->name;
 $userEmailTo=$user->email;
+
+ // Emitir el evento de notificación en tiempo real con variables de nombres diferentes
+ 
+
+$countNotifications = DB::table('ch_messages')
+            ->join('users', 'users.id', '=', 'ch_messages.from_id')
+            ->where('ch_messages.to_id', $to_id)
+            ->where('ch_messages.seen', 0)
+            ->select('ch_messages.*', 'users.name', 'users.lastname', 'users.profile_photo_path')
+            ->orderBy('ch_messages.id', 'DESC')
+            ->count();
+$notifications =  DB::table('ch_messages')
+            ->join('users', 'users.id', '=', 'ch_messages.from_id')
+            ->where('ch_messages.to_id', $to_id)
+            ->where('ch_messages.seen', 0)
+            ->select('ch_messages.*', 'users.name', 'users.lastname', 'users.profile_photo_path')
+            ->orderBy('ch_messages.id', 'DESC')
+            ->groupBy('users.id') // Agrupar por el ID del usuario
+            ->get();
+event(new NotificationsEvent($countNotifications, $notifications));// END evento de notificación en tiempo real
+
 
     try {
     \Mail::send('emails.contactMailPublishMessages', array(

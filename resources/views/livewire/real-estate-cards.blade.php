@@ -26,8 +26,9 @@
 
                             <div class="flex justify-between mb-2">
                                 <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
-                                    <p class="text-lg font-semibold">€
+                                    <p class="text-xl font-bold">
                                         {{ $item->price % 1 === 0 ? number_format($item->price, 0) : number_format($item->price, 2) }}
+                                        <span class="text-sm font-semibold">€</span>
                                     </p>
                                 </a>
                                 @if ($item->profile_photo_url)
@@ -71,12 +72,12 @@
 
                             <div class="justify-between">
                                 <span
-                                    class="absolute top-2 right-8 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-[#27c54f] px-2 py-1 text-xs font-semibold text-white ">
+                                    class="absolute top-2 left-8 z-10 mt-3  inline-flex select-none rounded-sm bg-[#27c54f] px-2 py-1 text-xs font-semibold text-white ">
                                     {{ $item->transaction_description }} </span>
                             </div>
                         </div>
                         <a
-                            class="border border-green-800  absolute top-20 right-8 z-10 mt-20 ml-3 inline-flex select-none rounded-full bg-white bg-opacity-70 px-2 py-1 text-xs font-semibold ">
+                            class="border border-green-800  absolute top-2 right-8 z-10 mt-3 ml-3 inline-flex select-none rounded-full bg-white bg-opacity-70 px-2 py-1 text-xs font-semibold ">
                             @livewire('favorites-cards', ['propertyId' => $item->id])
                         </a>
 
