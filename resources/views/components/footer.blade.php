@@ -300,4 +300,188 @@
          }
      });
  </script>
+
+
+ <!-- PUSHERS NOTIFICATIONS -->
+
+ <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+ <script>
+     // Inicializar Pusher con las credenciales de la aplicación
+     const pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+         cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
+         encrypted: true,
+     });
+
+     // Suscribirse al canal de notificaciones
+     const channel = pusher.subscribe('notifications-channel');
+
+     channel.bind('App\\Events\\NotificationsEvent', function(data) {
+         console.log('Evento recibido:', data);
+         // Actualizar el recuento de notificaciones
+         const count = data.countNotificationsEvent;
+         // Actualizar los mensajes de notificación
+         const messages = data.messageEvent;
+         // Mostrar u ocultar el elemento de recuento de notificaciones según el valor de count
+         const countNotifications = document.getElementById('count-notifications');
+         if (count > 0) {
+             countNotifications.style.display = 'block';
+             countNotifications.innerText = count.toString();
+         } else {
+             countNotifications.style.display = 'none';
+         }
+         // Realizar las operaciones necesarias para actualizar el elemento user-dropdown2 con los nuevos datos
+
+         // Ejemplo:
+         const dropdownContainer = document.getElementById('user-dropdown2');
+         dropdownContainer.innerHTML = ''; // Limpiar el contenido anterior
+
+         messages.forEach((message) => {
+             const dropdownItem = document.createElement('li');
+
+
+             dropdownItem.innerHTML = `
+                 <a href="#" data-from-id="${message.from_id}"
+                    class="border-t border-gray-200 flex items-center space-x-2 
+                    px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <!-- Aquí agregas el contenido del mensaje -->
+                    <!-- Ejemplo: -->
+                    <div class="text-gray-600 text-sm">
+                        <p class="font-bold"
+                            style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 150px;">
+                            ${message.name} ${message.lastname}
+                        </p>
+                        <p class="font-bold text-gray-500 text-xs">
+                            
+                           ${message.created_at} 
+                        </p>
+                    </div>
+                </a>
+            `;
+             dropdownContainer.appendChild(dropdownItem);
+             // Agregar el nuevo elemento al contenedor
+             const chatboxItem = document.createElement('li');
+             chatboxItem.innerHTML = `
+    <a href="{{ route('chatify.index') }}"
+        class="border-t border-gray-200 text-center bg-green-600 block px-4 py-2 text-sm text-white hover:bg-green-400">
+        Chatbox
+    </a>
+`;
+             dropdownContainer.appendChild(chatboxItem);
+         });
+
+         // Agregar el evento de clic al enlace
+         const links = dropdownContainer.querySelectorAll('a[data-from-id]');
+         links.forEach((link) => {
+             link.addEventListener('click', function(event) {
+                 event.preventDefault();
+
+                 const fromId = this.getAttribute('data-from-id');
+                 const url = `{{ route('chatify.name', ['id' => 'FROM_ID']) }}`.replace(
+                     'FROM_ID', fromId);
+
+                 // Redireccionar a la URL construida
+                 window.location.href = url;
+             });
+         });
+     });
+ </script>
+
+ <!-- END PUSHERS NOTIFICATIONS -->
+
+ <!-- GOOGLE MAP API KEY -->
+
+ <script type="text/javascript"
+     src="https://maps.google.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries=places"></script>
+ <script>
+     $(document).ready(function() {
+         $("#latitudeArea").addClass("d-none");
+         $("#longtitudeArea").addClass("d-none");
+
+         initializeCityAutocomplete();
+     });
+
+     function initializeCityAutocomplete() {
+         var input = document.getElementById('city');
+         var autocomplete = new google.maps.places.Autocomplete(input);
+
+         autocomplete.addListener('place_changed', function() {
+             var place = autocomplete.getPlace();
+             var addressComponents = place.address_components;
+             var city = '';
+
+             for (var i = 0; i < addressComponents.length; i++) {
+                 var types = addressComponents[i].types;
+
+                 if (types.includes('locality') || types.includes('administrative_area_level_2')) {
+                     city = addressComponents[i].long_name;
+                     break;
+                 }
+             }
+
+             $('#city').val(city);
+         });
+     }
+ </script>
+ <!-- END GOOGLE MAP API KEY -->
+
+ <!-- SEARCH FILTERS -->
+ <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+ <script>
+     // Verifica si los campos de búsqueda tienen valores
+     function checkSearchInputsFilled() {
+         const form = document.getElementById('filters-form');
+         const formData = new FormData(form);
+
+         const searchInputsFilled =
+             formData.get('garage') !== '' ||
+             formData.get('bathrooms') !== '' ||
+             formData.get('bedrooms') !== '' ||
+             formData.get('minTotalArea') !== '' ||
+             formData.get('maxTotalArea') !== '' ||
+             formData.get('minPrice') !== '' ||
+             formData.get('maxPrice') !== '';
+
+         return searchInputsFilled;
+     }
+
+     // Actualiza las tarjetas y los resultados solo si los campos de búsqueda tienen valores
+     function updateResultSection() {
+         if (checkSearchInputsFilled()) {
+             const form = document.getElementById('filters-form');
+             const formData = new FormData(form);
+
+             axios.post('{{ route('search.filters.update') }}', formData)
+                 .then(function(response) {
+                     // Obtén el contenido de las tarjetas de la respuesta JSON del servidor
+                     const cardsContent = response.data.cards;
+
+                     // Actualiza solo el contenido del contenedor de las tarjetas
+                     document.getElementById('cards-container').innerHTML = cardsContent;
+                     // Actualiza el contador de resultados y el término de búsqueda
+                     const resultCount = response.data.resultCount;
+                     const searchTerm = response.data.searchTerm;
+                     document.getElementById('result-count').textContent = resultCount;
+                     document.getElementById('search-term').textContent = searchTerm;
+                 })
+                 .catch(function(error) {
+                     console.error(error);
+                 });
+         }
+     }
+
+     // Llama a la función de actualización al cargar la página si los campos de búsqueda tienen valores
+     if (checkSearchInputsFilled()) {
+         updateResultSection();
+     }
+
+     // Agrega el evento change a los elementos select e input para actualizar el resultado en tiempo real
+     document.querySelectorAll('#filters-form select, #filters-form input').forEach(function(element) {
+         element.addEventListener('change', updateResultSection);
+     });
+ </script>
+
+ <!-- END SEARCH FILTERS -->
+
+
  <!-- END FOOTER -->

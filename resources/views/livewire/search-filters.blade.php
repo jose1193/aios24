@@ -3,8 +3,8 @@
     <x-app-layout>
         <x-slot name="header">
             <x-slot name="title">
-                Resultados: {{ $resultCount }} en {{ $searchTerm }}
-
+                Resultados: <span id="result-count">{{ $resultCount }}</span> en <span
+                    id="search-term">{{ $searchTerm }}</span>
             </x-slot>
 
             <div class="bg-white p-4 flex items-center flex-wrap font-bold">
@@ -41,163 +41,199 @@
         </x-slot>
 
         <!-- SEARCH FILTERS-->
+        <form id="filters-form" method="POST" action="{{ route('search.filters.update') }}" autocomplete="off">
+            @csrf
+            <div class="mb-10 w-full md:w-11/12 mx-auto shadow p-5 rounded-lg my-5 bg-white">
+                <div class="flex items-center justify-between mt-4">
+                    <p class="font-medium">
+                        Filters
+                    </p>
 
-        <div class="mb-10 w-full md:w-11/12 mx-auto shadow p-5 rounded-lg my-5 bg-white">
-            <div class="flex items-center justify-between mt-4">
-                <p class="font-medium">
-                    Filters
-                </p>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <input type="search" placeholder="Ingresa Ciudad" id="city" name="city"
+                            value="{{ $searchTerm }}"
+                            class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500 "
+                            required>
 
-                <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md">
-                    Reset Filter
-                </button>
-            </div>
-
-            <div id="filters">
-                <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-7 gap-4 mt-4">
-
-                    <select name="selectedTransactionType"
-                        class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                        <option value=""> Transacción Tipo</option>
-                        @foreach ($transactionRender as $item)
-                            <option value="{{ $item->id }}">{{ $item->transaction_description }}
-                            </option>
-                        @endforeach
-                    </select>
-
-                    <select
-                        class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                        <option value="">Propiedad Tipo</option>
-                        @foreach ($propertyTypesRender as $item)
-                            <option value="{{ $item->id }}">{{ $item->property_description }}
-                            </option>
-                        @endforeach
-                    </select>
-
-                    <div class="flex">
-                        <input type="number"
-                            class="w-1/2 px-4 py-3 rounded-l-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                            id="min-input" placeholder="Mín">
-                        <input type="number"
-                            class="w-1/2 px-4 py-3 rounded-r-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                            id="max-input" placeholder="Máx">
+                        @error('city')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
                     </div>
+                </div>
 
 
-                    <div class="flex">
-                        <select
-                            class="w-1/2 px-4 py-3 rounded-l-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                            id="min-select">
-                            <option value="">Mín</option>
-                            <option value="40">40 M²</option>
-                            <!-- Agrega opciones adicionales de 20 en 20 hasta 500 -->
-                            <option value="60">60 M²</option>
-                            <option value="80">80 M²</option>
-                            <option value="100">100 M²</option>
-                            <option value="120">120 M²</option>
-                            <option value="140">140 M²</option>
-                            <option value="160">160 M²</option>
-                            <option value="180">180 M²</option>
-                            <option value="200">200 M²</option>
-                            <option value="250">250 M²</option>
-                            <option value="300">300 M²</option>
-                            <option value="350">350 M²</option>
-                            <option value="400">400 M²</option>
-                            <option value="450">450 M²</option>
-                            <option value="500">500 M²</option>
-                            <option value="600">600 M²</option>
-                            <option value="700">700 M²</option>
-                            <option value="800">800 M²</option>
-                            <option value="1000">1000 M²</option>
-                            <option value="Sin límites">Sin límites</option>
 
+                <div id="filters">
+                    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-7 gap-4 mt-4">
 
-                            <!-- Continúa con el resto de las opciones hasta 500 -->
-                        </select>
-                        <select
-                            class="w-1/2 px-4 py-3 rounded-r-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                            id="max-select">
-                            <option value="">Máx</option>
-                            <!-- Agrega opciones de 20 en 20 desde 500 hasta 1000 -->
-                            <option value="40">40 M²</option>
-                            <!-- Agrega opciones adicionales de 20 en 20 hasta 500 -->
-                            <option value="60">60 M²</option>
-                            <option value="80">80 M²</option>
-                            <option value="100">100 M²</option>
-                            <option value="120">120 M²</option>
-                            <option value="140">140 M²</option>
-                            <option value="160">160 M²</option>
-                            <option value="180">180 M²</option>
-                            <option value="200">200 M²</option>
-                            <option value="250">250 M²</option>
-                            <option value="300">300 M²</option>
-                            <option value="350">350 M²</option>
-                            <option value="400">400 M²</option>
-                            <option value="450">450 M²</option>
-                            <option value="500">500 M²</option>
-                            <option value="600">600 M²</option>
-                            <option value="700">700 M²</option>
-                            <option value="800">800 M²</option>
-                            <option value="900">900 M²</option>
-                            <option value="1000">1000 M²</option>
-                            <option value="Sin límites">Sin límites</option>
+                        <select name="selectedTransactionType" id="selectedTransactionType-select"
+                            class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+
+                            @if ($transactionTypes)
+                                @foreach ($collections as $item)
+                                    <option value="{{ $transactionTypes }}">{{ $item->transaction_description }}
+                                    </option>
+                                @endforeach
+                            @endif
+                            @foreach ($transactionRender as $item)
+                                <option value="{{ $item->id }}">{{ $item->transaction_description }}</option>
+                            @endforeach
+
 
                         </select>
+
+                        <select name="selectedPropertyType" id="selectedPropertyType-select"
+                            class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+
+                            @if ($propertyTypes)
+                                @foreach ($collections as $item)
+                                    <option value="{{ $propertyTypes }}">{{ $item->property_description }}</option>
+                                @endforeach
+                            @endif
+                            @foreach ($propertyTypesRender as $item)
+                                <option value="{{ $item->id }}">{{ $item->property_description }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <div class="flex">
+                            <input type="number" name="minPrice" id="minPriceInput"
+                                class="w-1/2 px-4 py-3 rounded-l-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                                placeholder="Mín">
+                            <input type="number" name="maxPrice" id="maxPriceInput"
+                                class="w-1/2 px-4 py-3 rounded-r-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                                placeholder="Máx">
+                        </div>
+
+
+                        <div class="flex">
+                            <select name="minTotalArea" id="minTotalArea"
+                                class="w-1/2 px-4 py-3 rounded-l-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                                <option value="">Mín M²</option>
+                                <option value="40">40 M²</option>
+                                <!-- Agrega opciones adicionales de 20 en 20 hasta 500 -->
+                                <option value="60">60 M²</option>
+                                <option value="80">80 M²</option>
+                                <option value="100">100 M²</option>
+                                <option value="120">120 M²</option>
+                                <option value="140">140 M²</option>
+                                <option value="160">160 M²</option>
+                                <option value="180">180 M²</option>
+                                <option value="200">200 M²</option>
+                                <option value="250">250 M²</option>
+                                <option value="300">300 M²</option>
+                                <option value="350">350 M²</option>
+                                <option value="400">400 M²</option>
+                                <option value="450">450 M²</option>
+                                <option value="500">500 M²</option>
+                                <option value="600">600 M²</option>
+                                <option value="700">700 M²</option>
+                                <option value="800">800 M²</option>
+                                <option value="1000">1000 M²</option>
+                                <option value="Sin límites">Sin límites</option>
+
+
+                                <!-- Continúa con el resto de las opciones hasta 500 -->
+                            </select>
+                            <select name="maxTotalArea" id="maxTotalArea"
+                                class="w-1/2 px-4 py-3 rounded-r-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                                <option value="">Máx M²</option>
+                                <!-- Agrega opciones de 20 en 20 desde 500 hasta 1000 -->
+                                <option value="40">40 M²</option>
+                                <!-- Agrega opciones adicionales de 20 en 20 hasta 500 -->
+                                <option value="60">60 M²</option>
+                                <option value="80">80 M²</option>
+                                <option value="100">100 M²</option>
+                                <option value="120">120 M²</option>
+                                <option value="140">140 M²</option>
+                                <option value="160">160 M²</option>
+                                <option value="180">180 M²</option>
+                                <option value="200">200 M²</option>
+                                <option value="250">250 M²</option>
+                                <option value="300">300 M²</option>
+                                <option value="350">350 M²</option>
+                                <option value="400">400 M²</option>
+                                <option value="450">450 M²</option>
+                                <option value="500">500 M²</option>
+                                <option value="600">600 M²</option>
+                                <option value="700">700 M²</option>
+                                <option value="800">800 M²</option>
+                                <option value="900">900 M²</option>
+                                <option value="1000">1000 M²</option>
+                                <option value="Sin límites">Sin límites</option>
+
+                            </select>
+                        </div>
+
+                        <select name="bedrooms"
+                            class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                            <option value="">Habitaciones</option>
+                            <option value="1">1 Habitación</option>
+                            <option value="2">2 Habitaciones</option>
+                            <option value="3">3 Habitaciones</option>
+                            <option value="4">4 Habitaciones</option>
+                            <option value="5">5 Habitaciones o más</option>
+                        </select>
+
+                        <select name="bathrooms"
+                            class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                            <option value="">Baños</option>
+                            <option value="1">1 Baño</option>
+                            <option value="2">2 Baños</option>
+                            <option value="3">3 Baños</option>
+                            <option value="4">4 Baños</option>
+                            <option value="5">5 Baños o más</option>
+                        </select>
+
+                        <select name="garage"
+                            class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                            <option value="">Garaje</option>
+                            <option value="Garaje Incluido">Garaje Incluido</option>
+                            <option value="Garaje No Incluido">Garaje No Incluido</option>
+                        </select>
                     </div>
-
-                    <select
-                        class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                        <option value="">Habitaciones</option>
-                        <option value="1">1 Habitación</option>
-                        <option value="2">2 Habitación</option>
-                        <option value="3">3 Habitación</option>
-                        <option value="4">4 Habitación</option>
-                        <option value="5">5 Habitación o más</option>
-                    </select>
-
-                    <select
-                        class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                        <option value="">Baños</option>
-                        <option value="1">1 Baño</option>
-                        <option value="2">2 Baños</option>
-                        <option value="3">3 Baños</option>
-                        <option value="4">4 Baños</option>
-                        <option value="5">5 Baños o más</option>
-                    </select>
-
-                    <select
-                        class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                        <option value="">Garaje</option>
-                        <option value="Garaje Incluido">Incluido</option>
-                        <option value="Garaje No Incluido">No Incluido</option>
-                    </select>
                 </div>
             </div>
-        </div>
+        </form>
         <!-- END SEARCH FILTERS -->
-        <div class="w-full md:w-11/12 mx-auto shadow p-5 rounded-lg my-5 bg-white">
-            <iframe class="w-full h-full mb-5" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
-                tabindex="0" src="{{ $mapSrc }}"></iframe>
+        @if ($mapSrc)
+            <div class="w-full md:w-11/12 mx-auto shadow p-5 rounded-lg my-5 bg-white">
+                <iframe class="w-full h-full mb-5" frameborder="0" style="border:0;" allowfullscreen=""
+                    aria-hidden="false" tabindex="0" src="{{ $mapSrc }}"></iframe>
 
-            <a href="{{ route('map.view', ['searchTerm' => $searchTerm]) }}" target="_blank"
-                class="text-base text-green-700 font-semibold capitalize ml-3 mt-5">
-                <i class="fa-solid fa-location-dot"></i> Ver en Mapa
-            </a>
+                <a href="{{ route('map.view', ['searchTerm' => $searchTerm, 'propertyTypes' => $propertyTypes, 'transactionTypes' => $transactionTypes]) }}"
+                    target="_blank" class="text-base text-green-700 font-semibold capitalize ml-3 mt-5">
+                    <i class="fa-solid fa-location-dot"></i> Ver en Mapa
+                </a>
 
-        </div>
+
+            </div>
+        @endif
+
 
         <div class="py-12 mb-20">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 ">
                     <div class="container mx-auto">
-                        <div class="flex flex-wrap -mx-4">
+
+
+
+                        <div id="cards-container" class="flex flex-wrap -mx-4">
+
                             @forelse ($collections as $item)
                                 <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
                                     <div
                                         class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                                         <div class="relative pb-48 overflow-hidden">
-                                            <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}"> <img
-                                                    class="absolute inset-0 h-full w-full object-cover"
+                                            <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
+                                                <img class="absolute inset-0 h-full w-full object-cover"
                                                     src="{{ Storage::url($item->image_path) }}" alt=""></a>
                                             <span
                                                 class="absolute top-1 left-5 z-10 mt-3  inline-flex  px-2 py-1 leading-none bg-green-200 text-green-800 rounded-full font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
@@ -275,6 +311,7 @@
 
 
                         </div>
+
                     </div>
                     {{ $collections->links() }}
                     <style>
@@ -295,6 +332,8 @@
         </div>
 
 
+
+
     </x-app-layout>
 @endauth
 <!-- END AUTH USER -->
@@ -313,165 +352,196 @@
 
     <!-- SEARCH FILTERS-->
 
+    <form id="filters-form" method="POST" action="{{ route('search.filters.update') }}" autocomplete="off">
+        @csrf
+        <div class="mb-10 w-full md:w-11/12 mx-auto shadow p-5 rounded-lg my-5 bg-white">
+            <h1 class="text-green-600 font-semibold"> Resultados: {{ $resultCount }} en {{ $searchTerm }}</h1>
+            <div class="flex items-center justify-between mt-4">
+                <p class="font-medium">
+                    Filters
+                </p>
 
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <input type="search" placeholder="Ingresa Ciudad" id="city" name="city"
+                        value="{{ $searchTerm }}"
+                        class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500 "
+                        required>
 
-    <div class="mb-10 w-full md:w-11/12 mx-auto shadow p-5 rounded-lg my-5 bg-white">
-
-        <h1 class="text-green-600 font-semibold"> Resultados: {{ $resultCount }} en {{ $searchTerm }}</h1>
-        <div class="flex items-center justify-between mt-4">
-            <p class="font-medium">
-                Filters
-            </p>
-
-            <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md">
-                Reset Filter
-            </button>
-        </div>
-
-        <div id="filters">
-            <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-7 gap-4 mt-4">
-
-                <select wire:model="selectedTransactionType"
-                    class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                    <option value=""> Transacción Tipo</option>
-                    @foreach ($transactionRender as $item)
-                        <option value="{{ $item->id }}">{{ $item->transaction_description }}
-                        </option>
-                    @endforeach
-                </select>
-
-                <select
-                    class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                    <option value="">Propiedad Tipo</option>
-                    @foreach ($propertyTypesRender as $item)
-                        <option value="{{ $item->id }}">{{ $item->property_description }}
-                        </option>
-                    @endforeach
-                </select>
-
-                <div class="flex">
-                    <input type="number"
-                        class="w-1/2 px-4 py-3 rounded-l-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                        id="min-input" placeholder="Mín">
-                    <input type="number"
-                        class="w-1/2 px-4 py-3 rounded-r-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                        id="max-input" placeholder="Máx">
+                    @error('city')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
+            </div>
 
 
-                <div class="flex">
-                    <select
-                        class="w-1/2 px-4 py-3 rounded-l-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                        id="min-select">
-                        <option value="">Mín</option>
-                        <option value="40">40 M²</option>
-                        <!-- Agrega opciones adicionales de 20 en 20 hasta 500 -->
-                        <option value="60">60 M²</option>
-                        <option value="80">80 M²</option>
-                        <option value="100">100 M²</option>
-                        <option value="120">120 M²</option>
-                        <option value="140">140 M²</option>
-                        <option value="160">160 M²</option>
-                        <option value="180">180 M²</option>
-                        <option value="200">200 M²</option>
-                        <option value="250">250 M²</option>
-                        <option value="300">300 M²</option>
-                        <option value="350">350 M²</option>
-                        <option value="400">400 M²</option>
-                        <option value="450">450 M²</option>
-                        <option value="500">500 M²</option>
-                        <option value="600">600 M²</option>
-                        <option value="700">700 M²</option>
-                        <option value="800">800 M²</option>
-                        <option value="1000">1000 M²</option>
-                        <option value="Sin límites">Sin límites</option>
 
+            <div id="filters">
+                <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-7 gap-4 mt-4">
 
-                        <!-- Continúa con el resto de las opciones hasta 500 -->
-                    </select>
-                    <select
-                        class="w-1/2 px-4 py-3 rounded-r-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                        id="max-select">
-                        <option value="">Máx</option>
-                        <!-- Agrega opciones de 20 en 20 desde 500 hasta 1000 -->
-                        <option value="40">40 M²</option>
-                        <!-- Agrega opciones adicionales de 20 en 20 hasta 500 -->
-                        <option value="60">60 M²</option>
-                        <option value="80">80 M²</option>
-                        <option value="100">100 M²</option>
-                        <option value="120">120 M²</option>
-                        <option value="140">140 M²</option>
-                        <option value="160">160 M²</option>
-                        <option value="180">180 M²</option>
-                        <option value="200">200 M²</option>
-                        <option value="250">250 M²</option>
-                        <option value="300">300 M²</option>
-                        <option value="350">350 M²</option>
-                        <option value="400">400 M²</option>
-                        <option value="450">450 M²</option>
-                        <option value="500">500 M²</option>
-                        <option value="600">600 M²</option>
-                        <option value="700">700 M²</option>
-                        <option value="800">800 M²</option>
-                        <option value="900">900 M²</option>
-                        <option value="1000">1000 M²</option>
-                        <option value="Sin límites">Sin límites</option>
+                    <select name="selectedTransactionType" id="selectedTransactionType-select"
+                        class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+
+                        @if ($transactionTypes)
+                            @foreach ($collections as $item)
+                                <option value="{{ $transactionTypes }}">{{ $item->transaction_description }}
+                                </option>
+                            @endforeach
+                        @endif
+                        @foreach ($transactionRender as $item)
+                            <option value="{{ $item->id }}">{{ $item->transaction_description }}</option>
+                        @endforeach
+
 
                     </select>
+
+                    <select name="selectedPropertyType" id="selectedPropertyType-select"
+                        class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+
+                        @if ($propertyTypes)
+                            @foreach ($collections as $item)
+                                <option value="{{ $propertyTypes }}">{{ $item->property_description }}</option>
+                            @endforeach
+                        @endif
+                        @foreach ($propertyTypesRender as $item)
+                            <option value="{{ $item->id }}">{{ $item->property_description }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <div class="flex">
+                        <input type="number" name="minPrice" id="minPriceInput"
+                            class="w-1/2 px-4 py-3 rounded-l-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                            placeholder="Mín">
+                        <input type="number" name="maxPrice" id="maxPriceInput"
+                            class="w-1/2 px-4 py-3 rounded-r-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                            placeholder="Máx">
+                    </div>
+
+
+                    <div class="flex">
+                        <select name="minTotalArea" id="minTotalArea"
+                            class="w-1/2 px-4 py-3 rounded-l-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                            <option value="">Mín M²</option>
+                            <option value="40">40 M²</option>
+                            <!-- Agrega opciones adicionales de 20 en 20 hasta 500 -->
+                            <option value="60">60 M²</option>
+                            <option value="80">80 M²</option>
+                            <option value="100">100 M²</option>
+                            <option value="120">120 M²</option>
+                            <option value="140">140 M²</option>
+                            <option value="160">160 M²</option>
+                            <option value="180">180 M²</option>
+                            <option value="200">200 M²</option>
+                            <option value="250">250 M²</option>
+                            <option value="300">300 M²</option>
+                            <option value="350">350 M²</option>
+                            <option value="400">400 M²</option>
+                            <option value="450">450 M²</option>
+                            <option value="500">500 M²</option>
+                            <option value="600">600 M²</option>
+                            <option value="700">700 M²</option>
+                            <option value="800">800 M²</option>
+                            <option value="1000">1000 M²</option>
+                            <option value="Sin límites">Sin límites</option>
+
+
+                            <!-- Continúa con el resto de las opciones hasta 500 -->
+                        </select>
+                        <select name="maxTotalArea" id="maxTotalArea"
+                            class="w-1/2 px-4 py-3 rounded-r-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                            <option value="">Máx M²</option>
+                            <!-- Agrega opciones de 20 en 20 desde 500 hasta 1000 -->
+                            <option value="40">40 M²</option>
+                            <!-- Agrega opciones adicionales de 20 en 20 hasta 500 -->
+                            <option value="60">60 M²</option>
+                            <option value="80">80 M²</option>
+                            <option value="100">100 M²</option>
+                            <option value="120">120 M²</option>
+                            <option value="140">140 M²</option>
+                            <option value="160">160 M²</option>
+                            <option value="180">180 M²</option>
+                            <option value="200">200 M²</option>
+                            <option value="250">250 M²</option>
+                            <option value="300">300 M²</option>
+                            <option value="350">350 M²</option>
+                            <option value="400">400 M²</option>
+                            <option value="450">450 M²</option>
+                            <option value="500">500 M²</option>
+                            <option value="600">600 M²</option>
+                            <option value="700">700 M²</option>
+                            <option value="800">800 M²</option>
+                            <option value="900">900 M²</option>
+                            <option value="1000">1000 M²</option>
+                            <option value="Sin límites">Sin límites</option>
+
+                        </select>
+                    </div>
+
+                    <select name="bedrooms"
+                        class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                        <option value="">Habitaciones</option>
+                        <option value="1">1 Habitación</option>
+                        <option value="2">2 Habitaciones</option>
+                        <option value="3">3 Habitaciones</option>
+                        <option value="4">4 Habitaciones</option>
+                        <option value="5">5 Habitaciones o más</option>
+                    </select>
+
+                    <select name="bathrooms"
+                        class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                        <option value="">Baños</option>
+                        <option value="1">1 Baño</option>
+                        <option value="2">2 Baños</option>
+                        <option value="3">3 Baños</option>
+                        <option value="4">4 Baños</option>
+                        <option value="5">5 Baños o más</option>
+                    </select>
+
+                    <select name="garage"
+                        class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
+                        <option value="">Garaje</option>
+                        <option value="Garaje Incluido">Garaje Incluido</option>
+                        <option value="Garaje No Incluido">Garaje No Incluido</option>
+                    </select>
                 </div>
-
-                <select
-                    class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                    <option value="">Habitaciones</option>
-                    <option value="1">1 Habitación</option>
-                    <option value="2">2 Habitación</option>
-                    <option value="3">3 Habitación</option>
-                    <option value="4">4 Habitación</option>
-                    <option value="5">5 Habitación o más</option>
-                </select>
-
-                <select
-                    class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                    <option value="">Baños</option>
-                    <option value="1">1 Baño</option>
-                    <option value="2">2 Baños</option>
-                    <option value="3">3 Baños</option>
-                    <option value="4">4 Baños</option>
-                    <option value="5">5 Baños o más</option>
-                </select>
-
-                <select
-                    class="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
-                    <option value="">Garaje</option>
-                    <option value="Garaje Incluido">Incluido</option>
-                    <option value="Garaje No Incluido">No Incluido</option>
-                </select>
             </div>
         </div>
-    </div>
+    </form>
+
     <!-- END SEARCH FILTERS -->
-    <div class="w-full md:w-11/12 mx-auto shadow p-5 rounded-lg my-5 bg-white">
-        <iframe class="w-full h-full mb-5" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
-            tabindex="0" src="{{ $mapSrc }}"></iframe>
+    @if ($mapSrc)
+        <div class="w-full md:w-11/12 mx-auto shadow p-5 rounded-lg my-5 bg-white">
+            <iframe class="w-full h-full mb-5" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+                tabindex="0" src="{{ $mapSrc }}"></iframe>
 
-        <a href="{{ route('map.view', ['searchTerm' => $searchTerm]) }}" target="_blank"
-            class="text-base text-green-700 font-semibold capitalize ml-3 mt-5">
-            <i class="fa-solid fa-location-dot"></i> Ver en Mapa
-        </a>
+            <a href="{{ route('map.view', ['searchTerm' => $searchTerm, 'propertyTypes' => $propertyTypes, 'transactionTypes' => $transactionTypes]) }}"
+                target="_blank" class="text-base text-green-700 font-semibold capitalize ml-3 mt-5">
+                <i class="fa-solid fa-location-dot"></i> Ver en Mapa
+            </a>
 
-    </div>
+
+        </div>
+    @endif
 
     <div class="py-12 mb-20">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 ">
                 <div class="container mx-auto">
-                    <div class="flex flex-wrap -mx-4">
+                    <div id="cards-container" class="flex flex-wrap -mx-4">
+
                         @forelse ($collections as $item)
                             <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
                                 <div class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                                     <div class="relative pb-48 overflow-hidden">
-                                        <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}"> <img
-                                                class="absolute inset-0 h-full w-full object-cover"
+                                        <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
+                                            <img class="absolute inset-0 h-full w-full object-cover"
                                                 src="{{ Storage::url($item->image_path) }}" alt=""></a>
                                         <span
                                             class="absolute top-1 left-5 z-10 mt-3  inline-flex  px-2 py-1 leading-none bg-green-200 text-green-800 rounded-full font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
@@ -483,7 +553,7 @@
                                     </div>
                                     <div class="p-4">
                                         <div class="flex justify-between mb-2">
-                                            <div class="top-5 flex items-center">
+                                            <div class="mt-3 flex items-center">
                                                 <span class="font-bold text-xl">
                                                     {{ $item->price % 1 === 0 ? number_format($item->price, 0) : number_format($item->price, 2) }}</span>&nbsp;<span
                                                     class="text-sm font-semibold">€</span>

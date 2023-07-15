@@ -12,15 +12,14 @@
                     d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
             </svg>
             <span class="sr-only">Notifications</span>
+
             @forelse ($messages as $item)
-                @if ($item->to_id == Auth::user()->id)
-                    <div id="count-notifications"
-                        class="absolute items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-3.5 -right-2 @if ($count == 0) hidden @endif">
-                        {{ $count }}
-                    </div>
-                @endif
+                <div id="count-notifications"
+                    class="absolute items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-3.5 -right-2 @if ($count == 0 || $item->to_id != auth()->user()->id) hidden @endif">
+                    {{ $count }}
+                </div>
+
             @empty
-                <!-- Código para mostrar cuando no hay mensajes -->
             @endforelse
 
         </button>
@@ -47,7 +46,7 @@
                                 {{ $item->name }} {{ $item->lastname }}
                             </p>
                             <p class="font-bold text-gray-500 text-xs">
-                                {{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}
+                                {{ $item->created_at }}
                             </p>
                         </div>
                     </a>
@@ -76,54 +75,4 @@
     </div>
 </div>
 
-
-
-<!-- Aquí van tus elementos HTML del menú y otras partes de la vista -->
-
-<!-- Agrega el siguiente código antes de la etiqueta </body> -->
-
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-
-<script>
-    // Inicializar Pusher con las credenciales de la aplicación
-    const pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-        cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
-        encrypted: true,
-    });
-
-    // Suscribirse al canal de notificaciones
-    const channel = pusher.subscribe('notifications-channel');
-
-    channel.bind('App\\Events\\NotificationsEvent', function(data) {
-        console.log('Evento recibido:', data);
-        // Actualizar el recuento de notificaciones
-        const count = data.countNotificationsEvent;
-        // Actualizar los mensajes de notificación
-        const messages = data.messageEvent;
-        // Mostrar u ocultar el elemento de recuento de notificaciones según el valor de count
-        const countNotifications = document.getElementById('count-notifications');
-        if (count > 0) {
-            countNotifications.style.display = 'block';
-            countNotifications.innerText = count.toString();
-
-        } else {
-            countNotifications.style.display = 'none';
-        }
-        // realizar las operaciones necesarias para actualizar el menú con los nuevos datos
-        // modificar el HTML del menú para mostrar el nuevo recuento y los mensajes
-
-
-
-        // iterar sobre los mensajes de notificación y actualizar el HTML para mostrarlos en el menú
-
-        // Ejemplo:
-        const messagesContainer = document.getElementById('messages-container');
-        messagesContainer.innerHTML = ''; // Limpiar los mensajes anteriores
-
-        messages.forEach((message) => {
-            const messageItem = document.createElement('li');
-            messageItem.innerText = message;
-            messagesContainer.appendChild(messageItem);
-        });
-    });
-</script>
+<!-- SCRIPTS PUSHERS NOTIFICATIONS IN FOOTER.BLADE.PHP-->

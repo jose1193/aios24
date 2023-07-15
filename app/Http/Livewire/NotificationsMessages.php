@@ -44,7 +44,9 @@ $messages = DB::table('ch_messages')
     ->groupBy('users.id') // Agrupar por el ID del usuario
     ->get();
 
-
+  foreach ($messages as $notification) {
+            $notification->created_at = Carbon::parse($notification->created_at) ->setTimezone('Europe/Madrid')->format('F d, Y H: i A');
+        }
 
 return view('livewire.notifications-messages', ['messages' => $messages],['count' => $count]);
 }
@@ -109,9 +111,14 @@ $notifications =  DB::table('ch_messages')
             ->where('ch_messages.to_id', $to_id)
             ->where('ch_messages.seen', 0)
             ->select('ch_messages.*', 'users.name', 'users.lastname', 'users.profile_photo_path')
-            ->orderBy('ch_messages.id', 'DESC')
+            ->orderBy('ch_messages.created_at', 'DESC')
             ->groupBy('users.id') // Agrupar por el ID del usuario
             ->get();
+                 
+// Convertir el campo created_at al nuevo formato deseado DiffHuman
+        foreach ($notifications as $notification) {
+            $notification->created_at = Carbon::parse($notification->created_at) ->setTimezone('Europe/Madrid')->format('F d, Y H: i A');
+        }
 event(new NotificationsEvent($countNotifications, $notifications));// END evento de notificación en tiempo real
 
 
