@@ -49,6 +49,8 @@ use App\Http\Livewire\SearchForm;
 use App\Http\Livewire\PublishProperties;
 use App\Http\Livewire\NotificationsMessages;
 
+use App\Http\Livewire\Suscriptions;
+
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
 
@@ -146,13 +148,19 @@ Route::get('/views/{publishCode}',[Views::class, 'ShowViews'])->name('views');
 
 Route::get('search-filters', [SearchForm::class, 'filters'])->name('search.filters');
 
+
+Route::post('search-filters-update', [SearchForm::class, 'searchFilterUpdate'])->name('search.filters.update');
+
 Route::get('map-view/{searchTerm}', [SearchForm::class, 'MapView'])->name('map.view');
 
 Route::post('/send-message', [NotificationsMessages::class, 'sendMessage'])->name('send-message');
 Route::post('/send-message-guest', [NotificationsMessages::class, 'sendMessageGuest'])->name('send-message-guest');
 
+Route::post('suscriptions', [Suscriptions::class, 'storeSuscriptions'])->name('email.suscriptions');
 
 Route::get('select', ThreeLevelSelect::class)->name('select');
+
+
 
 /* -------------------------------------END GUEST USER ROUTES ------------------------------*/
 

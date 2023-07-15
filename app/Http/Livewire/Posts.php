@@ -48,6 +48,7 @@ class Posts extends Component
     public function render()
     {
        
+
       
    $this->authorize('manage admin');
         $categories = Category::latest()->get();
@@ -115,10 +116,10 @@ public function closeModal()
               // CARBON FORMAT DATE
          $date = Carbon::now()->locale('en')->isoFormat('dddd, MMMM Do YYYY, H:mm A');
             // END CARBON FORMAT DATE
-
+$formattedContent = nl2br($this->post_content);
         Post::create([
             'post_title' => $this->post_title,
-            'post_content' => $this->post_content,
+            'post_content' => $formattedContent,
             'post_image' => 'app/public/'.$image,
             'post_status' => $this->post_status,
             'post_date' => $date,
@@ -178,10 +179,10 @@ public function closeModal()
             $ImageManager->save('storage/posts/'.$imageHashName);
              // END UPLOAD WITH INTERVENTION IMAGE
         }
-
+ $formattedContent = nl2br($this->post_content);
         $this->post->update([
             'post_title' => $this->post_title,
-            'post_content' => $this->post_content,
+           'post_content' => $formattedContent,
              'post_image' => $image,
             'post_status' => $this->post_status,
             'category_id' => $this->category_id,

@@ -524,7 +524,7 @@
                                                      <option value="{{ $collections->status }}">
                                                          {{ $collections->estatus_description }}</option>
                                                      @foreach ($estatusAdsRender as $item)
-                                                         <option value="{{ $item->estatus_description }}">
+                                                         <option value="{{ $item->id }}">
                                                              {{ $item->estatus_description }}</option>
                                                      @endforeach
                                                  </select>

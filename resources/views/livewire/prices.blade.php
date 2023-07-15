@@ -88,9 +88,9 @@
                                     @foreach ($plans as $plan)
                                         @if ($plan->plan === 'Oro')
                                             <div
-                                                class="flex flex-col overflow-hidden rounded-lg border-2 border-yellow-600">
+                                                class="flex flex-col overflow-hidden rounded-lg border-2 border-yellow-400">
                                                 <div
-                                                    class="bg-yellow-600 py-2 text-center text-sm font-bold uppercase tracking-widest text-white">
+                                                    class="bg-gradient-to-r from-yellow-400 to-yellow-500 py-2 text-center text-sm font-bold uppercase tracking-widest text-white">
                                                     Más
                                                     Popular</div>
 
@@ -107,7 +107,7 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
+                                                                    class="h-6 w-6 shrink-0 text-yellow-500" fill="none"
                                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
@@ -119,7 +119,7 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
+                                                                    class="h-6 w-6 shrink-0 text-yellow-500" fill="none"
                                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
@@ -132,7 +132,7 @@
                                                             <!-- check - start -->
                                                             <div class="flex gap-2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
+                                                                    class="h-6 w-6 shrink-0 text-yellow-500" fill="none"
                                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                                         stroke-width="2" d="M5 13l4 4L19 7" />
@@ -146,7 +146,7 @@
 
                                                     <div class="mt-auto">
                                                         <a href="#"
-                                                            class="block rounded-lg bg-yellow-600 px-8 py-3 text-center text-sm font-bold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-yellow-500 focus-visible:ring active:bg-yellow-700 md:text-base">{{ $plan->pricing }}€</a>
+                                                            class="block rounded-lg bg-gradient-to-r from-yellow-400 to-yellow-500 px-8 py-3 text-center text-sm font-bold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-yellow-500 focus-visible:ring active:bg-yellow-700 md:text-base">{{ $plan->pricing }}€</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -363,9 +363,9 @@
                                 <!-- plan - start -->
                                 @foreach ($plans as $plan)
                                     @if ($plan->plan === 'Oro')
-                                        <div class="flex flex-col overflow-hidden rounded-lg border-2 border-yellow-600">
+                                        <div class="flex flex-col overflow-hidden rounded-lg border-2 border-yellow-400">
                                             <div
-                                                class="bg-yellow-600 py-2 text-center text-sm font-bold uppercase tracking-widest text-white">
+                                                class="bg-gradient-to-r from-yellow-400 to-yellow-500 py-2 text-center text-sm font-bold uppercase tracking-widest text-white">
                                                 Más
                                                 Popular</div>
 
@@ -382,7 +382,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-yellow-500" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -394,7 +394,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-yellow-500" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -407,7 +407,7 @@
                                                         <!-- check - start -->
                                                         <div class="flex gap-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="h-6 w-6 shrink-0 text-yellow-600" fill="none"
+                                                                class="h-6 w-6 shrink-0 text-yellow-500" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M5 13l4 4L19 7" />
@@ -421,7 +421,7 @@
 
                                                 <div class="mt-auto">
                                                     <a href="#"
-                                                        class="block rounded-lg bg-yellow-600 px-8 py-3 text-center text-sm font-bold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-yellow-500 focus-visible:ring active:bg-yellow-700 md:text-base">{{ $plan->pricing }}€</a>
+                                                        class="block rounded-lg bg-gradient-to-r from-yellow-400 to-yellow-500  px-8 py-3 text-center text-sm font-bold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-yellow-500 focus-visible:ring active:bg-yellow-700 md:text-base">{{ $plan->pricing }}€</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -32,6 +32,3 @@ window.Echo = new Echo({
     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? "https") === "https",
     enabledTransports: ["ws", "wss"],
 });
-window.Echo.channel("my-channel").listen(".new-message-event", (data) => {
-    console.log("Nuevo mensaje recibido: " + data.message);
-});

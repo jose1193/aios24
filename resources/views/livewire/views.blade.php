@@ -186,7 +186,7 @@
 
                          <h1 class="mb-5  lg:text-2xl text-xl font-semibold  lg:leading-6 leading-7 text-gray-700 ">
                              Descripción</h1>
-                         <p class="mb-10 text-base"> {{ $item->description }}
+                         <p class="mb-10 text-base"> {!! $item->description !!}
 
                          </p>
 
@@ -345,14 +345,14 @@
 
                                  @if ($item->user_id == auth()->id())
                                      <x-button id="submit-button"
-                                         class="mb-5 text-2xl flex items-center justify-center leading-none text-white w-full py-4 cursor-not-allowed opacity-50 focus:outline-none"
+                                         class="mb-5 text-base flex items-center justify-center leading-none text-white w-full py-4 cursor-not-allowed opacity-50 focus:outline-none"
                                          disabled>
                                          <i class="fa-solid fa-comments mr-3"></i>
                                          Enviar Mensaje
                                      </x-button>
                                  @else
                                      <x-button id="submit-button"
-                                         class="mb-5 text-2xl flex items-center justify-center leading-none text-white w-full py-4 hover:bg-green-500 focus:outline-none">
+                                         class="mb-5 text-base flex items-center justify-center leading-none text-white w-full py-4 hover:bg-green-500 focus:outline-none">
                                          <i class="fa-solid fa-comments mr-3"></i>
                                          Enviar Mensaje
                                      </x-button>
@@ -712,7 +712,7 @@
 
                      <h1 class="mb-5  lg:text-2xl text-xl font-semibold  lg:leading-6 leading-7 text-gray-700 ">
                          Descripción</h1>
-                     <p class="mb-10 text-base"> {{ $item->description }}
+                     <p class="mb-10 text-base"> {!! $item->description !!}
 
                      </p>
 

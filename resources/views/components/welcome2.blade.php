@@ -282,31 +282,6 @@
     <!-- SUPPORT CONTACT - end -->
 
     <!-- NESLETTER - start -->
-    <div class="bg-white py-6 sm:py-8 lg:py-12">
-        <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-            <div class="flex flex-col items-center rounded-lg bg-gray-100 p-4 sm:p-8">
-                <div class="mb-4 sm:mb-8">
-                    <h2 class="text-center text-xl font-bold text-green-500 sm:text-2xl lg:text-3xl">Obtenga lo último
-                        de nuestras actualizaciones</h2>
-                    <p class="text-center text-green-500">Suscríbete a nuestra newsletter</p>
-                </div>
-
-                <form class="mb-3 flex w-full max-w-md gap-2 sm:mb-5">
-                    <input placeholder="Email"
-                        class="bg-gray-white w-full flex-1 rounded border border-gray-300 px-3 py-2 text-gray-800 placeholder-gray-400 outline-none ring-indigo-300 transition duration-100 focus:ring" />
-                    <x-button2 type="submit">
-                        Enviar
-                    </x-button2>
-
-                </form>
-
-                <p class="text-center text-xs text-gray-400">Al suscribirse a nuestro boletín de noticias, usted acepta
-                    nuestro <a href="#" class="underline transition duration-100 hover:text-green-500 ">Términos
-                        de Servicios</a> y <a href="#"
-                        class="underline transition duration-100 hover:text-green-500 ">Política de Privacidad
-                    </a>.</p>
-            </div>
-        </div>
-    </div>
+    <livewire:suscriptions />
     <!-- newsletter - end -->
 </div>

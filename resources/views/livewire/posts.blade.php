@@ -165,6 +165,7 @@
                              <label for="exampleFormControlInput2"
                                  class="block text-gray-700 text-sm font-bold mb-2">Content:</label>
                              <div class="mt-1">
+
                                  <textarea id="post_content" rows="3" wire:model.lazy="post_content" name="post_content"
                                      class="shadow-sm focus:ring-indigo-500 appearance-none bg-white border
                                      py-2 px-3 text-base leading-normal transition duration-150 ease-in-out focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>

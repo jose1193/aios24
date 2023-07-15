@@ -60,7 +60,8 @@
                 </h1>
 
                 <p>
-                    {{ $posts->post_content }}
+                    {!! $posts->post_content !!}
+
                 </p>
             </section>
             <!-- Section: Design Block -->
@@ -113,7 +114,7 @@
             </h1>
 
             <p>
-                {{ $posts->post_content }}
+                {!! $posts->post_content !!}
             </p>
         </section>
         <!-- Section: Design Block -->

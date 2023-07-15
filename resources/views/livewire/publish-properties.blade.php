@@ -96,7 +96,7 @@
                                  <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">
                                      Descripción
                                  </label>
-                                 <textarea name="description" required id="description" placeholder="Ingresa una Descripción" rows="5"
+                                 <textarea name="description" id="description" placeholder="Ingresa una Descripción" rows="5"
                                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
                                  @error('description')
                                      <span class="text-red-500">{{ $message }}</span>
@@ -689,6 +689,7 @@
              autocomplete: "required",
              property_type: "required",
              transaction_type: "required",
+             description: "required",
              garage: "required",
              images: "required",
              city: "required",
@@ -825,5 +826,3 @@
          };
      }
  </script>
-
- <!-- END MULTIPLE FILE ALPINE -->
