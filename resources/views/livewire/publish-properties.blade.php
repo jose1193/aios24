@@ -697,6 +697,7 @@
              price: {
                  required: true,
                  minlength: 3,
+                 digits: true // Asegura que solo acepte dígitos
 
              },
              bedrooms: {

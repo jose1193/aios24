@@ -127,10 +127,10 @@ public function CleanUp()
 
     // UPLOAD WITH INTERVENTION IMAGE Create a thumbnail of the image using Intervention Image Library
     $imageHashName = $image->hashName();
-
     $resize = new ImageManager();
-    $ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName)->resize(700, 467);
+    $ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName)->fit(700, 467);
     $ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
+    
 }
 
              // END UPLOAD WITH INTERVENTION IMAGE
@@ -380,6 +380,7 @@ public function update(Request $request, $publishCode)
         'energy_certificate' => 'required',
         'total_area' => 'required',
         'status' => 'required',
+        'price' => 'required',
     ]);
 
     $collection = PublishProperty::where('publish_code', $publishCode)->firstOrFail();
@@ -399,6 +400,7 @@ public function update(Request $request, $publishCode)
     $collection->energy_certificate = $request->input('energy_certificate');
     $collection->total_area = $request->input('total_area');
     $collection->status = $request->input('status');
+     $collection->price = $request->input('price');
 
 // UPDATE FIELD INPUT FEATURES
 if ($request->has('addmore2')) {
@@ -451,7 +453,8 @@ if ($request->has('addmore')) {
      session()->flash('success', 'Datos guardados exitosamente');
     $collection->save();
 
-    return redirect()->route('livewire.edit-publish-properties', ['publishCode' => $publishCode]);
+    return redirect()->route('edit-property', ['publishCode' => $publishCode]);
+
 }
 
 
@@ -560,12 +563,15 @@ public function addImages(Request $request, $publishCodeImages)
         $path = $image->store('propertiesimages', 'public');
         $imagesPaths[] = $path;
 
-        // Crear una miniatura de la imagen usando Intervention Image Library
+        // Obtienes el nombre único de la imagen
         $imageHashName = $image->hashName();
+        // Creas una nueva instancia de ImageManager
         $resize = new ImageManager();
-        $ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName)->resize(700, 467);
+         // Cargas la imagen original y la redimensionas para ajustarla al tamaño deseado
+        $ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName)->fit(700, 467);
+        // Guardas la imagen redimensionada sobrescribiendo la imagen original
         $ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
-
+      
         PropertyImage::create([
             'property_id' => $property->id,
             'image_path' => $path,

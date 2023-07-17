@@ -229,7 +229,7 @@
                                      Precio</h1>
                                  <ul class="list-none">
                                      <li class=""><span class="font-semibold">Precio Total: </span>
-                                         <span class="font-bold"> {{ $item->price }}
+                                         <span class="font-bold"> {{ number_format($item->price, 0, '.', ',') }}
                                              €
                                              @if ($item->transaction_description === 'Venta')
                                              @else
@@ -240,7 +240,8 @@
                                      </li>
                                      <li class=""><span class="text-base font-semibold">Precio por
                                              m² :</span> <span
-                                             class="text-base font-bold">{{ $item->price / $item->total_area }}
+                                             class="text-base font-bold">{{ number_format($item->price / $item->total_area, 0, '.', ',') }}
+
                                              €</span></li>
 
 
@@ -752,7 +753,7 @@
                                  Precio</h1>
                              <ul class="list-none">
                                  <li class=""><span class="font-semibold">Precio Total: </span>
-                                     <span class="font-bold"> {{ $item->price }}
+                                     <span class="font-bold"> {{ number_format($item->price, 0, '.', ',') }}
                                          €
                                          @if ($item->transaction_description === 'Venta')
                                          @else
@@ -763,7 +764,8 @@
                                  </li>
                                  <li class=""><span class="text-base font-semibold">Precio por
                                          m² :</span> <span
-                                         class="text-base font-bold">{{ $item->price / $item->total_area }}
+                                         class="text-base font-bold">{{ number_format($item->price / $item->total_area, 0, '.', ',') }}
+
                                          €</span></li>
 
 
