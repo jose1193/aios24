@@ -129,8 +129,8 @@ public function CleanUp()
     $imageHashName = $image->hashName();
 
     $resize = new ImageManager();
-    $ImageManager = $resize->make('storage/propertiesimages/'.$imageHashName)->resize(700, 467);
-    $ImageManager->save('storage/propertiesimages/'.$imageHashName);
+    $ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName)->resize(700, 467);
+    $ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
 }
 
              // END UPLOAD WITH INTERVENTION IMAGE
@@ -563,8 +563,8 @@ public function addImages(Request $request, $publishCodeImages)
         // Crear una miniatura de la imagen usando Intervention Image Library
         $imageHashName = $image->hashName();
         $resize = new ImageManager();
-        $ImageManager = $resize->make('storage/propertiesimages/'.$imageHashName)->resize(700, 467);
-        $ImageManager->save('storage/propertiesimages/'.$imageHashName);
+        $ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName)->resize(700, 467);
+        $ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
 
         PropertyImage::create([
             'property_id' => $property->id,
