@@ -126,10 +126,30 @@ public function CleanUp()
     $imagesPaths[] = $path;
 
     // UPLOAD WITH INTERVENTION IMAGE Create a thumbnail of the image using Intervention Image Library
+         // Obtienes el nombre único de la imagen
     $imageHashName = $image->hashName();
+    // Creas una nueva instancia de ImageManager
     $resize = new ImageManager();
-    $ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName)->fit(700, 467);
-    $ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
+     // Cargas la imagen original
+    $ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName);
+    // Obtienes el ancho y alto de la imagen original
+    $originalWidth = $ImageManager->width();
+    $originalHeight = $ImageManager->height();
+    // Verificamos si el ancho es mayor que 700 para redimensionar
+        if ($originalWidth > 700) {
+    // Calculamos el factor de escala para mantener la relación de aspecto
+    $scaleFactor = 700 / $originalWidth;
+
+    // Calculamos el nuevo ancho y alto para redimensionar la imagen
+    $newWidth = $originalWidth * $scaleFactor;
+    $newHeight = $originalHeight * $scaleFactor;
+
+    // Redimensionamos la imagen
+    $ImageManager->resize($newWidth, $newHeight);
+}
+
+// Guardamos la imagen (con el tamaño original si no fue redimensionada o con el nuevo tamaño)
+$ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
     
 }
 
@@ -563,18 +583,41 @@ public function addImages(Request $request, $publishCodeImages)
         $path = $image->store('propertiesimages', 'public');
         $imagesPaths[] = $path;
 
-        // Obtienes el nombre único de la imagen
-        $imageHashName = $image->hashName();
-        // Creas una nueva instancia de ImageManager
-        $resize = new ImageManager();
-         // Cargas la imagen original y la redimensionas para ajustarla al tamaño deseado
-        $ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName)->fit(700, 467);
-        // Guardas la imagen redimensionada sobrescribiendo la imagen original
-        $ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
+       
+
+// Obtienes el nombre único de la imagen
+$imageHashName = $image->hashName();
+
+// Creas una nueva instancia de ImageManager
+$resize = new ImageManager();
+
+// Cargas la imagen original
+$ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName);
+
+// Obtienes el ancho y alto de la imagen original
+$originalWidth = $ImageManager->width();
+$originalHeight = $ImageManager->height();
+
+// Verificamos si el ancho es mayor que 700 para redimensionar
+if ($originalWidth > 700) {
+    // Calculamos el factor de escala para mantener la relación de aspecto
+    $scaleFactor = 700 / $originalWidth;
+
+    // Calculamos el nuevo ancho y alto para redimensionar la imagen
+    $newWidth = $originalWidth * $scaleFactor;
+    $newHeight = $originalHeight * $scaleFactor;
+
+    // Redimensionamos la imagen
+    $ImageManager->resize($newWidth, $newHeight);
+}
+
+// Guardamos la imagen (con el tamaño original si no fue redimensionada o con el nuevo tamaño)
+$ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
+
       
         PropertyImage::create([
             'property_id' => $property->id,
-            'image_path' => $path,
+            'image_path' => 'app/public/'.$path,
         ]);
 
         $remainingImages--;

@@ -346,8 +346,7 @@
                                          <textarea name="additional_features" id="additional_features"
                                              placeholder="Cualquier característica adicional relevante, como piscina, jardín, garaje, etc... que desees informar a los visitantes"
                                              rows="5"
-                                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
-                                            {{ $collections->additional_features }}</textarea>
+                                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{ $collections->additional_features }}</textarea>
                                          @error('additional_features')
                                              <span class="text-red-500">{{ $message }}</span>
                                          @enderror
