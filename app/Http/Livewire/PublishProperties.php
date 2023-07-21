@@ -643,27 +643,30 @@ $ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
     return redirect()->route('images-gallery', ['publishCodeImages' => $publishCodeImages, 'images' => $images]);
 }
 
+public function deleteImages(Request $request)
+{
+    $imageIds = $request->input('imageIds');
 
-
-    public function deleteImage($imageId)
-    {
-          
-      // Encuentra la característica que se va a eliminar
-    $image = PropertyImage::find($imageId);
-
-// Verifica si se encontró la imagen
-    if (!$image) {
-        session()->flash('error', 'La imagen no existe');
+    // Verifica si hay IDs de imágenes válidos
+    if (!is_array($imageIds) || empty($imageIds)) {
         return response()->json(['success' => false]);
     }
 
-    // Elimina la característica
-    $image->delete();
-    Storage::disk('public')->delete($image->image_path);
-    
+    try {
+        foreach ($imageIds as $imageId) {
+            $image = PropertyImage::find($imageId);
+            if ($image) {
+                $image->delete();
+                Storage::disk('public')->delete($image->image_path);
+            }
+        }
 
-
-//session()->flash('success', 'Se ha eliminado la imagen correctamente');
-return response()->json(['success' => true]);
+        return response()->json(['success' => true]);
+        
+    } catch (\Exception $e) {
+        return response()->json(['success' => false]);
     }
+}
+
+
 }

@@ -29,87 +29,100 @@
                              class="bg-white owl-carousel testimonials  p-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
                              @foreach ($images as $image)
-                                 <div class="p-3">
-                                     <figure class="max-w-lg relative ">
+                                 <div class="p-3 relative">
+                                     <figure class="max-w-lg relative">
                                          <img class="h-auto max-w-full rounded-lg"
                                              src="{{ Storage::url($image->image_path) }}" alt="image description"
                                              id="image_{{ $image->id }}">
-                                         <button class="absolute top-2 right-2 rounded-full bg-red-600"
-                                             data-image-id="{{ $image->id }}" onclick="deleteImage({{ $image->id }})">
-                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white"
-                                                 viewBox="0 0 20 20" fill="currentColor">
-                                                 <path fill-rule="evenodd"
-                                                     d="M10 1a9 9 0 1 0 0 18A9 9 0 0 0 10 1zm4.95 13.637l-1.414 1.414L10 11.414l-3.536 3.637-1.414-1.414L8.586 10 5.05 6.363l1.414-1.414L10 8.586l3.536-3.637 1.414 1.414L11.414 10l3.536 3.637z"
-                                                     clip-rule="evenodd" />
-                                             </svg>
-                                         </button>
+                                         <label for="checkbox_{{ $image->id }}"
+                                             class="absolute top-2 right-2 checkbox-container">
+                                             <input type="checkbox" id="checkbox_{{ $image->id }}"
+                                                 class="hidden checkbox-image" data-image-id="{{ $image->id }}">
+                                             <span class="checkmark"></span>
+                                         </label>
                                      </figure>
                                  </div>
                              @endforeach
 
                          </div>
 
+
+
+                         <!-- END OWL CAROUSEL -->
+
+                     </div>
+                     <div class="flex flex-wrap justify-center">
+                         <button id="deleteSelectedImages" class="px-4 py-2 mb-10 bg-red-600 text-white rounded"
+                             onclick="deleteSelectedImages()"> <i class="fa-solid fa-trash-can mr-1"></i> Eliminar</button>
+
+
                          <script>
-                             function deleteImage(imageId) {
+                             function deleteSelectedImages() {
+                                 const selectedImageIds = Array.from(document.querySelectorAll('.checkbox-image:checked'))
+                                     .map(checkbox => checkbox.getAttribute('data-image-id'));
+
+                                 if (selectedImageIds.length === 0) {
+                                     Swal.fire('¡Error!', 'Por favor, seleccione al menos una imagen para eliminar.', 'error');
+                                     return;
+                                 }
+
                                  Swal.fire({
-                                     title: 'Are you sure?',
-                                     text: "You won't be able to revert this!",
+                                     title: 'Eliminar imágenes',
+                                     text: '¿Estás seguro de que quieres eliminar las imágenes seleccionadas?',
                                      icon: 'warning',
                                      showCancelButton: true,
                                      confirmButtonColor: '#3085d6',
                                      cancelButtonColor: '#d33',
-                                     confirmButtonText: 'Yes, delete it!'
+                                     confirmButtonText: 'Eliminar',
+                                     cancelButtonText: 'Cancelar'
                                  }).then((result) => {
                                      if (result.isConfirmed) {
-                                         // Envía la solicitud AJAX para eliminar la imagen
-                                         $.ajax({
-                                             url: '/delete-image/' + imageId,
-                                             type: 'DELETE',
-                                             headers: {
-                                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                             },
-                                             success: function(response) {
-                                                 if (response.success) {
-                                                     Swal.fire(
-                                                         'Deleted!',
-                                                         'The image has been deleted.',
-                                                         'success'
-                                                     );
+                                         // Realiza una solicitud AJAX para eliminar las imágenes seleccionadas
+                                         axios.post('/delete-images', {
+                                                 imageIds: selectedImageIds
+                                             })
+                                             .then((response) => {
+                                                 if (response.data.success) {
+                                                     Swal.fire('Éxito', 'Las imágenes han sido eliminadas exitosamente', 'success')
+                                                         .then(() => {
+                                                             const publishCodeImages = '{{ $publishCodeImages }}';
+                                                             const deleteButton = document.getElementById(
+                                                                 'deleteSelectedImages');
+                                                             deleteButton.style.display =
+                                                                 'none'; // Oculta el botón "Eliminar" después de confirmar
 
-                                                     // Elimina el contenedor de la imagen eliminada
-                                                     $('#image_' + imageId).closest('figure').remove();
-                                                     // Actualiza el contenido del div
-                                                     $('#remainingImagesDiv').load(location.href + ' #remainingImagesDiv');
+                                                             window.location.href = '/images-gallery/' +
+                                                                 publishCodeImages; // Redirige a la URL adecuada
+                                                         });
                                                  } else {
-                                                     Swal.fire(
-                                                         'Error!',
-                                                         response.message,
-                                                         'error'
-                                                     );
+                                                     Swal.fire('¡Error!', 'Ha ocurrido un problema al eliminar las imágenes.',
+                                                         'error');
                                                  }
-                                             },
-                                             error: function(xhr, status, error) {
-                                                 Swal.fire(
-                                                     'Error!',
-                                                     'An error occurred while deleting the image.',
-                                                     'error'
-                                                 );
-                                             }
-                                         });
+                                             })
+                                             .catch((error) => {
+                                                 console.error(error);
+                                                 Swal.fire('¡Error!', 'Ha ocurrido un problema al eliminar las imágenes.', 'error');
+                                             });
                                      }
                                  });
                              }
+
+                             const deleteButton = document.getElementById('deleteSelectedImages');
+                             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+                             checkboxes.forEach(checkbox => {
+                                 checkbox.addEventListener('change', () => {
+                                     const anyCheckboxChecked = Array.from(checkboxes).some(cb => cb.checked);
+                                     deleteButton.style.display = anyCheckboxChecked ? 'block' : 'none';
+                                 });
+                             });
+
+                             deleteButton.addEventListener('click', deleteSelectedImages);
                          </script>
-
-                         <!-- END OWL CAROUSEL -->
-
-
-
 
 
 
                      </div>
-
                      <form action="{{ route('add.images', $publishCodeImages) }}" method="POST"
                          enctype="multipart/form-data">
                          @csrf
@@ -311,8 +324,48 @@
 
 
      <style>
+         /* Estilos básicos para el checkbox */
+         .checkbox-container {
+             position: absolute;
+             top: 8px;
+             right: 8px;
+             cursor: pointer;
+             width: 20px;
+             height: 20px;
+             border: 1px solid #bd1515;
+             border-radius: 3px;
+             background-color: #fff;
+         }
+
+         /* Estilos para el checkbox marcado (la "X") */
+         .checkbox-container input[type="checkbox"]:checked+.checkmark {
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             background-color: #fff;
+             border-radius: 3px;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             color: #c90303;
+             font-size: 14px;
+         }
+
+         /* Estilos para el ícono "X" */
+         .checkbox-container input[type="checkbox"]:checked+.checkmark::before {
+             content: "X";
+         }
+
+         /* Estilos para el botón de "Eliminar" */
+         #deleteSelectedImages {
+             display: none;
+         }
+
+
          /*  IMAGE GALLERY
-                                                                                                                                                                                                                        ----------------------*/
+                                                                                                                                                                                                                                                                                                                                                                                            ----------------------*/
 
          .owl-next.disabled,
          .owl-prev.disabled {

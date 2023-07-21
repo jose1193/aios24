@@ -116,22 +116,21 @@
                                  <div class="text-green-600 font-semibold text-base pl-4">
                                      <i class="fa-regular fa-lightbulb mr-2 text-green-600"></i>
                                      Certif. E
-                                     @if ($item->energy_certificate >= 'A' && $item->energy_certificate <= 'C')
+                                     @if ($item->energy_certificate == 'En Trámite')
                                          <span
-                                             class=" ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                             class="ml-2 bg-green-500 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                     @elseif ($item->energy_certificate >= 'A' && $item->energy_certificate <= 'C')
+                                         <span
+                                             class="ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                      @elseif ($item->energy_certificate >= 'D' && $item->energy_certificate <= 'F')
                                          <span
-                                             class=" ml-2 bg-yellow-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                             class="ml-2 bg-yellow-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                      @else
                                          <span
-                                             class=" ml-2 bg-red-500 text-white px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                             class="ml-2 bg-red-500 text-white px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                      @endif
                                  </div>
                              </div>
-
-
-
-
 
                              <div class="flex justify-between sm:mt-7">
                                  <p class="text-base font-semibold lg:leading-6 leading-7 text-gray-700 mb-4">
@@ -647,16 +646,23 @@
                              <div class="text-green-600 font-semibold text-base pl-4">
                                  <i class="fa-regular fa-lightbulb mr-2 text-green-600"></i>
                                  Certif. E
-                                 @if ($item->energy_certificate >= 'A' && $item->energy_certificate <= 'C')
+
+                                 @if ($item->energy_certificate == 'En Trámite')
                                      <span
-                                         class=" ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                         class="ml-2 bg-green-500 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                 @elseif ($item->energy_certificate >= 'A' && $item->energy_certificate <= 'C')
+                                     <span
+                                         class="ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                  @elseif ($item->energy_certificate >= 'D' && $item->energy_certificate <= 'F')
                                      <span
-                                         class=" ml-2 bg-yellow-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                         class="ml-2 bg-yellow-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                  @else
                                      <span
-                                         class=" ml-2 bg-red-500 text-white px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                         class="ml-2 bg-red-500 text-white px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                  @endif
+
+
+
                              </div>
                          </div>
 

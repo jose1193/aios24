@@ -484,6 +484,7 @@
                                                          <option value="{{ chr($i) }}">{{ chr($i) }}
                                                          </option>
                                                      @endfor
+                                                     <option value="En Trámite">En Trámite</option>
                                                  </select>
                                                  @error('energy_certificate')
                                                      <span class="text-red-500">{{ $message }}</span>

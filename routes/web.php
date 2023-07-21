@@ -225,7 +225,8 @@ Route::put('update-property/{publishCode}', [PublishProperties::class, 'update']
 Route::delete('/delete-feature/{featureId}', [PublishProperties::class, 'deleteFeature']);
 Route::delete('/delete-equipment/{equipmentId}', [PublishProperties::class, 'deleteEquipment']);
 
-Route::delete('/delete-image/{imageId}', [PublishProperties::class, 'deleteImage']);
+Route::post('/delete-images', [PublishProperties::class, 'deleteImages']);
+
 
 
 //------------ FAVORITES -----------//
