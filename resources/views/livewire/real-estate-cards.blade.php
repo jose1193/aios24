@@ -18,7 +18,8 @@
 
                     <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md m-3 ">
                         <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
-                            <img class="rounded-t-lg " src="{{ Storage::url($item->image_path) }}" alt="" />
+                            <img class="rounded-t-lg h-60 object-cover" src="{{ Storage::url($item->image_path) }}"
+                                alt="" />
                         </a>
 
                         <div class="p-5">

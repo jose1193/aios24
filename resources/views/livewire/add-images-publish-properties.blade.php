@@ -10,7 +10,7 @@
 
 
          <div class="py-12 mb-20">
-             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+             <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
                  <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 ">
                      <h1 class="text-center mb-5 text-green-600 font-semibold text-2xl"> Galeria de Imagenes Cargadas</h1>
                      <div id="remainingImagesDiv">
@@ -29,17 +29,21 @@
                              class="bg-white owl-carousel testimonials  p-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
                              @foreach ($images as $image)
-                                 <div class="p-3 relative">
+                                 <div class="p-2 relative">
                                      <figure class="max-w-lg relative">
-                                         <img class="h-auto max-w-full rounded-lg"
-                                             src="{{ Storage::url($image->image_path) }}" alt="image description"
-                                             id="image_{{ $image->id }}">
+
+                                         <a data-fancybox="gallery" href="{{ Storage::url($image->image_path) }}">
+                                             <img class=" h-60 max-w-full rounded-lg object-cover"
+                                                 src="{{ Storage::url($image->image_path) }}" alt="image description"
+                                                 id="image_{{ $image->id }}">
+                                         </a>
                                          <label for="checkbox_{{ $image->id }}"
                                              class="absolute top-2 right-2 checkbox-container">
                                              <input type="checkbox" id="checkbox_{{ $image->id }}"
                                                  class="hidden checkbox-image" data-image-id="{{ $image->id }}">
                                              <span class="checkmark"></span>
                                          </label>
+
                                      </figure>
                                  </div>
                              @endforeach
@@ -365,7 +369,7 @@
 
 
          /*  IMAGE GALLERY
-                                                                                                                                                                                                                                                                                                                                                                                            ----------------------*/
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ----------------------*/
 
          .owl-next.disabled,
          .owl-prev.disabled {

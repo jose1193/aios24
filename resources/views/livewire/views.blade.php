@@ -49,22 +49,34 @@
 
                          <div id="fancybox">
 
-                             @if ($images->isNotEmpty())
-                                 <a data-fancybox="gallery" href="{{ Storage::url($images[0]->image_path) }}">
-                                     <img src="{{ Storage::url($images[0]->image_path) }}" class="w-full"
-                                         alt="Property Image">
-                                 </a>
-                             @endif
+                             <div class="slider-pro" id="my-slider">
 
-                             <div style="display:none">
-                                 @foreach ($images as $image)
-                                     @if ($loop->index !== 0)
-                                         <a data-fancybox="gallery" href="{{ Storage::url($image->image_path) }}">
-                                             <img src="{{ Storage::url($image->image_path) }}" alt="Property Image">
-                                         </a>
-                                     @endif
-                                 @endforeach
+                                 <div class="sp-slides">
+                                     @foreach ($images as $image)
+                                         <!-- Slides -->
+                                         <div class="sp-slide">
+                                             <img class="sp-image" src="{{ Storage::url($image->image_path) }}" />
+                                         </div>
+                                     @endforeach
+
+                                     <!-- Flechas de navegación -->
+                                     <div class="sp-arrows ">
+                                         <div class="sp-arrow sp-prev-arrow"></div>
+                                         <div class="sp-arrow sp-next-arrow"></div>
+                                     </div>
+
+
+                                     <!-- Miniaturas -->
+                                     <div class="sp-thumbnails">
+                                         @foreach ($images as $image)
+                                             <img class="sp-thumbnail " src="{{ Storage::url($image->image_path) }}" />
+                                         @endforeach
+                                     </div>
+                                 </div>
+
                              </div>
+
+
                          </div>
 
                          <div class="border-b-4 border-green-600 pb-6 mb-5 mt-5">
@@ -118,7 +130,7 @@
                                      Certif. E
                                      @if ($item->energy_certificate == 'En Trámite')
                                          <span
-                                             class="ml-2 bg-green-500 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                             class="ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                      @elseif ($item->energy_certificate >= 'A' && $item->energy_certificate <= 'C')
                                          <span
                                              class="ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
@@ -131,6 +143,7 @@
                                      @endif
                                  </div>
                              </div>
+
 
                              <div class="flex justify-between sm:mt-7">
                                  <p class="text-base font-semibold lg:leading-6 leading-7 text-gray-700 mb-4">
@@ -579,22 +592,34 @@
 
                      <div id="fancybox">
 
-                         @if ($images->isNotEmpty())
-                             <a data-fancybox="gallery" href="{{ Storage::url($images[0]->image_path) }}">
-                                 <img src="{{ Storage::url($images[0]->image_path) }}" class="w-full"
-                                     alt="Property Image">
-                             </a>
-                         @endif
+                         <div class="slider-pro" id="my-slider">
 
-                         <div style="display:none">
-                             @foreach ($images as $image)
-                                 @if ($loop->index !== 0)
-                                     <a data-fancybox="gallery" href="{{ Storage::url($image->image_path) }}">
-                                         <img src="{{ Storage::url($image->image_path) }}" alt="Property Image">
-                                     </a>
-                                 @endif
-                             @endforeach
+                             <div class="sp-slides">
+                                 @foreach ($images as $image)
+                                     <!-- Slides -->
+                                     <div class="sp-slide">
+                                         <img class="sp-image" src="{{ Storage::url($image->image_path) }}" />
+                                     </div>
+                                 @endforeach
+
+                                 <!-- Flechas de navegación -->
+                                 <div class="sp-arrows ">
+                                     <div class="sp-arrow sp-prev-arrow"></div>
+                                     <div class="sp-arrow sp-next-arrow"></div>
+                                 </div>
+
+
+                                 <!-- Miniaturas -->
+                                 <div class="sp-thumbnails">
+                                     @foreach ($images as $image)
+                                         <img class="sp-thumbnail " src="{{ Storage::url($image->image_path) }}" />
+                                     @endforeach
+                                 </div>
+                             </div>
+
                          </div>
+
+
                      </div>
 
                      <div class="border-b-4 border-green-600 pb-6 mb-5 mt-5">
@@ -649,7 +674,7 @@
 
                                  @if ($item->energy_certificate == 'En Trámite')
                                      <span
-                                         class="ml-2 bg-green-500 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                         class="ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                  @elseif ($item->energy_certificate >= 'A' && $item->energy_certificate <= 'C')
                                      <span
                                          class="ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
@@ -1245,3 +1270,46 @@
      // Llamar a la función para cargar el script de la API de Google Maps
      loadGoogleMapsScript();
  </script>
+
+
+
+ <!-- START SLIDER -->
+ <link rel="stylesheet" href="https://unpkg.com/slider-pro/dist/css/slider-pro.min.css" />
+ <script type="text/javascript" src="https://unpkg.com/slider-pro/dist/js/jquery.sliderPro.min.js" defer></script>
+ <script type="text/javascript">
+     jQuery(document).ready(function($) {
+         $('#my-slider').sliderPro({
+             width: 880,
+             height: 616,
+             fade: true,
+             arrows: true,
+             responsive: true,
+             buttons: false,
+             fullScreen: true,
+             shuffle: false,
+             smallSize: 500,
+             mediumSize: 1000,
+             largeSize: 3000,
+             thumbnailArrows: true,
+             autoplay: false,
+             centerImage: true,
+             imageScaleMode: 'contain',
+             autoSlideSize: false,
+             forceSize: 'none',
+             // Habilita la interacción táctil con touchSwipe
+             touchSwipe: true,
+         });
+     });
+ </script>
+
+ <style>
+     .sp-full-screen-button {
+
+         /* Cambia el color de fondo a verde (#34D399) */
+         color: #000;
+         margin-top: 10px;
+         z-index: 9999;
+
+     }
+ </style>
+ <!-- END SLIDER -->
