@@ -210,8 +210,21 @@
                                      Características básicas</h1>
                                  <ul class="list-disc">
                                      <li class="ml-6">{{ $item->total_area }} m² Total</li>
-                                     <li class="ml-6">{{ $item->bedrooms }} Habitaciones</li>
-                                     <li class="ml-6">{{ $item->bathrooms }} baños</li>
+                                     <li class="ml-6">
+                                         @if ($item->bedrooms == 1)
+                                             1 Habitación
+                                         @else
+                                             {{ $item->bedrooms }} Habitaciones
+                                         @endif
+                                     </li>
+                                     <li class="ml-6">
+                                         @if ($item->bathrooms == 1)
+                                             1 Baño
+                                         @else
+                                             {{ $item->bathrooms }} Baños
+                                         @endif
+                                     </li>
+
                                      @foreach ($features as $feature)
                                          <li class="ml-6">{{ $feature->feature_description }}</li>
                                      @endforeach
@@ -578,6 +591,38 @@
      <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
          <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
              <x-home-header />
+
+             <div class="bg-white p-4 flex items-center flex-wrap font-bold">
+                 <ul class="flex items-center">
+                     <li class="inline-flex items-center">
+                         <a href="/" class="text-gray-600 hover:text-blue-500">
+                             <svg class="w-5 h-auto fill-current mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 24 24" fill="#000000">
+                                 <path d="M0 0h24v24H0V0z" fill="none" />
+                                 <path
+                                     d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" />
+                             </svg>
+                         </a>
+
+                         <svg class="w-5 h-auto fill-current mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 24 24">
+                             <path d="M0 0h24v24H0V0z" fill="none" />
+                             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z" />
+                         </svg>
+                     </li>
+
+                     <li class="inline-flex items-center">
+                         <a href="{{ route('views', ['publishCode' => $publishCode]) }}"
+                             class="text-gray-600 hover:text-green-500">
+                             Detalles del anuncio / {{ $publishCode }}
+                         </a>
+
+
+                     </li>
+
+
+                 </ul>
+             </div>
          </div>
      </div>
 
@@ -755,8 +800,20 @@
                                  Características básicas</h1>
                              <ul class="list-disc">
                                  <li class="ml-6">{{ $item->total_area }} m² Total</li>
-                                 <li class="ml-6">{{ $item->bedrooms }} Habitaciones</li>
-                                 <li class="ml-6">{{ $item->bathrooms }} baños</li>
+                                 <li class="ml-6">
+                                     @if ($item->bedrooms == 1)
+                                         1 Habitación
+                                     @else
+                                         {{ $item->bedrooms }} Habitaciones
+                                     @endif
+                                 </li>
+                                 <li class="ml-6">
+                                     @if ($item->bathrooms == 1)
+                                         1 Baño
+                                     @else
+                                         {{ $item->bathrooms }} Baños
+                                     @endif
+                                 </li>
                                  @foreach ($features as $feature)
                                      <li class="ml-6">{{ $feature->feature_description }}</li>
                                  @endforeach
@@ -895,7 +952,7 @@
                              </div>
 
                              <x-button id="submit-button"
-                                 class="mb-5 text-2xl flex items-center justify-center leading-none text-white w-full py-4 hover:bg-green-500 focus:outline-none">
+                                 class="mb-5 text-base flex items-center justify-center leading-none text-white w-full py-4 hover:bg-green-500 focus:outline-none">
                                  <i class="fa-solid fa-comments mr-3"></i>
 
                                  Enviar Mensaje
@@ -1279,8 +1336,8 @@
  <script type="text/javascript">
      jQuery(document).ready(function($) {
          $('#my-slider').sliderPro({
-             width: 880,
-             height: 616,
+             width: 780,
+             height: 520,
              fade: true,
              arrows: true,
              responsive: true,
@@ -1296,8 +1353,8 @@
              imageScaleMode: 'contain',
              autoSlideSize: false,
              forceSize: 'none',
-             // Habilita la interacción táctil con touchSwipe
-             touchSwipe: true,
+
+
          });
      });
  </script>
