@@ -109,15 +109,14 @@ public function CleanUp()
         'bedrooms' => 'required|min:1|max:30',
         'bathrooms' => 'required|min:1|max:30',
         'total_area' => 'required|min:1|max:30',
-         'additional_features' => 'min:1|max:300',
+        
         'images' => 'required|array|min:1',
         'images.*' => 'image|max:2048',
          'garage' => 'required|min:1|max:30',
        'city' => 'required',
        
          'energy_certificate' => 'required',
-         'addmore.*.equipments' => 'required',
-          'addmore2.*.features' => 'required',
+        
     ]);
 
     $imagesPaths = [];
@@ -211,19 +210,23 @@ $longitudeArea = $request->input('longitudeArea');
     }
 
     // CREATE FIELD INPUT EQUIPMENTS
- foreach ($request->addmore as $key => $value) {
-    if (is_array($value)) {
-        foreach ($value as $description) {
-            Equipment::create([
-                'equipment_description' => $description,
-                'publish_property_id' => $property->id
-            ]);
+ if (isset($request->addmore) && is_array($request->addmore) && count($request->addmore) > 0) {
+    foreach ($request->addmore as $key => $value) {
+        if (is_array($value)) {
+            foreach ($value as $description) {
+                Equipment::create([
+                    'equipment_description' => $description,
+                    'publish_property_id' => $property->id
+                ]);
+            }
         }
     }
 }
+
 // END CREATE FIELD INPUT EQUIPMENTS
 
 // CREATE FIELD INPUT FEATURES
+ if (isset($request->addmore2) && is_array($request->addmore2) && count($request->addmore2) > 0) {
  foreach ($request->addmore2 as $key => $value) {
     if (is_array($value)) {
         foreach ($value as $description) {
@@ -234,6 +237,7 @@ $longitudeArea = $request->input('longitudeArea');
         }
     }
 }
+ }
 // END CREATE FIELD INPUT FEATURES
 
 
@@ -394,9 +398,7 @@ public function update(Request $request, $publishCode)
         'city' => 'required',
         'bedrooms' => 'required',
         'bathrooms' => 'required',
-        'addmore2.*.features' => 'nullable',
-        'additional_features' => 'nullable',
-        'addmore.*.equipments' => 'nullable',
+       
         'energy_certificate' => 'required',
         'total_area' => 'required',
         'status' => 'required',
@@ -423,6 +425,7 @@ public function update(Request $request, $publishCode)
      $collection->price = $request->input('price');
 
 // UPDATE FIELD INPUT FEATURES
+if (isset($request->addmore2) && is_array($request->addmore2) && count($request->addmore2) > 0) {
 if ($request->has('addmore2')) {
     $features = $request->input('addmore2');
 
@@ -444,9 +447,11 @@ if ($request->has('addmore2')) {
         }
     }
 }
+}
 // END UPDATE FIELD INPUT FEATURES
 
 // UPDATE FIELD INPUT EQUIPMENT
+if (isset($request->addmore) && is_array($request->addmore) && count($request->addmore) > 0) {
 if ($request->has('addmore')) {
     $equipments = $request->input('addmore');
 
@@ -467,6 +472,7 @@ if ($request->has('addmore')) {
             ]);
         }
     }
+}
 }
 // END UPDATE FIELD INPUT EQUIPMENT
 

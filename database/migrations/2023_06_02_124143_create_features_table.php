@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('features', function (Blueprint $table) {
             $table->id();
-             $table->string('feature_description');
+             $table->string('feature_description')->nullable();
              $table->foreignId('publish_property_id')->constrained('publish_properties')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

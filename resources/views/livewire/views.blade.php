@@ -232,18 +232,20 @@
                                  </ul>
 
                              </div>
-                             <div class=" p-4">
-                                 <h1
-                                     class="mb-4 -mt-5 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
-                                     Equipamiento</h1>
-                                 <ul class="list-disc">
+                             @if (count($equipments) > 0)
+                                 <div class=" p-4">
+                                     <h1
+                                         class="mb-4 -mt-5 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
+                                         Equipamiento</h1>
+                                     <ul class="list-disc">
 
-                                     @foreach ($equipments as $equipment)
-                                         <li class="ml-6">{{ $equipment->equipment_description }}</li>
-                                     @endforeach
+                                         @foreach ($equipments as $equipment)
+                                             <li class="ml-6">{{ $equipment->equipment_description }}</li>
+                                         @endforeach
 
-                                 </ul>
-                             </div>
+                                     </ul>
+                                 </div>
+                             @endif
                          </div>
 
 
@@ -821,17 +823,20 @@
                              </ul>
 
                          </div>
-                         <div class=" p-4">
-                             <h1 class="mb-4 -mt-5 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
-                                 Equipamiento</h1>
-                             <ul class="list-disc">
+                         @if (count($equipments) > 0)
+                             <div class=" p-4">
+                                 <h1
+                                     class="mb-4 -mt-5 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
+                                     Equipamiento</h1>
+                                 <ul class="list-disc">
 
-                                 @foreach ($equipments as $equipment)
-                                     <li class="ml-6">{{ $equipment->equipment_description }}</li>
-                                 @endforeach
+                                     @foreach ($equipments as $equipment)
+                                         <li class="ml-6">{{ $equipment->equipment_description }}</li>
+                                     @endforeach
 
-                             </ul>
-                         </div>
+                                 </ul>
+                             </div>
+                         @endif
                      </div>
 
 

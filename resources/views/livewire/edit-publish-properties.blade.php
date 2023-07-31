@@ -62,55 +62,14 @@
 
                                  @csrf
                                  @method('PUT')
-                                 <!--START PROGRESS BAR CSS-->
-                                 <div class="progress-bar">
-                                     <div class="progress" style="width: 25%;"></div>
-                                 </div>
-                                 <div class="step-indicator font-semibold" style="color: #10b981">Step 1 of 3</div>
 
-                                 <!--ENDPROGRESS BAR CSS-->
 
 
                                  <div class="step" data-step="1">
                                      <h3
                                          class="mb-10 text-center text-green-600 lg:text-2xl sm:text-base font-bold capitalize">
-                                         Información</h3>
-                                     <div class="mb-5">
-                                         <label for="title" class="mb-3 block text-base font-medium text-[#07074D]">
-                                             Título
-                                         </label>
-                                         <input type="text" required placeholder="Ingresa un Título"
-                                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                             id="title" name="title" value="{{ $collections->title }}" />
-                                         @error('title')
-                                             <span class="text-red-500">{{ $message }}</span>
-                                             @if ($errors->has('title'))
-                                                 @if ($errors->first('title') === 'The title has already been taken.')
-                                                     <script>
-                                                         Swal.fire({
-                                                             icon: 'error',
-                                                             title: 'Oops...',
-                                                             text: 'The title has already been taken.',
-                                                             footer: '<a href="">Aios Real Estate</a>',
-
-                                                         });
-                                                     </script>
-                                                 @endif
-                                             @endif
-                                         @enderror
-                                     </div>
-                                     <div class="mb-5">
-                                         <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">
-                                             Descripción
-                                         </label>
-                                         <textarea name="description" required id="description" rows="5"
-                                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{ $collections->description }}</textarea>
-                                         @error('description')
-                                             <span class="text-red-500">{{ $message }}</span>
-                                         @enderror
-                                     </div>
-
-                                     <div class="-mx-3 flex flex-wrap">
+                                         Información - Especificaciones</h3>
+                                     <div class="-mx-3 flex flex-wrap my-3">
                                          <div class="w-full px-3 sm:w-1/2">
                                              <div class="mb-5">
                                                  <label for="propertyType"
@@ -155,66 +114,67 @@
                                              </div>
 
                                          </div>
+
+
                                      </div>
 
-                                     <div class="-mx-3 flex flex-wrap">
-                                         <div class="w-full px-3 sm:w-1/2">
-                                             <div class="mb-5">
-                                                 <label for="description"
-                                                     class="mb-3 block text-base font-medium text-[#07074D]">
-                                                     Dirección Propiedad
-                                                 </label>
-                                                 <input type="text" required id="autocomplete" name="location"
-                                                     placeholder="Location" value="{{ $collections->location }}"
-                                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                                                 @error('location')
-                                                     <span class="text-red-500">{{ $message }}</span>
-                                                 @enderror
-                                             </div>
-                                         </div>
-                                         <div class="w-full px-3 sm:w-1/2">
-                                             <div class="mb-5">
-                                                 <label for="description"
-                                                     class="mb-3 block text-base font-medium text-[#07074D]">
-                                                     Ciudad
-                                                 </label>
-                                                 <input type="text" readonly id="city" name="city"
-                                                     placeholder="Ciudad" value="{{ $collections->city }}"
-                                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                                                 @error('city')
-                                                     <span class="text-red-500">{{ $message }}</span>
-                                                 @enderror
 
-                                                 <input type="hidden" id="latitudeArea" name="latitudeArea"
-                                                     value="{{ $collections->latitudeArea }}"
-                                                     class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
+                                     <div class="mb-5">
+                                         <label for="title" class="mb-3 block text-base font-medium text-[#07074D]">
+                                             Título
+                                         </label>
+                                         <input type="text" required placeholder="Ingresa un Título"
+                                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                             id="title" name="title" value="{{ $collections->title }}" />
+                                         @error('title')
+                                             <span class="text-red-500">{{ $message }}</span>
+                                             @if ($errors->has('title'))
+                                                 @if ($errors->first('title') === 'The title has already been taken.')
+                                                     <script>
+                                                         Swal.fire({
+                                                             icon: 'error',
+                                                             title: 'Oops...',
+                                                             text: 'The title has already been taken.',
+                                                             footer: '<a href="">Aios Real Estate</a>',
 
-                                                 <input type="hidden" id="longitudeArea" name="longitudeArea"
-                                                     value="{{ $collections->longitudeArea }}"
-                                                     class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
-
-                                             </div>
-
-                                         </div>
+                                                         });
+                                                     </script>
+                                                 @endif
+                                             @endif
+                                         @enderror
                                      </div>
-                                     <!-- Add more fields for Step 1 if needed -->
-                                 </div>
-
-                                 <div class="step" data-step="2">
-                                     <h3
-                                         class="mb-10 text-center text-green-600 lg:text-2xl sm:text-base font-bold capitalize">
-                                         Especificaciones</h3>
-                                     <div class="-mx-3 flex flex-wrap">
+                                     <div class="mb-5">
+                                         <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">
+                                             Descripción
+                                         </label>
+                                         <textarea name="description" required id="description" rows="5"
+                                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{ $collections->description }}
+</textarea>
+                                         @error('description')
+                                             <span class="text-red-500">{{ $message }}</span>
+                                         @enderror
+                                     </div>
+                                     <div class="-mx-3 flex flex-wrap mb-3">
                                          <div class="w-full px-3 sm:w-1/2">
                                              <div class="mb-5">
                                                  <label for="bedrooms"
                                                      class="mb-3 block text-base font-medium text-[#07074D]">
                                                      Habitaciones
                                                  </label>
-                                                 <input type="number" required placeholder="Cantidad Dormitorios"
-                                                     value="{{ $collections->bedrooms }}"
-                                                     class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                                     id="bedrooms" name="bedrooms" />
+
+                                                 <select required name="bedrooms" id="bedrooms"
+                                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                                                     <option value="{{ $collections->bedrooms }}">
+                                                         {{ $collections->bedrooms }}
+                                                     </option>
+                                                     <option value="1">1</option>
+                                                     <option value="2">2</option>
+                                                     <option value="3">3</option>
+                                                     <option value="4">4</option>
+                                                     <option value="5">5</option>
+                                                     <option value="6+">6+</option>
+
+                                                 </select>
                                                  @error('bedrooms')
                                                      <span class="text-red-500">{{ $message }}</span>
                                                  @enderror
@@ -226,10 +186,21 @@
                                                      class="mb-3 block text-base font-medium text-[#07074D]">
                                                      Baños
                                                  </label>
-                                                 <input type="number" required placeholder="Cantidad de Baños"
-                                                     class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                                     id="bathrooms" name="bathrooms"
-                                                     value="{{ $collections->bathrooms }}" />
+                                                 <select required name="bathrooms" id="bathrooms"
+                                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                                                     <option value="{{ $collections->bathrooms }}">
+                                                         {{ $collections->bathrooms }}
+                                                     </option>
+                                                     <option value="1">1</option>
+                                                     <option value="2">2</option>
+                                                     <option value="3">3</option>
+                                                     <option value="4">4</option>
+                                                     <option value="5">5</option>
+                                                     <option value="6+">6+</option>
+
+                                                 </select>
+
+
                                                  @error('bathrooms')
                                                      <span class="text-red-500">{{ $message }}</span>
                                                  @enderror
@@ -237,10 +208,13 @@
                                          </div>
                                      </div>
 
+
+
+
                                      <div class="mb-10" id="dynamicTable2">
                                          <label for="propertyType"
                                              class="mb-3 block capitalize text-base font-medium text-[#07074D]">
-                                             Características básicas
+                                             Características básicas (Opcional)
                                          </label>
 
                                          <div class="flex items-center mb-5">
@@ -336,26 +310,10 @@
                                          </script>
                                      </div>
 
-
-
-                                     <div class="mb-5">
-                                         <label for="propertyType"
-                                             class="mb-3 block text-base font-medium text-[#07074D]">
-                                             Características adicionales (Opcional)
-                                         </label>
-                                         <textarea name="additional_features" id="additional_features"
-                                             placeholder="Cualquier característica adicional relevante, como piscina, jardín, garaje, etc... que desees informar a los visitantes"
-                                             rows="5"
-                                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{ $collections->additional_features }}</textarea>
-                                         @error('additional_features')
-                                             <span class="text-red-500">{{ $message }}</span>
-                                         @enderror
-                                     </div>
-
                                      <div class="mb-10" id="dynamicTable">
                                          <label for="propertyType"
                                              class="mb-3 block capitalize text-base font-medium text-[#07074D]">
-                                             Equipamiento
+                                             Equipamiento (Opcional)
                                          </label>
 
                                          <div class="flex items-center mb-5">
@@ -454,7 +412,6 @@
 
                                      </div>
 
-
                                      <div class="-mx-3 flex flex-wrap">
                                          <div class="w-full px-3 sm:w-1/4">
                                              <div class="mb-7">
@@ -548,9 +505,49 @@
                                          @enderror
                                      </div>
 
-                                     <!-- Add more fields for Step 2 if needed -->
-                                 </div>
 
+                                     <div class="-mx-3 flex flex-wrap my-3">
+                                         <div class="w-full px-3 sm:w-1/2">
+                                             <div class="mb-5">
+                                                 <label for="description"
+                                                     class="mb-3 block text-base font-medium text-[#07074D]">
+                                                     Dirección Propiedad
+                                                 </label>
+                                                 <input type="text" required id="autocomplete" name="location"
+                                                     placeholder="Location" value="{{ $collections->location }}"
+                                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                                 @error('location')
+                                                     <span class="text-red-500">{{ $message }}</span>
+                                                 @enderror
+                                             </div>
+                                         </div>
+                                         <div class="w-full px-3 sm:w-1/2">
+                                             <div class="mb-5">
+                                                 <label for="description"
+                                                     class="mb-3 block text-base font-medium text-[#07074D]">
+                                                     Ciudad
+                                                 </label>
+                                                 <input type="text" readonly id="city" name="city"
+                                                     placeholder="Ciudad" value="{{ $collections->city }}"
+                                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                                 @error('city')
+                                                     <span class="text-red-500">{{ $message }}</span>
+                                                 @enderror
+
+                                                 <input type="hidden" id="latitudeArea" name="latitudeArea"
+                                                     value="{{ $collections->latitudeArea }}"
+                                                     class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
+
+                                                 <input type="hidden" id="longitudeArea" name="longitudeArea"
+                                                     value="{{ $collections->longitudeArea }}"
+                                                     class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
+
+                                             </div>
+
+                                         </div>
+                                     </div>
+                                     <!-- Add more fields for Step 1 if needed -->
+                                 </div>
 
 
 
@@ -612,7 +609,7 @@
              const nextButton = document.querySelector('#nextBtn');
              const prevButton = document.querySelector('#prevBtn');
              const stepIndicator = document.querySelector('.step-indicator');
-             const totalSteps = 3;
+             const totalSteps = 1;
              let currentStep = 1;
 
              function updateProgress() {
@@ -704,11 +701,16 @@
 
                      inputs.each(function() {
                          var input = $(this);
-                         if (input.val().trim() === "") {
-                             isValid = false;
-                             input.addClass("invalid");
-                         } else {
-                             input.removeClass("valid");
+                         // Verificar si el campo tiene el atributo "name" con las cadenas "addmore" o "addmore2"
+                         var name = input.attr("name");
+                         if (!name.includes("addmore2") && !name.includes("addmore")) {
+                             if (input.val().trim() === "") {
+                                 isValid = false;
+                                 input.addClass("invalid");
+                             } else {
+                                 input.removeClass("invalid");
+                                 input.addClass("valid");
+                             }
                          }
                      });
 
@@ -789,18 +791,7 @@
                          maxlength: 10,
                      },
 
-                     addmore: {
-                         required: true,
-                         minlength: 3,
-                         maxlength: 20,
 
-                     },
-                     addmore2: {
-                         required: true,
-                         minlength: 3,
-                         maxlength: 20,
-
-                     },
 
                  }
              });
@@ -901,6 +892,21 @@
          </script>
 
          <!-- END MULTIPLE FILE ALPINE -->
+
+         <!-- TINY DESCRIPTION -->
+         <script src="https://cdn.tiny.cloud/1/ledg98ovyfojczv2t6zjn48qwwczcqqth3g8ofwis9tuxh5t/tinymce/6/tinymce.min.js"
+             referrerpolicy="origin"></script>
+
+         <script>
+             tinymce.init({
+                 selector: 'textarea#description',
+                 plugins: 'advlist autolink lists link image charmap print preview anchor',
+                 toolbar: 'bold italic alignleft aligncenter alignright bullist numlist outdent indent',
+                 menubar: false,
+             });
+         </script>
+         <!-- END TINY DESCRIPTION -->
+
      </x-app-layout>
  @endauth
  <!-- END AUTH USER -->
