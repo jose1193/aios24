@@ -24,6 +24,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+
 
 class PublishProperties extends Component
 {
@@ -94,7 +97,35 @@ public function CleanUp()
   
   }
 
+   //----- FUNCTION CHECK TITLE REGISTER USER ----//
+public function checkTitle(Request $request)
+{
+    $validatedData = $request->validate([
+        'title' => [
+            'required',
+            Rule::unique(PublishProperty::class),
+        ],
+    ]);
 
+    return response()->json(['message' => 'Title is available'], 200);
+}
+
+  //----- FUNCTION CHECK TITLE UPDATE USER ----//
+public function checkTitleUpdate(Request $request)
+{
+    $user = Auth::user(); // Obtén al usuario autenticado
+
+    $validatedData = $request->validate([
+        'title' => [
+            'required',
+            Rule::unique('publish_properties')->where(function ($query) use ($user) {
+                return $query->where('user_id', '<>', $user->id);
+            }),
+        ],
+    ]);
+
+    return response()->json(['message' => 'Title is available'], 200);
+}
 
   //----- FUNCTION STORE DATA ----//
     public function saveProperty(Request $request)
@@ -116,11 +147,18 @@ public function CleanUp()
        'city' => 'required',
        
          'energy_certificate' => 'required',
+        'order_display' => 'required|array',
         
     ]);
 
+
+
+
     $imagesPaths = [];
-   foreach ($request->file('images') as $image) {
+   foreach ($request->file('images')  as $index => $image) {
+     // Obtén el valor del campo order_display correspondiente al índice actual
+    $order_display_value = $request->input('order_display')[$index];
+
     $path = $image->store('propertiesimages', 'public');
     $imagesPaths[] = $path;
 
@@ -149,11 +187,13 @@ public function CleanUp()
 
 // Guardamos la imagen (con el tamaño original si no fue redimensionada o con el nuevo tamaño)
 $ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
-    
+ 
+ 
 }
 
              // END UPLOAD WITH INTERVENTION IMAGE
    
+
 // CARBON FORMAT DATE
          $date = Carbon::now()->locale('es_ES')->format('F d, Y');
             // END CARBON FORMAT DATE
@@ -173,7 +213,7 @@ $energy_certificate = $request->input('energy_certificate');
 $city = $request->input('city');
 $latitudeArea = $request->input('latitudeArea');
 $longitudeArea = $request->input('longitudeArea');
- 
+
  // Estatus 
         $this->status = EstatusAds::where('estatus_description', 'Activo')->firstOrFail();
 
@@ -199,13 +239,15 @@ $longitudeArea = $request->input('longitudeArea');
         'publication_date' =>  $date,
         'status' => $this->status->id,
          'user_id' => auth()->user()->id,
+         
     ]);
 
     // Create property images
-    foreach ($imagesPaths as $imagePath) {
+    foreach ($imagesPaths as $index => $imagePath) {
         PropertyImage::create([
             'property_id' => $property->id,
             'image_path' => 'app/public/'.$imagePath, // CAMBIAR ACA
+            'order_display' => $request->input('order_display')[$index], // Utiliza el valor obtenido en el bucle anterior
         ]);
     }
 

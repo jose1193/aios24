@@ -118,22 +118,10 @@
                                  <input type="text" required placeholder="Ingresa un Título"
                                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                      id="title" name="title" />
-                                 @error('title')
-                                     <span class="text-red-500">{{ $message }}</span>
-                                     @if ($errors->has('title'))
-                                         @if ($errors->first('title') === 'The title has already been taken.')
-                                             <script>
-                                                 Swal.fire({
-                                                     icon: 'error',
-                                                     title: 'Oops...',
-                                                     text: 'The title has already been taken.',
-                                                     footer: '<a href="">Aios Real Estate</a>',
 
-                                                 });
-                                             </script>
-                                         @endif
-                                     @endif
-                                 @enderror
+                                 <span id="title-error" class="text-red-500"></span>
+                                 <!-- Agrega un espacio para el mensaje de error -->
+
                              </div>
                              <div class="my-5">
                                  <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -375,15 +363,16 @@
 
                                  </div>
                              </div>
-                             <!-- Add more fields for Step 1 if needed -->
+
+
+
                          </div>
-
-
 
                          <div class="step" data-step="2">
                              <h3 class="mb-5 text-center text-green-600 lg:text-xl sm:text-base font-bold capitalize">
                                  Finalizar Registro
                              </h3>
+
                              <div x-data="dataFileDnD()"
                                  class="relative flex flex-col p-4 text-gray-400 border border-gray-200 rounded">
                                  <div x-ref="dnd"
@@ -403,7 +392,7 @@
                                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                          </svg>
-                                         <p class="m-0">Drag your files here or click in this area.</p>
+                                         <p class="m-0"> Arrastre sus archivos aquí o haga clic en esta área.</p>
                                      </div>
                                  </div>
 
@@ -411,7 +400,8 @@
                                      <div class="grid grid-cols-2 gap-4 mt-4 md:grid-cols-6"
                                          @drop.prevent="drop($event)"
                                          @dragover.prevent="$event.dataTransfer.dropEffect = 'move'">
-                                         <template x-for="(_, index) in Array.from({ length: files.length })">
+                                         <template x-for="(_, index) in Array.from({ length: files.length })"
+                                             :key="index">
                                              <div class="relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none"
                                                  style="padding-top: 100%;" @dragstart="dragstart($event)"
                                                  @dragend="fileDragging = null"
@@ -428,6 +418,19 @@
                                                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                      </svg>
                                                  </button>
+                                                 <!-- Ícono de "ojo" -->
+                                                 <button
+                                                     class="absolute top-0 left-0 z-50 p-1 flex items-center bg-white rounded-br focus:outline-none"
+                                                     type="button">
+                                                     <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                                         viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                                         <path
+                                                             d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z" />
+                                                     </svg>
+                                                     <span class="ml-1 font-semibold text-gray-700"
+                                                         x-text="index + 1"></span>
+                                                 </button>
+
                                                  <template x-if="files[index].type.includes('audio/')">
                                                      <svg class="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3"
                                                          xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -474,6 +477,11 @@
                                                              fileDragging != index
                                                      }">
                                                  </div>
+                                                 <!-- Campo de entrada para guardar el orden en la base de datos -->
+                                                 <input type="text" x-model="index + 1"
+                                                     :name="'order_display[' + index + ']'"
+                                                     x-on:input="console.log(index + 1)">
+
                                              </div>
                                          </template>
                                      </div>
@@ -482,11 +490,7 @@
                                      <span class="text-red-500">{{ $message }}</span>
                                  @enderror
                              </div>
-
-
                          </div>
-
-
 
                          <!-- Add more steps if needed -->
 
@@ -541,300 +545,346 @@
          margin-top: 10px;
      }
  </style>
- <script>
-     const progressBar = document.querySelector('.progress-bar .progress');
-     const nextButton = document.querySelector('#nextBtn');
-     const prevButton = document.querySelector('#prevBtn');
-     const stepIndicator = document.querySelector('.step-indicator');
-     const totalSteps = 2;
-     let currentStep = 1;
+ @push('js')
+     <script>
+         const progressBar = document.querySelector('.progress-bar .progress');
+         const nextButton = document.querySelector('#nextBtn');
+         const prevButton = document.querySelector('#prevBtn');
+         const stepIndicator = document.querySelector('.step-indicator');
+         const totalSteps = 2;
+         let currentStep = 1;
 
-     function updateProgress() {
-         const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
-         progressBar.style.width = progressPercentage + '%';
-         stepIndicator.innerText = 'Step ' + currentStep + ' of ' + totalSteps;
-     }
-
-     function nextStep() {
-         if (currentStep < totalSteps) {
-             currentStep++;
-             updateProgress();
+         function updateProgress() {
+             const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+             progressBar.style.width = progressPercentage + '%';
+             stepIndicator.innerText = 'Step ' + currentStep + ' of ' + totalSteps;
          }
-     }
 
-     function prevStep() {
-         if (currentStep > 1) {
-             currentStep--;
-             updateProgress();
-         }
-     }
-
-     nextButton.addEventListener('click', nextStep);
-     prevButton.addEventListener('click', prevStep);
-
-     updateProgress();
- </script>
- <!-- START FORM WIZARD -->
-
- <script>
-     $(document).ready(function() {
-         $("#wizardForm").submit(function(e) {
-             $("#submitBtn").attr("disabled", true);
-
-
-
-             return true;
-
-
-         });
-
-         var currentStep = 0;
-         var steps = $(".step");
-         var submitBtn = $("#submitBtn");
-         var prevBtn = $("#prevBtn");
-         var nextBtn = $("#nextBtn");
-
-         showStep(currentStep);
-
-         function showStep(stepIndex) {
-             steps.hide();
-             steps.eq(stepIndex).show();
-             if (stepIndex === 0) {
-                 prevBtn.hide();
-             } else {
-                 prevBtn.show();
-             }
-             if (stepIndex === steps.length - 1) {
-                 nextBtn.hide();
-                 submitBtn.show();
-             } else {
-                 nextBtn.show();
-                 submitBtn.hide();
+         function nextStep() {
+             if (currentStep < totalSteps) {
+                 currentStep++;
+                 updateProgress();
              }
          }
 
-         prevBtn.click(function() {
-             if (currentStep > 0) {
+         function prevStep() {
+             if (currentStep > 1) {
                  currentStep--;
-                 showStep(currentStep);
+                 updateProgress();
              }
-         });
+         }
 
-         nextBtn.click(function() {
-             if (currentStep < steps.length - 1) {
-                 if (validateStep(currentStep)) {
-                     currentStep++;
-                     showStep(currentStep);
+         nextButton.addEventListener('click', nextStep);
+         prevButton.addEventListener('click', prevStep);
+
+         updateProgress();
+     </script>
+     <!-- START FORM WIZARD -->
+
+     <script>
+         $(document).ready(function() {
+             $("#wizardForm").submit(function(e) {
+                 $("#submitBtn").attr("disabled", true);
+
+
+
+                 return true;
+
+
+             });
+
+             var currentStep = 0;
+             var steps = $(".step");
+             var submitBtn = $("#submitBtn");
+             var prevBtn = $("#prevBtn");
+             var nextBtn = $("#nextBtn");
+             var titleInput = $("#title");
+             var titleError = $("#title-error");
+
+             showStep(currentStep);
+
+             function showStep(stepIndex) {
+                 steps.hide();
+                 steps.eq(stepIndex).show();
+                 if (stepIndex === 0) {
+                     prevBtn.hide();
+                 } else {
+                     prevBtn.show();
+                 }
+                 if (stepIndex === steps.length - 1) {
+                     nextBtn.hide();
+                     submitBtn.show();
+                 } else {
+                     nextBtn.show();
+                     submitBtn.hide();
                  }
              }
-         });
+             // Agregar el evento "keyup" al campo de título
+             titleInput.on("keyup", function() {
+                 var title = $(this).val();
 
-         function validateStep(stepIndex) {
-             var isValid = true;
-             var inputs = steps.eq(stepIndex).find("input");
+                 $.ajax({
+                     type: 'POST',
+                     url: '/check-title',
+                     data: {
+                         title: title,
+                         _token: '{{ csrf_token() }}'
+                     },
+                     success: function(response) {
+                         titleError.text(''); // Limpia el mensaje de error
 
-             inputs.each(function() {
-                 var input = $(this);
-                 // Verificar si el campo tiene el atributo "name" con las cadenas "addmore" o "addmore2"
-                 var name = input.attr("name");
-                 if (!name.includes("addmore2") && !name.includes("addmore")) {
-                     if (input.val().trim() === "") {
-                         isValid = false;
-                         input.addClass("invalid");
-                     } else {
-                         input.removeClass("invalid");
-                         input.addClass("valid");
+                         enableNextButton();
+                     },
+                     error: function(xhr) {
+                         if (xhr.status === 422) {
+                             var errors = xhr.responseJSON.errors;
+                             titleError.text(errors.title[0]); // Muestra el mensaje de error
+
+                             if (errors.title[0] === 'The title has already been taken.') {
+
+                                 disableNextButton();
+                             } else {
+                                 titleError.text(
+                                     ''
+                                 ); // Limpia el mensaje de error si no es el mensaje esperado
+
+                                 enableNextButton();
+                             }
+                         }
+                     }
+                 });
+             });
+
+             function enableNextButton() {
+                 nextBtn.removeAttr("disabled");
+             }
+
+             function disableNextButton() {
+                 nextBtn.attr("disabled", true);
+             }
+
+
+             prevBtn.click(function() {
+                 if (currentStep > 0) {
+                     currentStep--;
+                     showStep(currentStep);
+                 }
+             });
+
+             nextBtn.click(function() {
+                 if (currentStep < steps.length - 1) {
+                     if (validateStep(currentStep)) {
+                         currentStep++;
+                         showStep(currentStep);
                      }
                  }
              });
 
-             var selectInputs = steps.eq(stepIndex).find("select");
-             selectInputs.each(function() {
-                 var selectInput = $(this);
-                 if (selectInput.val() === "") {
-                     isValid = false;
-                     selectInput.addClass("invalid");
-                 } else {
-                     selectInput.removeClass("valid");
-                 }
-             });
 
-             var textareaInputs = steps.eq(stepIndex).find("textarea");
-             textareaInputs.each(function() {
-                 var textareaInput = $(this);
-                 if (textareaInput.val().trim() === "") {
-                     isValid = false;
-                     textareaInput.addClass("invalid");
-                 } else {
-                     textareaInput.removeClass("valid");
-                 }
-             });
+             function validateStep(stepIndex) {
+                 var isValid = true;
+                 var inputs = steps.eq(stepIndex).find("input");
 
-
-
-             return isValid;
-         }
-     });
- </script>
-
-
- <!-- END START FORM WIZARD -->
-
- <!-- START JQUERY VALIDATE -->
-
- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
- <script>
-     $("#wizardForm").validate({
-         // Agrega la opción "errorClass" para especificar la clase CSS para los mensajes de error
-         errorClass: "error-message",
-         rules: {
-             title: {
-                 required: true,
-                 minlength: 2,
-                 maxlength: 300,
-             },
-             autocomplete: "required",
-             property_type: "required",
-             transaction_type: "required",
-             description: "required",
-             garage: "required",
-             images: "required",
-             city: "required",
-             energy_certificate: "required",
-             price: {
-                 required: true,
-                 minlength: 3,
-                 digits: true // Asegura que solo acepte dígitos
-
-             },
-             bedrooms: {
-                 required: true,
-                 minlength: 1,
-                 maxlength: 10,
-             },
-             bathrooms: {
-                 required: true,
-                 minlength: 1,
-                 maxlength: 10,
-             },
-
-             total_area: {
-                 required: true,
-                 minlength: 2,
-                 maxlength: 10,
-             },
-
-
-
-         }
-     });
- </script>
-
- <style>
-     input.invalid,
-     select.invalid,
-     textarea.invalid {
-         border-color: red;
-
-
-     }
-
-     input.valid,
-     select.valid,
-     textarea.valid {
-         border-color: green;
-         /* Cambia el color de fondo a verde */
-     }
-
-     .error-message {
-         color: red;
-
-     }
- </style>
- <!--END JQUERY VALIDATE -->
-
-
- <!-- START MULTIPLE FILE ALPINE -->
- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
- <script src="https://unpkg.com/create-file-list"></script>
- <script>
-     function dataFileDnD() {
-         return {
-             maxFiles: 20,
-             files: [],
-             fileDragging: null,
-             fileDropping: null,
-             humanFileSize(size) {
-                 const i = Math.floor(Math.log(size) / Math.log(1024));
-                 return (
-                     (size / Math.pow(1024, i)).toFixed(2) * 1 +
-                     " " + ["B", "kB", "MB", "GB", "TB"][i]
-                 );
-             },
-             remove(index) {
-                 let files = [...this.files];
-                 files.splice(index, 1);
-                 this.files = createFileList(files);
-             },
-             drop(e) {
-                 let removed, add;
-                 let files = [...this.files];
-
-                 removed = files.splice(this.fileDragging, 1);
-                 files.splice(this.fileDropping, 0, ...removed);
-
-                 this.files = createFileList(files);
-
-                 this.fileDropping = null;
-                 this.fileDragging = null;
-             },
-             dragenter(e) {
-                 let targetElem = e.target.closest("[draggable]");
-                 this.fileDropping = targetElem.getAttribute("data-index");
-             },
-             dragstart(e) {
-                 this.fileDragging = e.target.closest("[draggable]").getAttribute("data-index");
-                 e.dataTransfer.effectAllowed = "move";
-             },
-             loadFile(file) {
-                 const preview = document.querySelectorAll(".preview");
-                 const blobUrl = URL.createObjectURL(file);
-
-                 preview.forEach(elem => {
-                     elem.onload = () => {
-                         URL.revokeObjectURL(elem.src); // free memory
-                     };
+                 inputs.each(function() {
+                     var input = $(this);
+                     // Verificar si el campo tiene el atributo "name" con las cadenas "addmore" o "addmore2"
+                     var name = input.attr("name");
+                     if (!name.includes("addmore2") && !name.includes("addmore")) {
+                         if (input.val().trim() === "") {
+                             isValid = false;
+                             input.addClass("invalid");
+                         } else {
+                             input.removeClass("invalid");
+                             input.addClass("valid");
+                         }
+                     }
                  });
 
-                 return blobUrl;
-             },
-             addFiles(e) {
-                 const newFiles = [...e.target.files];
-                 const totalFiles = this.files.length + newFiles.length;
+                 var selectInputs = steps.eq(stepIndex).find("select");
+                 selectInputs.each(function() {
+                     var selectInput = $(this);
+                     if (selectInput.val() === "") {
+                         isValid = false;
+                         selectInput.addClass("invalid");
+                     } else {
+                         selectInput.removeClass("valid");
+                     }
+                 });
 
-                 if (totalFiles <= this.maxFiles) {
-                     const files = createFileList([...this.files], newFiles);
-                     this.files = files;
-                     this.form.formData.files = [...files];
-                 } else {
-                     alert("No se pueden agregar más de 2 imágenes.");
-                 }
+                 var textareaInputs = steps.eq(stepIndex).find("textarea");
+                 textareaInputs.each(function() {
+                     var textareaInput = $(this);
+                     if (textareaInput.val().trim() === "") {
+                         isValid = false;
+                         textareaInput.addClass("invalid");
+                     } else {
+                         textareaInput.removeClass("valid");
+                     }
+                 });
+
+
+
+                 return isValid;
              }
-         };
-     }
- </script>
+         });
+     </script>
+     <!-- END FORM WIZARD   -->
 
- <!-- TINY DESCRIPTION -->
- <script src="https://cdn.tiny.cloud/1/ledg98ovyfojczv2t6zjn48qwwczcqqth3g8ofwis9tuxh5t/tinymce/6/tinymce.min.js"
-     referrerpolicy="origin"></script>
+     <!-- START JQUERY VALIDATE  -->
 
- <script>
-     tinymce.init({
-         selector: 'textarea#description',
-         plugins: 'advlist autolink lists link image charmap print preview anchor',
-         toolbar: 'bold italic alignleft aligncenter alignright bullist numlist outdent indent',
-         menubar: false,
-     });
- </script>
- <!-- END TINY DESCRIPTION -->
+     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+     <script>
+         $("#wizardForm").validate({
+             // Agrega la opción "errorClass" para especificar la clase CSS para los mensajes de error
+             errorClass: "error-message",
+             rules: {
+                 title: {
+                     required: true,
+                     minlength: 2,
+                     maxlength: 300,
+                 },
+                 autocomplete: "required",
+                 property_type: "required",
+                 transaction_type: "required",
+                 description: "required",
+                 garage: "required",
+                 images: "required",
+                 city: "required",
+                 energy_certificate: "required",
+                 price: {
+                     required: true,
+                     minlength: 3,
+                     digits: true // Asegura que solo acepte dígitos
+
+                 },
+                 bedrooms: {
+                     required: true,
+                     minlength: 1,
+                     maxlength: 10,
+                 },
+                 bathrooms: {
+                     required: true,
+                     minlength: 1,
+                     maxlength: 10,
+                 },
+
+                 total_area: {
+                     required: true,
+                     minlength: 2,
+                     maxlength: 10,
+                 },
+
+
+
+             }
+         });
+     </script>
+
+     <style>
+         input.invalid,
+         select.invalid,
+         textarea.invalid {
+             border-color: red;
+
+
+         }
+
+         input.valid,
+         select.valid,
+         textarea.valid {
+             border-color: green;
+             /* Cambia el color de fondo a verde */
+         }
+
+         .error-message {
+             color: red;
+
+         }
+     </style>
+     <!--END JQUERY VALIDATE -->
+
+
+     <!-- START MULTIPLE FILE ALPINE -->
+     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+     <script src="https://unpkg.com/create-file-list"></script>
+     <script>
+         function dataFileDnD() {
+             return {
+                 maxFiles: 10,
+                 files: [],
+                 fileDragging: null,
+                 fileDropping: null,
+                 humanFileSize(size) {
+                     const i = Math.floor(Math.log(size) / Math.log(1024));
+                     return (
+                         (size / Math.pow(1024, i)).toFixed(2) * 1 +
+                         " " + ["B", "kB", "MB", "GB", "TB"][i]
+                     );
+                 },
+                 remove(index) {
+                     let files = [...this.files];
+                     files.splice(index, 1);
+                     this.files = createFileList(files);
+                 },
+                 drop(e) {
+                     let removed, add;
+                     let files = [...this.files];
+
+                     removed = files.splice(this.fileDragging, 1);
+                     files.splice(this.fileDropping, 0, ...removed);
+
+                     this.files = createFileList(files);
+
+                     this.fileDropping = null;
+                     this.fileDragging = null;
+                 },
+                 dragenter(e) {
+                     let targetElem = e.target.closest("[draggable]");
+                     this.fileDropping = targetElem.getAttribute("data-index");
+                 },
+                 dragstart(e) {
+                     this.fileDragging = e.target.closest("[draggable]").getAttribute("data-index");
+                     e.dataTransfer.effectAllowed = "move";
+                 },
+                 loadFile(file) {
+                     const preview = document.querySelectorAll(".preview");
+                     const blobUrl = URL.createObjectURL(file);
+
+                     preview.forEach(elem => {
+                         elem.onload = () => {
+                             URL.revokeObjectURL(elem.src); // free memory
+                         };
+                     });
+
+                     return blobUrl;
+                 },
+                 addFiles(e) {
+                     const newFiles = [...e.target.files];
+                     const totalFiles = this.files.length + newFiles.length;
+
+                     if (totalFiles <= this.maxFiles) {
+                         const files = createFileList([...this.files], newFiles);
+                         this.files = files;
+                         this.form.formData.files = [...files];
+                     } else {
+                         alert("No se pueden agregar más de 2 imágenes.");
+                     }
+                 }
+             };
+         }
+     </script>
+ @endpush
+ <!-- TINY DESCRIPTION
+         <script src="https://cdn.tiny.cloud/1/ledg98ovyfojczv2t6zjn48qwwczcqqth3g8ofwis9tuxh5t/tinymce/6/tinymce.min.js"
+             referrerpolicy="origin"></script>
+
+         <script>
+             tinymce.init({
+                 selector: 'textarea#description',
+                 plugins: 'advlist autolink lists link image charmap print preview anchor',
+                 toolbar: 'bold italic alignleft aligncenter alignright bullist numlist outdent indent',
+                 menubar: false,
+             });
+         </script>
+        END TINY DESCRIPTION -->

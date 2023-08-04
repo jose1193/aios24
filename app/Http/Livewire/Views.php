@@ -24,10 +24,11 @@ class Views extends Component
 public function ShowViews($publishCode)
 {
     $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
-        ->select('property_images.image_path')
-        ->where('publish_properties.publish_code', '=', $publishCode)
-        ->orderBy('publish_properties.created_at', 'desc')
-        ->get();
+    ->select('property_images.image_path')
+    ->where('publish_properties.publish_code', '=', $publishCode)
+    ->orderBy('property_images.order_display', 'asc')  
+    ->get();
+
 
     $collections = PublishProperty::join('users', 'publish_properties.user_id', '=', 'users.id')
         ->join('estatus_ads', 'publish_properties.status', '=', 'estatus_ads.id')

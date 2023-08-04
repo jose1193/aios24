@@ -126,8 +126,9 @@
                                          <input type="text" required placeholder="Ingresa un Título"
                                              class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                              id="title" name="title" value="{{ $collections->title }}" />
+                                         <span id="title-error" class="text-red-500"></span>
+                                         <!-- Agrega un espacio para el mensaje de error -->
                                          @error('title')
-                                             <span class="text-red-500">{{ $message }}</span>
                                              @if ($errors->has('title'))
                                                  @if ($errors->first('title') === 'The title has already been taken.')
                                                      <script>
@@ -553,26 +554,16 @@
 
                                  <!-- Add more steps if needed -->
 
-                                 <div class="flex items-center justify-between mt-10">
-                                     <div>
-                                         <button id="prevBtn"
-                                             class="px-6 py-3 rounded-md bg-red-800 duration-500 ease-in-out hover:bg-red-500 text-white font-medium "
-                                             type="button"> <i class="fa-solid fa-arrow-left mr-1"></i> Anterior</button>
-                                     </div>
-                                     <div>
-                                         <button id="nextBtn"
-                                             class="px-6 py-3 rounded-md bg-[#07074D] text-white font-medium duration-500 ease-in-out hover:bg-[#6A64F1]"
-                                             type="button">Siguiente <i class="fa-solid fa-arrow-right ml-1"></i>
-                                         </button>
-
-
+                                 <div class="flex items-center justify-center mt-10">
+                                     <div class="text-center">
 
                                          <button id="submitBtn" type="submit"
-                                             class="hidden px-6 py-3 capitalize  rounded-md bg-green-700 text-white  font-medium duration-500 ease-in-out hover:bg-green-400">
-                                             {{ __('Publicar Anuncio') }}</button>
-
+                                             class="px-6 py-3 capitalize rounded-md bg-green-700 text-white font-medium duration-500 ease-in-out hover:bg-green-400">
+                                             {{ __('Publicar Anuncio') }}
+                                         </button>
                                      </div>
                                  </div>
+
                              </form>
                          </div>
                      </div>
@@ -604,309 +595,276 @@
                  margin-top: 10px;
              }
          </style>
-         <script>
-             const progressBar = document.querySelector('.progress-bar .progress');
-             const nextButton = document.querySelector('#nextBtn');
-             const prevButton = document.querySelector('#prevBtn');
-             const stepIndicator = document.querySelector('.step-indicator');
-             const totalSteps = 1;
-             let currentStep = 1;
+         @push('js')
+             <script>
+                 const progressBar = document.querySelector('.progress-bar .progress');
+                 const nextButton = document.querySelector('#nextBtn');
+                 const prevButton = document.querySelector('#prevBtn');
+                 const stepIndicator = document.querySelector('.step-indicator');
+                 const totalSteps = 1;
+                 let currentStep = 1;
 
-             function updateProgress() {
-                 const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
-                 progressBar.style.width = progressPercentage + '%';
-                 stepIndicator.innerText = 'Step ' + currentStep + ' of ' + totalSteps;
-             }
-
-             function nextStep() {
-                 if (currentStep < totalSteps) {
-                     currentStep++;
-                     updateProgress();
+                 function updateProgress() {
+                     const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+                     progressBar.style.width = progressPercentage + '%';
+                     stepIndicator.innerText = 'Step ' + currentStep + ' of ' + totalSteps;
                  }
-             }
 
-             function prevStep() {
-                 if (currentStep > 1) {
-                     currentStep--;
-                     updateProgress();
-                 }
-             }
-
-             nextButton.addEventListener('click', nextStep);
-             prevButton.addEventListener('click', prevStep);
-
-             updateProgress();
-         </script>
-         <!-- START FORM WIZARD -->
-
-         <script>
-             $(document).ready(function() {
-                 $("#wizardForm").submit(function(e) {
-                     $("#submitBtn").attr("disabled", true);
-
-                     // Recargar la página después de 2 segundos
-                     setTimeout(function() {
-                         location.reload();
-                     }, 1000);
-
-                     return true;
-
-
-                 });
-
-                 var currentStep = 0;
-                 var steps = $(".step");
-                 var submitBtn = $("#submitBtn");
-                 var prevBtn = $("#prevBtn");
-                 var nextBtn = $("#nextBtn");
-
-                 showStep(currentStep);
-
-                 function showStep(stepIndex) {
-                     steps.hide();
-                     steps.eq(stepIndex).show();
-                     if (stepIndex === 0) {
-                         prevBtn.hide();
-                     } else {
-                         prevBtn.show();
-                     }
-                     if (stepIndex === steps.length - 1) {
-                         nextBtn.hide();
-                         submitBtn.show();
-                     } else {
-                         nextBtn.show();
-                         submitBtn.hide();
+                 function nextStep() {
+                     if (currentStep < totalSteps) {
+                         currentStep++;
+                         updateProgress();
                      }
                  }
 
-                 prevBtn.click(function() {
-                     if (currentStep > 0) {
+                 function prevStep() {
+                     if (currentStep > 1) {
                          currentStep--;
-                         showStep(currentStep);
+                         updateProgress();
                      }
-                 });
+                 }
 
-                 nextBtn.click(function() {
-                     if (currentStep < steps.length - 1) {
-                         if (validateStep(currentStep)) {
-                             currentStep++;
-                             showStep(currentStep);
+                 nextButton.addEventListener('click', nextStep);
+                 prevButton.addEventListener('click', prevStep);
+
+                 updateProgress();
+             </script>
+             <!-- START FORM WIZARD -->
+
+
+             <script>
+                 $(document).ready(function() {
+                     // Cachea los elementos del DOM
+                     var submitBtn = $("#submitBtn");
+                     var titleInput = $("#title");
+                     var titleError = $("#title-error");
+
+                     // Al enviar el formulario
+                     $("#wizardForm").submit(function(e) {
+                         if (submitBtn.attr("disabled")) {
+                             e.preventDefault(); // Evita que se envíe el formulario si el botón está deshabilitado
                          }
+                     });
+
+                     // Agregar el evento "keyup" al campo de título
+                     titleInput.on("keyup", function() {
+                         var title = $(this).val();
+
+                         // Deshabilitar el botón de envío mientras se realiza la validación
+                         disableSubmitButton();
+
+                         // Realizar la solicitud AJAX al servidor
+                         $.ajax({
+                             type: 'POST',
+                             url: '/check-title-update',
+                             data: {
+                                 title: title,
+                                 _token: '{{ csrf_token() }}'
+                             },
+                             success: function(response) {
+                                 titleError.text(''); // Limpia el mensaje de error
+
+                                 // Habilitar el botón de envío si no hay mensajes de error
+                                 enableSubmitButton();
+                             },
+                             error: function(xhr) {
+                                 if (xhr.status === 422) {
+                                     var errors = xhr.responseJSON.errors;
+                                     titleError.text(errors.title[0]); // Muestra el mensaje de error
+
+                                     if (errors.title[0] === 'The title has already been taken.') {
+                                         titleInput.addClass('error-field');
+                                         disableSubmitButton(); // Deshabilita el botón de envío
+                                     } else {
+                                         titleError.text('');
+                                         titleInput.removeClass('error-field');
+
+
+                                     }
+                                 }
+
+                             }
+                         });
+                     });
+
+                     function enableSubmitButton() {
+                         console.log("Enable submit button");
+                         submitBtn.removeAttr("disabled");
+                     }
+
+                     function disableSubmitButton() {
+                         console.log("Disable submit button");
+                         submitBtn.attr("disabled", true);
+                     }
+
+                 });
+             </script>
+
+
+
+             <!-- END START FORM WIZARD -->
+
+             <!-- START JQUERY VALIDATE -->
+
+             <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+             <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+             <script>
+                 $("#wizardForm").validate({
+                     // Agrega la opción "errorClass" para especificar la clase CSS para los mensajes de error
+                     errorClass: "error-message",
+                     rules: {
+                         title: {
+                             required: true,
+                             minlength: 10,
+                             maxlength: 300,
+                         },
+                         autocomplete: "required",
+                         property_type: "required",
+                         transaction_type: "required",
+                         garage: "required",
+                         images: "required",
+                         city: "required",
+                         status: "required",
+                         energy_certificate: "required",
+                         price: {
+                             required: true,
+                             minlength: 3,
+                             digits: true // Asegura que solo acepte dígitos
+
+                         },
+                         bedrooms: {
+                             required: true,
+                             minlength: 1,
+                             maxlength: 10,
+                         },
+                         bathrooms: {
+                             required: true,
+                             minlength: 1,
+                             maxlength: 10,
+                         },
+
+                         total_area: {
+                             required: true,
+                             minlength: 2,
+                             maxlength: 10,
+                         },
+
+
+
                      }
                  });
+             </script>
 
-                 function validateStep(stepIndex) {
-                     var isValid = true;
-                     var inputs = steps.eq(stepIndex).find("input");
+             <style>
+                 input.invalid,
+                 select.invalid,
+                 textarea.invalid {
+                     border-color: red;
 
-                     inputs.each(function() {
-                         var input = $(this);
-                         // Verificar si el campo tiene el atributo "name" con las cadenas "addmore" o "addmore2"
-                         var name = input.attr("name");
-                         if (!name.includes("addmore2") && !name.includes("addmore")) {
-                             if (input.val().trim() === "") {
-                                 isValid = false;
-                                 input.addClass("invalid");
+
+                 }
+
+                 input.valid,
+                 select.valid,
+                 textarea.valid {
+                     border-color: green;
+                     /* Cambia el color de fondo a verde */
+                 }
+
+                 .error-message {
+                     color: red;
+
+                 }
+             </style>
+             <!--END JQUERY VALIDATE -->
+
+
+             <!-- START MULTIPLE FILE ALPINE -->
+             <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+             <script src="https://unpkg.com/create-file-list"></script>
+             <script>
+                 function dataFileDnD() {
+                     return {
+                         maxFiles: 20,
+                         files: [],
+                         fileDragging: null,
+                         fileDropping: null,
+                         humanFileSize(size) {
+                             const i = Math.floor(Math.log(size) / Math.log(1024));
+                             return (
+                                 (size / Math.pow(1024, i)).toFixed(2) * 1 +
+                                 " " + ["B", "kB", "MB", "GB", "TB"][i]
+                             );
+                         },
+                         remove(index) {
+                             let files = [...this.files];
+                             files.splice(index, 1);
+                             this.files = createFileList(files);
+                         },
+                         drop(e) {
+                             let removed, add;
+                             let files = [...this.files];
+
+                             removed = files.splice(this.fileDragging, 1);
+                             files.splice(this.fileDropping, 0, ...removed);
+
+                             this.files = createFileList(files);
+
+                             this.fileDropping = null;
+                             this.fileDragging = null;
+                         },
+                         dragenter(e) {
+                             let targetElem = e.target.closest("[draggable]");
+                             this.fileDropping = targetElem.getAttribute("data-index");
+                         },
+                         dragstart(e) {
+                             this.fileDragging = e.target.closest("[draggable]").getAttribute("data-index");
+                             e.dataTransfer.effectAllowed = "move";
+                         },
+                         loadFile(file) {
+                             const preview = document.querySelectorAll(".preview");
+                             const blobUrl = URL.createObjectURL(file);
+
+                             preview.forEach(elem => {
+                                 elem.onload = () => {
+                                     URL.revokeObjectURL(elem.src); // free memory
+                                 };
+                             });
+
+                             return blobUrl;
+                         },
+                         addFiles(e) {
+                             const newFiles = [...e.target.files];
+                             const totalFiles = this.files.length + newFiles.length;
+
+                             if (totalFiles <= this.maxFiles) {
+                                 const files = createFileList([...this.files], newFiles);
+                                 this.files = files;
+                                 this.form.formData.files = [...files];
                              } else {
-                                 input.removeClass("invalid");
-                                 input.addClass("valid");
+                                 alert("No se pueden agregar más de 2 imágenes.");
                              }
                          }
-                     });
-
-                     var selectInputs = steps.eq(stepIndex).find("select");
-                     selectInputs.each(function() {
-                         var selectInput = $(this);
-                         if (selectInput.val() === "") {
-                             isValid = false;
-                             selectInput.addClass("invalid");
-                         } else {
-                             selectInput.removeClass("valid");
-                         }
-                     });
-
-                     var textareaInputs = steps.eq(stepIndex).find("textarea");
-                     textareaInputs.each(function() {
-                         var textareaInput = $(this);
-                         if (textareaInput.val().trim() === "") {
-                             isValid = false;
-                             textareaInput.addClass("invalid");
-                         } else {
-                             textareaInput.removeClass("valid");
-                         }
-                     });
-
-
-
-                     return isValid;
+                     };
                  }
-             });
-         </script>
+             </script>
 
+             <!-- END MULTIPLE FILE ALPINE -->
 
-         <!-- END START FORM WIZARD -->
+             <!-- TINY DESCRIPTION -->
+             <script src="https://cdn.tiny.cloud/1/ledg98ovyfojczv2t6zjn48qwwczcqqth3g8ofwis9tuxh5t/tinymce/6/tinymce.min.js"
+                 referrerpolicy="origin"></script>
 
-         <!-- START JQUERY VALIDATE -->
-
-         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-         <script>
-             $("#wizardForm").validate({
-                 // Agrega la opción "errorClass" para especificar la clase CSS para los mensajes de error
-                 errorClass: "error-message",
-                 rules: {
-                     title: {
-                         required: true,
-                         minlength: 2,
-                         maxlength: 300,
-                     },
-                     autocomplete: "required",
-                     property_type: "required",
-                     transaction_type: "required",
-                     garage: "required",
-                     images: "required",
-                     city: "required",
-                     status: "required",
-                     energy_certificate: "required",
-                     price: {
-                         required: true,
-                         minlength: 3,
-                         digits: true // Asegura que solo acepte dígitos
-
-                     },
-                     bedrooms: {
-                         required: true,
-                         minlength: 1,
-                         maxlength: 10,
-                     },
-                     bathrooms: {
-                         required: true,
-                         minlength: 1,
-                         maxlength: 10,
-                     },
-
-                     total_area: {
-                         required: true,
-                         minlength: 2,
-                         maxlength: 10,
-                     },
-
-
-
-                 }
-             });
-         </script>
-
-         <style>
-             input.invalid,
-             select.invalid,
-             textarea.invalid {
-                 border-color: red;
-
-
-             }
-
-             input.valid,
-             select.valid,
-             textarea.valid {
-                 border-color: green;
-                 /* Cambia el color de fondo a verde */
-             }
-
-             .error-message {
-                 color: red;
-
-             }
-         </style>
-         <!--END JQUERY VALIDATE -->
-
-
-         <!-- START MULTIPLE FILE ALPINE -->
-         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-         <script src="https://unpkg.com/create-file-list"></script>
-         <script>
-             function dataFileDnD() {
-                 return {
-                     maxFiles: 20,
-                     files: [],
-                     fileDragging: null,
-                     fileDropping: null,
-                     humanFileSize(size) {
-                         const i = Math.floor(Math.log(size) / Math.log(1024));
-                         return (
-                             (size / Math.pow(1024, i)).toFixed(2) * 1 +
-                             " " + ["B", "kB", "MB", "GB", "TB"][i]
-                         );
-                     },
-                     remove(index) {
-                         let files = [...this.files];
-                         files.splice(index, 1);
-                         this.files = createFileList(files);
-                     },
-                     drop(e) {
-                         let removed, add;
-                         let files = [...this.files];
-
-                         removed = files.splice(this.fileDragging, 1);
-                         files.splice(this.fileDropping, 0, ...removed);
-
-                         this.files = createFileList(files);
-
-                         this.fileDropping = null;
-                         this.fileDragging = null;
-                     },
-                     dragenter(e) {
-                         let targetElem = e.target.closest("[draggable]");
-                         this.fileDropping = targetElem.getAttribute("data-index");
-                     },
-                     dragstart(e) {
-                         this.fileDragging = e.target.closest("[draggable]").getAttribute("data-index");
-                         e.dataTransfer.effectAllowed = "move";
-                     },
-                     loadFile(file) {
-                         const preview = document.querySelectorAll(".preview");
-                         const blobUrl = URL.createObjectURL(file);
-
-                         preview.forEach(elem => {
-                             elem.onload = () => {
-                                 URL.revokeObjectURL(elem.src); // free memory
-                             };
-                         });
-
-                         return blobUrl;
-                     },
-                     addFiles(e) {
-                         const newFiles = [...e.target.files];
-                         const totalFiles = this.files.length + newFiles.length;
-
-                         if (totalFiles <= this.maxFiles) {
-                             const files = createFileList([...this.files], newFiles);
-                             this.files = files;
-                             this.form.formData.files = [...files];
-                         } else {
-                             alert("No se pueden agregar más de 2 imágenes.");
-                         }
-                     }
-                 };
-             }
-         </script>
-
-         <!-- END MULTIPLE FILE ALPINE -->
-
-         <!-- TINY DESCRIPTION -->
-         <script src="https://cdn.tiny.cloud/1/ledg98ovyfojczv2t6zjn48qwwczcqqth3g8ofwis9tuxh5t/tinymce/6/tinymce.min.js"
-             referrerpolicy="origin"></script>
-
-         <script>
-             tinymce.init({
-                 selector: 'textarea#description',
-                 plugins: 'advlist autolink lists link image charmap print preview anchor',
-                 toolbar: 'bold italic alignleft aligncenter alignright bullist numlist outdent indent',
-                 menubar: false,
-             });
-         </script>
-         <!-- END TINY DESCRIPTION -->
-
+             <script>
+                 tinymce.init({
+                     selector: 'textarea#description',
+                     plugins: 'advlist autolink lists link image charmap print preview anchor',
+                     toolbar: 'bold italic alignleft aligncenter alignright bullist numlist outdent indent',
+                     menubar: false,
+                 });
+             </script>
+             <!-- END TINY DESCRIPTION -->
+         @endpush
      </x-app-layout>
  @endauth
  <!-- END AUTH USER -->

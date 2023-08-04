@@ -107,9 +107,15 @@ $collections = PublishProperty::join('users', 'publish_properties.user_id', '=',
     ->orderBy('publish_properties.created_at', 'desc')
     ->groupBy('publish_properties.id')
     ->paginate(10);
+foreach ($collections as $property) {
+    $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
+        ->select('property_images.image_path')
+        ->where('publish_properties.publish_code', '=', $property->publish_code)
+        ->orderBy('property_images.order_display', 'asc')  
+        ->get();
 
-
-
+    // $images ahora contiene las imágenes asociadas a la propiedad actual en el bucle
+}
 
 
   $resultCount = $collections->total();
@@ -123,6 +129,7 @@ $collections = PublishProperty::join('users', 'publish_properties.user_id', '=',
         'propertyTypesRender' => $this->propertyTypesRender,
          'mapSrc' => $mapSrc, // Pasa la URL del mapa generada a la vista -> QUITAR ESTE NUMERO AL ACTIVAR API KEY GOOGLE MAP
          'resultCount' => $resultCount, // Agregar la variable de conteo a la vista
+         'images' => $images,
         ]);
     }
 
