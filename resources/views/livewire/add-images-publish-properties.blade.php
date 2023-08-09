@@ -2,7 +2,7 @@
      <x-app-layout>
          <x-slot name="header">
              <x-slot name="title">
-                 Agregar Imagenes Anuncio / {{ $publishCodeImages }}
+                 Imagenes Anuncio / {{ $publishCodeImages }}
              </x-slot>
 
          </x-slot>
@@ -24,37 +24,41 @@
                              </h1>
                          @endif
                      </div>
-                     <div class="flex justify-center ">
-                         <div
-                             class="bg-white owl-carousel testimonials  p-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
+                     <div class="grid gap-4 my-10">
+                         <div class="grid grid-cols-3 md:grid-cols-5 gap-4">
                              @foreach ($images as $image)
-                                 <div class="p-2 relative">
-                                     <figure class="max-w-lg relative">
+                                 <figure class="relative ">
+                                     <div>
 
-                                         <a data-fancybox="gallery" href="{{ Storage::url($image->image_path) }}">
-                                             <img class=" h-60 max-w-full rounded-lg object-cover"
-                                                 src="{{ Storage::url($image->image_path) }}" alt="image description"
-                                                 id="image_{{ $image->id }}">
-                                         </a>
-                                         <label for="checkbox_{{ $image->id }}"
-                                             class="absolute top-2 right-2 checkbox-container">
-                                             <input type="checkbox" id="checkbox_{{ $image->id }}"
-                                                 class="hidden checkbox-image" data-image-id="{{ $image->id }}">
-                                             <span class="checkmark"></span>
-                                         </label>
+                                         <img class="h-auto w-full rounded-lg object-cover"
+                                             src="{{ Storage::url($image->image_path) }}" alt="image description"
+                                             id="image_{{ $image->id }}">
 
-                                     </figure>
-                                 </div>
+                                     </div>
+                                     <label for="checkbox_{{ $image->id }}"
+                                         class="absolute top-0 right-0  mr-0 checkbox-container">
+                                         <input type="checkbox" id="checkbox_{{ $image->id }}"
+                                             class="hidden checkbox-image" data-image-id="{{ $image->id }}">
+                                         <span class="checkmark"></span>
+                                     </label>
+                                     <!-- Ícono de "ojo" -->
+                                     <button
+                                         class="text-xs absolute top-0 left-0 z-50 p-1 flex items-center bg-white rounded-br focus:outline-none"
+                                         type="button">
+                                         <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                             viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                             <path
+                                                 d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z" />
+                                         </svg>
+                                         <span class="ml-1 font-semibold text-gray-700">{{ $image->order_display }}</span>
+                                     </button>
+                                 </figure>
                              @endforeach
-
                          </div>
-
-
-
-                         <!-- END OWL CAROUSEL -->
-
                      </div>
+
+
                      <div class="flex flex-wrap justify-center">
                          <button id="deleteSelectedImages" class="px-4 py-2 mb-10 bg-red-600 text-white rounded"
                              onclick="deleteSelectedImages()"> <i class="fa-solid fa-trash-can mr-1"></i> Eliminar</button>
@@ -184,7 +188,8 @@
                                                  <svg class="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3"
                                                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke="currentColor">
-                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                     <path stroke-linecap="round" stroke-linejoin="round"
+                                                         stroke-width="2"
                                                          d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                                  </svg>
                                              </template>
@@ -334,8 +339,8 @@
              top: 8px;
              right: 8px;
              cursor: pointer;
-             width: 20px;
-             height: 20px;
+             width: 15px;
+             height: 15px;
              border: 1px solid #bd1515;
              border-radius: 3px;
              background-color: #fff;
@@ -369,7 +374,7 @@
 
 
          /*  IMAGE GALLERY
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ----------------------*/
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ----------------------*/
 
          .owl-next.disabled,
          .owl-prev.disabled {

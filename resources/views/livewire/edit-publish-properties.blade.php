@@ -70,7 +70,7 @@
                                          class="mb-10 text-center text-green-600 lg:text-2xl sm:text-base font-bold capitalize">
                                          Información - Especificaciones</h3>
                                      <div class="-mx-3 flex flex-wrap my-3">
-                                         <div class="w-full px-3 sm:w-1/2">
+                                         <div class="w-full px-3 sm:w-1/3">
                                              <div class="mb-5">
                                                  <label for="propertyType"
                                                      class="mb-3 block text-base font-medium text-[#07074D]">
@@ -92,7 +92,7 @@
                                                  @enderror
                                              </div>
                                          </div>
-                                         <div class="w-full px-3 sm:w-1/2">
+                                         <div class="w-full px-3 sm:w-1/3">
                                              <div class="mb-5">
                                                  <label for="transaction_type"
                                                      class="mb-3 block text-base font-medium text-[#07074D]">
@@ -115,7 +115,26 @@
 
                                          </div>
 
-
+                                         <div class="w-full px-3 sm:w-1/3">
+                                             <div class="mb-7">
+                                                 <label for="garage"
+                                                     class="mb-3 block text-base font-medium text-[#07074D]">
+                                                     Estatus
+                                                 </label>
+                                                 <select name="status" id="status"
+                                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                                                     <option value="{{ $collections->status }}">
+                                                         {{ $collections->estatus_description }}</option>
+                                                     @foreach ($estatusAdsRender as $item)
+                                                         <option value="{{ $item->id }}">
+                                                             {{ $item->estatus_description }}</option>
+                                                     @endforeach
+                                                 </select>
+                                                 @error('status')
+                                                     <span class="text-red-500">{{ $message }}</span>
+                                                 @enderror
+                                             </div>
+                                         </div>
                                      </div>
 
 
@@ -414,7 +433,7 @@
                                      </div>
 
                                      <div class="-mx-3 flex flex-wrap">
-                                         <div class="w-full px-3 sm:w-1/4">
+                                         <div class="w-full px-3 sm:w-1/3">
                                              <div class="mb-7">
                                                  <label for="transaction_type"
                                                      class="mb-3 block text-base font-medium text-[#07074D]">
@@ -428,7 +447,7 @@
                                                  @enderror
                                              </div>
                                          </div>
-                                         <div class="w-full px-3 sm:w-1/4">
+                                         <div class="w-full px-3 sm:w-1/3">
                                              <div class="mb-7">
                                                  <label for="propertyType"
                                                      class="mb-3 block text-base font-medium text-[#07074D]">
@@ -450,7 +469,7 @@
                                              </div>
                                          </div>
 
-                                         <div class="w-full px-3 sm:w-1/4">
+                                         <div class="w-full px-3 sm:w-1/3">
                                              <div class="mb-7">
                                                  <label for="garage"
                                                      class="mb-3 block text-base font-medium text-[#07074D]">
@@ -470,26 +489,7 @@
                                              </div>
                                          </div>
 
-                                         <div class="w-full px-3 sm:w-1/4">
-                                             <div class="mb-7">
-                                                 <label for="garage"
-                                                     class="mb-3 block text-base font-medium text-[#07074D]">
-                                                     Estatus
-                                                 </label>
-                                                 <select name="status" id="status"
-                                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
-                                                     <option value="{{ $collections->status }}">
-                                                         {{ $collections->estatus_description }}</option>
-                                                     @foreach ($estatusAdsRender as $item)
-                                                         <option value="{{ $item->id }}">
-                                                             {{ $item->estatus_description }}</option>
-                                                     @endforeach
-                                                 </select>
-                                                 @error('status')
-                                                     <span class="text-red-500">{{ $message }}</span>
-                                                 @enderror
-                                             </div>
-                                         </div>
+
                                      </div>
 
                                      <div class="mb-5">

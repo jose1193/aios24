@@ -1,0 +1,205 @@
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use Illuminate\Http\Request;
+use App\Models\Plan;
+use App\Models\PublishProperty;
+use App\Models\PremiumPlan;
+use App\Models\Bucket;
+use App\Models\AdminEmail;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Livewire\WithPagination;
+
+class PremiumPlans extends Component
+{
+     public $plans, $premium_plans_count;
+public $bucket,$email,$name,$message2,$planName;
+ public $search = '';
+  use WithPagination;
+
+   public function render()
+{
+    $this->premium_plans_count = PremiumPlan::where('user_id', auth()->id())->count();
+    $this->plans = Plan::all();
+    $oroPrice = $this->plans->where('plan', 'Oro')->first()->pricing; // Obtener el precio de Oro
+    $platinoPrice = $this->plans->where('plan', 'Platino')->first()->pricing; // Obtener el precio de Platino
+
+    $activePlan = Plan::join('premium_plans', 'plans.id', '=', 'premium_plans.plan_id')
+        ->where('premium_plans.user_id', auth()->id())
+        ->select('plans.id')
+        ->first();
+
+    $this->activePlanId = $activePlan ? $activePlan->id : null;
+
+    return view('livewire.premium-plans', [
+        'oroPrice' => $oroPrice,
+        'platinoPrice' => $platinoPrice,
+        'plans' => $this->plans,
+        'premium_plans_count' => $this->premium_plans_count
+    ]);
+}
+
+
+public function storePlan(Request $request)
+{
+    // Validaciones
+    $request->validate([
+        'plan_id' => 'required|exists:plans,id',
+    ]);
+
+    $planId = $request->input('plan_id');
+    $user = auth()->user();
+
+    // Verificar si el usuario ya tiene un plan
+    $existingPlan = PremiumPlan::where('user_id', $user->id)->first();
+
+// CARBON FORMAT DATE
+         $date = Carbon::now()->locale('es_ES')->format('F d, Y');
+            // END CARBON FORMAT DATE
+
+    if ($existingPlan) {
+        // Si ya tiene un plan y el nuevo plan es Free, actualiza el plan existente
+        if ($planId == '1') { // Supongo que '1' es el ID del plan Free
+            $existingPlan->update([
+                'plan_id' => $planId,
+                'purchase_date' => $date,
+                'expiration_date' => 'Indefinido', // Actualiza la expiración si es necesario
+                'estatus_premium' => 'Active', 
+            ]);
+
+
+
+    //SEND EMAIL FORM CONTACT
+      
+try {
+        $planName = Plan::find($planId);
+        $this->bucket = Bucket::orderBy('description', 'desc')->limit(1)->first();
+        $user = User::find(auth()->user()->id);
+        $this->email = $user->email;
+        $this->name = $user->name;
+    $this->planName= $planName->plan;
+\Mail::send('emails.NewPremiumPlanProperty', array(
+    'planName' => $this->planName,
+    'name' => $this->name,
+    'email' => $this->email,
+    'bucket' => $this->bucket->description,
+    'city' => $this->bucket->city,
+     'community' => $this->bucket->community,
+      'country' => $this->bucket->country,
+      'address' => $this->bucket->address,
+), function($message) {
+    $emailAdmin = AdminEmail::orderBy('email', 'desc')->limit(1)->pluck('email')->first();
+
+    $message->from($emailAdmin,'Aios Real Estate');
+    $message->to($this->email)->subject('Registro de Plan Free Aios Real Estate');
+});
+
+return response()->json(['message' => 'Email enviado con éxito']);
+} catch (\Exception $e) {
+    return response()->json(['error' => 'Error al enviar el email: ' . $e->getMessage()]);
+}
+// END SEND EMAIL FORM CONTACT
+
+            return response()->json(['message' => 'Plan actualizado con éxito']);
+        }
+    } else {
+        // Si no tiene un plan previo y el nuevo plan es Free, registra un nuevo plan
+        if ($planId == '1') {
+
+            PremiumPlan::create([
+                'user_id' => $user->id,
+                'plan_id' => $planId,
+                'purchase_date' => $date,
+                'expiration_date' => 'Indefinido',
+                 'estatus_premium' => 'Active', 
+            ]);
+
+            
+
+    //SEND EMAIL FORM CONTACT
+      
+try {
+        $planName = Plan::find($planId);
+        $this->bucket = Bucket::orderBy('description', 'desc')->limit(1)->first();
+        $user = User::find(auth()->user()->id);
+        $this->email = $user->email;
+        $this->name = $user->name;
+    $this->planName= $planName->plan;
+\Mail::send('emails.NewPremiumPlanProperty', array(
+    'planName' => $this->planName,
+    'name' => $this->name,
+    'email' => $this->email,
+    'bucket' => $this->bucket->description,
+    'city' => $this->bucket->city,
+     'community' => $this->bucket->community,
+      'country' => $this->bucket->country,
+      'address' => $this->bucket->address,
+), function($message) {
+    $emailAdmin = AdminEmail::orderBy('email', 'desc')->limit(1)->pluck('email')->first();
+
+    $message->from($emailAdmin,'Aios Real Estate');
+    $message->to($this->email)->subject('Registro de Plan Free Aios Real Estate');
+});
+
+return response()->json(['message' => 'Email enviado con éxito']);
+} catch (\Exception $e) {
+    return response()->json(['error' => 'Error al enviar el email: ' . $e->getMessage()]);
+}
+// END SEND EMAIL FORM CONTACT
+            return response()->json(['message' => 'Plan registrado con éxito']);
+        }
+    }
+
+    
+
+    return response()->json(['message' => 'Plan registrado con éxito']);
+}
+
+
+
+public function Myplans()
+    {
+      $myplans = PremiumPlan::join('plans', 'plans.id', '=', 'premium_plans.plan_id')
+   
+    ->where('premium_plans.user_id', auth()->id())
+    ->where('plans.plan', 'like', '%'.$this->search.'%')
+      ->select('plans.*','premium_plans.purchase_date','premium_plans.expiration_date','premium_plans.estatus_premium')
+    ->orderBy('premium_plans.id', 'desc')
+    ->paginate(10);
+
+
+
+
+        return view('livewire.my-plans', [
+        'myplans' => $myplans]);
+    }
+
+    
+public function renewPremium($planId)
+{
+    $this->premium_plans_count = PremiumPlan::where('user_id', auth()->id())->count();
+    
+  $planPrice = Plan::where('id', $planId)->value('pricing'); // Obtén el precio del plan según su planId
+
+
+    // Obtener el plan activo del usuario
+    $activePlan = Plan::join('premium_plans', 'plans.id', '=', 'premium_plans.plan_id')
+        ->where('premium_plans.user_id', auth()->id())
+        ->where('premium_plans.plan_id', $planId) // Filtrar por el planId proporcionado
+        ->select('plans.*')
+        ->first();
+
+    return view('livewire.renew-premium', [
+        'planPrice' => $planPrice,
+       
+        'plans' => $activePlan, // Pasar el plan activo a la vista
+        'premium_plans_count' => $this->premium_plans_count
+    ]);
+}
+
+
+}

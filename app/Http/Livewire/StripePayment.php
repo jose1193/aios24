@@ -45,9 +45,9 @@ public $plans,$property_id;
                 'price_data' => [
                     'currency'     => 'eur',
                     'product_data' => [
-                        'name' => 'Plan '.$request->planName,
+                        'name' => 'Plan '.$request->planName. ' / '.$request->billingType,
                         
-                         'description' => $request->position.'.  '.$request->duration,
+                         'description' => $request->position.'.  Cant. Publicaciones '.$request->number_publications,
                          'images' => ['https://www.aiosrealestate.com/img/logo2.png'],
                          
                     ],
@@ -58,7 +58,7 @@ public $plans,$property_id;
         ],
         'mode'        => 'payment',
         'success_url' => route('success'),
-         'cancel_url'  => route('choose-plan', ['publishCode' => $publishCode]),
+         'cancel_url'  => route('select-plan'),
          
     ]);
 

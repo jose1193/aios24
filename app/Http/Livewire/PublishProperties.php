@@ -14,6 +14,7 @@ use App\Models\Feature;
 use App\Models\Equipment;
 use App\Models\PurchasedPlan;
 use App\Models\Plan;
+use App\Models\PremiumPlan;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -59,6 +60,11 @@ public $garage;
 
 public $bucket,$email,$name,$message2;
 public $publishProperty;
+public $plan;
+
+public $planName = ''; // Definir con valor predeterminado vacío
+
+public $activePlanId;
 
 public function mount(PublishProperty $publishProperty)
 {
@@ -68,14 +74,70 @@ public function mount(PublishProperty $publishProperty)
 public function render()
 {
     
+    
    
     $this->propertyTypesRender = Property::all();
  $this->transactionRender = Transaction::all();
  $this->estatusAdsRender = EstatusAds::all();
+
+$premium_plans_count = PremiumPlan::where('user_id', auth()->id())->count();
+
+$registeredAds = PublishProperty::where('user_id', auth()->id())->count();
+
+$plan = Plan::join('premium_plans', 'plans.id', '=', 'premium_plans.plan_id')
+    ->where('premium_plans.user_id', auth()->id())
+    ->select('plans.plan','plans.number_publications')
+    ->first();
+
+if ($plan) {
+    // Verificar si el plan es ilimitado
+    if ($plan->number_publications === 'Ilimitadas') {
+        $remainingAds = 'Ilimitadas';
+    } else {
+        // Calcular la cantidad de anuncios disponibles
+        $remainingAds = intval($plan->number_publications) - intval($registeredAds);
+        // Asegurarse de que no haya menos de cero anuncios disponibles
+        $remainingAds = max(0, $remainingAds);
+    }
+
+    $this->planName = $plan->plan;
+    $this->remainingAds = $remainingAds;
+   
+}
+ 
+
+if ($premium_plans_count > 0) {
+    
     return view('livewire.publish-properties', [
         'propertyTypes' => $this->propertyTypesRender,
         'estatusAdsRender' => $this->estatusAdsRender,
+        'planName' => $this->planName,
+        'remainingAds' => $this->remainingAds
     ]);
+} else {
+    
+     $this->plans = Plan::all();
+      $activePlan = Plan::join('premium_plans', 'plans.id', '=', 'premium_plans.plan_id')
+        ->where('premium_plans.user_id', auth()->id())
+        ->select('plans.id')
+        ->first();
+
+    $this->activePlanId = $activePlan ? $activePlan->id : null;
+$oroPrice = $this->plans->where('plan', 'Oro')->first()->pricing; // Obtener el precio de Oro
+$platinoPrice = $this->plans->where('plan', 'Platino')->first()->pricing; // Obtener el precio de Platino
+
+return view('livewire.premium-plans', [
+    'oroPrice' => $oroPrice,
+    'platinoPrice' => $platinoPrice,
+    'plans' => $this->plans, // Aquí corregir la asignación
+    'premium_plans_count' => $premium_plans_count,
+    'activePlanId' => $this->activePlanId
+   
+]);
+
+}
+
+
 }
 
     // --- FUNCTION CLEAN LIVEWIRE-TMP --- ///
@@ -152,8 +214,6 @@ public function checkTitleUpdate(Request $request)
     ]);
 
 
-
-
     $imagesPaths = [];
    foreach ($request->file('images')  as $index => $image) {
      // Obtén el valor del campo order_display correspondiente al índice actual
@@ -197,6 +257,7 @@ $ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
 // CARBON FORMAT DATE
          $date = Carbon::now()->locale('es_ES')->format('F d, Y');
             // END CARBON FORMAT DATE
+
         $publishCode = 'AR-' . str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
 $propertyType = $request->input('property_type');
 $location = $request->input('location');
@@ -284,15 +345,15 @@ $longitudeArea = $request->input('longitudeArea');
 
 
 // CREATE FIELDS PURCHASE PLAN
-$purchased_plans = PurchasedPlan::create([
-        'property_id' => $property->id,
-        'publish_code' => $publishCode,
-        'user_id' => auth()->user()->id,
-        'plan_id' => '1',
-        'purchase_date' =>  $date,
-        'expiration_date' => 'Indefinido',
+// $purchased_plans = PurchasedPlan::create([
+      //   'property_id' => $property->id,
+      //   'publish_code' => $publishCode,
+      //   'user_id' => auth()->user()->id,
+       //  'plan_id' => '1',
+      //   'purchase_date' =>  $date,
+      //   'expiration_date' => 'Indefinido',
        
-    ]);
+    // ]);
 
     // END CREATE FIELDS PURCHASE PLAN
 
@@ -352,7 +413,7 @@ $images = PropertyImage::join('publish_properties', 'property_images.property_id
         ->get();
 
         // Realizar las operaciones necesarias antes de cargar la vista
-sleep(2); //BUTTON SPINNER LOADING
+
 
 $this->reset();
 $this->CleanUp();
@@ -368,7 +429,9 @@ $this->publishCode = $publishCode;
         'equipments' => $equipments,
         
     ]);
-   
+
+     
+
 
 }
 
@@ -428,6 +491,9 @@ $this->estatusAdsRender = EstatusAds::all();
     ]);
 
 }
+
+
+
 public function update(Request $request, $publishCode)
 {
     $data = $request->validate([
@@ -577,20 +643,20 @@ public function viewImages(PublishProperty $publishProperty,$publishCodeImages)
         abort(403, 'THIS ACTION IS UNAUTHORIZED.');
     }
 $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
-        ->select('property_images.image_path','property_images.id')
+        ->select('property_images.image_path','property_images.id','property_images.order_display')
         ->where('publish_properties.publish_code', '=', $publishCodeImages)
-         ->orderBy('property_images.id', 'desc')
+         ->orderBy('property_images.order_display', 'asc')
         ->get();
 
-        $purchasedPlan = PurchasedPlan::join('plans', 'plans.id', '=', 'purchased_plans.plan_id')
-        ->where('purchased_plans.publish_code', $publishCodeImages)
-        ->select('plans.plan', 'plans.images_quantity')
-        ->first();
+       $premiumPlan = PremiumPlan::join('plans', 'plans.id', '=', 'premium_plans.plan_id')
+    ->where('premium_plans.user_id', auth()->user()->id)
+    ->select('plans.plan', 'plans.images_quantity')
+    ->first();
 
        
     // Verificar si el plan permite acumular imágenes
   
-    $maxImages = $purchasedPlan->images_quantity;
+   $maxImages = $premiumPlan->images_quantity;
 $property = PublishProperty::where('publish_code', $publishCodeImages)->firstOrFail();
     // Obtener las imágenes ya subidas
     $uploadedImagesCount = PropertyImage::where('property_id', $property->id)->count();
@@ -598,7 +664,7 @@ $property = PublishProperty::where('publish_code', $publishCodeImages)->firstOrF
 
 
    return view('livewire.add-images-publish-properties',['publishCodeImages' => $publishCodeImages,
-'images' => $images,'purchasedPlan'=>$purchasedPlan,'remainingImages'=>$remainingImages]);
+'images' => $images,'purchasedPlan'=>$premiumPlan,'remainingImages'=>$remainingImages]);
 }
 
 
@@ -611,14 +677,15 @@ public function addImages(Request $request, $publishCodeImages)
 
     // Obtener la propiedad y el plan asociado
     $property = PublishProperty::where('publish_code', $publishCodeImages)->firstOrFail();
-    $purchasedPlan = PurchasedPlan::join('plans', 'plans.id', '=', 'purchased_plans.plan_id')
-        ->where('purchased_plans.publish_code', $publishCodeImages)
-        ->select('plans.plan', 'plans.images_quantity')
-        ->first();
+    $premiumPlan = PremiumPlan::join('plans', 'plans.id', '=', 'premium_plans.plan_id')
+    ->where('premium_plans.user_id', auth()->user()->id)
+    ->select('plans.plan', 'plans.images_quantity')
+    ->first();
+
 
     // Verificar si el plan permite acumular imágenes
-    $planDescription = $purchasedPlan->plan;
-    $maxImages = $purchasedPlan->images_quantity;
+    $planDescription = $premiumPlan->plan;
+    $maxImages = $premiumPlan->images_quantity;
 
     // Obtener las imágenes ya subidas
     $uploadedImagesCount = PropertyImage::where('property_id', $property->id)->count();
@@ -715,6 +782,48 @@ public function deleteImages(Request $request)
         return response()->json(['success' => false]);
     }
 }
+
+
+public function deleteProperties(Request $request)
+{
+   $dataIds = $request->input('dataIds');
+
+// Verifica si hay IDs de imágenes válidos
+if (!is_array($dataIds) || empty($dataIds)) {
+    return response()->json(['success' => false]);
+}
+
+try {
+     
+  foreach ($dataIds as $dataId) {
+    $images = PropertyImage::where('property_id', $dataId)->get();
+
+    foreach ($images as $image) {
+        // Elimina el registro de la base de datos
+        $image->delete();
+
+        // Elimina el archivo del almacenamiento
+        Storage::disk('public')->delete($image->image_path);
+
+        
+    $property = PublishProperty::find($dataId);
+    if ($property) {
+        $property->delete();
+    }
+    }
+}
+
+
+
+    return response()->json(['success' => true]);
+} catch (\Exception $e) {
+    return response()->json(['success' => false]);
+}
+
+}
+
+
+
 
 
 }

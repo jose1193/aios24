@@ -13,6 +13,8 @@
 
 
      <!-- END INCLUDE ALERTS MESSAGES-->
+
+
      <div class="m-2 p-2 mb-5 flex justify-between space-x-2">
          <x-a-button href="{{ route('publish') }}">Publicar</x-a-button>
 
@@ -34,8 +36,19 @@
                              <th class="px-4 py-2">Fecha de Publicación</th>
                              <th class="px-4 py-2">Status</th>
                              <th class="px-4 py-2">Plan</th>
-                             <th class="px-4 py-2">Exposición Premiun</th>
+
                              <th class="px-4 py-2">Action</th>
+                             <th class="px-4 py-2">
+                                 @if (!$properties->isEmpty())
+                                     <button id="deleteSelectedData"
+                                         class="px-4 py-2 bg-red-600 text-xs text-white rounded"
+                                         onclick="deleteSelectedData()"> <i class="fa-solid fa-trash-can mr-1"></i>
+                                         Eliminar</button>
+                                 @endif
+
+
+
+                             </th>
                          </thead>
                          <tbody class="bg-white divide-y divide-gray-200">
                              <tr></tr>
@@ -52,16 +65,19 @@
 
                                      <td class="px-6 py-4 whitespace-nowrap">{{ $property->publication_date }}</td>
                                      <td class="px-6 py-4 whitespace-nowrap">{{ $property->estatus_description }}</td>
-                                     <td class="px-6 py-4 whitespace-nowrap">{{ $property->plan }}</td>
                                      <td class="px-6 py-4 whitespace-nowrap">
-
-                                         <a href="{{ route('choose-plan', ['publishCode' => $property->publish_code]) }}"
-                                             class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded">
-                                             Destacar
-                                         </a>
-
-
+                                         @if ($property->plan == 'Free')
+                                             <span
+                                                 class="bg-green-600 text-white font-semibold  px-2 py-1 rounded">Free</span>
+                                         @elseif ($property->plan == 'Oro')
+                                             <span
+                                                 class="bg-gradient-to-r from-yellow-400 to-yellow-500 font-semibold text-white px-2 py-1 rounded">Oro</span>
+                                         @elseif ($property->plan == 'Platino')
+                                             <span
+                                                 class="bg-gradient-to-r from-gray-400 to-gray-600 font-semibold text-white px-2 py-1 rounded">Platino</span>
+                                         @endif
                                      </td>
+
                                      <td class="px-5 py-4 text-center text-sm">
 
 
@@ -97,6 +113,16 @@
                                              </svg>
                                          </a>
 
+                                     </td>
+                                     <td class="px-6 py-4 whitespace-nowrap">
+
+                                         <label for="checkbox_{{ $property->id }}" class=" checkbox-container">
+                                             <input type="checkbox" id="checkbox_{{ $property->id }}"
+                                                 class="hidden checkbox-data" data-id="{{ $property->id }}">
+                                             <span class="checkmark"></span>
+                                         </label>
+
+
 
 
                                      </td>
@@ -127,9 +153,120 @@
  </div>
 
 
+ <style>
+     /* Estilos básicos para el checkbox */
+
+     .checkbox-container {
+         display: block;
+         /* Ajustamos el display a "block" para que el checkbox ocupe toda la celda */
+         position: relative;
+         cursor: pointer;
+         width: 20px;
+         height: 20px;
+         margin: auto;
+         /* Centramos verticalmente */
+         border: 1px solid #bd1515;
+         border-radius: 3px;
+         background-color: #fff;
+     }
+
+     /* Estilos para el checkbox marcado (la "X") */
+     .checkbox-container input[type="checkbox"]:checked+.checkmark {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: #fff;
+         border-radius: 3px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         color: #c90303;
+         font-size: 14px;
+     }
+
+     /* Estilos para el ícono "X" */
+     .checkbox-container input[type="checkbox"]:checked+.checkmark::before {
+         content: "X";
+     }
+
+     /* Estilos para el botón de "Eliminar" */
+     #deleteSelectedData {
+         display: block;
+     }
+ </style>
  @push('js')
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+     <script>
+         function deleteSelectedData() {
+
+             const selectedDataIds = Array.from(document.querySelectorAll('.checkbox-data:checked'))
+                 .map(checkbox => checkbox.getAttribute('data-id'));
+
+             if (selectedDataIds.length === 0) {
+                 Swal.fire('¡Error!', 'Por favor, seleccione al menos un anuncio para eliminar.', 'error');
+                 return;
+             }
+
+             Swal.fire({
+                 title: 'Eliminar Anuncios',
+                 text: '¿Estás seguro de que quieres eliminar los anuncios seleccionados?',
+                 icon: 'warning',
+                 showCancelButton: true,
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Eliminar',
+                 cancelButtonText: 'Cancelar'
+             }).then((result) => {
+                 if (result.isConfirmed) {
+                     // Realiza una solicitud AJAX para eliminar las imágenes seleccionadas
+                     axios.post('/delete-properties', {
+                             dataIds: selectedDataIds
+                         })
+                         .then((response) => {
+                             if (response.data.success) {
+                                 Swal.fire('Éxito', 'Los anuncios han sido eliminados exitosamente', 'success')
+                                     .then(() => {
+
+                                         const deleteButton = document.getElementById(
+                                             'deleteSelectedData');
+                                         deleteButton.style.display =
+                                             'block'; // Oculta el botón "Eliminar" después de confirmar
+
+                                         window.location.href = '/published/';
+                                     });
+                             } else {
+                                 Swal.fire('¡Error!', 'Ha ocurrido un problema al eliminar los anuncios.',
+                                     'error');
+                             }
+                         })
+                         .catch((error) => {
+                             console.error(error);
+                             Swal.fire('¡Error!', 'Ha ocurrido un problema al eliminar los anuncios.', 'error');
+                         });
+                 }
+             });
+         }
+
+         const deleteButton = document.getElementById('deleteSelectedData');
+         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+         checkboxes.forEach(checkbox => {
+             checkbox.addEventListener('change', () => {
+                 const anyCheckboxChecked = Array.from(checkboxes).some(cb => cb.checked);
+                 deleteButton.style.display = anyCheckboxChecked ? 'block' : 'block';
+                 if (checkbox.checked) {
+                     const dataId = checkbox.getAttribute('data-id');
+                     console.log('ID marcado:', dataId);
+                 }
+             });
+         });
+
+         deleteButton.addEventListener('click', deleteSelectedData);
+     </script>
 
      <script>
          Livewire.on('deleteData', catId => {

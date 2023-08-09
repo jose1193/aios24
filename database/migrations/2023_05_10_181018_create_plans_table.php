@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('plan');
             $table->string('plan_description');
-            $table->string('pricing');
+              $table->string('pricing');
+             $table->string('number_publications'); 
             $table->string('position');  
              $table->string('duration'); 
              $table->string('quantity'); 

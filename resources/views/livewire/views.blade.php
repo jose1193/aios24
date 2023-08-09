@@ -55,7 +55,8 @@
                                      @foreach ($images as $image)
                                          <!-- Slides -->
                                          <div class="sp-slide">
-                                             <img class="sp-image" src="{{ Storage::url($image->image_path) }}" />
+                                             <img class="sp-image" src="{{ Storage::url($image->image_path) }}"
+                                                 loading="lazy" />
                                          </div>
                                      @endforeach
 
@@ -69,7 +70,8 @@
                                      <!-- Miniaturas -->
                                      <div class="sp-thumbnails">
                                          @foreach ($images as $image)
-                                             <img class="sp-thumbnail " src="{{ Storage::url($image->image_path) }}" />
+                                             <img class="sp-thumbnail " src="{{ Storage::url($image->image_path) }}"
+                                                 loading="lazy" />
                                          @endforeach
                                      </div>
                                  </div>
@@ -1155,7 +1157,6 @@
      <x-footer />
  @endguest
  <!-- END GUEST USER -->
-
 
 
  <script>

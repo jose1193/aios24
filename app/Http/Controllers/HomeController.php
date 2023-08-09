@@ -66,12 +66,16 @@ class HomeController extends Controller
         return view('livewire.exposition');
     }
     
-public $plans;
+    public $plans;
      public function prices()
     {
         
          $this->plans = Plan::all();
+         $oroPrice = $this->plans->where('plan', 'Oro')->first()->pricing; // Obtener el precio de Oro
+        $platinoPrice = $this->plans->where('plan', 'Platino')->first()->pricing; // Obtener el precio de Platino
         return view('livewire.prices',[
+             'oroPrice' => $oroPrice,
+    'platinoPrice' => $platinoPrice,
         'plans' => $this->plans
     ]);
     }

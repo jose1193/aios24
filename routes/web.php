@@ -50,6 +50,7 @@ use App\Http\Livewire\PublishProperties;
 use App\Http\Livewire\NotificationsMessages;
 
 use App\Http\Livewire\Suscriptions;
+use App\Http\Livewire\PremiumPlans;
 
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
@@ -208,10 +209,15 @@ Route::post('/session', [StripePayment::class, 'session'])->name('session');
 Route::get('/success', [StripePayment::class, 'success'])->name('success');
 //------------ STRIPE PAYMENT -----------//
 
-Route::get('myplans', MyPlans::class)->name('myplans');
+
 
 
 //Route::get('publish', Wizard::class)->name('publish');
+Route::get('select-plan', PremiumPlans::class)->name('select-plan');
+Route::post('store-plan', [PremiumPlans::class, 'storePlan'])->name('store-plan');
+Route::get('myplans', [PremiumPlans::class, 'Myplans'])->name('myplans');
+Route::get('renew-premium/{planId}', [PremiumPlans::class, 'renewPremium'])->name('renew-premium');
+
 
 
 Route::get('publish', PublishProperties::class)->name('publish');
@@ -228,7 +234,7 @@ Route::delete('/delete-equipment/{equipmentId}', [PublishProperties::class, 'del
 Route::post('/delete-images', [PublishProperties::class, 'deleteImages']);
 Route::post('/check-title', [PublishProperties::class, 'checkTitle']);
 Route::post('/check-title-update', [PublishProperties::class, 'checkTitleUpdate']);
-
+Route::post('/delete-properties', [PublishProperties::class, 'deleteProperties']);
 
 //------------ FAVORITES -----------//
 //Route::get('/favorites/{propertyId?}', Favorites::class)->name('favorites');

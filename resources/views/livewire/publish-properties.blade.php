@@ -1,5 +1,6 @@
  <x-slot name="header">
      <x-slot name="title">
+
          {{ __('Publicar Nuevo Anuncio') }}
      </x-slot>
 
@@ -39,7 +40,9 @@
  <div class="py-12 mb-20">
      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
          <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
-
+             <h1 class="text-center text-fuchsia-700 font-semibold text-2xl">
+                 Plan {{ $planName }} - {{ $remainingAds }} Publicaciones Disponibles
+             </h1>
              <!--INCLUDE ALERTS MESSAGES-->
              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
              <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -509,8 +512,11 @@
 
 
                                  <button id="submitBtn" type="submit"
-                                     class="hidden px-6 py-3 capitalize  rounded-md bg-green-700 text-white  font-medium duration-500 ease-in-out hover:bg-green-400">
-                                     {{ __('Publicar Anuncio') }}</button>
+                                     class="px-6 py-3 capitalize rounded-md bg-green-700 text-white font-medium duration-500 ease-in-out hover:bg-green-400"
+                                     @if ($remainingAds <= 0) disabled @endif>
+                                     {{ __('Publicar Anuncio') }}
+                                 </button>
+
 
                              </div>
                          </div>
