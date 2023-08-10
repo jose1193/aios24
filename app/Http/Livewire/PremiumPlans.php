@@ -109,7 +109,7 @@ return response()->json(['message' => 'Email enviado con éxito']);
     } else {
         // Si no tiene un plan previo y el nuevo plan es Free, registra un nuevo plan
         if ($planId == '1') {
-
+$expirationDate = Carbon::now()->addMonths(6)->locale('es_ES')->format('F d, Y');
             PremiumPlan::create([
                 'user_id' => $user->id,
                 'plan_id' => $planId,

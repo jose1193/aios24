@@ -132,15 +132,25 @@ $this->sendEmailAndReturnResponse($planId, 'Actualizacion de Plan Aios Real Esta
         'estatus_premium' => 'Activo', 
     ]);
 
+    
     // Dentro de createAndSendEmail
 $this->sendEmailAndReturnResponse($planId, 'Registro de Plan Premium Aios Real Estate');
     
 }
+// Verificar si el pago fue exitoso o no
+    $pagoExitoso = true; // Aquí debes usar la lógica real para verificar el pago
 
-
-    
-    return view('nombre_de_tu_vista');
+    // Agregar el mensaje flash según el resultado del pago
+    if ($pagoExitoso) {
+        session()->flash('success', 'Pago realizado exitosamente');
+    } else {
+        session()->flash('error', 'El pago no se pudo realizar');
     }
+    session()->flash('success', 'Pago realizado exitosamente');
+    return view('livewire.receipt-payment',compact('planName', 'position', 'pricing', 'billingType','expirationDate'));
+   
+
+}
 
 
      public function Renewsession(Request $request)

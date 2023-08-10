@@ -45,8 +45,8 @@
          <!-- END INCLUDE ALERTS MESSAGES-->
 
 
-         <div class="max-w-7xl mx-auto py-12">
-             <div class="bg-white py-6 sm:py-8 lg:py-12">
+         <div class="max-w-7xl mx-auto py-8">
+             <div class="bg-white py-6 sm:py-8 lg:py-8">
                  <div class="mx-auto max-w-screen-xl px-4 md:px-8">
                      <div x-data="{
                          billingType: 'mes',
