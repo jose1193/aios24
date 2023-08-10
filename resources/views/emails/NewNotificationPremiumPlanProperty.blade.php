@@ -204,7 +204,7 @@
                                                                     <h1 class="h3 fw-700"
                                                                         style="padding-top: 0; padding-bottom: 0; font-weight: 700 !important; vertical-align: baseline; font-size: 20px; line-height: 33.6px; margin: 0;"
                                                                         align="left">
-                                                                        <strong>Hola, {{ $name }}. <br>
+                                                                        <strong>Estimado(a), {{ $name }}. <br>
                                                                         </strong>
                                                                     </h1>
                                                                     <table class="s-4 w-full" role="presentation"
@@ -223,16 +223,32 @@
                                                                     <p class=""
                                                                         style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;"
                                                                         align="left">
-                                                                        ¡Nos complace informarte que el <strong> Plan
-                                                                            {{ $planName }} </strong> ha sido
-                                                                        registrado
-                                                                        exitosamente! Este plan está ahora disponible
-                                                                        para que puedas registrar tus anuncios. No dudes
-                                                                        en comenzar a aprovechar todas las ventajas y
-                                                                        características que este plan ofrece para
+                                                                        Este es un recordatorio amable para informarte
+                                                                        que tu actual plan de membresía, <strong> Plan
+                                                                            {{ $planName }} </strong>, está por
+                                                                        vencer pronto. Nos complace que hayas estado
+                                                                        aprovechando los beneficios y las
+                                                                        características que ofrece este plan para
                                                                         promocionar tus anuncios de manera efectiva.
                                                                         <br><br>
+                                                                        Queremos asegurarnos de que no experimentes
+                                                                        interrupciones en el servicio. Por lo tanto, te
+                                                                        invitamos a acceder a nuestro sitio web antes de
+                                                                        la fecha de vencimiento y renovar tu plan para
+                                                                        continuar disfrutando de todos sus beneficios
+                                                                        sin inconvenientes.
+                                                                        <br><br>
 
+
+                                                                        Renovar tu plan es fácil. Simplemente inicia
+                                                                        sesión en tu cuenta en nuestro sitio web,
+                                                                        selecciona la opción de renovación y sigue las
+                                                                        instrucciones para completar el proceso de pago.
+                                                                        Una vez que hayas renovado exitosamente,
+                                                                        seguirás teniendo acceso a todas las
+                                                                        herramientas y recursos que te ayudan a destacar
+                                                                        tus anuncios.
+                                                                        <br><br>
                                                                         Si tienes más preguntas o necesitas asistencia
                                                                         adicional, no dudes en ponerte en contacto con
                                                                         nosotros. ¡Gracias por elegir nuestro servicio y
@@ -240,7 +256,9 @@
                                                                         nosotros!
 
                                                                         <br><br>
-                                                                        Gracias por confiar en nuestro sitio web.
+                                                                        Gracias por ser parte de nuestra comunidad y por
+                                                                        elegir nuestro servicio para promocionar tus
+                                                                        anuncios de manera efectiva.
                                                                         <br><br>
 
                                                                         Atentamente,<br>
