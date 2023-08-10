@@ -55,8 +55,8 @@
                                      @foreach ($images as $image)
                                          <!-- Slides -->
                                          <div class="sp-slide">
-                                             <img class="sp-image" src="{{ Storage::url($image->image_path) }}"
-                                                 loading="lazy" />
+                                             <img class="sp-image" id="lazy"
+                                                 data-src="{{ Storage::url($image->image_path) }}" />
                                          </div>
                                      @endforeach
 
@@ -70,8 +70,8 @@
                                      <!-- Miniaturas -->
                                      <div class="sp-thumbnails">
                                          @foreach ($images as $image)
-                                             <img class="sp-thumbnail " src="{{ Storage::url($image->image_path) }}"
-                                                 loading="lazy" />
+                                             <img class="sp-thumbnail " id="lazy"
+                                                 data-src="{{ Storage::url($image->image_path) }}" />
                                          @endforeach
                                      </div>
                                  </div>
@@ -647,7 +647,8 @@
                                  @foreach ($images as $image)
                                      <!-- Slides -->
                                      <div class="sp-slide">
-                                         <img class="sp-image" src="{{ Storage::url($image->image_path) }}" />
+                                         <img class="sp-image" id="lazy"
+                                             data-src="{{ Storage::url($image->image_path) }}" />
                                      </div>
                                  @endforeach
 
@@ -661,7 +662,8 @@
                                  <!-- Miniaturas -->
                                  <div class="sp-thumbnails">
                                      @foreach ($images as $image)
-                                         <img class="sp-thumbnail " src="{{ Storage::url($image->image_path) }}" />
+                                         <img class="sp-thumbnail " id="lazy"
+                                             data-src="{{ Storage::url($image->image_path) }}" />
                                      @endforeach
                                  </div>
                              </div>
@@ -1159,6 +1161,49 @@
  <!-- END GUEST USER -->
 
 
+ <!-- START SLIDER -->
+ <link rel="stylesheet" href="https://unpkg.com/slider-pro/dist/css/slider-pro.min.css" />
+ <style>
+     .sp-full-screen-button {
+
+         /* Cambia el color de fondo a verde (#34D399) */
+         color: #000;
+         margin-top: 10px;
+         z-index: 9999;
+
+     }
+ </style>
+
+ <script type="text/javascript" src="https://unpkg.com/slider-pro/dist/js/jquery.sliderPro.min.js" defer></script>
+ <script type="text/javascript">
+     jQuery(document).ready(function($) {
+         $('#my-slider').sliderPro({
+             width: 780,
+             height: 520,
+             fade: true,
+             arrows: true,
+             responsive: true,
+             buttons: false,
+             fullScreen: true,
+             shuffle: false,
+             smallSize: 500,
+             mediumSize: 1000,
+             largeSize: 3000,
+             thumbnailArrows: true,
+             autoplay: false,
+             centerImage: true,
+             imageScaleMode: 'contain',
+             autoSlideSize: false,
+             forceSize: 'none',
+
+
+         });
+     });
+ </script>
+
+ <!-- END SLIDER -->
+
+
  <script>
      let elements = document.querySelectorAll("[data-menu]");
      for (let i = 0; i < elements.length; i++) {
@@ -1173,16 +1218,7 @@
      }
  </script>
 
- <!--FANCYBOX -->
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
- <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 
- <script>
-     Fancybox.bind('[data-fancybox="gallery"]', {
-         //
-     });
- </script>
- <!--END FANCYBOX -->
 
  <!--BUTTONS SHARE -->
  <script>
@@ -1283,7 +1319,7 @@
 
  <!-- END PHONE COUNTRY  -->
 
-
+ <!-- MAP  -->
  <script>
      function initMap() {
          var test = {
@@ -1333,46 +1369,17 @@
      // Llamar a la función para cargar el script de la API de Google Maps
      loadGoogleMapsScript();
  </script>
-
-
-
- <!-- START SLIDER -->
- <link rel="stylesheet" href="https://unpkg.com/slider-pro/dist/css/slider-pro.min.css" />
- <script type="text/javascript" src="https://unpkg.com/slider-pro/dist/js/jquery.sliderPro.min.js" defer></script>
- <script type="text/javascript">
-     jQuery(document).ready(function($) {
-         $('#my-slider').sliderPro({
-             width: 780,
-             height: 520,
-             fade: true,
-             arrows: true,
-             responsive: true,
-             buttons: false,
-             fullScreen: true,
-             shuffle: false,
-             smallSize: 500,
-             mediumSize: 1000,
-             largeSize: 3000,
-             thumbnailArrows: true,
-             autoplay: false,
-             centerImage: true,
-             imageScaleMode: 'contain',
-             autoSlideSize: false,
-             forceSize: 'none',
-
-
+ <!-- END MAP  -->
+ <!-- LAZY LAOAD IMAGE -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+ <script>
+     // Espera a que el DOM esté listo
+     $(document).ready(function() {
+         // Aplica lazy loading a las imágenes con la clase "lazy"
+         $("#lazy").lazyload({
+             effect: "fadeIn", // Efecto de fundido al cargar la imagen
+             threshold: 200 // Carga la imagen cuando esté a 200 píxeles de distancia
          });
      });
  </script>
-
- <style>
-     .sp-full-screen-button {
-
-         /* Cambia el color de fondo a verde (#34D399) */
-         color: #000;
-         margin-top: 10px;
-         z-index: 9999;
-
-     }
- </style>
- <!-- END SLIDER -->
+ <!-- END LAZY LAOAD IMAGE -->
