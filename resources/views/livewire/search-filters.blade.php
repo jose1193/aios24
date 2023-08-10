@@ -238,14 +238,22 @@
                                             <div class="slider-pro" id="my-slider">
                                                 <div class="sp-slides">
 
-
-                                                    @foreach ($images as $image)
-                                                        <!-- Slides -->
+                                                    @if ($item->image_path->count() > 0)
+                                                        @foreach ($item->image_path as $image)
+                                                            <!-- Slides -->
+                                                            <div class="sp-slide">
+                                                                <img class="sp-image"
+                                                                    src="{{ Storage::url($image->image_path) }}" />
+                                                            </div>
+                                                        @endforeach
+                                                    @else
                                                         <div class="sp-slide">
-                                                            <img class="sp-image "
-                                                                src="{{ Storage::url($image->image_path) }}" />
+                                                            <div class="property-no-images">
+                                                                No hay imágenes disponibles para esta propiedad.
+                                                            </div>
                                                         </div>
-                                                    @endforeach
+                                                    @endif
+
                                                     <!-- Flechas de navegación -->
                                                     <div class="sp-arrows ">
                                                         <div class="sp-arrow sp-prev-arrow"></div>
@@ -580,14 +588,22 @@
                                         <div class="slider-pro" id="my-slider">
                                             <div class="sp-slides">
 
-
-                                                @foreach ($images as $image)
-                                                    <!-- Slides -->
+                                                @if ($item->image_path->count() > 0)
+                                                    @foreach ($item->image_path as $image)
+                                                        <!-- Slides -->
+                                                        <div class="sp-slide">
+                                                            <img class="sp-image"
+                                                                src="{{ Storage::url($image->image_path) }}" />
+                                                        </div>
+                                                    @endforeach
+                                                @else
                                                     <div class="sp-slide">
-                                                        <img class="sp-image "
-                                                            src="{{ Storage::url($image->image_path) }}" />
+                                                        <div class="property-no-images">
+                                                            No hay imágenes disponibles para esta propiedad.
+                                                        </div>
                                                     </div>
-                                                @endforeach
+                                                @endif
+
                                                 <!-- Flechas de navegación -->
                                                 <div class="sp-arrows ">
                                                     <div class="sp-arrow sp-prev-arrow"></div>
@@ -597,7 +613,6 @@
                                             </div>
                                         </div>
 
-
                                         <!-- Ubicación actual del slider -->
                                         <div id="slider-location"
                                             class="slider-location absolute bottom-3 right-4 z-10 mt-3  inline-flex  px-2 py-1 leading-none
@@ -606,7 +621,9 @@
                                             1/10</div>
 
                                         <span
-                                            class="absolute top-1 left-5 z-10 mt-3  inline-flex  px-2 py-1 leading-none bg-green-200 text-green-800 rounded-full font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
+                                            class="absolute top-1 left-5 z-10 mt-3  inline-flex  px-2 py-1 leading-none
+                                                 bg-green-200 text-green-800 rounded-full
+                                                  font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
                                         </span>
                                         <span id="heart"
                                             class="absolute top-0 right-1 z-10 mt-3 mr-3 inline-flex select-none animate-pulse border border-green-800 rounded-full bg-green-200 bg-opacity-70 px-2 py-1 text-xs font-semibold ">

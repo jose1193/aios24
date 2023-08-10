@@ -68,7 +68,7 @@ public function storePlan(Request $request)
                 'plan_id' => $planId,
                 'purchase_date' => $date,
                 'expiration_date' => 'Indefinido', // Actualiza la expiración si es necesario
-                'estatus_premium' => 'Active', 
+                'estatus_premium' => 'Activo', 
             ]);
 
 
@@ -115,7 +115,7 @@ return response()->json(['message' => 'Email enviado con éxito']);
                 'plan_id' => $planId,
                 'purchase_date' => $date,
                 'expiration_date' => 'Indefinido',
-                 'estatus_premium' => 'Active', 
+                 'estatus_premium' => 'Activo', 
             ]);
 
             

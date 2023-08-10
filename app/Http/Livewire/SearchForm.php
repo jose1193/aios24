@@ -88,34 +88,34 @@ if ($response->successful()) {
 }
 
 /////// END START IFRAME //////////////////
-
 $collections = PublishProperty::join('users', 'publish_properties.user_id', '=', 'users.id')
     ->join('estatus_ads', 'publish_properties.status', '=', 'estatus_ads.id')
-    ->join('purchased_plans', 'purchased_plans.publish_code', '=', 'publish_properties.publish_code')
-    ->join('plans', 'plans.id', '=', 'purchased_plans.plan_id')
+    ->join('premium_plans as pp1', 'pp1.user_id', '=', 'users.id') // Alias pp1 para la primera instancia de premium_plans
+    ->join('plans', 'plans.id', '=', 'pp1.plan_id') // Unión con la tabla de planes
     ->join('transactions', 'publish_properties.transaction_type', '=', 'transactions.id')
-     ->join('properties', 'publish_properties.property_type', '=', 'properties.id')
+    ->join('properties', 'publish_properties.property_type', '=', 'properties.id')
     ->join('property_images', 'property_images.property_id', '=', 'publish_properties.id')
-    ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.profile_photo_path','users.phone',
-        'estatus_ads.estatus_description', 'properties.property_description','transactions.transaction_description',
+    ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.profile_photo_path', 'users.phone',
+        'estatus_ads.estatus_description', 'properties.property_description', 'transactions.transaction_description',
         DB::raw('MIN(property_images.image_path) AS image_path'))
     ->where('estatus_ads.estatus_description', '=', 'Activo')
     ->where('publish_properties.city', '=', $searchTerm)
+    ->where('pp1.estatus_premium', '=', 'Activo') // Usar el alias pp1
     ->where('publish_properties.property_type', '=', $this->propertyTypes)
-       ->where('publish_properties.transaction_type', '=', $this->transactionTypes)
-    ->orderByRaw("CASE WHEN plans.plan = 'Platino' THEN 0 WHEN plans.plan = 'Oro' THEN 1 ELSE 2 END") // Ordena Platino primero, Oro segundo y Free último
+    ->where('publish_properties.transaction_type', '=', $this->transactionTypes)
+    ->orderByRaw("CASE WHEN plans.plan = 'Platino' THEN 0 WHEN plans.plan = 'Oro' THEN 1 ELSE 2 END")
     ->orderBy('publish_properties.created_at', 'desc')
     ->groupBy('publish_properties.id')
     ->paginate(10);
-foreach ($collections as $property) {
-    $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
-        ->select('property_images.image_path')
-        ->where('publish_properties.publish_code', '=', $property->publish_code)
-        ->orderBy('property_images.order_display', 'asc')  
-        ->get();
 
-    // $images ahora contiene las imágenes asociadas a la propiedad actual en el bucle
+    // Obtener las imágenes para cada propiedad
+    foreach ($collections as $collection) {
+    $images = PropertyImage::where('property_id', $collection->id)
+        ->orderBy('order_display', 'asc')
+        ->get();
+    $collection->image_path = $images;
 }
+
 
 
   $resultCount = $collections->total();
@@ -129,7 +129,7 @@ foreach ($collections as $property) {
         'propertyTypesRender' => $this->propertyTypesRender,
          'mapSrc' => $mapSrc, // Pasa la URL del mapa generada a la vista -> QUITAR ESTE NUMERO AL ACTIVAR API KEY GOOGLE MAP
          'resultCount' => $resultCount, // Agregar la variable de conteo a la vista
-         'images' => $images,
+        
         ]);
     }
 
