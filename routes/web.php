@@ -207,6 +207,8 @@ Route::get('choose-plan/{publishCode}', StripePayment::class)->name('choose-plan
 Route::get('/checkout/{publishCode}', [StripePayment::class, 'checkout'])->name('checkout');
 Route::post('/session', [StripePayment::class, 'session'])->name('session');
 Route::get('/success', [StripePayment::class, 'success'])->name('success');
+Route::post('/Renewsession', [StripePayment::class, 'Renewsession'])->name('Renewsession');
+
 //------------ STRIPE PAYMENT -----------//
 
 

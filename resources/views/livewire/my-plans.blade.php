@@ -104,12 +104,12 @@
 
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap ">
-                                            @if ($item->estatus_premium === 'Active')
+                                            @if ($item->estatus_premium === 'Activo')
                                                 <button
-                                                    class="bg-green-600 text-white font-semibold px-2 py-1 rounded">Active</button>
-                                            @elseif ($item->estatus_premium === 'Suspended')
+                                                    class="bg-green-600 text-white font-semibold px-2 py-1 rounded">Activo</button>
+                                            @elseif ($item->estatus_premium === 'Suspendido')
                                                 <button
-                                                    class="bg-red-700 font-semibold text-white px-2 py-1 rounded">Suspended</button>
+                                                    class="bg-red-700 font-semibold text-white px-2 py-1 rounded">Suspendido</button>
                                             @endif
 
 
