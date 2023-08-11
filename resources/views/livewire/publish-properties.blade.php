@@ -42,7 +42,24 @@
          <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
              <h1 class="text-center text-fuchsia-700 font-semibold text-2xl">
                  Plan {{ $planName }} - {{ $remainingAds }} Publicaciones Disponibles
+
              </h1>
+             @if ($remainingAds <= 0)
+                 <div class="w-1/2 mx-auto my-5 bg-yellow-100 border-t-4 border-yellow-500 rounded-b text-yellow-900 px-4 py-3 shadow-md"
+                     role="alert">
+                     <div class="flex">
+                         <div class="py-1"><svg class="fill-current h-6 w-6 text-yellow-500 mr-4"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                 <path
+                                     d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                             </svg></div>
+                         <div>
+                             <p class="font-bold">Warning</p>
+                             <p class="text-sm">Has alcanzado el máximo de publicaciones para este plan.</p>
+                         </div>
+                     </div>
+                 </div>
+             @endif
              <!--INCLUDE ALERTS MESSAGES-->
              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
              <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -161,7 +178,8 @@
                                  </div>
                                  <div class="w-full px-3 sm:w-1/2">
                                      <div class="mb-5">
-                                         <label for="bathrooms" class="mb-3 block text-base font-medium text-[#07074D]">
+                                         <label for="bathrooms"
+                                             class="mb-3 block text-base font-medium text-[#07074D]">
                                              Baños
                                          </label>
                                          <select required name="bathrooms" id="bathrooms"
@@ -894,3 +912,25 @@
              });
          </script>
         END TINY DESCRIPTION -->
+ <!-- Incluye la librería SweetAlert -->
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <!-- Incluye Axios -->
+ <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+ <script>
+     // Espera a que el DOM esté listo
+     document.addEventListener("DOMContentLoaded", function() {
+         // Obtén el valor de $remainingAds desde tu backend (supongamos que se define en el script PHP en la página)
+         var remainingAds = <?php echo $remainingAds; ?>;
+
+         // Verifica si el valor es menor o igual a 0
+         if (remainingAds <= 0) {
+             // Muestra el alert al cargar la página
+             Swal.fire({
+                 icon: 'warning',
+                 text: 'Has alcanzado el máximo de publicaciones para este plan.',
+                 showConfirmButton: true,
+             })
+         }
+     });
+ </script>
