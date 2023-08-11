@@ -46,18 +46,19 @@
             <div class="mb-10 w-full md:w-11/12 mx-auto shadow p-5 rounded-lg my-5 bg-white">
                 <div class="flex items-center justify-between mt-4">
                     <p class="font-medium">
-                        Filters
+                        <button onclick="resetFilters()" type="button"
+                            class="bg-transparent transition duration-500 ease-in-out hover:bg-green-600 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-600 hover:border-transparent rounded">
+                            <i class="fa-solid fa-filter"></i> Reset Filters
+                        </button>
+
+
                     </p>
 
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
+
                         </div>
-                        <input type="search" placeholder="Ingresa Ciudad" id="city" name="city"
+                        <input type="hidden" readonly placeholder="Ingresa Ciudad" id="city" name="city"
                             value="{{ $searchTerm }}"
                             class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500 "
                             required>
@@ -308,7 +309,7 @@
                                                     {{ Str::words($item->title, 6, '...') }}
                                                 </h2>
                                             </a>
-                                            <p class="text-sm"> {{ Str::words($item->description, 7, '...') }}</p>
+                                            <p class="text-sm"> {!! Str::words($item->description, 7, '...') !!} </p>
 
                                         </div>
                                         <div class="p-4 border-t border-b text-xs text-gray-700">
@@ -405,13 +406,9 @@
 
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
+
                     </div>
-                    <input type="search" placeholder="Ingresa Ciudad" id="city" name="city"
+                    <input type="hidden" readonly placeholder="Ingresa Ciudad" id="city" name="city"
                         value="{{ $searchTerm }}"
                         class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500 "
                         required>
@@ -657,7 +654,7 @@
                                                 {{ Str::words($item->title, 6, '...') }}
                                             </h2>
                                         </a>
-                                        <p class="text-sm"> {{ Str::words($item->description, 7, '...') }}</p>
+                                        <p class="text-sm"> {!! Str::words($item->description, 7, '...') !!} </p>
 
                                     </div>
                                     <div class="p-4 border-t border-b text-xs text-gray-700">
@@ -762,3 +759,28 @@
         });
     });
 </script>
+<!-- END START SLIDER -->
+
+<!-- RESET FILTER FORM -->
+<script>
+    function resetFilters() {
+        const filtersForm = document.getElementById('filters-form');
+
+        // Reset input fields
+        const inputFields = filtersForm.querySelectorAll('input[type="text"], input[type="number"]');
+        inputFields.forEach(input => {
+            input.value = '';
+        });
+
+        // Reset select fields
+        const selectFields = filtersForm.querySelectorAll('select');
+        selectFields.forEach(select => {
+            select.selectedIndex = 0;
+        });
+
+        // Actualiza los resultados después de restablecer los filtros
+        updateResultSection();
+    }
+</script>
+
+<!-- END RESET FILTER FORM -->

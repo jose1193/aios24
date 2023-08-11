@@ -313,35 +313,43 @@ $longitudeArea = $request->input('longitudeArea');
     }
 
     // CREATE FIELD INPUT EQUIPMENTS
- if (isset($request->addmore) && is_array($request->addmore) && count($request->addmore) > 0) {
+if (isset($request->addmore) && is_array($request->addmore) && count($request->addmore) > 0) {
     foreach ($request->addmore as $key => $value) {
         if (is_array($value)) {
             foreach ($value as $description) {
-                Equipment::create([
-                    'equipment_description' => $description,
-                    'publish_property_id' => $property->id
-                ]);
+                // Verificar si la descripción no está vacía antes de crear el registro
+                if (!empty($description)) {
+                    Equipment::create([
+                        'equipment_description' => $description,
+                        'publish_property_id' => $property->id
+                    ]);
+                }
             }
         }
     }
 }
 
+
 // END CREATE FIELD INPUT EQUIPMENTS
 
-// CREATE FIELD INPUT FEATURES
- if (isset($request->addmore2) && is_array($request->addmore2) && count($request->addmore2) > 0) {
- foreach ($request->addmore2 as $key => $value) {
-    if (is_array($value)) {
-        foreach ($value as $description) {
-            Feature::create([
-                'feature_description' => $description,
-                'publish_property_id' => $property->id
-            ]);
+//CREATE FIELD INPUT FEATURES
+if (isset($request->addmore2) && is_array($request->addmore2) && count($request->addmore2) > 0) {
+    foreach ($request->addmore2 as $key => $value) {
+        if (is_array($value)) {
+            foreach ($value as $description) {
+                // Verificar si la descripción no está vacía antes de crear el registro
+                if (!empty($description)) {
+                    Feature::create([
+                        'feature_description' => $description,
+                        'publish_property_id' => $property->id
+                    ]);
+                }
+            }
         }
     }
 }
- }
 // END CREATE FIELD INPUT FEATURES
+
 
 
 // CREATE FIELDS PURCHASE PLAN
@@ -454,8 +462,8 @@ $images = PropertyImage::join('publish_properties', 'property_images.property_id
     ->join('estatus_ads', 'publish_properties.status', '=', 'estatus_ads.id')
     ->join('transactions', 'publish_properties.transaction_type', '=', 'transactions.id')
     ->join('properties', 'publish_properties.property_type', '=', 'properties.id')
-    ->join('features', 'features.publish_property_id', '=', 'publish_properties.id')
-    ->select('publish_properties.*', 'features.feature_description','users.name', 'users.lastname', 'users.profile_photo_path',
+   
+    ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.profile_photo_path',
         'estatus_ads.estatus_description', 'transactions.transaction_description','properties.property_description')
     ->where('publish_properties.publish_code', '=', $publishCode)
     ->orderBy('publish_properties.created_at', 'desc')
@@ -547,11 +555,13 @@ if ($request->has('addmore2')) {
                 ]);
             }
         } else {
+            if (!empty($feature)) {
             // Feature is new, create it
             Feature::create([
                 'feature_description' => $feature,
                 'publish_property_id' => $propertyId
             ]);
+        }
         }
     }
 }
@@ -574,10 +584,12 @@ if ($request->has('addmore')) {
             }
         } else {
             // Equipment is new, create it
+             if (!empty($equipment)) {
             Equipment::create([
                 'equipment_description' => $equipment,
                 'publish_property_id' => $propertyId
             ]);
+        }
         }
     }
 }

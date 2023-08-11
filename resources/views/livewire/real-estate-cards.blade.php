@@ -49,10 +49,10 @@
                             </a>
                             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                                 <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
-                                    {{ Str::words($item->description, 7, '...') }}
+                                    {!! Str::words($item->description, 7, '...') !!}
                             </p>
                             </a>
-                            <div class="justify-center py-4 border-y border-slate-100">
+                            <div class="justify-center text-sm py-4 border-y border-slate-100">
                                 <div class="flex flex-wrap justify-center overflow-hidden rounded-lg px-1 py-1">
                                     <p
                                         class="flex items-center font-medium text-gray-800 sm:w-full md:w-auto mb-2 mr-3">
