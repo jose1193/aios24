@@ -8,11 +8,14 @@ use App\Models\Plan;
 use App\Models\PublishProperty;
 use App\Models\PropertyImage;
 use App\Models\PremiumPlan;
+use App\Models\Feature;
+use App\Models\Equipment;
 use App\Models\Bucket;
 use App\Models\AdminEmail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Livewire\WithPagination;
 
 class PremiumPlans extends Component
@@ -218,21 +221,33 @@ public function deletePlans(Request $request)
 
    if ($activePlan) {
       
-        $activePlan->delete();
+       $activePlan->delete();
 
-      $properties = PublishProperty::where('user_id', auth()->id())->get();
+$properties = PublishProperty::where('user_id', auth()->id())->get();
 
+foreach ($properties as $property) {
+    $equipments = Equipment::where('publish_property_id', $property->id)->get();
+    $features = Feature::where('publish_property_id', $property->id)->get();
 
-        foreach ($properties as $property) {
-            
-        $property->delete();
-        // Luego, eliminar los archivos de las imágenes en el almacenamiento
-    $images = PropertyImage::where('property_id', $property->id)->get();
-    foreach ($images as $image) {
-        Storage::disk('public')->delete($image->image_path);
-        $image->delete();
+    foreach ($equipments as $equipment) {
+        $equipment->delete();
     }
 
+    foreach ($features as $feature) {
+        $feature->delete();
+    }
+
+
+    // Luego, eliminar los archivos de las imágenes en el almacenamiento
+    $images = PropertyImage::where('property_id', $property->id)->get();
+    foreach ($images as $image) {
+          $image->delete();
+        Storage::disk('public')->delete($image->image_path);
+      
+    }
+
+    // Eliminar el objeto PublishProperty
+    $property->delete();
 
           
         }
@@ -262,6 +277,7 @@ try {
 });
 
 return response()->json(['message' => 'Email enviado con éxito']);
+
 } catch (\Exception $e) {
     return response()->json(['error' => 'Error al enviar el email: ' . $e->getMessage()]);
 }

@@ -206,7 +206,10 @@
                             '¡Plan Cancelado!',
                             'El plan ha sido cancelado exitosamente.',
                             'success'
-                        );
+                        ).then(() => {
+                            // Redirigir a la ruta deseada
+                            window.location.href = "{{ route('myplans') }}";
+                        });
                     })
                     .catch(error => {
                         console.error('Error de Axios:', error);
