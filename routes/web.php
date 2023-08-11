@@ -219,7 +219,7 @@ Route::get('select-plan', PremiumPlans::class)->name('select-plan');
 Route::post('store-plan', [PremiumPlans::class, 'storePlan'])->name('store-plan');
 Route::get('myplans', [PremiumPlans::class, 'Myplans'])->name('myplans');
 Route::get('renew-premium/{planId}', [PremiumPlans::class, 'renewPremium'])->name('renew-premium');
-
+Route::post('/delete-plans', [PremiumPlans::class, 'deletePlans']);
 
 
 Route::get('publish', PublishProperties::class)->name('publish');

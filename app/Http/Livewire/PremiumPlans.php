@@ -6,6 +6,7 @@ use Livewire\Component;
 use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\PublishProperty;
+use App\Models\PropertyImage;
 use App\Models\PremiumPlan;
 use App\Models\Bucket;
 use App\Models\AdminEmail;
@@ -179,6 +180,8 @@ public function Myplans()
     }
 
     
+
+
 public function renewPremium($planId)
 {
     $this->premium_plans_count = PremiumPlan::where('user_id', auth()->id())->count();
@@ -200,6 +203,78 @@ public function renewPremium($planId)
         'premium_plans_count' => $this->premium_plans_count
     ]);
 }
+
+
+public function deletePlans(Request $request)
+    {
+        $dataId = $request->input('planId');
+
+      
+  try {
+    // Obtener el plan activo del usuario
+    $activePlan = PremiumPlan::where('user_id', auth()->id())
+        ->where('plan_id', $dataId)
+        ->first();
+
+   if ($activePlan) {
+      
+        $activePlan->delete();
+
+      $properties = PublishProperty::where('user_id', auth()->id())->get();
+
+
+        foreach ($properties as $property) {
+            
+        $property->delete();
+        // Luego, eliminar los archivos de las imágenes en el almacenamiento
+    $images = PropertyImage::where('property_id', $property->id)->get();
+    foreach ($images as $image) {
+        Storage::disk('public')->delete($image->image_path);
+        $image->delete();
+    }
+
+
+          
+        }
+    //SEND EMAIL FORM CONTACT
+      
+try {
+        $planName = Plan::find($dataId);
+        $this->bucket = Bucket::orderBy('description', 'desc')->limit(1)->first();
+        $user = User::find(auth()->user()->id);
+        $this->email = $user->email;
+        $this->name = $user->name;
+    $this->planName= $planName->plan;
+\Mail::send('emails.DeletePremiumPlanUser', array(
+    'planName' => $this->planName,
+    'name' => $this->name,
+    'email' => $this->email,
+    'bucket' => $this->bucket->description,
+    'city' => $this->bucket->city,
+     'community' => $this->bucket->community,
+      'country' => $this->bucket->country,
+      'address' => $this->bucket->address,
+), function($message) {
+    $emailAdmin = AdminEmail::orderBy('email', 'desc')->limit(1)->pluck('email')->first();
+
+    $message->from($emailAdmin,'Aios Real Estate');
+    $message->to($this->email)->subject('Cancelación de Plan Aios Real Estate');
+});
+
+return response()->json(['message' => 'Email enviado con éxito']);
+} catch (\Exception $e) {
+    return response()->json(['error' => 'Error al enviar el email: ' . $e->getMessage()]);
+}
+// END SEND EMAIL FORM CONTACT
+        return response()->json(['success' => true, 'message' => 'Plan cancelado y propiedades eliminadas exitosamente']);
+    } else {
+        return response()->json(['success' => false, 'message' => 'No se encontró el plan activo']);
+    }
+} catch (\Exception $e) {
+    return response()->json(['success' => false, 'message' => 'Error al procesar la cancelación: ' . $e->getMessage()]);
+}
+
+    }
 
 
 }

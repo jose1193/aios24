@@ -54,22 +54,24 @@
                     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                         <table class="w-full divide-y divide-gray-200 text-center">
                             <thead class="bg-green-600 text-white font-bold capitalize">
-                                <th class="px-4 py-2 w-20">Nro.</th>
+
 
                                 <th class="px-4 py-2">Plan</th>
+                                <th class="px-4 py-2">Estatus</th>
                                 <th class="px-4 py-2">Cant. Public.</th>
                                 <th class="px-4 py-2">Exposición</th>
                                 <th class="px-4 py-2">Fecha de Registro</th>
                                 <th class="px-4 py-2">Fecha de Renovación</th>
-                                <th class="px-4 py-2">Estatus</th>
+
                                 <th class="px-4 py-2">Action</th>
+                                <th class="px-4 py-2"></th>
 
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr></tr>
                                 @forelse($myplans as $item)
                                     <tr>
-                                        <td class=" px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</td>
+
                                         <td class="px-6 py-4 whitespace-nowrap ">
 
                                             @if ($item->id == '1')
@@ -85,7 +87,17 @@
 
 
                                         </td>
+                                        <td class="px-6 py-4 whitespace-nowrap ">
+                                            @if ($item->estatus_premium === 'Activo')
+                                                <button
+                                                    class="bg-green-600 text-white font-semibold px-2 py-1 rounded">Activo</button>
+                                            @elseif ($item->estatus_premium === 'Suspendido')
+                                                <button
+                                                    class="bg-red-700 font-semibold text-white px-2 py-1 rounded">Suspendido</button>
+                                            @endif
 
+
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap ">
                                             {{ $item->number_publications }}
 
@@ -103,37 +115,42 @@
                                             {{ $item->expiration_date }}
 
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap ">
-                                            @if ($item->estatus_premium === 'Activo')
-                                                <button
-                                                    class="bg-green-600 text-white font-semibold px-2 py-1 rounded">Activo</button>
-                                            @elseif ($item->estatus_premium === 'Suspendido')
-                                                <button
-                                                    class="bg-red-700 font-semibold text-white px-2 py-1 rounded">Suspendido</button>
-                                            @endif
 
-
-                                        </td>
                                         <td>
 
                                             @if ($item->id == '1')
                                                 <!-- No mostrar nada para el plan gratuito -->
                                             @else
-                                                <a href="{{ route('renew-premium', ['planId' => $item->id]) }}"
-                                                    class="bg-indigo-700 transition duration-500 ease-in-out hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg mr-2">
-                                                    Renovar
-                                                </a>
+                                                <div class="py-3">
+                                                    <a href="{{ route('renew-premium', ['planId' => $item->id]) }}"
+                                                        class=" bg-indigo-700 transition duration-500 ease-in-out hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg">
+                                                        Renovar
+                                                    </a>
+                                                </div>
                                             @endif
 
-                                            <a href="{{ route('select-plan') }}"
-                                                class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded-lg">
-                                                Ver + Planes
-                                            </a>
+                                            <div class="py-2">
+                                                <a href="{{ route('select-plan') }}"
+                                                    class="bg-fuchsia-700 transition duration-500 ease-in-out hover:bg-fuchsia-600 text-white font-bold py-2 px-4 rounded-lg">
+                                                    Planes
+                                                </a>
+                                            </div>
 
 
 
 
                                         </td>
+                                        <td>
+                                            @if (($item->id == '2' || $item->id == '3') && $item->id != '1')
+                                                <button onclick="showCancellationConfirmation({{ $item->id }})"
+                                                    class="cancel-plan-button bg-red-700 transition duration-500 ease-in-out hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">
+                                                    Cancelar Plan
+                                                </button>
+                                            @endif
+
+
+                                        </td>
+
                                     </tr>
                                 @empty
                                     <tr class="text-center">
@@ -152,9 +169,49 @@
                         <div class="m-2 p-2">{{ $myplans->links() }}</div>
                     </div>
                 </div>
+
+
             </div>
 
         </div>
 
     </div>
 </x-app-layout>
+
+
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function showCancellationConfirmation(planId) {
+        // Mostrar el SweetAlert
+        Swal.fire({
+            title: '¿Estás seguro de cancelar este plan?',
+            text: 'Al cancelar este plan, todas las imágenes y propiedades asociadas serán eliminadas permanentemente. Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, cancelar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post('/delete-plans', {
+                        planId: planId
+                    })
+                    .then(response => {
+                        console.log('Respuesta exitosa de Axios:', response.data);
+                        Swal.fire(
+                            '¡Plan Cancelado!',
+                            'El plan ha sido cancelado exitosamente.',
+                            'success'
+                        );
+                    })
+                    .catch(error => {
+                        console.error('Error de Axios:', error);
+                    });
+            }
+        });
+    }
+</script>
