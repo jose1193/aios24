@@ -256,11 +256,15 @@ if ($response->successful()) {
     $collections = PublishProperty::join('users', 'publish_properties.user_id', '=', 'users.id')
         ->join('estatus_ads', 'publish_properties.status', '=', 'estatus_ads.id')
         ->join('transactions', 'publish_properties.transaction_type', '=', 'transactions.id')
+         ->join('premium_plans as pp1', 'pp1.user_id', '=', 'users.id') // Alias pp1 para la primera instancia de premium_plans
+    ->join('plans', 'plans.id', '=', 'pp1.plan_id') // Unión con la tabla de planes
         ->join('property_images', 'property_images.property_id', '=', 'publish_properties.id')
          ->join('properties', 'properties.id', '=', 'publish_properties.property_type')
+         
         ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.profile_photo_path',
             'estatus_ads.estatus_description', 'properties.property_description','transactions.transaction_description',
             DB::raw('MIN(property_images.image_path) AS image_path'))
+             ->where('pp1.estatus_premium', '=', 'Activo') // Usar el alias pp1
         ->where('estatus_ads.estatus_description', '=', 'Activo')
         ->where('publish_properties.city', '=', $city)
         ->where('transactions.id', '=', $selectedTransactionType)
@@ -300,9 +304,10 @@ if ($response->successful()) {
         ->orWhereNull('publish_properties.total_area');
 })
 
-         ->when($garage, function ($query, $garage) {
+          ->when($garage !== null, function ($query, $garage) {
         return $query->where('publish_properties.garage', '=', $garage);
     })
+     ->orderByRaw("CASE WHEN plans.plan = 'Platino' THEN 0 WHEN plans.plan = 'Oro' THEN 1 ELSE 2 END")
         ->orderBy('publish_properties.created_at', 'desc')
         ->groupBy('publish_properties.id')
         ->paginate(10);

@@ -780,6 +780,22 @@
 
         // Actualiza los resultados después de restablecer los filtros
         updateResultSection();
+        const cityInput = document.getElementById('city');
+        const transactionTypesInput = document.getElementById('selectedTransactionType-select');
+        const propertyTypesInput = document.getElementById('selectedPropertyType-select');
+
+        // Obtén los valores de los elementos de entrada
+        const city = cityInput.value;
+        const transactionTypes = transactionTypesInput.value;
+        const propertyTypes = propertyTypesInput.value;
+
+        // Luego puedes usar las variables donde sea necesario en tu script
+
+
+        window.location.href = '{{ route('search.filters') }}' +
+            '?transactionTypes=' + encodeURIComponent(transactionTypes) +
+            '&propertyTypes=' + encodeURIComponent(propertyTypes) +
+            '&city=' + encodeURIComponent(city);
     }
 </script>
 
