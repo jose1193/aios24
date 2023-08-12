@@ -228,7 +228,7 @@
 
                         <div id="cards-container" class="flex flex-wrap -mx-4">
 
-                            @forelse ($collections as $item)
+                            @forelse ($collections as $index => $item)
                                 <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
 
                                     <div
@@ -236,14 +236,15 @@
 
                                         <div class="relative ">
 
-                                            <div class="slider-pro" id="my-slider">
+                                            <div class="relative slider-pro" id="my-slider-{{ $loop->iteration }}"
+                                                data-slider-id="{{ $loop->iteration }}">
                                                 <div class="sp-slides">
 
                                                     @if ($item->image_path->count() > 0)
                                                         @foreach ($item->image_path as $image)
                                                             <!-- Slides -->
                                                             <div class="sp-slide">
-                                                                <img class="sp-image"
+                                                                <img class="sp-image" id="lazy"
                                                                     src="{{ Storage::url($image->image_path) }}" />
                                                             </div>
                                                         @endforeach
@@ -265,7 +266,7 @@
                                             </div>
 
                                             <!-- Ubicación actual del slider -->
-                                            <div id="slider-location"
+                                            <div id="slider-location-{{ $loop->iteration }}"
                                                 class="slider-location absolute bottom-3 right-4 z-10 mt-3  inline-flex  px-2 py-1 leading-none
                                                   text-white
                                                   font-bold uppercase tracking-wide text-sm h-6 drop-shadow-xl ">
@@ -582,14 +583,15 @@
 
                                     <div class="relative ">
 
-                                        <div class="slider-pro" id="my-slider">
+                                        <div class="relative slider-pro" id="my-slider-{{ $loop->iteration }}"
+                                            data-slider-id="{{ $loop->iteration }}">
                                             <div class="sp-slides">
 
                                                 @if ($item->image_path->count() > 0)
                                                     @foreach ($item->image_path as $image)
                                                         <!-- Slides -->
                                                         <div class="sp-slide">
-                                                            <img class="sp-image"
+                                                            <img class="sp-image" id="lazy"
                                                                 src="{{ Storage::url($image->image_path) }}" />
                                                         </div>
                                                     @endforeach
@@ -611,7 +613,7 @@
                                         </div>
 
                                         <!-- Ubicación actual del slider -->
-                                        <div id="slider-location"
+                                        <div id="slider-location-{{ $loop->iteration }}"
                                             class="slider-location absolute bottom-3 right-4 z-10 mt-3  inline-flex  px-2 py-1 leading-none
                                                   text-white
                                                   font-bold uppercase tracking-wide text-sm h-6 drop-shadow-xl ">
@@ -729,33 +731,54 @@
 <script type="text/javascript" src="https://unpkg.com/slider-pro/dist/js/jquery.sliderPro.min.js" defer></script>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
-        var totalImages = $('.sp-slide').length; // Obtén el total de imágenes
-        var currentImage = 1; // Inicializa la imagen actual en 1
+        @forelse ($collections as $index => $item)
+            var sliderId{{ $index }} = {{ $index + 1 }};
+            var images{{ $index }} = [
+                @foreach ($item->image_path as $image)
+                    '{{ Storage::url($image->image_path) }}',
+                @endforeach
+            ];
 
-        $('#my-slider').sliderPro({
-            width: 880,
-            height: 800,
-            fade: true,
-            arrows: true,
-            responsive: true,
-            buttons: false,
-            shuffle: false,
-            smallSize: 500,
-            mediumSize: 1000,
-            largeSize: 3000,
-            autoplay: false,
-            autoSlideSize: false,
-            forceSize: 'none',
-            updateHash: true, // Actualiza la ubicación en la URL del navegador
-            init: function() {
-                // Muestra la ubicación actual en el slider
-                $('#slider-location').text(currentImage + '/' + totalImages);
-            },
-            gotoSlide: function(event) {
-                // Actualiza la ubicación en el slider cuando cambia la imagen
-                currentImage = event.index + 1;
-                $('#slider-location').text(currentImage + '/' + totalImages);
-            }
+            $('#my-slider-{{ $index + 1 }}').attr('data-slider-id', sliderId{{ $index }});
+        @empty
+            // Handle empty case if needed
+        @endforelse
+    });
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.slider-pro').each(function() {
+            var sliderId = $(this).data('slider-id');
+            var totalImages = $(this).find('.sp-slide').length;
+            var currentImage = 1;
+
+            $(this).sliderPro({
+                width: 880,
+                height: 800,
+                fade: true,
+                arrows: true,
+                responsive: true,
+                buttons: false,
+                shuffle: false,
+                smallSize: 500,
+                mediumSize: 1000,
+                largeSize: 3000,
+                autoplay: false,
+                autoSlideSize: false,
+                forceSize: 'none',
+                updateHash: true,
+                init: function() {
+                    $('#slider-location-' + sliderId).text(currentImage + '/' +
+                        totalImages);
+                },
+                gotoSlide: function(event) {
+                    // Actualiza la ubicación en el slider cuando cambia la imagen
+                    currentImage = event.index + 1;
+                    $('#slider-location-' + sliderId).text(currentImage + '/' +
+                        totalImages);
+                }
+            });
         });
     });
 </script>
@@ -800,3 +823,18 @@
 </script>
 
 <!-- END RESET FILTER FORM -->
+
+
+<!-- LAZY LAOAD IMAGE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+<script>
+    // Espera a que el DOM esté listo
+    $(document).ready(function() {
+        // Aplica lazy loading a las imágenes con la clase "lazy"
+        $("#lazy").lazyload({
+            effect: "fadeIn", // Efecto de fundido al cargar la imagen
+            threshold: 200 // Carga la imagen cuando esté a 200 píxeles de distancia
+        });
+    });
+</script>
+<!-- END LAZY LAOAD IMAGE -->
