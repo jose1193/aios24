@@ -26,10 +26,11 @@
                                     <tr class="bg-gray-100">
                                         <th class="px-4 py-2 w-20">No.</th>
                                         <th class="px-4 py-2">Plan</th>
+                                        <th class="px-4 py-2">Publicaciones</th>
                                         <th class="px-4 py-2">Precio</th>
                                         <th class="px-4 py-2">Posición</th>
-                                        <th class="px-4 py-2">Cantidad I.</th>
-                                        <th class="px-4 py-2">Duración</th>
+                                        <th class="px-4 py-2">Imágenes</th>
+
 
                                         <th class="px-4 py-2">Action</th>
                                     </tr>
@@ -39,10 +40,11 @@
                                         <tr>
                                             <td class="border px-4 py-2 ">{{ $loop->iteration }}</td>
                                             <td class="border px-4 py-2 ">{{ $plan->plan }}</td>
+                                            <td class="border px-4 py-2">{{ $plan->number_publications }}</td>
                                             <td class="border px-4 py-2">{{ $plan->pricing }}</td>
                                             <td class="border px-4 py-2">{{ $plan->position }}</td>
                                             <td class="border px-4 py-2">{{ $plan->quantity }}</td>
-                                            <td class="border px-4 py-2">{{ $plan->duration }}</td>
+
                                             <td class="border px-4 py-2 text-center ">
 
 

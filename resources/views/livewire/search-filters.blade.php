@@ -46,18 +46,19 @@
             <div class="mb-10 w-full md:w-11/12 mx-auto shadow p-5 rounded-lg my-5 bg-white">
                 <div class="flex items-center justify-between mt-4">
                     <p class="font-medium">
-                        Filters
+                        <button onclick="resetFilters()" type="button"
+                            class="bg-transparent transition duration-500 ease-in-out hover:bg-green-600 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-600 hover:border-transparent rounded">
+                            <i class="fa-solid fa-filter"></i> Reset Filters
+                        </button>
+
+
                     </p>
 
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
+
                         </div>
-                        <input type="search" placeholder="Ingresa Ciudad" id="city" name="city"
+                        <input type="hidden" readonly placeholder="Ingresa Ciudad" id="city" name="city"
                             value="{{ $searchTerm }}"
                             class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500 "
                             required>
@@ -227,28 +228,70 @@
 
                         <div id="cards-container" class="flex flex-wrap -mx-4">
 
-                            @forelse ($collections as $item)
+                            @forelse ($collections as $index => $item)
                                 <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
+
                                     <div
                                         class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
-                                        <div class="relative pb-48 overflow-hidden">
-                                            <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
-                                                <img class="absolute inset-0 h-full w-full object-cover"
-                                                    src="{{ Storage::url($item->image_path) }}" alt=""></a>
+
+                                        <div class="relative ">
+
+                                            <div class="relative slider-pro" id="my-slider-{{ $loop->iteration }}"
+                                                data-slider-id="{{ $loop->iteration }}">
+                                                <div class="sp-slides">
+
+                                                    @if ($item->image_path->count() > 0)
+                                                        @foreach ($item->image_path as $image)
+                                                            <!-- Slides -->
+                                                            <div class="sp-slide">
+                                                                <img class="sp-image" id="lazy"
+                                                                    src="{{ Storage::url($image->image_path) }}" />
+                                                            </div>
+                                                        @endforeach
+                                                    @else
+                                                        <div class="sp-slide">
+                                                            <div class="property-no-images">
+                                                                No hay imágenes disponibles para esta propiedad.
+                                                            </div>
+                                                        </div>
+                                                    @endif
+
+                                                    <!-- Flechas de navegación -->
+                                                    <div class="sp-arrows ">
+                                                        <div class="sp-arrow sp-prev-arrow"></div>
+                                                        <div class="sp-arrow sp-next-arrow"></div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <!-- Ubicación actual del slider -->
+                                            <div id="slider-location-{{ $loop->iteration }}"
+                                                class="slider-location absolute bottom-3 right-4 z-10 mt-3  inline-flex  px-2 py-1 leading-none
+                                                  text-white 
+                                                  font-bold uppercase tracking-wide text-sm  h-6 drop-shadow-xl ">
+                                                1/10</div>
+
                                             <span
-                                                class="absolute top-1 left-5 z-10 mt-3  inline-flex  px-2 py-1 leading-none bg-green-200 text-green-800 rounded-full font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
+                                                class="absolute top-1 left-5 z-10 mt-3  inline-flex  px-2 py-1 leading-none
+                                                 bg-green-200 text-green-800 rounded-full
+                                                  font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
                                             </span>
                                             <span id="heart"
-                                                class="float-right z-10 mt-3 mr-4 inline-flex select-none animate-pulse border border-green-800 rounded-full bg-green-200 bg-opacity-70 px-2 py-1 text-xs font-semibold ">
+                                                class="absolute top-0 right-1 z-10 mt-3 mr-3 inline-flex select-none animate-pulse border border-green-800 rounded-full bg-green-200 bg-opacity-70 px-2 py-1 text-xs font-semibold ">
                                                 @livewire('favorites-cards', ['propertyId' => $item->id]) </span>
 
                                         </div>
+
                                         <div class="p-4">
                                             <div class="flex justify-between mb-2">
                                                 <div class="mt-3 flex items-center">
-                                                    <span class="font-bold text-xl">
-                                                        {{ $item->price % 1 === 0 ? number_format($item->price, 0) : number_format($item->price, 2) }}</span>&nbsp;<span
-                                                        class="text-sm font-semibold">€</span>
+                                                    <a
+                                                        href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
+                                                        <span class="font-bold text-xl">
+                                                            {{ $item->price % 1 === 0 ? number_format($item->price, 0) : number_format($item->price, 2) }}</span>&nbsp;<span
+                                                            class="text-sm font-semibold">€</span>
+                                                    </a>
                                                 </div>
                                                 @if ($item->profile_photo_url)
                                                     <img class="w-24 rounded border"
@@ -267,7 +310,7 @@
                                                     {{ Str::words($item->title, 6, '...') }}
                                                 </h2>
                                             </a>
-                                            <p class="text-sm"> {{ Str::words($item->description, 7, '...') }}</p>
+                                            <p class="text-sm"> {!! Str::words($item->description, 7, '...') !!} </p>
 
                                         </div>
                                         <div class="p-4 border-t border-b text-xs text-gray-700">
@@ -304,7 +347,8 @@
                                     </div>
                                 </div>
                             @empty
-                                <h5 class="text-xl text-red-600 text-center capitalize mx-auto font-semibold">no hay
+                                <h5 class="text-xl text-red-600 text-center capitalize mx-auto font-semibold">no
+                                    hay
                                     registros</h5>
                             @endforelse
 
@@ -363,13 +407,9 @@
 
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
+
                     </div>
-                    <input type="search" placeholder="Ingresa Ciudad" id="city" name="city"
+                    <input type="hidden" readonly placeholder="Ingresa Ciudad" id="city" name="city"
                         value="{{ $searchTerm }}"
                         class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500 "
                         required>
@@ -538,25 +578,66 @@
 
                         @forelse ($collections as $item)
                             <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
+
                                 <div class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
-                                    <div class="relative pb-48 overflow-hidden">
-                                        <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
-                                            <img class="absolute inset-0 h-full w-full object-cover"
-                                                src="{{ Storage::url($item->image_path) }}" alt=""></a>
+
+                                    <div class="relative ">
+
+                                        <div class="relative slider-pro" id="my-slider-{{ $loop->iteration }}"
+                                            data-slider-id="{{ $loop->iteration }}">
+                                            <div class="sp-slides">
+
+                                                @if ($item->image_path->count() > 0)
+                                                    @foreach ($item->image_path as $image)
+                                                        <!-- Slides -->
+                                                        <div class="sp-slide">
+                                                            <img class="sp-image" id="lazy"
+                                                                src="{{ Storage::url($image->image_path) }}" />
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    <div class="sp-slide">
+                                                        <div class="property-no-images">
+                                                            No hay imágenes disponibles para esta propiedad.
+                                                        </div>
+                                                    </div>
+                                                @endif
+
+                                                <!-- Flechas de navegación -->
+                                                <div class="sp-arrows ">
+                                                    <div class="sp-arrow sp-prev-arrow"></div>
+                                                    <div class="sp-arrow sp-next-arrow"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Ubicación actual del slider -->
+                                        <div id="slider-location-{{ $loop->iteration }}"
+                                            class="slider-location absolute bottom-3 right-4 z-10 mt-3  inline-flex  px-2 py-1 leading-none
+                                                  text-white
+                                                  font-bold uppercase tracking-wide text-sm h-6 drop-shadow-xl ">
+                                            1/10</div>
+
                                         <span
-                                            class="absolute top-1 left-5 z-10 mt-3  inline-flex  px-2 py-1 leading-none bg-green-200 text-green-800 rounded-full font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
+                                            class="absolute top-1 left-5 z-10 mt-3  inline-flex  px-2 py-1 leading-none
+                                                 bg-green-200 text-green-800 rounded-full
+                                                  font-semibold uppercase tracking-wide text-xs h-6">{{ $item->transaction_description }}
                                         </span>
                                         <span id="heart"
-                                            class="float-right z-10 mt-3 mr-4 inline-flex select-none animate-pulse border border-green-800 rounded-full bg-green-200 bg-opacity-70 px-2 py-1 text-xs font-semibold ">
+                                            class="absolute top-0 right-1 z-10 mt-3 mr-3 inline-flex select-none animate-pulse border border-green-800 rounded-full bg-green-200 bg-opacity-70 px-2 py-1 text-xs font-semibold ">
                                             @livewire('favorites-cards', ['propertyId' => $item->id]) </span>
 
                                     </div>
+
                                     <div class="p-4">
                                         <div class="flex justify-between mb-2">
                                             <div class="mt-3 flex items-center">
-                                                <span class="font-bold text-xl">
-                                                    {{ $item->price % 1 === 0 ? number_format($item->price, 0) : number_format($item->price, 2) }}</span>&nbsp;<span
-                                                    class="text-sm font-semibold">€</span>
+                                                <a href="{{ route('views', ['publishCode' => $item->publish_code]) }}">
+                                                    <span class="font-bold text-xl">
+                                                        {{ $item->price % 1 === 0 ? number_format($item->price, 0) : number_format($item->price, 2) }}</span>&nbsp;<span
+                                                        class="text-sm font-semibold">€</span>
+                                                </a>
                                             </div>
                                             @if ($item->profile_photo_url)
                                                 <img class="w-24 rounded border"
@@ -575,7 +656,7 @@
                                                 {{ Str::words($item->title, 6, '...') }}
                                             </h2>
                                         </a>
-                                        <p class="text-sm"> {{ Str::words($item->description, 7, '...') }}</p>
+                                        <p class="text-sm"> {!! Str::words($item->description, 7, '...') !!} </p>
 
                                     </div>
                                     <div class="p-4 border-t border-b text-xs text-gray-700">
@@ -612,7 +693,8 @@
                                 </div>
                             </div>
                         @empty
-                            <h5 class="text-xl text-red-600 text-center capitalize mx-auto font-semibold">no hay
+                            <h5 class="text-xl text-red-600 text-center capitalize mx-auto font-semibold">no
+                                hay
                                 registros</h5>
                         @endforelse
 
@@ -642,3 +724,117 @@
     <x-footer />
 @endguest
 <!-- END GUEST USER -->
+
+<!-- START SLIDER -->
+
+<link rel="stylesheet" href="slider-pro/slider-pro.min.css" />
+<script type="text/javascript" src="slider-pro/sliderPro.min.js" defer></script>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        @forelse ($collections as $index => $item)
+            var sliderId{{ $index }} = {{ $index + 1 }};
+            var images{{ $index }} = [
+                @foreach ($item->image_path as $image)
+                    '{{ Storage::url($image->image_path) }}',
+                @endforeach
+            ];
+
+            $('#my-slider-{{ $index + 1 }}').attr('data-slider-id', sliderId{{ $index }});
+        @empty
+            // Handle empty case if needed
+        @endforelse
+    });
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.slider-pro').each(function() {
+            var sliderId = $(this).data('slider-id');
+            var totalImages = $(this).find('.sp-slide').length;
+            var currentImage = 1;
+
+            $(this).sliderPro({
+                width: 880,
+                height: 800,
+                fade: true,
+                arrows: true,
+                responsive: true,
+                buttons: false,
+                shuffle: false,
+                smallSize: 500,
+                mediumSize: 1000,
+                largeSize: 3000,
+                autoplay: false,
+                autoSlideSize: false,
+                forceSize: 'none',
+                updateHash: true,
+                init: function() {
+                    $('#slider-location-' + sliderId).text(currentImage + '/' +
+                        totalImages);
+                },
+                gotoSlide: function(event) {
+                    // Actualiza la ubicación en el slider cuando cambia la imagen
+                    currentImage = event.index + 1;
+                    $('#slider-location-' + sliderId).text(currentImage + '/' +
+                        totalImages);
+                }
+            });
+        });
+    });
+</script>
+<!-- END START SLIDER -->
+
+<!-- RESET FILTER FORM -->
+<script>
+    function resetFilters() {
+        const filtersForm = document.getElementById('filters-form');
+
+        // Reset input fields
+        const inputFields = filtersForm.querySelectorAll('input[type="text"], input[type="number"]');
+        inputFields.forEach(input => {
+            input.value = '';
+        });
+
+        // Reset select fields
+        const selectFields = filtersForm.querySelectorAll('select');
+        selectFields.forEach(select => {
+            select.selectedIndex = 0;
+        });
+
+        // Actualiza los resultados después de restablecer los filtros
+        updateResultSection();
+        const cityInput = document.getElementById('city');
+        const transactionTypesInput = document.getElementById('selectedTransactionType-select');
+        const propertyTypesInput = document.getElementById('selectedPropertyType-select');
+
+        // Obtén los valores de los elementos de entrada
+        const city = cityInput.value;
+        const transactionTypes = transactionTypesInput.value;
+        const propertyTypes = propertyTypesInput.value;
+
+        // Luego puedes usar las variables donde sea necesario en tu script
+
+
+        window.location.href = '{{ route('search.filters') }}' +
+            '?transactionTypes=' + encodeURIComponent(transactionTypes) +
+            '&propertyTypes=' + encodeURIComponent(propertyTypes) +
+            '&city=' + encodeURIComponent(city);
+    }
+</script>
+
+<!-- END RESET FILTER FORM -->
+
+
+<!-- LAZY LAOAD IMAGE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+<script>
+    // Espera a que el DOM esté listo
+    $(document).ready(function() {
+        // Aplica lazy loading a las imágenes con la clase "lazy"
+        $("#lazy").lazyload({
+            effect: "fadeIn", // Efecto de fundido al cargar la imagen
+            threshold: 200 // Carga la imagen cuando esté a 200 píxeles de distancia
+        });
+    });
+</script>
+<!-- END LAZY LAOAD IMAGE -->

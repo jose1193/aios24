@@ -5,7 +5,7 @@
                <p class="mb-2 text-center font-semibold text-green-600 md:mb-3 lg:text-lg">Bienvenido</p>
 
                <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Experiencia
-                   personalizada: </h2>
+                   personalizada </h2>
 
                <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">Adaptamos la plataforma a tus
                    preferencias y necesidades. Puedes personalizar tus filtros de búsqueda, recibir recomendaciones

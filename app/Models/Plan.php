@@ -11,6 +11,7 @@ class Plan extends Model
    protected $fillable = [
         'plan', 
         'plan_description',
+        'number_publications',
         'pricing', 
         'position',
         'duration',
@@ -32,5 +33,15 @@ class Plan extends Model
      public function purchasedplan()
     {
         return $this->hasMany(PurchasedPlan::class);
+    }
+
+     public function premiumplan()
+    {
+        return $this->hasMany(PremiumPlan::class);
+    }
+
+     public function renewalplan()
+    {
+        return $this->hasMany(RenewalPlans::class);
     }
 }

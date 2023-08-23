@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('features', function (Blueprint $table) {
-            $table->id();
-             $table->string('feature_description')->nullable();
-             $table->foreignId('publish_property_id')->constrained('publish_properties')->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('property_images', function (Blueprint $table) {
+            $table->string('order_display');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('features');
+        Schema::table('property_images', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -24,16 +24,20 @@ class Views extends Component
 public function ShowViews($publishCode)
 {
     $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
-        ->select('property_images.image_path')
-        ->where('publish_properties.publish_code', '=', $publishCode)
-        ->orderBy('publish_properties.created_at', 'desc')
-        ->get();
+    ->select('property_images.image_path')
+    ->where('publish_properties.publish_code', '=', $publishCode)
+    ->orderBy('property_images.order_display', 'asc')  
+    ->get();
+
 
     $collections = PublishProperty::join('users', 'publish_properties.user_id', '=', 'users.id')
         ->join('estatus_ads', 'publish_properties.status', '=', 'estatus_ads.id')
+        ->join('premium_plans as pp1', 'pp1.user_id', '=', 'users.id') // Alias pp1 para la primera instancia de premium_plans
+        ->join('plans', 'plans.id', '=', 'pp1.plan_id') // Unión con la tabla de planes
         ->join('transactions', 'publish_properties.transaction_type', '=', 'transactions.id')
         ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.phone','users.profile_photo_path',
             'estatus_ads.estatus_description', 'transactions.transaction_description')
+               ->where('pp1.estatus_premium', '=', 'Activo') // Usar el alias pp1
         ->where('publish_properties.publish_code', '=', $publishCode)
         ->orderBy('publish_properties.created_at', 'desc')
         ->get();

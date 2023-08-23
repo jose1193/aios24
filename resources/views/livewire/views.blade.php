@@ -49,22 +49,32 @@
 
                          <div id="fancybox">
 
-                             @if ($images->isNotEmpty())
-                                 <a data-fancybox="gallery" href="{{ Storage::url($images[0]->image_path) }}">
-                                     <img src="{{ Storage::url($images[0]->image_path) }}" class="w-full"
-                                         alt="Property Image">
-                                 </a>
-                             @endif
+                             <div class="slider-pro" id="my-slider">
 
-                             <div style="display:none">
-                                 @foreach ($images as $image)
-                                     @if ($loop->index !== 0)
-                                         <a data-fancybox="gallery" href="{{ Storage::url($image->image_path) }}">
-                                             <img src="{{ Storage::url($image->image_path) }}" alt="Property Image">
-                                         </a>
-                                     @endif
-                                 @endforeach
+                                 <div class="sp-slides">
+                                     @foreach ($images as $image)
+                                         <!-- Slides -->
+                                         <div class="sp-slide">
+                                             <img class="sp-image" id="lazy"
+                                                 data-src="{{ Storage::url($image->image_path) }}" />
+                                         </div>
+                                     @endforeach
+
+
+
+
+                                     <!-- Miniaturas -->
+                                     <div class="sp-thumbnails">
+                                         @foreach ($images as $image)
+                                             <img class="sp-thumbnail " id="lazy"
+                                                 data-src="{{ Storage::url($image->image_path) }}" />
+                                         @endforeach
+                                     </div>
+                                 </div>
+
                              </div>
+
+
                          </div>
 
                          <div class="border-b-4 border-green-600 pb-6 mb-5 mt-5">
@@ -116,21 +126,21 @@
                                  <div class="text-green-600 font-semibold text-base pl-4">
                                      <i class="fa-regular fa-lightbulb mr-2 text-green-600"></i>
                                      Certif. E
-                                     @if ($item->energy_certificate >= 'A' && $item->energy_certificate <= 'C')
+                                     @if ($item->energy_certificate == 'En Trámite')
                                          <span
-                                             class=" ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                             class="ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                     @elseif ($item->energy_certificate >= 'A' && $item->energy_certificate <= 'C')
+                                         <span
+                                             class="ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                      @elseif ($item->energy_certificate >= 'D' && $item->energy_certificate <= 'F')
                                          <span
-                                             class=" ml-2 bg-yellow-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                             class="ml-2 bg-yellow-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                      @else
                                          <span
-                                             class=" ml-2 bg-red-500 text-white px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                             class="ml-2 bg-red-500 text-white px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                      @endif
                                  </div>
                              </div>
-
-
-
 
 
                              <div class="flex justify-between sm:mt-7">
@@ -198,8 +208,21 @@
                                      Características básicas</h1>
                                  <ul class="list-disc">
                                      <li class="ml-6">{{ $item->total_area }} m² Total</li>
-                                     <li class="ml-6">{{ $item->bedrooms }} Habitaciones</li>
-                                     <li class="ml-6">{{ $item->bathrooms }} baños</li>
+                                     <li class="ml-6">
+                                         @if ($item->bedrooms == 1)
+                                             1 Habitación
+                                         @else
+                                             {{ $item->bedrooms }} Habitaciones
+                                         @endif
+                                     </li>
+                                     <li class="ml-6">
+                                         @if ($item->bathrooms == 1)
+                                             1 Baño
+                                         @else
+                                             {{ $item->bathrooms }} Baños
+                                         @endif
+                                     </li>
+
                                      @foreach ($features as $feature)
                                          <li class="ml-6">{{ $feature->feature_description }}</li>
                                      @endforeach
@@ -207,18 +230,20 @@
                                  </ul>
 
                              </div>
-                             <div class=" p-4">
-                                 <h1
-                                     class="mb-4 -mt-5 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
-                                     Equipamiento</h1>
-                                 <ul class="list-disc">
+                             @if (count($equipments) > 0)
+                                 <div class=" p-4">
+                                     <h1
+                                         class="mb-4 -mt-5 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
+                                         Equipamiento</h1>
+                                     <ul class="list-disc">
 
-                                     @foreach ($equipments as $equipment)
-                                         <li class="ml-6">{{ $equipment->equipment_description }}</li>
-                                     @endforeach
+                                         @foreach ($equipments as $equipment)
+                                             <li class="ml-6">{{ $equipment->equipment_description }}</li>
+                                         @endforeach
 
-                                 </ul>
-                             </div>
+                                     </ul>
+                                 </div>
+                             @endif
                          </div>
 
 
@@ -229,7 +254,7 @@
                                      Precio</h1>
                                  <ul class="list-none">
                                      <li class=""><span class="font-semibold">Precio Total: </span>
-                                         <span class="font-bold"> {{ $item->price }}
+                                         <span class="font-bold"> {{ number_format($item->price, 0, '.', ',') }}
                                              €
                                              @if ($item->transaction_description === 'Venta')
                                              @else
@@ -240,7 +265,8 @@
                                      </li>
                                      <li class=""><span class="text-base font-semibold">Precio por
                                              m² :</span> <span
-                                             class="text-base font-bold">{{ $item->price / $item->total_area }}
+                                             class="text-base font-bold">{{ number_format($item->price / $item->total_area, 0, '.', ',') }}
+
                                              €</span></li>
 
 
@@ -565,6 +591,38 @@
      <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
          <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
              <x-home-header />
+
+             <div class="bg-white p-4 flex items-center flex-wrap font-bold">
+                 <ul class="flex items-center">
+                     <li class="inline-flex items-center">
+                         <a href="/" class="text-gray-600 hover:text-blue-500">
+                             <svg class="w-5 h-auto fill-current mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 24 24" fill="#000000">
+                                 <path d="M0 0h24v24H0V0z" fill="none" />
+                                 <path
+                                     d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" />
+                             </svg>
+                         </a>
+
+                         <svg class="w-5 h-auto fill-current mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 24 24">
+                             <path d="M0 0h24v24H0V0z" fill="none" />
+                             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z" />
+                         </svg>
+                     </li>
+
+                     <li class="inline-flex items-center">
+                         <a href="{{ route('views', ['publishCode' => $publishCode]) }}"
+                             class="text-gray-600 hover:text-green-500">
+                             Detalles del anuncio / {{ $publishCode }}
+                         </a>
+
+
+                     </li>
+
+
+                 </ul>
+             </div>
          </div>
      </div>
 
@@ -579,22 +637,32 @@
 
                      <div id="fancybox">
 
-                         @if ($images->isNotEmpty())
-                             <a data-fancybox="gallery" href="{{ Storage::url($images[0]->image_path) }}">
-                                 <img src="{{ Storage::url($images[0]->image_path) }}" class="w-full"
-                                     alt="Property Image">
-                             </a>
-                         @endif
+                         <div class="slider-pro" id="my-slider">
 
-                         <div style="display:none">
-                             @foreach ($images as $image)
-                                 @if ($loop->index !== 0)
-                                     <a data-fancybox="gallery" href="{{ Storage::url($image->image_path) }}">
-                                         <img src="{{ Storage::url($image->image_path) }}" alt="Property Image">
-                                     </a>
-                                 @endif
-                             @endforeach
+                             <div class="sp-slides">
+                                 @foreach ($images as $image)
+                                     <!-- Slides -->
+                                     <div class="sp-slide">
+                                         <img class="sp-image" id="lazy"
+                                             data-src="{{ Storage::url($image->image_path) }}" />
+                                     </div>
+                                 @endforeach
+
+
+
+
+                                 <!-- Miniaturas -->
+                                 <div class="sp-thumbnails">
+                                     @foreach ($images as $image)
+                                         <img class="sp-thumbnail " id="lazy"
+                                             data-src="{{ Storage::url($image->image_path) }}" />
+                                     @endforeach
+                                 </div>
+                             </div>
+
                          </div>
+
+
                      </div>
 
                      <div class="border-b-4 border-green-600 pb-6 mb-5 mt-5">
@@ -646,16 +714,23 @@
                              <div class="text-green-600 font-semibold text-base pl-4">
                                  <i class="fa-regular fa-lightbulb mr-2 text-green-600"></i>
                                  Certif. E
-                                 @if ($item->energy_certificate >= 'A' && $item->energy_certificate <= 'C')
+
+                                 @if ($item->energy_certificate == 'En Trámite')
                                      <span
-                                         class=" ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                         class="ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                 @elseif ($item->energy_certificate >= 'A' && $item->energy_certificate <= 'C')
+                                     <span
+                                         class="ml-2 bg-green-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                  @elseif ($item->energy_certificate >= 'D' && $item->energy_certificate <= 'F')
                                      <span
-                                         class=" ml-2 bg-yellow-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                         class="ml-2 bg-yellow-200 px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                  @else
                                      <span
-                                         class=" ml-2 bg-red-500 text-white px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
+                                         class="ml-2 bg-red-500 text-white px-3 py-1 rounded">{{ $item->energy_certificate }}</span>
                                  @endif
+
+
+
                              </div>
                          </div>
 
@@ -723,8 +798,20 @@
                                  Características básicas</h1>
                              <ul class="list-disc">
                                  <li class="ml-6">{{ $item->total_area }} m² Total</li>
-                                 <li class="ml-6">{{ $item->bedrooms }} Habitaciones</li>
-                                 <li class="ml-6">{{ $item->bathrooms }} baños</li>
+                                 <li class="ml-6">
+                                     @if ($item->bedrooms == 1)
+                                         1 Habitación
+                                     @else
+                                         {{ $item->bedrooms }} Habitaciones
+                                     @endif
+                                 </li>
+                                 <li class="ml-6">
+                                     @if ($item->bathrooms == 1)
+                                         1 Baño
+                                     @else
+                                         {{ $item->bathrooms }} Baños
+                                     @endif
+                                 </li>
                                  @foreach ($features as $feature)
                                      <li class="ml-6">{{ $feature->feature_description }}</li>
                                  @endforeach
@@ -732,17 +819,20 @@
                              </ul>
 
                          </div>
-                         <div class=" p-4">
-                             <h1 class="mb-4 -mt-5 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
-                                 Equipamiento</h1>
-                             <ul class="list-disc">
+                         @if (count($equipments) > 0)
+                             <div class=" p-4">
+                                 <h1
+                                     class="mb-4 -mt-5 lg:text-2xl text-xl font-bold  lg:leading-6 leading-7 text-gray-700 ">
+                                     Equipamiento</h1>
+                                 <ul class="list-disc">
 
-                                 @foreach ($equipments as $equipment)
-                                     <li class="ml-6">{{ $equipment->equipment_description }}</li>
-                                 @endforeach
+                                     @foreach ($equipments as $equipment)
+                                         <li class="ml-6">{{ $equipment->equipment_description }}</li>
+                                     @endforeach
 
-                             </ul>
-                         </div>
+                                 </ul>
+                             </div>
+                         @endif
                      </div>
 
 
@@ -752,7 +842,7 @@
                                  Precio</h1>
                              <ul class="list-none">
                                  <li class=""><span class="font-semibold">Precio Total: </span>
-                                     <span class="font-bold"> {{ $item->price }}
+                                     <span class="font-bold"> {{ number_format($item->price, 0, '.', ',') }}
                                          €
                                          @if ($item->transaction_description === 'Venta')
                                          @else
@@ -763,7 +853,8 @@
                                  </li>
                                  <li class=""><span class="text-base font-semibold">Precio por
                                          m² :</span> <span
-                                         class="text-base font-bold">{{ $item->price / $item->total_area }}
+                                         class="text-base font-bold">{{ number_format($item->price / $item->total_area, 0, '.', ',') }}
+
                                          €</span></li>
 
 
@@ -862,7 +953,7 @@
                              </div>
 
                              <x-button id="submit-button"
-                                 class="mb-5 text-2xl flex items-center justify-center leading-none text-white w-full py-4 hover:bg-green-500 focus:outline-none">
+                                 class="mb-5 text-base flex items-center justify-center leading-none text-white w-full py-4 hover:bg-green-500 focus:outline-none">
                                  <i class="fa-solid fa-comments mr-3"></i>
 
                                  Enviar Mensaje
@@ -1062,6 +1153,48 @@
  <!-- END GUEST USER -->
 
 
+ <!-- START SLIDER -->
+ <link rel="stylesheet" href="https://www.aiosrealestate.com/public/slider-pro/slider-pro.min.css" />
+ <style>
+     .sp-full-screen-button {
+
+         /* Cambia el color de fondo a verde (#34D399) */
+         color: #000;
+         margin-top: 10px;
+         z-index: 9999;
+
+     }
+ </style>
+
+ <script type="text/javascript" src="https://unpkg.com/slider-pro/dist/js/jquery.sliderPro.min.js" defer></script>
+ <script type="text/javascript">
+     jQuery(document).ready(function($) {
+         $('#my-slider').sliderPro({
+             width: 780,
+             height: 520,
+             fade: true,
+             arrows: true,
+             responsive: true,
+             buttons: false,
+             fullScreen: true,
+             shuffle: false,
+             smallSize: 500,
+             mediumSize: 1000,
+             largeSize: 3000,
+             thumbnailArrows: true,
+             autoplay: false,
+             centerImage: true,
+             imageScaleMode: 'contain',
+             autoSlideSize: false,
+             forceSize: 'none',
+
+
+         });
+     });
+ </script>
+
+ <!-- END SLIDER -->
+
 
  <script>
      let elements = document.querySelectorAll("[data-menu]");
@@ -1077,16 +1210,7 @@
      }
  </script>
 
- <!--FANCYBOX -->
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
- <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 
- <script>
-     Fancybox.bind('[data-fancybox="gallery"]', {
-         //
-     });
- </script>
- <!--END FANCYBOX -->
 
  <!--BUTTONS SHARE -->
  <script>
@@ -1187,7 +1311,7 @@
 
  <!-- END PHONE COUNTRY  -->
 
-
+ <!-- MAP  -->
  <script>
      function initMap() {
          var test = {
@@ -1237,3 +1361,17 @@
      // Llamar a la función para cargar el script de la API de Google Maps
      loadGoogleMapsScript();
  </script>
+ <!-- END MAP  -->
+ <!-- LAZY LAOAD IMAGE -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+ <script>
+     // Espera a que el DOM esté listo
+     $(document).ready(function() {
+         // Aplica lazy loading a las imágenes con la clase "lazy"
+         $("#lazy").lazyload({
+             effect: "fadeIn", // Efecto de fundido al cargar la imagen
+             threshold: 200 // Carga la imagen cuando esté a 200 píxeles de distancia
+         });
+     });
+ </script>
+ <!-- END LAZY LAOAD IMAGE -->

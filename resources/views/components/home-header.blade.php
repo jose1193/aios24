@@ -250,6 +250,15 @@
                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ __('Planes') }}</a>
                                    </li>
                                    <li>
+                                       <a href="{{ route('purchased-plans-users') }}"
+                                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                           {{ __('Resumen Publicaciones') }}</a>
+                                   </li>
+                                   <li>
+                                       <a href="{{ route('users-renewals-plans') }}"
+                                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ __('Renovaciones Planes') }}</a>
+                                   </li>
+                                   <li>
                                        <a href="{{ route('transactions') }}"
                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                            {{ __('Transactions') }}</a>
@@ -320,6 +329,11 @@
                                    <a href="{{ route('myplans') }}"
                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                        {{ __('Mis Planes') }}</a>
+                               </li>
+                               <li>
+                                   <a href="{{ route('my-renewals-plans') }}"
+                                       class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                       {{ __('Mis Renovaciones') }}</a>
                                </li>
                                <li>
                                    <a href="{{ route('show-favorites') }}"
@@ -441,6 +455,14 @@
                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ __('Planes') }}</a>
                                            </li>
                                            <li>
+                                               <a href="{{ route('users-renewals-plans') }}"
+                                                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ __('Renovaciones Planes') }}</a>
+                                           </li>
+                                           <li>
+                                               <a href="{{ route('purchased-plans-users') }}"
+                                                   class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ __('Resumen Publicaciones') }}</a>
+                                           </li>
+                                           <li>
                                                <a href="{{ route('transactions') }}"
                                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                    {{ __('Transactions') }}</a>
@@ -504,6 +526,11 @@
                                            <a href="{{ route('myplans') }}"
                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                {{ __('Mis Planes') }}</a>
+                                       </li>
+                                       <li>
+                                           <a href="{{ route('my-renewals-plans') }}"
+                                               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                               {{ __('Mis Renovaciones') }}</a>
                                        </li>
                                        <li>
                                            <a href="{{ route('show-favorites') }}"

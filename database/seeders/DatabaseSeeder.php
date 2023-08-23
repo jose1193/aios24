@@ -128,6 +128,7 @@ foreach ($permissions as $permission) {
     $estatusAds = [
         'Activo',
         'Inactivo',
+        'Pausado',
         'Vendido',
         'Reservado',
         // Agrega más valores aquí si es necesario
@@ -145,29 +146,32 @@ foreach ($permissions as $permission) {
         [
             'plan' => 'Free',
             'plan_description' => 'Visibilidad Estándar para la publicación de anuncios. Tus anuncios se mostrarán a un amplio público en línea.',
+             'number_publications' => 5,
             'pricing' => 0,
             'position' => 'Exposición Estandar',
-            'duration' => 'Duración de Publicación 60 días',
-            'quantity' => 'Máximo 20 Imágenes',
-            'images_quantity' => '20',
+            'duration' => '0',
+            'quantity' => 'Máximo 12 Imágenes',
+            'images_quantity' => '12',
         ],
         [
             'plan' => 'Oro',
             'plan_description' => 'Visibilidad Premium para la publicación de anuncios. Tus anuncios serán destacados y ubicados en los primeros lugares en la página de resultados de búsqueda.',
+             'number_publications' => 20,
             'pricing' => 19,
             'position' => 'Exposición Destacada',
-            'duration' => 'Duración de Publicación 120 días',
-            'quantity' => '+15 Imágenes Adicionales',
-            'images_quantity' => '35',
+            'duration' => '0',
+            'quantity' => '24 Imágenes en Total',
+            'images_quantity' => '24',
         ],
         [
             'plan' => 'Platino',
+             'number_publications' => 'Ilimitadas',
             'plan_description' => 'Visibilidad Máxima para la publicación de anuncios. Tus anuncios recibirán máxima exposición y preferencia, garantizando la mayor visibilidad y alcance.',
             'pricing' => 29,
             'position' => 'Exposición Destacada',
-            'duration' => 'Duración de Publicación 180 días',
-            'quantity' => '+25 Imágenes Adicionales',
-             'images_quantity' => '60',
+            'duration' => '0',
+            'quantity' => '36 Imágenes en Total',
+             'images_quantity' => '36',
         ],
     ];
 
@@ -175,6 +179,7 @@ foreach ($permissions as $permission) {
         Plan::create([
             'plan' => $plan['plan'],
             'plan_description' => $plan['plan_description'],
+            'number_publications' => $plan['number_publications'],
             'pricing' => $plan['pricing'],
             'position' => $plan['position'],
             'duration' => $plan['duration'],

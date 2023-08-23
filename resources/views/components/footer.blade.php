@@ -444,7 +444,11 @@
 
          return searchInputsFilled;
      }
-
+     // Después de actualizar las tarjetas con Axios, recargar los componentes de Livewire
+     function reloadLivewireComponents() {
+         Livewire.restart(); // Reinicia todos los componentes de Livewire
+         Livewire.rescan(); // Escanea nuevamente el DOM y vincula los componentes
+     }
      // Actualiza las tarjetas y los resultados solo si los campos de búsqueda tienen valores
      function updateResultSection() {
          if (checkSearchInputsFilled()) {
@@ -463,6 +467,8 @@
                      const searchTerm = response.data.searchTerm;
                      document.getElementById('result-count').textContent = resultCount;
                      document.getElementById('search-term').textContent = searchTerm;
+                     // Después de actualizar, recargar los componentes de Livewire
+                     reloadLivewireComponents();
                  })
                  .catch(function(error) {
                      console.error(error);

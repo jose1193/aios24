@@ -10,9 +10,21 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
+  protected $commands = [
+    \App\Console\Commands\RenewalNotifications::class,
+    \App\Console\Commands\UpdatePlanStatus::class,
+];
     protected function schedule(Schedule $schedule): void
     {
+         $schedule->command('plan:update-status')->daily();
         // $schedule->command('inspire')->hourly();
+
+    // Tarea para enviar el correo aviso de renovacion
+        $schedule->command('notifications:renewal')->dailyAt('09:00');
+              
+        //$schedule->command('notifications:renewal')
+            //->everyMinute();
+    
     }
 
     /**

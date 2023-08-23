@@ -36,7 +36,7 @@
                         {{ Str::words($item->title, 6, '...') }}
                     </h2>
                 </a>
-                <p class="text-sm"> {{ Str::words($item->description, 7, '...') }}</p>
+                <p class="text-sm"> {!! Str::words($item->description, 7, '...') !!}</p>
 
             </div>
             <div class="p-4 border-t border-b text-xs text-gray-700">
