@@ -262,7 +262,7 @@ if ($response->successful()) {
          ->join('properties', 'properties.id', '=', 'publish_properties.property_type')
          
         ->select('publish_properties.*', 'users.name', 'users.lastname', 'users.profile_photo_path',
-            'estatus_ads.estatus_description', 'properties.property_description','transactions.transaction_description',
+            'estatus_ads.estatus_description', 'properties.property_description','property_images.order_display','transactions.transaction_description',
             DB::raw('MIN(property_images.image_path) AS image_path'))
              ->where('pp1.estatus_premium', '=', 'Activo') // Usar el alias pp1
         ->where('estatus_ads.estatus_description', '=', 'Activo')
@@ -308,7 +308,7 @@ if ($response->successful()) {
         return $query->where('publish_properties.garage', '=', $garage);
     })
      ->orderByRaw("CASE WHEN plans.plan = 'Platino' THEN 0 WHEN plans.plan = 'Oro' THEN 1 ELSE 2 END")
-        ->orderBy('publish_properties.created_at', 'desc')
+        ->orderBy('property_images.order_display', 'asc')
         ->groupBy('publish_properties.id')
         ->paginate(10);
 

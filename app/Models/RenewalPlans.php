@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PremiumPlan extends Model
+class RenewalPlans extends Model
 {
     use HasFactory;
      protected $fillable = [
@@ -13,12 +13,9 @@ class PremiumPlan extends Model
         'user_id',
         'plan_id',
         'purchase_date',
-        'expiration_date',
-        'estatus_premium',
         'nro_invoices',
     ];
-
-    // Relación con el modelo User
+// Relación con el modelo User
     public function user()
     {
         return $this->belongsTo(User::class);

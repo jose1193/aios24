@@ -379,7 +379,8 @@
 
                                          <input type="hidden" id="longitudeArea" name="longitudeArea"
                                              class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
-
+                                         <input type="hidden" id="publishCode" name="publishCode"
+                                             value="{{ $publishCode }}">
                                      </div>
 
                                  </div>
@@ -394,123 +395,220 @@
                                  Finalizar Registro
                              </h3>
 
-                             <div x-data="dataFileDnD()"
-                                 class="relative flex flex-col p-4 text-gray-400 border border-gray-200 rounded">
-                                 <div x-ref="dnd"
-                                     class="relative flex flex-col text-gray-400 border border-gray-200 border-dashed rounded cursor-pointer">
-                                     <input accept="image/*" type="file" name="images[]" id="images" required
-                                         multiple
-                                         class="absolute inset-0 z-50 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer"
-                                         @change="addFiles($event)"
-                                         @dragover="$refs.dnd.classList.add('border-blue-400'); $refs.dnd.classList.add('ring-4'); $refs.dnd.classList.add('ring-inset');"
-                                         @dragleave="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
-                                         @drop="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
-                                         title="" />
 
-                                     <div class="flex flex-col items-center justify-center py-10 text-center">
-                                         <svg class="w-6 h-6 mr-1 text-current-50" xmlns="http://www.w3.org/2000/svg"
-                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                         </svg>
-                                         <p class="m-0"> Arrastre sus archivos aquí o haga clic en esta área.</p>
-                                     </div>
+                             <!-- IMAGES LOADER -->
+                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                             <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+                             <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet"
+                                 type="text/css" />
+                             <style>
+                                 .dropzone {
+                                     width: 98%;
+                                     margin: 1%;
+                                     border: 2px dashed #16a34a !important;
+                                     border-radius: 5px;
+                                     transition: 0.2s;
+                                 }
+
+                                 .dropzone.dz-drag-hover {
+                                     border: 2px solid #16a34a !important;
+                                 }
+
+                                 .dz-message.needsclick img {
+                                     width: 50px;
+                                     display: block;
+                                     margin: auto;
+                                     opacity: 0.6;
+                                     margin-bottom: 15px;
+                                 }
+
+                                 span.plus {
+                                     display: none;
+                                 }
+
+                                 .dropzone.dz-started .dz-message {
+                                     display: inline-block !important;
+                                     width: 120px;
+                                     float: right;
+                                     border: 1px solid rgba(238, 238, 238, 0.36);
+                                     border-radius: 30px;
+                                     height: 120px;
+                                     margin: 16px;
+                                     transition: 0.2s;
+                                 }
+
+                                 .dropzone.dz-started .dz-message span.text {
+                                     display: none;
+                                 }
+
+                                 .dropzone.dz-started .dz-message span.plus {
+                                     display: block;
+                                     font-size: 70px;
+                                     color: #AAA;
+                                     line-height: 110px;
+                                 }
+
+                                 .dz-success-mark {
+                                     background-color: rgb(102, 187, 106, .8) !important;
+                                 }
+
+                                 .dz-success-mark svg {
+                                     font-size: 54px;
+                                     fill: #fff !important;
+                                 }
+
+                                 .dz-error-mark {
+                                     background-color: rgba(239, 83, 80, .8) !important;
+                                 }
+
+                                 .dz-error-mark svg {
+                                     font-size: 54px;
+                                     fill: #fff !important;
+                                 }
+                             </style>
+
+                             <!-- Add this to your HTML header -->
+
+                             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+                             <!-- Sortable JS -->
+                             <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
+                             <div class="dropzone sortable">
+                                 <div class="dz-message needsclick">
+                                     <span class="text font-semibold">
+                                         <img src="http://www.freeiconspng.com/uploads/------------------------------iconpngm--22.png"
+                                             alt="Camera" />
+                                         Drop files here or click to upload.
+                                     </span>
+                                     <span class="plus ">+</span>
                                  </div>
-
-                                 <template x-if="files.length > 0">
-                                     <div class="grid grid-cols-2 gap-4 mt-4 md:grid-cols-6"
-                                         @drop.prevent="drop($event)"
-                                         @dragover.prevent="$event.dataTransfer.dropEffect = 'move'">
-                                         <template x-for="(_, index) in Array.from({ length: files.length })"
-                                             :key="index">
-                                             <div class="relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none"
-                                                 style="padding-top: 100%;" @dragstart="dragstart($event)"
-                                                 @dragend="fileDragging = null"
-                                                 :class="{ 'border-blue-600': fileDragging == index }" draggable="true"
-                                                 :data-index="index">
-                                                 <button
-                                                     class="absolute top-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none"
-                                                     type="button" @click="remove(index)">
-                                                     <svg class="w-4 h-4 text-gray-700"
-                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                         viewBox="0 0 24 24" stroke="currentColor">
-                                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                                             stroke-width="2"
-                                                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                     </svg>
-                                                 </button>
-                                                 <!-- Ícono de "ojo" -->
-                                                 <button
-                                                     class="absolute top-0 left-0 z-50 p-1 flex items-center bg-white rounded-br focus:outline-none"
-                                                     type="button">
-                                                     <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                                         viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                                         <path
-                                                             d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z" />
-                                                     </svg>
-                                                     <span class="ml-1 font-semibold text-gray-700"
-                                                         x-text="index + 1"></span>
-                                                 </button>
-
-                                                 <template x-if="files[index].type.includes('audio/')">
-                                                     <svg class="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3"
-                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                         viewBox="0 0 24 24" stroke="currentColor">
-                                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                                             stroke-width="2"
-                                                             d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                                                     </svg>
-                                                 </template>
-                                                 <template
-                                                     x-if="files[index].type.includes('application/') || files[index].type === ''">
-                                                     <svg class="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3"
-                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                         viewBox="0 0 24 24" stroke="currentColor">
-                                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                                             stroke-width="2"
-                                                             d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                                     </svg>
-                                                 </template>
-                                                 <template x-if="files[index].type.includes('image/')">
-                                                     <img class="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview"
-                                                         x-bind:src="loadFile(files[index])" />
-                                                 </template>
-                                                 <template x-if="files[index].type.includes('video/')">
-                                                     <video
-                                                         class="absolute inset-0 object-cover w-full h-full border-4 border-white pointer-events-none preview">
-                                                         <fileDragging x-bind:src="loadFile(files[index])"
-                                                             type="video/mp4">
-                                                     </video>
-                                                 </template>
-
-                                                 <div
-                                                     class="absolute bottom-0 left-0 right-0 flex flex-col p-2 text-xs bg-white bg-opacity-50">
-                                                     <span class="w-full font-bold text-gray-900 truncate"
-                                                         x-text="files[index].name">Loading</span>
-                                                     <span class="text-xs text-gray-900"
-                                                         x-text="humanFileSize(files[index].size)">...</span>
-                                                 </div>
-
-                                                 <div class="absolute inset-0 z-40 transition-colors duration-300"
-                                                     @dragenter="dragenter($event)" @dragleave="fileDropping = null"
-                                                     :class="{
-                                                         'bg-blue-200 bg-opacity-80': fileDropping == index &&
-                                                             fileDragging != index
-                                                     }">
-                                                 </div>
-                                                 <!-- Campo de entrada para guardar el orden en la base de datos -->
-                                                 <input type="text" x-model="index + 1"
-                                                     :name="'order_display[' + index + ']'"
-                                                     x-on:input="console.log(index + 1)">
-
-                                             </div>
-                                         </template>
-                                     </div>
-                                 </template>
-                                 @error('images')
-                                     <span class="text-red-500">{{ $message }}</span>
-                                 @enderror
+                                 <div class="dz-previews">
+                                 </div>
                              </div>
+
+                             <script>
+                                 Dropzone.autoDiscover = false;
+                                 $(".sortable").sortable({
+
+                                     change: function(event, ui) {
+
+                                         ui.placeholder.css({
+                                             visibility: 'visible',
+                                             border: '2px dashed#16a34a',
+                                             borderRadius: '10px',
+                                             height: '120px',
+
+                                         });
+
+                                     }
+
+                                 });
+                                 $(document).ready(function() {
+                                     var publishCode = '{{ $publishCode }}';
+                                     var images = '{{ $images }}';
+                                     var dz = new Dropzone(".dropzone", {
+                                         autoProcessQueue: false,
+                                         paramName: "images",
+                                         url: "/uploadFiles",
+                                         previewThumbnails: true,
+                                         sortable: true,
+
+                                         addRemoveLinks: true,
+                                         acceptedFiles: 'image/*',
+                                         maxFiles: '{{ $maxImages }}',
+                                         maxFilesize: 1,
+                                         headers: {
+                                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                         },
+                                     });
+
+
+                                     $("#submitBtn").on("click", function(event) {
+                                         event.preventDefault();
+
+                                         // Verifica si hay archivos en la cola de Dropzone
+                                         if (dz.getQueuedFiles().length > 0) {
+
+                                             dz.processQueue();
+
+                                             dz.on("queuecomplete", function() {
+
+                                                 var form = $("#wizardForm");
+                                                 form.submit();
+                                             });
+                                         } else {
+
+                                             alert("Debes cargar al menos una imagen antes de enviar el formulario.");
+                                         }
+                                     });
+
+                                     var uploadedFileNames = [];
+                                     var orderCounter = 1;
+
+                                     dz.on("thumbnail", function(file, dataUrl) {
+                                         var fileName = file.name;
+                                         if (uploadedFileNames.includes(fileName)) {
+                                             alert("Esta imagen ya ha sido cargada.");
+                                             dz.removeFile(file);
+                                             return;
+                                         }
+
+                                         if (dz.files.length > dz.options.maxFiles) {
+                                             dz.removeFile(file);
+                                             alert("Límite máximo de archivos alcanzado.");
+                                             return;
+                                         }
+
+                                         uploadedFileNames.push(fileName);
+
+                                         var viewButton = document.createElement('button');
+                                         viewButton.className = '';
+                                         file.previewElement.appendChild(viewButton);
+
+                                         $(viewButton).on("click", function() {
+                                             // Agrega aquí el código para mostrar la imagen en un visor modal o alguna otra acción de visualización
+                                         });
+
+                                         $(file.previewElement).find("img").attr("src", dataUrl);
+
+                                         orderCounter++; // Incrementa el contador
+                                     });
+                                     dz.on("removedfile", function(file) {
+                                         var fileName = file.name;
+                                         var index = uploadedFileNames.indexOf(fileName);
+                                         if (index > -1) {
+                                             uploadedFileNames.splice(index, 1);
+                                         }
+                                     });
+                                     dz.on("addedfile", function(file) {
+                                         var removeButton = file.previewElement.querySelector(".dz-remove");
+                                         removeButton.classList =
+                                             "dz-remove-btn absolute top-0 right-0 z-50 p-1 flex items-center bg-white rounded-bl focus:outline-none";
+                                         removeButton.innerHTML = '<i class="text-sm text-red-600 fa-solid fa-trash-can"></i>';
+
+                                         // Verifica el tamaño del archivo
+                                         if (file.size > (1024 * 1024)) {
+                                             alert("La imagen es mayor a 1 MB. Por favor, elige una imagen más pequeña.");
+                                             dz.removeFile(file); // Elimina el archivo
+                                         }
+                                     });
+
+                                     dz.on("sending", function(file, xhr, formData) {
+                                         formData.append('orderDisplay', orderCounter);
+                                         formData.append('publishCode', publishCode);
+                                     });
+                                 });
+                             </script>
+
+
+
+
+
+
+                             <!-- END IMAGES LOADER -->
+
+
                          </div>
 
                          <!-- Add more steps if needed -->

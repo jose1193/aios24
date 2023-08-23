@@ -39,4 +39,9 @@ class Plan extends Model
     {
         return $this->hasMany(PremiumPlan::class);
     }
+
+     public function renewalplan()
+    {
+        return $this->hasMany(RenewalPlans::class);
+    }
 }

@@ -60,11 +60,7 @@
                                          </div>
                                      @endforeach
 
-                                     <!-- Flechas de navegación -->
-                                     <div class="sp-arrows ">
-                                         <div class="sp-arrow sp-prev-arrow"></div>
-                                         <div class="sp-arrow sp-next-arrow"></div>
-                                     </div>
+
 
 
                                      <!-- Miniaturas -->
@@ -652,11 +648,7 @@
                                      </div>
                                  @endforeach
 
-                                 <!-- Flechas de navegación -->
-                                 <div class="sp-arrows ">
-                                     <div class="sp-arrow sp-prev-arrow"></div>
-                                     <div class="sp-arrow sp-next-arrow"></div>
-                                 </div>
+
 
 
                                  <!-- Miniaturas -->
@@ -1162,7 +1154,7 @@
 
 
  <!-- START SLIDER -->
- <link rel="stylesheet" href="https://unpkg.com/slider-pro/dist/css/slider-pro.min.css" />
+ <link rel="stylesheet" href="https://www.aiosrealestate.com/public/slider-pro/slider-pro.min.css" />
  <style>
      .sp-full-screen-button {
 

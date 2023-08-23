@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('premium_plans', function (Blueprint $table) {
+        Schema::create('renewal_plans', function (Blueprint $table) {
             $table->id();
              $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('plan_id');
-          $table->string('purchase_date');
-            $table->string('expiration_date');
-             $table->string('estatus_premium');
-              $table->string('nro_invoices');
+            $table->string('purchase_date');
+            $table->string('nro_invoices');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('plan_id')->references('id')->on('plans');
             $table->timestamps();
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('premium_plans');
+        Schema::dropIfExists('renewal_plans');
     }
 };

@@ -268,8 +268,8 @@
                                             <!-- Ubicación actual del slider -->
                                             <div id="slider-location-{{ $loop->iteration }}"
                                                 class="slider-location absolute bottom-3 right-4 z-10 mt-3  inline-flex  px-2 py-1 leading-none
-                                                  text-white
-                                                  font-bold uppercase tracking-wide text-sm h-6 drop-shadow-xl ">
+                                                  text-white 
+                                                  font-bold uppercase tracking-wide text-sm  h-6 drop-shadow-xl ">
                                                 1/10</div>
 
                                             <span
@@ -727,8 +727,8 @@
 
 <!-- START SLIDER -->
 
-<link rel="stylesheet" href="https://unpkg.com/slider-pro/dist/css/slider-pro.min.css" />
-<script type="text/javascript" src="https://unpkg.com/slider-pro/dist/js/jquery.sliderPro.min.js" defer></script>
+<link rel="stylesheet" href="slider-pro/slider-pro.min.css" />
+<script type="text/javascript" src="slider-pro/sliderPro.min.js" defer></script>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         @forelse ($collections as $index => $item)

@@ -62,7 +62,7 @@
                                 <th class="px-4 py-2">Exposición</th>
                                 <th class="px-4 py-2">Fecha de Registro</th>
                                 <th class="px-4 py-2">Fecha de Renovación</th>
-
+                                <th class="px-4 py-2">Nro Factura</th>
                                 <th class="px-4 py-2">Action</th>
                                 <th class="px-4 py-2"></th>
 
@@ -115,7 +115,10 @@
                                             {{ $item->expiration_date }}
 
                                         </td>
+                                        <td class="px-6 py-4 whitespace-nowrap ">
+                                            {{ $item->nro_invoices }}
 
+                                        </td>
                                         <td>
 
                                             @if ($item->id == '1')

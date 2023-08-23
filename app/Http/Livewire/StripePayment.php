@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\PublishProperty;
 use App\Models\PremiumPlan;
+use App\Models\RenewalPlans;
 use App\Models\Bucket;
 use App\Models\AdminEmail;
 use App\Models\User;
@@ -138,8 +139,7 @@ $this->sendEmailAndReturnResponse($planId, 'Registro de Plan Premium Aios Real E
     
 }
 // Verificar si el pago fue exitoso o no
-    $pagoExitoso = true; // Aquí debes usar la lógica real para verificar el pago
-
+    $pagoExitoso = $this->sendEmailAndReturnResponse($request); 
     // Agregar el mensaje flash según el resultado del pago
     if ($pagoExitoso) {
         session()->flash('success', 'Pago realizado exitosamente');
@@ -176,12 +176,106 @@ $this->sendEmailAndReturnResponse($planId, 'Registro de Plan Premium Aios Real E
             ],
         ],
         'mode'        => 'payment',
-        'success_url' => route('success'),
+        'success_url' => route('success-renovation'),
          'cancel_url'  => route('renew-premium', ['planId' => $planId]),
          
     ]);
 
     return redirect()->away($session->url);
+}
+
+
+public function successRenovation(Request $request)
+    {
+        // Obtener información relevante del formulario
+   $planId = $request->input('plan_id'); // Supongamos que obtienes $planId aquí
+
+       // Obtener información relevante del formulario
+    $planName=$request->planName;
+    $position=$request->position;
+
+    $pricing = $request->pricing;
+    
+    $billingType=$request->billingType;
+    // Calcular la fecha de vencimiento basada en el tipo de facturación
+    if ($billingType == 'mes') {
+    // Si el tipo de facturación es "mes", agrega 1 mes a la fecha actual
+     $expirationDate = Carbon::now()->addMonth()->locale('es_ES')->format('F d, Y');
+    } elseif ($billingType == 'semestral') {
+    // Si el tipo de facturación es "semestral", agrega 6 meses a la fecha actual
+     $expirationDate = Carbon::now()->addMonths(6)->locale('es_ES')->format('F d, Y');
+    } elseif ($billingType == 'anual') {
+    // Si el tipo de facturación es "anual", agrega 1 año a la fecha actual
+    $expirationDate = Carbon::now()->addYear()->locale('es_ES')->format('F d, Y');
+    } else {
+    // Para cualquier otro caso (como "Free"), define la fecha de vencimiento como "Indefinido"
+    $expirationDate = 'Indefinido';
+        }
+
+    
+    // Obtener al usuario autenticado
+    $user = auth()->user();
+
+    // Verificar si el usuario ya tiene un plan existente
+$existingPlan = PremiumPlan::where('user_id', $user->id)->first();
+
+
+if ($existingPlan) {
+    // Verificar si está actualizando a "Oro", "Platino" o "Free"
+    if ($planId == '2' || $planId == '3' || $planId == '1') {
+        $date = Carbon::now()->locale('es_ES')->format('F d, Y');
+
+        $existingPlan->update([
+            'plan_id' => $planId,
+            'purchase_date' => $date,
+            'expiration_date' => $expirationDate, // Usar la fecha calculada
+            'estatus_premium' => 'Activo', 
+        ]);
+
+        $lastInvoice = PremiumPlan::max('nro_invoices');
+        $nextInvoiceNumber = $lastInvoice + 1;
+
+        RenewalPlans::create([
+        'user_id' => $user->id,
+        'plan_id' => $planId,
+        'purchase_date' => $date,
+        'nro_invoices' => $nextInvoiceNumber, // Usar la fecha calculada
+         
+             ]);
+// Dentro de updateAndSendEmail
+$this->sendEmailAndReturnResponse($planId, 'Actualizacion de Plan Aios Real Estate');
+    
+
+    }
+} else {
+    // Si no tiene un plan existente, registra uno nuevo
+    PremiumPlan::create([
+        'user_id' => $user->id,
+        'plan_id' => $planId,
+        'purchase_date' => $date,
+        'expiration_date' => $expirationDate, // Usar la fecha calculada
+        'estatus_premium' => 'Activo', 
+    ]);
+
+    
+    // Dentro de createAndSendEmail
+$this->sendEmailAndReturnResponse($planId, 'Registro de Plan Premium Aios Real Estate');
+    
+}
+// Verificar si el pago fue exitoso o no
+ $pagoExitoso = $this->sendEmailAndReturnResponse($request); 
+; 
+
+    // Agregar el mensaje flash según el resultado del pago
+    if ($pagoExitoso) {
+        session()->flash('success', 'Pago realizado exitosamente');
+    } else {
+        session()->flash('error', 'El pago no se pudo realizar');
+    }
+    session()->flash('success', 'Pago realizado exitosamente');
+    return view('livewire.receipt-payment',compact('planName', 'position', 'pricing', 'billingType','expirationDate'));
+   
+
 }
 
 

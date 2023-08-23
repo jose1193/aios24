@@ -223,49 +223,56 @@
                                                                     <p class=""
                                                                         style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;"
                                                                         align="left">
-                                                                        Este es un recordatorio amable para informarte
-                                                                        que tu actual plan de membresía, <strong> Plan
-                                                                            {{ $planName }} </strong>, con fecha de
-                                                                        renovación <strong>{{ $dateToNotify }}</strong>,
-                                                                        está
-                                                                        por
-                                                                        vencer pronto. Nos complace que hayas estado
-                                                                        aprovechando los beneficios y las
-                                                                        características que ofrece este plan para
-                                                                        promocionar tus anuncios de manera efectiva.
-                                                                        <br><br>
-                                                                        Queremos asegurarnos de que no experimentes
-                                                                        interrupciones en el servicio. Por lo tanto, te
-                                                                        invitamos a acceder a nuestro sitio web antes de
-                                                                        la fecha de vencimiento y renovar tu plan para
-                                                                        continuar disfrutando de todos sus beneficios
-                                                                        sin inconvenientes.
-                                                                        <br><br>
 
 
-                                                                        Renovar tu plan es fácil. Simplemente inicia
-                                                                        sesión en tu cuenta en nuestro sitio web,
-                                                                        selecciona la opción de renovación y sigue las
-                                                                        instrucciones para completar el proceso de pago.
-                                                                        Una vez que hayas renovado exitosamente,
-                                                                        seguirás teniendo acceso a todas las
-                                                                        herramientas y recursos que te ayudan a destacar
-                                                                        tus anuncios.
-                                                                        <br><br>
-                                                                        Si tienes más preguntas o necesitas asistencia
-                                                                        adicional, no dudes en ponerte en contacto con
-                                                                        nosotros. ¡Gracias por elegir nuestro servicio y
-                                                                        esperamos que tengas una gran experiencia con
-                                                                        nosotros!
 
-                                                                        <br><br>
-                                                                        Gracias por ser parte de nuestra comunidad y por
-                                                                        elegir nuestro servicio para promocionar tus
-                                                                        anuncios de manera efectiva.
-                                                                        <br><br>
+                                                                        Esperamos que te encuentres bien. Queremos
+                                                                        informarte sobre una actualización importante
+                                                                        con respecto a tu membresía premium en
+                                                                        {{ $bucket }}. Lamentablemente, hemos
+                                                                        tenido
+                                                                        que suspender temporalmente tu plan premium
+                                                                        debido a que ha expirado.<br><br>
 
-                                                                        Atentamente,<br>
-                                                                        El equipo de {{ $bucket }}
+                                                                        Valoramos mucho tu elección de confiar en
+                                                                        nuestros servicios para impulsar tus anuncios de
+                                                                        manera efectiva y sabemos lo beneficioso que ha
+                                                                        sido para ti el plan premium <strong> Plan
+                                                                            {{ $planName }} </strong>. Lamentamos
+                                                                        cualquier inconveniente que esta suspensión
+                                                                        pueda haber causado.<br><br>
+
+                                                                        Para garantizar que puedas continuar disfrutando
+                                                                        de los beneficios exclusivos de tu plan premium
+                                                                        sin interrupciones, te invitamos cordialmente a
+                                                                        renovar tu membresía a la brevedad posible.
+                                                                        Accede a nuestro sitio web y sigue los sencillos
+                                                                        pasos para renovar tu plan y desbloquear
+                                                                        nuevamente todas las características y ventajas
+                                                                        que ofrece.<br><br>
+
+
+                                                                        Sabemos lo importante que es para ti mantener
+                                                                        tus anuncios en el centro de atención, y estamos
+                                                                        aquí para respaldarte en cada paso del camino.
+                                                                        Si tienes alguna pregunta o necesitas asistencia
+                                                                        con el proceso de renovación, no dudes en
+                                                                        ponerte en contacto con nuestro equipo de
+                                                                        soporte. Estamos disponibles para ayudarte en
+                                                                        todo lo que necesites.<br><br>
+
+                                                                        Agradecemos tu comprensión y esperamos poder
+                                                                        seguir trabajando contigo para alcanzar tus
+                                                                        objetivos de promoción de manera
+                                                                        exitosa.<br><br>
+
+                                                                        ¡Gracias por ser parte de {{ $bucket }}!
+
+                                                                        Saludos cordiales,
+                                                                        El Equipo de {{ $bucket }}
+
+
+
                                                                     </p>
                                                                     <table class="s-4 w-full" role="presentation"
                                                                         border="0" cellpadding="0"

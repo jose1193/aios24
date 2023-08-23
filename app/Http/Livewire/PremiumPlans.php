@@ -67,15 +67,18 @@ public function storePlan(Request $request)
 
     if ($existingPlan) {
         // Si ya tiene un plan y el nuevo plan es Free, actualiza el plan existente
-        if ($planId == '1') { // Supongo que '1' es el ID del plan Free
+        if ($planId == '1') { 
+
+            $lastInvoice = PremiumPlan::max('nro_invoices');
+            $nextInvoiceNumber = $lastInvoice + 1;
+
             $existingPlan->update([
                 'plan_id' => $planId,
                 'purchase_date' => $date,
                 'expiration_date' => 'Indefinido', // Actualiza la expiración si es necesario
                 'estatus_premium' => 'Activo', 
+                'nro_invoices' => $nextInvoiceNumber,
             ]);
-
-
 
     //SEND EMAIL FORM CONTACT
       
@@ -113,13 +116,17 @@ return response()->json(['message' => 'Email enviado con éxito']);
     } else {
         // Si no tiene un plan previo y el nuevo plan es Free, registra un nuevo plan
         if ($planId == '1') {
-$expirationDate = Carbon::now()->addMonths(6)->locale('es_ES')->format('F d, Y');
+        $expirationDate = Carbon::now()->addMonths(6)->locale('es_ES')->format('F d, Y');
+        $lastInvoice = PremiumPlan::max('nro_invoices');
+            $nextInvoiceNumber = $lastInvoice + 1;
+
             PremiumPlan::create([
                 'user_id' => $user->id,
                 'plan_id' => $planId,
                 'purchase_date' => $date,
                 'expiration_date' => 'Indefinido',
-                 'estatus_premium' => 'Activo', 
+                 'estatus_premium' => 'Activo',
+                 'nro_invoices' => $nextInvoiceNumber, 
             ]);
 
             
@@ -171,7 +178,7 @@ public function Myplans()
    
     ->where('premium_plans.user_id', auth()->id())
     ->where('plans.plan', 'like', '%'.$this->search.'%')
-      ->select('plans.*','premium_plans.purchase_date','premium_plans.expiration_date','premium_plans.estatus_premium')
+      ->select('plans.*','premium_plans.purchase_date','premium_plans.expiration_date','premium_plans.nro_invoices','premium_plans.estatus_premium')
     ->orderBy('premium_plans.id', 'desc')
     ->paginate(10);
 

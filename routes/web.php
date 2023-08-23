@@ -51,6 +51,10 @@ use App\Http\Livewire\NotificationsMessages;
 
 use App\Http\Livewire\Suscriptions;
 use App\Http\Livewire\PremiumPlans;
+use App\Http\Livewire\MyRenewalPlans;
+use App\Http\Livewire\UsersRenewalPlans;
+use App\Http\Livewire\PurchasedPlansUsers;
+
 
 use App\Http\Livewire\EmailController;
 use App\Http\Livewire\ThreeLevelSelect;
@@ -208,7 +212,7 @@ Route::get('/checkout/{publishCode}', [StripePayment::class, 'checkout'])->name(
 Route::post('/session', [StripePayment::class, 'session'])->name('session');
 Route::get('/success', [StripePayment::class, 'success'])->name('success');
 Route::post('/Renewsession', [StripePayment::class, 'Renewsession'])->name('Renewsession');
-
+Route::get('/success-renovation', [StripePayment::class, 'successRenovation'])->name('success-renovation');
 //------------ STRIPE PAYMENT -----------//
 
 
@@ -221,9 +225,15 @@ Route::get('myplans', [PremiumPlans::class, 'Myplans'])->name('myplans');
 Route::get('renew-premium/{planId}', [PremiumPlans::class, 'renewPremium'])->name('renew-premium');
 Route::post('/delete-plans', [PremiumPlans::class, 'deletePlans']);
 
+Route::get('my-renewals-plans', MyRenewalPlans::class)->name('my-renewals-plans');
+Route::get('users-renewals-plans', UsersRenewalPlans::class)->name('users-renewals-plans');
 
 Route::get('publish', PublishProperties::class)->name('publish');
 Route::post('publish', [PublishProperties::class, 'saveProperty'])->name('publish.saveProperty');
+Route::post('uploadFiles', [PublishProperties::class, 'uploadFiles'])->name('uploadFiles');
+Route::post('deleteFile', [PublishProperties::class, 'deleteFile'])->name('deleteFile');
+
+Route::get('upload-images/{publishCode}',[PublishProperties::class, 'ShowAddFilesPublish'])->name('upload-images');
 
 
 Route::get('images-gallery/{publishCodeImages}',[PublishProperties::class, 'viewImages'])->name('images-gallery');
@@ -237,6 +247,11 @@ Route::post('/delete-images', [PublishProperties::class, 'deleteImages']);
 Route::post('/check-title', [PublishProperties::class, 'checkTitle']);
 Route::post('/check-title-update', [PublishProperties::class, 'checkTitleUpdate']);
 Route::post('/delete-properties', [PublishProperties::class, 'deleteProperties']);
+
+Route::post('/update-image-order', [PublishProperties::class, 'updateImageOrder'])->name('update-image-order');
+
+
+Route::get('purchased-plans-users', PurchasedPlansUsers::class)->name('purchased-plans-users');
 
 //------------ FAVORITES -----------//
 //Route::get('/favorites/{propertyId?}', Favorites::class)->name('favorites');

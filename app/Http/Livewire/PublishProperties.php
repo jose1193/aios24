@@ -29,6 +29,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
 
+
 class PublishProperties extends Component
 {
  use WithFileUploads; 
@@ -107,12 +108,25 @@ if ($plan) {
  
 
 if ($premium_plans_count > 0) {
-    
+      $publishCode = 'AR-' . str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+       $premiumPlan = PremiumPlan::join('plans', 'plans.id', '=', 'premium_plans.plan_id')
+    ->where('premium_plans.user_id', auth()->user()->id)
+    ->select('plans.plan', 'plans.images_quantity')
+    ->first();
+
+
+    // Verificar si el plan permite acumular imágenes
+    $planDescription = $premiumPlan->plan;
+    $maxImages = $premiumPlan->images_quantity;
+
+   
     return view('livewire.publish-properties', [
         'propertyTypes' => $this->propertyTypesRender,
         'estatusAdsRender' => $this->estatusAdsRender,
         'planName' => $this->planName,
-        'remainingAds' => $this->remainingAds
+        'remainingAds' => $this->remainingAds,
+         'publishCode' => $publishCode,
+          'maxImages' => $maxImages,
     ]);
 } else {
     
@@ -188,10 +202,84 @@ public function checkTitleUpdate(Request $request)
 
     return response()->json(['message' => 'Title is available'], 200);
 }
+public function deleteFile(Request $request)
+{
+    $publishCode = $request->input('publishCode');
+    $orderDisplay = $request->input('orderDisplay');
+    
+    // Construye el nombre del archivo basado en publishCode y orderDisplay
+    $fileName = $publishCode . '-' . $orderDisplay . '.jpg'; // Cambia la extensión si es diferente
+    
+    $filePath = public_path('storage/app/public/images-tmp/' . $fileName); // Ruta completa del archivo
+
+    if (file_exists($filePath)) {
+        unlink($filePath); // Elimina el archivo físicamente del servidor
+        // También puedes eliminar la entrada en la base de datos si es necesario
+        // ... Tu lógica para eliminar la entrada en la base de datos ...
+
+        return response()->json(['message' => 'Archivo eliminado exitosamente']);
+    } else {
+        return response()->json(['error' => 'Archivo no encontrado']);
+    }
+}
+
+
+
+
+public function uploadFiles(Request $request)
+    {
+        $images = request()->file('images');
+        $publishCode = $request->input('publishCode'); 
+         $orderDisplay = $request->input('orderDisplay'); 
+    if ($images) {
+        
+      // Genera una cadena aleatoria de longitud 20
+        $randomString = Str::random(20);
+        // Genera el nombre único de la imagen con la cadena aleatoria
+        $imageName = $publishCode . '-' . $orderDisplay . '-' . $randomString . '.' . $images->getClientOriginalExtension();
+
+        // Guarda la imagen en la ubicación deseada
+        $path = $images->storeAs('public/images-tmp', $imageName);
+
+     // Creas una nueva instancia de ImageManager
+        $resize = new ImageManager();
+        // Cargas la imagen original (usando el nombre generado)
+        $ImageManager = $resize->make(storage_path('app/public/images-tmp/' . $imageName));
+        // Obtienes el ancho y alto de la imagen original
+        $originalWidth = $ImageManager->width();
+        $originalHeight = $ImageManager->height();
+
+        // Verificamos si el ancho es mayor que 700 para redimensionar
+        if ($originalWidth > 700) {
+      // Calculamos el factor de escala para mantener la relación de aspecto
+         $scaleFactor = 700 / $originalWidth;
+
+         // Calculamos el nuevo ancho y alto para redimensionar la imagen
+         $newWidth = $originalWidth * $scaleFactor;
+        $newHeight = $originalHeight * $scaleFactor;
+
+        // Redimensionamos la imagen
+         $ImageManager->resize($newWidth, $newHeight);
+        // Sobreescribimos la imagen original con la redimensionada
+         $ImageManager->save(storage_path('app/public/images-tmp/'. $imageName));
+}
+
+     // Almacena el nombre de archivo generado en la variable de sesión por publishCode
+        $uploadedImageNamesByCode = $request->session()->get('uploadedImageNamesByCode', []);
+        $uploadedImageNamesByCode[$publishCode][] = $imageName;
+        $request->session()->put('uploadedImageNamesByCode', $uploadedImageNamesByCode);
+
+
+        return response()->json(['path' => $path]);
+    } else {
+        return response()->json(['error' => 'No file was selected']);
+    }
+}
 
   //----- FUNCTION STORE DATA ----//
     public function saveProperty(Request $request)
 {
+   
     $request->validate([
         'property_type' => 'required',
         'location' => 'required|min:3|max:300',
@@ -203,62 +291,24 @@ public function checkTitleUpdate(Request $request)
         'bathrooms' => 'required|min:1|max:30',
         'total_area' => 'required|min:1|max:30',
         
-        'images' => 'required|array|min:1',
-        'images.*' => 'image|max:2048',
          'garage' => 'required|min:1|max:30',
        'city' => 'required',
        
          'energy_certificate' => 'required',
-        'order_display' => 'required|array',
+        'publishCode' => 'required',
         
     ]);
 
 
-    $imagesPaths = [];
-   foreach ($request->file('images')  as $index => $image) {
-     // Obtén el valor del campo order_display correspondiente al índice actual
-    $order_display_value = $request->input('order_display')[$index];
 
-    $path = $image->store('propertiesimages', 'public');
-    $imagesPaths[] = $path;
-
-    // UPLOAD WITH INTERVENTION IMAGE Create a thumbnail of the image using Intervention Image Library
-         // Obtienes el nombre único de la imagen
-    $imageHashName = $image->hashName();
-    // Creas una nueva instancia de ImageManager
-    $resize = new ImageManager();
-     // Cargas la imagen original
-    $ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName);
-    // Obtienes el ancho y alto de la imagen original
-    $originalWidth = $ImageManager->width();
-    $originalHeight = $ImageManager->height();
-    // Verificamos si el ancho es mayor que 700 para redimensionar
-        if ($originalWidth > 700) {
-    // Calculamos el factor de escala para mantener la relación de aspecto
-    $scaleFactor = 700 / $originalWidth;
-
-    // Calculamos el nuevo ancho y alto para redimensionar la imagen
-    $newWidth = $originalWidth * $scaleFactor;
-    $newHeight = $originalHeight * $scaleFactor;
-
-    // Redimensionamos la imagen
-    $ImageManager->resize($newWidth, $newHeight);
-}
-
-// Guardamos la imagen (con el tamaño original si no fue redimensionada o con el nuevo tamaño)
-$ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
- 
- 
-}
-
-             // END UPLOAD WITH INTERVENTION IMAGE
    
 
 // CARBON FORMAT DATE
          $date = Carbon::now()->locale('es_ES')->format('F d, Y');
             // END CARBON FORMAT DATE
 
-        $publishCode = 'AR-' . str_pad(mt_rand(0, 99999999), 8, '0', STR_PAD_LEFT);
+      
+$publishCode = $request->input('publishCode');
 $propertyType = $request->input('property_type');
 $location = $request->input('location');
 $title = $request->input('title');
@@ -303,14 +353,47 @@ $longitudeArea = $request->input('longitudeArea');
          
     ]);
 
-    // Create property images
-    foreach ($imagesPaths as $index => $imagePath) {
-        PropertyImage::create([
-            'property_id' => $property->id,
-            'image_path' => 'app/public/'.$imagePath, // CAMBIAR ACA
-            'order_display' => $request->input('order_display')[$index], // Utiliza el valor obtenido en el bucle anterior
-        ]);
+    
+// Obtiene los nombres de archivo generados almacenados en la variable de sesión por publishCode
+    $uploadedImageNamesByCode = $request->session()->get('uploadedImageNamesByCode', []);
+    $uploadedImageNames = $uploadedImageNamesByCode[$publishCode] ?? [];
+
+
+    // Recorre los nombres de archivo y almacena la información en la base de datos
+foreach ($uploadedImageNames as $fileName) {
+    // Extrae el order_display del nombre de archivo
+    $fileNameParts = explode('-', $fileName);
+    $orderDisplay = $fileNameParts[2]; // Asegúrate de que la posición sea correcta
+    
+    // Ruta de origen y destino de las imágenes
+    $sourcePath = storage_path('app/public/images-tmp/' . $fileName);
+    $destinationPath = storage_path('app/public/propertiesimages/' . $fileName);
+    
+    // Mueve la imagen a la carpeta de destino
+    if (file_exists($sourcePath)) {
+        rename($sourcePath, $destinationPath);
     }
+    
+    //  último valor de order_display de la base de datos para la propiedad actual
+$lastOrderDisplay = PropertyImage::where('property_id', $property->id)
+    ->orderBy('order_display', 'desc')
+    ->value('order_display');
+
+// Si no hay registros previos, asigna el valor 1 como el primer order_display
+if ($lastOrderDisplay === null) {
+    $newOrderDisplay = 1;
+} else {
+    
+    $newOrderDisplay = $lastOrderDisplay + 1;
+}
+    // Almacena la información en la base de datos
+    PropertyImage::create([
+        'property_id' => $property->id,
+        'image_path' => 'app/public/propertiesimages/' . $fileName, // Solo la parte relativa a la carpeta public
+        'order_display' => $newOrderDisplay,
+    ]);
+}
+
 
     // CREATE FIELD INPUT EQUIPMENTS
 if (isset($request->addmore) && is_array($request->addmore) && count($request->addmore) > 0) {
@@ -438,9 +521,8 @@ $this->publishCode = $publishCode;
         
     ]);
 
+
      
-
-
 }
 
 public function authorize()
@@ -679,21 +761,14 @@ $property = PublishProperty::where('publish_code', $publishCodeImages)->firstOrF
 'images' => $images,'purchasedPlan'=>$premiumPlan,'remainingImages'=>$remainingImages]);
 }
 
-
 public function addImages(Request $request, $publishCodeImages)
 {
-    $request->validate([
-        'images' => 'required|array|min:1',
-        'images.*' => 'image|max:2048',
-    ]);
-
     // Obtener la propiedad y el plan asociado
     $property = PublishProperty::where('publish_code', $publishCodeImages)->firstOrFail();
     $premiumPlan = PremiumPlan::join('plans', 'plans.id', '=', 'premium_plans.plan_id')
-    ->where('premium_plans.user_id', auth()->user()->id)
-    ->select('plans.plan', 'plans.images_quantity')
-    ->first();
-
+        ->where('premium_plans.user_id', auth()->user()->id)
+        ->select('plans.plan', 'plans.images_quantity')
+        ->first();
 
     // Verificar si el plan permite acumular imágenes
     $planDescription = $premiumPlan->plan;
@@ -703,71 +778,77 @@ public function addImages(Request $request, $publishCodeImages)
     $uploadedImagesCount = PropertyImage::where('property_id', $property->id)->count();
     $remainingImages = $maxImages - $uploadedImagesCount;
 
-    // Subir las imágenes y crear registros en la base de datos
-    $imagesPaths = [];
-    foreach ($request->file('images') as $image) {
-       if ($remainingImages > 0) {
-        $path = $image->store('propertiesimages', 'public');
-        $imagesPaths[] = $path;
+    $image = request()->file('images');
+     $images2 = $image;
+    if ($image && $remainingImages > 0) {
+        // Genera una cadena aleatoria de longitud 20
+        $randomString = Str::random(20);
+        // Genera el nombre único de la imagen con la cadena aleatoria
+        $imageName = $publishCodeImages . '-' . $randomString . '.' . $image->getClientOriginalExtension();
 
-       
+        // Guarda la imagen en la ubicación deseada
+        $path = $image->storeAs('public/propertiesimages', $imageName);
 
-// Obtienes el nombre único de la imagen
-$imageHashName = $image->hashName();
+        // Creas una nueva instancia de ImageManager
+        $resize = new ImageManager();
+        // Cargas la imagen original (usando el nombre generado)
+        $ImageManager = $resize->make(storage_path('app/public/propertiesimages/' . $imageName));
+        // Obtienes el ancho y alto de la imagen original
+        $originalWidth = $ImageManager->width();
+        $originalHeight = $ImageManager->height();
 
-// Creas una nueva instancia de ImageManager
-$resize = new ImageManager();
+        // Verificamos si el ancho es mayor que 700 para redimensionar
+        if ($originalWidth > 700) {
+            // Calculamos el factor de escala para mantener la relación de aspecto
+            $scaleFactor = 700 / $originalWidth;
+            // Calculamos el nuevo ancho y alto para redimensionar la imagen
+            $newWidth = $originalWidth * $scaleFactor;
+            $newHeight = $originalHeight * $scaleFactor;
+            // Redimensionamos la imagen
+            $ImageManager->resize($newWidth, $newHeight);
+            // Sobreescribimos la imagen original con la redimensionada
+            $ImageManager->save(storage_path('app/public/propertiesimages/' . $imageName));
+        }
 
-// Cargas la imagen original
-$ImageManager = $resize->make('storage/app/public/propertiesimages/'.$imageHashName);
+//  último valor de order_display de la base de datos para la propiedad actual
+$lastOrderDisplay = PropertyImage::where('property_id', $property->id)
+    ->orderBy('order_display', 'desc')
+    ->value('order_display');
 
-// Obtienes el ancho y alto de la imagen original
-$originalWidth = $ImageManager->width();
-$originalHeight = $ImageManager->height();
-
-// Verificamos si el ancho es mayor que 700 para redimensionar
-if ($originalWidth > 700) {
-    // Calculamos el factor de escala para mantener la relación de aspecto
-    $scaleFactor = 700 / $originalWidth;
-
-    // Calculamos el nuevo ancho y alto para redimensionar la imagen
-    $newWidth = $originalWidth * $scaleFactor;
-    $newHeight = $originalHeight * $scaleFactor;
-
-    // Redimensionamos la imagen
-    $ImageManager->resize($newWidth, $newHeight);
+// Si no hay registros previos, asigna el valor 1 como el primer order_display
+if ($lastOrderDisplay === null) {
+    $newOrderDisplay = 1;
+} else {
+    
+    $newOrderDisplay = $lastOrderDisplay + 1;
 }
 
-// Guardamos la imagen (con el tamaño original si no fue redimensionada o con el nuevo tamaño)
-$ImageManager->save('storage/app/public/propertiesimages/'.$imageHashName);
-
-      
         PropertyImage::create([
             'property_id' => $property->id,
-            'image_path' => 'app/public/'.$path,
+            'image_path' => 'app/' . $path,
+             'order_display' => $newOrderDisplay,
         ]);
 
         $remainingImages--;
+
+        // Obtener las imágenes asociadas a la propiedad
+        $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
+            ->select('property_images.image_path')
+            ->where('publish_properties.publish_code', $publishCodeImages)
+            ->orderBy('property_images.id', 'desc')
+            ->get();
+
+           
+
+        // Restablecer los campos y mostrar un mensaje de éxito
+        $this->reset();
+        $this->CleanUp();
+       
+    } else {
+       session()->flash('success', 'Datos guardados exitosamente');
+
+        return redirect()->route('images-gallery', ['publishCodeImages' => $publishCodeImages, 'images' => $images2]);
     }
-         else {
-            session()->flash('error', 'Se ha alcanzado el límite máximo de carga de imágenes.');
-            break;
-        }
-    }
-
-    // Obtener las imágenes asociadas a la propiedad
-    $images = PropertyImage::join('publish_properties', 'property_images.property_id', '=', 'publish_properties.id')
-        ->select('property_images.image_path')
-        ->where('publish_properties.publish_code', $publishCodeImages)
-        ->orderBy('property_images.id', 'desc')
-        ->get();
-
-    // Restablecer los campos y mostrar un mensaje de éxito
-    $this->reset();
-    $this->CleanUp();
-    session()->flash('success', 'Datos guardados exitosamente');
-
-    return redirect()->route('images-gallery', ['publishCodeImages' => $publishCodeImages, 'images' => $images]);
 }
 
 public function deleteImages(Request $request)
@@ -780,13 +861,19 @@ public function deleteImages(Request $request)
     }
 
     try {
-        foreach ($imageIds as $imageId) {
-            $image = PropertyImage::find($imageId);
-            if ($image) {
-                $image->delete();
-                Storage::disk('public')->delete($image->image_path);
-            }
+        $deletedImages = PropertyImage::whereIn('id', $imageIds)->get();
+        $deletedOrderDisplay = [];
+        
+        foreach ($deletedImages as $deletedImage) {
+            $deletedOrderDisplay[] = $deletedImage->order_display;
+            Storage::disk('public')->delete($deletedImage->image_path);
+            $deletedImage->delete();
         }
+
+        // Reordenar las imágenes restantes después de eliminar
+        PropertyImage::where('property_id', $deletedImages[0]->property_id)
+            ->where('order_display', '>', min($deletedOrderDisplay))
+            ->decrement('order_display', count($deletedImages));
 
         return response()->json(['success' => true]);
         
@@ -794,6 +881,7 @@ public function deleteImages(Request $request)
         return response()->json(['success' => false]);
     }
 }
+
 
 
 public function deleteProperties(Request $request)
@@ -806,24 +894,28 @@ if (!is_array($dataIds) || empty($dataIds)) {
 }
 
 try {
-     
-  foreach ($dataIds as $dataId) {
-    $images = PropertyImage::where('property_id', $dataId)->get();
-
-    foreach ($images as $image) {
-        // Elimina el registro de la base de datos
-        $image->delete();
-
-        // Elimina el archivo del almacenamiento
-        Storage::disk('public')->delete($image->image_path);
-
+     foreach ($dataIds as $dataId) {
+        // Elimina las imágenes relacionadas y sus archivos
+        $images = PropertyImage::where('property_id', $dataId)->get();
         
-    $property = PublishProperty::find($dataId);
-    if ($property) {
-        $property->delete();
+        foreach ($images as $image) {
+            // Elimina el archivo del almacenamiento
+            Storage::disk('public')->delete($image->image_path);
+
+            // Elimina el registro de la base de datos
+            $image->delete();
+        }
+
+        // Elimina los equipos y características relacionados
+        $equipments = Equipment::where('publish_property_id', $dataId)->delete();
+        $features = Feature::where('publish_property_id', $dataId)->delete();
+        
+        // Elimina la propiedad
+        $property = PublishProperty::find($dataId);
+        if ($property) {
+            $property->delete();
+        }
     }
-    }
-}
 
 
 
@@ -833,9 +925,25 @@ try {
 }
 
 }
+public function updateImageOrder(Request $request)  {
+        $orderData = json_decode($request->input('orderData'), true); // Convert JSON string to PHP array
 
+        foreach ($orderData as $item) {
+            $imageId = $item['imageId'];
+            $newPosition = $item['newPosition'];
 
+            $newOrderDisplay = $newPosition; // Since array indices are 0-based
 
+            $propertyImage = PropertyImage::find($imageId);
+            if ($propertyImage) {
+                $propertyImage->update([
+                    'order_display' => $newOrderDisplay,
+                ]);
+            }
+        }
+
+        return response()->json(['message' => 'Orden actualizado con éxito']);
+    }
 
 
 }
