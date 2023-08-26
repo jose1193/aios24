@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
     // Tarea para enviar el correo aviso de renovacion
-        $schedule->command('notifications:renewal')->dailyAt('09:00');
+        $schedule->command('notifications:renewal')->daily();
               
         //$schedule->command('notifications:renewal')
             //->everyMinute();

@@ -93,6 +93,7 @@ Route::get('/google-auth/callback', function () {
         $user = new User();
         $user->name = $socialiteUser->name;
         $user->email = $socialiteUser->email;
+        $user->email_verified_at = now();
          $user->google_id = $socialiteUser->id;
          $user->lastname = null; // Establecer el valor de lastname como null
          $user->dni = null; 
