@@ -38,13 +38,7 @@
                                 class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                         </div>
 
-                        <div>
-                            <label
-                                class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">DNI/Pasaporte</label>
-                            <input type="text" id="dni" name="dni" :value="old('dni')" required
-                                autofocus autocomplete="dni" placeholder="Documento de Identificación"
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                        </div>
+
 
                         <div class="md:w-1/2 lg:w-2/3">
                             <label
@@ -73,45 +67,30 @@
                         </div>
 
 
+
+
+
                         <div>
                             <label
-                                class="block mb-2 font-semibold text-sm text-gray-600 dark:text-gray-200">Dirección</label>
-                            <input type="text" id="autocomplete" name="address" :value="old('address')" required
-                                autofocus autocomplete="address" placeholder="Address/City/Location/"
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-
-                            <input type="hidden" id="latitude" name="latitude"
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
-                            <input type="hidden" name="longitude" id="longitude"
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40">
-
-                            <input type="hidden" readonly name="city" id="city"
-                                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                placeholder="Ciudad">
-                        </div>
-
-
-                        <div>
-                            <div>
-                                <label
-                                    class="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">Password</label>
+                                class="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">Password</label>
+                            <div class="password-input-container">
                                 <input type="password" id="password" name="password" required
                                     autocomplete="new-password" placeholder="Ingresa tu contraseña"
                                     class="block mb-7 w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                <span id="toggle-password" class="password-toggle" onclick="togglePasswordVisibility()">
+                                    <i class="fa-regular fa-eye"></i>
+                                </span>
                             </div>
-
-
-
-                            <div>
-                                <label
-                                    class="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">Confirmar
-                                    Password</label>
-                                <input type="password" id="password_confirmation" type="password"
-                                    name="password_confirmation" required autocomplete="new-password"
-                                    placeholder="Confirma tu password"
-                                    class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-green-400 dark:focus:border-green-400 focus:ring-green-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                            </div>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <div id="pswmeter" class="-mt-1 mb-1"></div>
+                            <div id="pswmeter-message"></div>
                         </div>
+
+
 
                         <div class="flex items-center justify-end mt-4">
                             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -168,8 +147,8 @@
                     </div>
                     <a href="/google-auth/redirect"
                         class="flex items-center  justify-center gap-2 mt-5 rounded-lg border border-gray-300 bg-white px-8 py-3 text-center text-sm font-semibold text-gray-800 outline-none ring-gray-300 duration-500 ease-in-out hover:bg-gray-100 focus-visible:ring active:bg-gray-200 md:text-base">
-                        <svg class="h-5 w-5 shrink-0" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="h-5 w-5 shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M23.7449 12.27C23.7449 11.48 23.6749 10.73 23.5549 10H12.2549V14.51H18.7249C18.4349 15.99 17.5849 17.24 16.3249 18.09V21.09H20.1849C22.4449 19 23.7449 15.92 23.7449 12.27Z"
                                 fill="#4285F4" />
@@ -316,6 +295,78 @@
     </script>
     <!-- END GOOGLE MAP API KEY -->
     <!-- END FORM REGISTER -->
+
+
+
+    <style>
+        .password-input-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.querySelector('#password');
+            const toggleButton = document.querySelector('#toggle-password');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.innerHTML = '<i class="fa-regular fa-eye-slash"></i>'; // Cambia el icono a ojo tachado
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.innerHTML = '<i class="fa-regular fa-eye"></i>'; // Cambia el icono a ojo
+            }
+        }
+    </script>
+
+    <script src="pswmeter/pswmeter.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const myPassMeter = passwordStrengthMeter({
+                containerElement: '#pswmeter',
+                passwordInput: '#password',
+                showMessage: true,
+                messageContainer: '#pswmeter-message',
+                messagesList: [
+                    'Escribe tu contraseña...',
+                    'Muy fácil',
+                    'Esa es una contraseña simple',
+                    'Eso es mejor',
+                    '¡Esa contraseña es genial! ;)'
+                ],
+                height: 6,
+                borderRadius: 0,
+                pswMinLength: 8,
+                colorScore1: '#dc2626',
+                colorScore2: '#ea580c',
+                colorScore3: '#6366f1',
+                colorScore4: 'limegreen'
+            });
+
+            // Ocultar el elemento pswmeter y pswmeter-message inicialmente
+            const pswMeterContainer = document.querySelector('#pswmeter');
+            const pswMeterMessage = document.querySelector('#pswmeter-message');
+            pswMeterContainer.style.display = 'none';
+            pswMeterMessage.style.display = 'none';
+
+            // Escuchar el evento de entrada en el campo de contraseña
+            const passwordInput = document.querySelector('#password');
+            passwordInput.addEventListener('input', function() {
+                // Mostrar el medidor y el mensaje cuando el usuario comienza a escribir
+                pswMeterContainer.style.display = 'block';
+                pswMeterMessage.style.display = 'block';
+            });
+        });
+    </script>
+
 
 
 </x-guest-layout>
